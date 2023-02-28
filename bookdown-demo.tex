@@ -117,11 +117,11 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Pangenomics Workshop NCGR},
+  pdftitle={Metagenomics Workshop NCGR},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Pangenomics Workshop NCGR}
+\title{Metagenomics Workshop NCGR}
 \author{}
 \date{\vspace{-2.5em}}
 
@@ -132,224 +132,507 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{introduction-to-pangenomics}{%
-\chapter{Introduction to Pangenomics}\label{introduction-to-pangenomics}}
+\hypertarget{community-profiling-and-metagenomics}{%
+\chapter{Community Profiling and Metagenomics}\label{community-profiling-and-metagenomics}}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Pangenome.png}
-\caption{Pangenome: \url{https://en.wikipedia.org/wiki/Pan-genome}}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/JoannAlan.png}
-\caption{Instructors}
-\end{figure}
-
-\hypertarget{what-is-a-pangenome}{%
-\section{What is a ``pangenome''?}\label{what-is-a-pangenome}}
-
-The term ``pangenome'' was first coined by Sigaux et al.~and was used to describe a public database containing an assessment of genome and transcriptome alterations in major types of tumors, tissues, and experimental models.
-
-\begin{itemize}
-\tightlist
-\item
-  Sigaux F. Génome du cancer ou de la construction des cartes d'identité moléculaire des tumeurs {[}Cancer genome or the development of molecular portraits of tumors{]}. Bull Acad Natl Med. 2000;184(7):1441-7; discussion 1448-9. French. PMID: 11261250.
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Abstract1.png}
-\caption{Sigaux et al.}
-\end{figure}
-
-The term was later revitalized by Tettelin et al.~to describe a microbial genome by which genes were in the core (present in all strains) and which genes were dispensable (missing from one or more of the strains).
-
-\begin{itemize}
-\tightlist
-\item
-  Tettelin, H., Masignani, V., Cieslewicz, M. J., Donati, C., Medini, D., Ward, N. L., \ldots{} \& Fraser, C. M. (2005). Genome analysis of multiple pathogenic isolates of Streptococcus agalactiae: implications for the microbial ``pan-genome''. Proceedings of the National Academy of Sciences, 102(39), 13950-13955.
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Abstract2.png}
-\caption{Tettelin et al.}
-\end{figure}
-
-\hypertarget{open-vs.-closed-genomes}{%
-\subsection{Open vs.~Closed Genomes}\label{open-vs.-closed-genomes}}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.65\textwidth,height=\textheight]{./Figures/ClosedvOpen.png}
-\caption{Open and Closed Pangenomes: \url{https://en.wikipedia.org/wiki/Pan-genome}}
-\end{figure}
-
-\hypertarget{then-vs.-now}{%
-\subsection{Then vs.~Now}\label{then-vs.-now}}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth,height=\textheight]{./Figures/CostGenome.png}
-\caption{Cost per Genome: \url{https://www.genome.gov/about-genomics/fact-sheets/DNA-Sequencing-Costs-Data}}
-\end{figure}
-
-\begin{itemize}
-\tightlist
-\item
-  Low Cost
-\item
-  High Quality Long Reads (HiFi)
-\item
-  Many reference-quality assemblies per species
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth,height=\textheight]{./Figures/GenomePubs.png}
-\caption{Pangenome Publications: \url{https://www.nature.com/articles/s41477-020-0733-0}}
-\end{figure}
-
-\hypertarget{pangenome-today}{%
-\subsection{``Pangenome'' Today}\label{pangenome-today}}
-
-``Any collection of genomic sequences to be analyzed jointly or to be used as a reference. These sequences can be linked in a graph-like structure, or simply constitute sets of (aligned or unaligned) sequences.'' -- Computational Pangenomics Consortium
-
-\url{https://academic.oup.com/bib/article/19/1/118/2566735}
-
-\hypertarget{the-benefit-of-pangenomes}{%
-\subsection{The Benefit of Pangenomes}\label{the-benefit-of-pangenomes}}
-
-\begin{itemize}
-\tightlist
-\item
-  Removes reference bias
-
-  \begin{itemize}
-  \tightlist
-  \item
-    May only represent one organism
-  \item
-    Could be a ``mosaic''of individuals, i.e.~doesn't represent a coherent haplotype
-  \item
-    Allele bias
-  \item
-    Doesn't include common variation
-  \end{itemize}
-\item
-  Allow multiple assemblies to be analyzed simultaneously, i.e.~efficiently
-\end{itemize}
-
-\hypertarget{what-are-pangenomes-good-for}{%
-\subsection{What are pangenomes good for?}\label{what-are-pangenomes-good-for}}
-
-\begin{itemize}
-\tightlist
-\item
-  Core vs dispensable genes:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    How big is the core?
-  \item
-    How big is the dispensable?
-  \item
-    How big is the pangenome?
-  \item
-    What traits are associated with the core/dispensable?
-  \end{itemize}
-\item
-  Unbiased read mapping and variant calling
-\item
-  More robust variation-trait association
-\item
-  Visual exploration of genomic structure of population
-\end{itemize}
-
-\hypertarget{computational-pangenomics}{%
-\section{Computational Pangenomics}\label{computational-pangenomics}}
-
-``Questions about efficient data structures, algorithms and statistical methods to perform bioinformatic analyses of pan-genomes give rise to the discipline of `computational pan-genomics'.''
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\textwidth,height=\textheight]{./Figures/Computational.png}
-\caption{Computational Pangenomics: \url{https://academic.oup.com/bib/article/19/1/118/2566735}}
-\end{figure}
-
-\hypertarget{pangenome-representations}{%
-\subsection{Pangenome Representations}\label{pangenome-representations}}
-
-\begin{itemize}
-\tightlist
-\item
-  Gene sets
-\item
-  Multiple sequence alignments
-\item
-  K-mer sets
-\item
-  Graphs
-
-  \begin{itemize}
-  \tightlist
-  \item
-    De Bruijn graphs
-  \item
-    Haptotype graphs
-  \item
-    \textbf{Genome/Variation graphs}
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{genomevariation-graphs}{%
-\subsection{Genome/Variation Graphs}\label{genomevariation-graphs}}
-
-\begin{itemize}
-\tightlist
-\item
-  Variation forms bubbles Nodes represent sequences
-\item
-  Chains of nodes represent contiguous sequence in one or more assemblies
-\item
-  The sequences of nodes connected by an edge may overlap
-\item
-  Graphs can be acyclic or cyclic
-\item
-  Haplotypes are ``threaded'' through graph as paths
-\end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.96\textwidth,height=\textheight]{./Figures/VariationGraphA.png}
-\caption{Pangenome Representations: \url{https://academic.oup.com/bib/article/19/1/118/2566735}}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.96\textwidth,height=\textheight]{./Figures/VariationGraphB.png}
-\caption{Pangenome Representations: \url{https://academic.oup.com/bib/article/19/1/118/2566735}}
-\end{figure}
-
-\hypertarget{types-of-variation-graphs}{%
-\subsection{Types of Variation Graphs}\label{types-of-variation-graphs}}
+\hypertarget{microbes-were-the-first-life-forms-on-this-planet}{%
+\section{Microbes were the first life forms on this planet}\label{microbes-were-the-first-life-forms-on-this-planet}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Reference Graph (vg)
+  Earth declares its independence about 4600 MYA
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  First photosynthetic bacteria 3.4 billion years ago (BYA)
 \end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  A reference with variants
+  Used sunlight for energy to create biomass
 \item
-  E.G. \href{https://www.ncbi.nlm.nih.gov/genome/guide/human/}{Human reference now includes VCF with common variation}
+  Anaerobic (anoxic photosynthesis)
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  2.7 BYA first oxygen producers emerge
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Oxygen as waste product during respiration
+\item
+  Most of the oxygen was sequestered and not readily available
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  2.3 BYA atmosphere has oxygen
+\item
+  500 million year ago (MYA) first terrestrial plants
+\item
+  200 MYA mammals emerged
+\item
+  13 MYA one of us makes all of us proud by learning how to fly
+\item
+  10 MYA the branch of life currently called homo emerges
+\item
+  400 years ago humans observe the first microbe under
+  a simple scope
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre}
+\end{figure}
+
+\hypertarget{there-would-be-no-life-without-microbes}{%
+\subsubsection*{THERE WOULD BE NO LIFE WITHOUT MICROBES}\label{there-would-be-no-life-without-microbes}}
+\addcontentsline{toc}{subsubsection}{THERE WOULD BE NO LIFE WITHOUT MICROBES}
+
+\hypertarget{microbes-enable-habitability-on-earth-by-catalyzing-reactions-of-biogeochemical-cycles}{%
+\subsection{Microbes enable habitability on Earth by catalyzing reactions of biogeochemical cycles}\label{microbes-enable-habitability-on-earth-by-catalyzing-reactions-of-biogeochemical-cycles}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The amount or \% of elements on Earth remains constant
+\item
+  Recycling of these elements, flux, and bio-availability is
+  largely taken care of by microbes
+\item
+  Best example to illustrate -- nitrogen
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  78\% of Earths atm is N2
+\item
+  Required for important biological processes
+\item
+  In gaseous form it is unavailable
+\item
+  In fact many processes are N2 limited
+\item
+  Making N2 bioavailable in a form that can be
+  by eukaryotes is completely on the shoulders of microbes
+\end{itemize}
+
+\hypertarget{nitrogen-cycle}{%
+\subsubsection{Nitrogen Cycle}\label{nitrogen-cycle}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Nitrogen Cycle}
+\end{figure}
+
+\hypertarget{carbon-cycle}{%
+\subsubsection{Carbon Cycle}\label{carbon-cycle}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Carbon Cycle}
+\end{figure}
+
+How many microbes??
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  40 million microbes in a gram of soil
+\item
+  One million microbes in a ml of fresh water
+\item
+  One trillion in a human body
+\end{enumerate}
+
+\hypertarget{microbes-are-abundantand-extremely-diverse}{%
+\subsubsection*{MICROBES ARE ABUNDANT\ldots\ldots AND EXTREMELY DIVERSE!}\label{microbes-are-abundantand-extremely-diverse}}
+\addcontentsline{toc}{subsubsection}{MICROBES ARE ABUNDANT\ldots\ldots AND EXTREMELY DIVERSE!}
+
+\hypertarget{how-many-kinds-of-living-beings-are-there}{%
+\section{How many kinds of living beings are there?}\label{how-many-kinds-of-living-beings-are-there}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Aristotle's Scala naturae -- 350 BC
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Carbon Cycle}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  2000 yrs later
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Edward Hitchcoc
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1840
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Carbon Cycle}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Ernst Haeckel
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1879
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Carbon Cycle}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Charles Darwin
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1837
+  \item
+    The idea that species could have evolved from an ancestor
+  \item
+    This could have happened through transmutations
+  \item
+    Premise for trees today
+  \item
+    ALL METHODS DEPEND ON \textbf{OBSERVABLE MORPHOLOGICAL TRAITS} FOR CATEGORIZATION
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{what-happened-when-we-found-out-about-microbes}{%
+\section{What happened when we found out about microbes?}\label{what-happened-when-we-found-out-about-microbes}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Carbon Cycle}
+\end{figure}
+
+\hypertarget{roadmap-to-where-we-are-now-with-determining-microbial-diversity}{%
+\subsection*{Roadmap to where we are now with determining microbial diversity}\label{roadmap-to-where-we-are-now-with-determining-microbial-diversity}}
+\addcontentsline{toc}{subsection}{Roadmap to where we are now with determining microbial diversity}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Leeuwenhoek
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Father of microbiology
+\item
+  Late 1600's
+\item
+  Microscope
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Leeuwenhoek}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Robert Koch
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  1890
+\item
+  First time bringing microbes to the lab
+\item
+  Cultivation of microbes
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Robert Koch}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Discovery of DNA structure
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Rosiland Franklin
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1951
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Rosiland Franklin}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Frederick Sanger
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1975
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Frederick Sanger}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Carl Woese
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1977
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Carl Woese}
+\end{figure}
+
+\hypertarget{dna-structure}{%
+\subsubsection*{DNA Structure}\label{dna-structure}}
+\addcontentsline{toc}{subsubsection}{DNA Structure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{DNA Structure}
+\end{figure}
+
+\hypertarget{tree-of-life}{%
+\section{Tree of Life}\label{tree-of-life}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Tree of Life}
+\end{figure}
+
+``Visible organisms represent the smallest sliver of life's diversity. Bacteria are the true lords of the world. They have been on this planet for billions of years and have irrevocably changed it, while diversifying into endless forms most wonderful and most beautiful.'' (The Atlantic)
+
+Life just got weird!
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Comparing Trees of Life}
+\end{figure}
+
+\hypertarget{what-makes-microbes-so-special}{%
+\section{What Makes Microbes so Special?}\label{what-makes-microbes-so-special}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  -15oC/4oF to 130oC/266oF temperatures
+\item
+  0 to 12.8 pH acidity
+\item
+  More than 200 atm pressure
+\item
+  4 miles deep into Earth's crust
+\item
+  Up to 5kGy radiation
+\end{enumerate}
+
+\hypertarget{grand-prismatic-spring-ynp-183oc}{%
+\subsection*{Grand Prismatic Spring -- YNP -- 183oC}\label{grand-prismatic-spring-ynp-183oc}}
+\addcontentsline{toc}{subsection}{Grand Prismatic Spring -- YNP -- 183oC}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Validates the importance of microbes and sums up life on Earth with boundaries.
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Grand Prismatic Spring}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Microbes are constantly trying to evolve and get deeper and deeper into the hot springs
+\item
+  Eukaryotes only surround this spring -- cannot survive close to the hot spring
+\end{enumerate}
+
+\hypertarget{the-great-plate-count-anomaly}{%
+\subsection{The great ``plate count'' anomaly}\label{the-great-plate-count-anomaly}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cultivation based cell counts are orders of magnitude lower than direct microscopic observation
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Plate Count Anomaly}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  As microbiologists, we are able to cultivate only a small minority of naturally occurring microbes
+\item
+  Our nucleic acid derived understanding of microbial diversity has rapidly outpaced our ability to culture new microbes
+\end{enumerate}
+
+\hypertarget{total-number-of-genomes-at-ncbi}{%
+\subsection{Total number of genomes at NCBI}\label{total-number-of-genomes-at-ncbi}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Haploid genome
+\item
+  Single circular chromosome, plasmids
+\item
+  Metabolic diversity
+\item
+  Genetic malleability
+\item
+  No nucleus
+\item
+  Easy interspecies gene transfer
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Plate Count Anomaly}
+\end{figure}
+
+\url{https://www.ncbi.nlm.nih.gov/genome/browse/\#!/overview/}
+
+\hypertarget{roadmap-to-culture-independent-techniques}{%
+\section{Roadmap to Culture Independent Techniques}\label{roadmap-to-culture-independent-techniques}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  rRNA as an evolutionary marker
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  1977
+\item
+  (Woese and Fox, PNAS)
 \end{itemize}
 
 \begin{enumerate}
@@ -357,15 +640,15 @@ The term was later revitalized by Tettelin et al.~to describe a microbial genome
 \setcounter{enumi}{1}
 \tightlist
 \item
-  Reference Backbone; ``iterative'' (minigraph)
+  Polymerase Chain Reaction
 \end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  Graph starts as reference and other sequences are layered
-  on, i.e.~variants can be relative to sequences other than the
-  reference
+  1985
+\item
+  (K. Mullis, Science)
 \end{itemize}
 
 \begin{enumerate}
@@ -373,154 +656,877 @@ The term was later revitalized by Tettelin et al.~to describe a microbial genome
 \setcounter{enumi}{2}
 \tightlist
 \item
-  Reference-Free (cactus)
+  ``Universal Primers'' for rRNA sequencing
 \end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  Graph is built using non-reference techniques, such as multiple sequence alignment
+  1985
+\item
+  (N. Pace, PNAS)
 \end{itemize}
 
-These are all methods used by the \href{https://humanpangenome.org}{Human Pangenome Reference Consortium}
-
-\hypertarget{mapping-reads-to-variation-graphs}{%
-\subsection{Mapping Reads to Variation Graphs}\label{mapping-reads-to-variation-graphs}}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/ReadsToVariation.png}
-\caption{Genotyping Variation: \url{https://link.springer.com/article/10.1186/s13059-020-1941-7}}
-\end{figure}
-
-\hypertarget{pangenome-data-sets}{%
-\section{Pangenome Data Sets}\label{pangenome-data-sets}}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  PCR amplification of 16S rRNA gene
+\end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  \href{https://humanpangenome.org}{Human Pangenome Reference Consortium}
+  1989
 \item
-  \href{https://zoonomiaproject.org/the-data/}{Zoonomia (200 mammalss) Project}
-\item
-  \href{https://www.science.org/doi/10.1126/science.abg5289}{Maize NAM founder genomes}
-\item
-  \href{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}{Yeast Population Reference Panel (YPRP)}
+  (Bottger, FEMS Microbiol)
 \end{itemize}
 
-\hypertarget{datayeast-genomes}{%
-\subsection{Data/Yeast Genomes:}\label{datayeast-genomes}}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Yeast.png}
-\caption{Yeast Genomes: \url{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}}
-\end{figure}
-
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
 \item
-  12 Mb
-\item
-  16 chromosomes
-\item
-  \href{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}{12 strains from Yeast Population Reference Panel (YPRP)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    7 Saccharomyces cerevisiae (brewer's yeast)
-
-    \begin{itemize}
-    \tightlist
-    \item
-      Includes S288C reference
-    \end{itemize}
-  \end{itemize}
-\item
-  5 \emph{Saccharomyces paradoxus} (wild yeast)
-\item
-  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2659681/}{Manuscript}
-\item
-  Software (LRSDAY)
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \href{https://www.nature.com/articles/nprot.2018.025}{Manuscript}
-  \item
-    \href{https://github.com/yjx1217/LRSDAY}{GitHub}
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{yeast-assemblies}{%
-\subsection{Yeast Assemblies}\label{yeast-assemblies}}
+  Curation and hosting of RDP
+\end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  \href{https://yjx1217.github.io/Yeast_PacBio_2016/data/}{YPRP: 12 Yeast PacBio Assemblies (Chromosome level)}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textasciitilde100-200x PacBio sequencing reads
-  \item
-    HGAP + Quiver polishing
-  \item
-    \textasciitilde200-500x Illumina (Pilon correction)
-  \item
-    Manual curation
-  \item
-    Annotation
-  \end{itemize}
+  Early 1990's
+\item
+  (rRNA database) FTP
 \end{itemize}
 
-\hypertarget{sk1-illumina-reads}{%
-\subsection{SK1 Illumina Reads}\label{sk1-illumina-reads}}
-
-SK1 is the most distant from S288C
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/YeastB.png}
-\caption{Yeast Genomes: \url{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}}
-\end{figure}
-
-\hypertarget{cup1-gene}{%
-\subsection{CUP1 Gene}\label{cup1-gene}}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/StructuralRearrangements.png}
-\caption{Structrual Rearrangements: \url{https://www.nature.com/articles/ng.3847}}
-\end{figure}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Term `microbiome'
+\end{enumerate}
 
 \begin{itemize}
 \tightlist
 \item
-  \href{https://www.yeastgenome.org/locus/S000001095}{CUP1} - A gene involved in heavy metal (copper) tolerance with copy-number variation (CNV) in population.
+  2001
 \item
-  \href{https://www.yeastgenome.org/locus/S000001096}{YHR054C} - Putative protein of unknown function.
+  coined by Lederberg and McCray
 \end{itemize}
 
-\hypertarget{we-changed-the-names}{%
-\subsection{We Changed the Names}\label{we-changed-the-names}}
+\hypertarget{microbiomes-and-their-significance}{%
+\section{Microbiomes and their significance}\label{microbiomes-and-their-significance}}
 
 \begin{itemize}
 \tightlist
 \item
-  YPRP FASTA files only contain chromosome names
+  Microbes do not work or function as a single entity
 \item
-  We prefixed every chromosome with its assembly name and a ``.'' delineator
+  Most microbial activities are performed by complex communities of microorganisms
 
   \begin{itemize}
   \tightlist
   \item
-    e.g.~S288C.chrVIII
+    \textbf{Microbiome}
   \end{itemize}
-\item
-  \href{https://github.com/pangenome/PanSN-spec}{Pangenome Sequence Naming Specification}
 \end{itemize}
+
+\hypertarget{what-is-a-microbiome}{%
+\subsection{What is a microbiome}\label{what-is-a-microbiome}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Totality of microbes in a defined environment, and their intricate interactions with each other and the surrounding environment
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  A population of a single species is a culture(monoculture), extremely rare outside of lab and in some infections
+\item
+  A microbiome is a mixed population of different microbial species
+\item
+  MIXED COMMUNITY IS THE NORM!
+\end{itemize}
+
+\hypertarget{why-study-microbiomes}{%
+\subsection{Why Study Microbiomes}\label{why-study-microbiomes}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Microbes modulate and maintain the atmosphere
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Critical elemental cycles (carbon, nitrogen, sulfur, iron,\ldots)
+\item
+  Pollution control, clean up fuel leaks
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Microbes keep us healthy
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Protection from pathogens
+\item
+  Absorption/production of nutrients in the gut
+\item
+  Role in chronic diseases (obesity, Crohn's/IBD, arthritis\ldots)
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Microbes support plant growth and suppress plant disease
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Most complex communities reside in soil
+\item
+  Crop productivity
+\end{itemize}
+
+\hypertarget{why-is-microbiome-research-new}{%
+\subsection{Why is Microbiome Research New?}\label{why-is-microbiome-research-new}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Bias for microbes (especially pathogens) that are
+  cultivable
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Culture-based methods do not detect majority of microbes
+\item
+  Only pathogens are easily detected
+\item
+  And most microbes are not pathogens
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Availability of tools
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Discovery of culture independent techniques
+\item
+  Amplicon sequencing and DNA sequencing
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Diversity of the Microbiome, Trends in Genetics}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Cell 2019 Western}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Cell 2019 Western}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Recovered over 150,000 microbial genomes from \textasciitilde10,000 metagenomes
+\item
+  70,178 genomes assembled with higher than 90\% completeness
+\item
+  3,796 SGBs (species-level genome bins) identified -77\% of the total representing species without any publicly available genomes
+\end{enumerate}
+
+\hypertarget{microbiome-projects-and-databases}{%
+\subsection{Microbiome Projects and Databases}\label{microbiome-projects-and-databases}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  American Gut Project
+\item
+  Earth microbiome Project
+\item
+  Human Oral Microbiome Database
+\item
+  CardioBiome
+\item
+  Human Microbiome Studies -- JCVI
+\item
+  MetaSub -- Metagenomics and metadesign of Subways and Urban Biomes
+\item
+  Gut microbiota for Health
+\item
+  NASA: Study of the impact of long term space travel in the Astronaut's
+  microbiome
+\item
+  Michigan microbiome project
+\item
+  Coral microbiome project
+\item
+  Seagrass microbiome project
+\end{enumerate}
+
+\hypertarget{structural-and-functional-approaches-to-study-microbiomes}{%
+\section{Structural and Functional Approaches to study microbiomes}\label{structural-and-functional-approaches-to-study-microbiomes}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{International Journal of Genomics, 2018}
+\end{figure}
+
+\hypertarget{s-rrna-as-an-evolutionary-chronometer}{%
+\subsection{16S rRNA as an evolutionary chronometer}\label{s-rrna-as-an-evolutionary-chronometer}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Kjellerberg et al, Microbial Ecology, 2007}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ubiquitous -- present in all known life (excluding viruses)
+\item
+  Functionally constant wrt translation and secondary structure
+\item
+  Evolves very slowly -- mutations are extremely rare
+\item
+  Large enough to extract information for evolutionary inference
+\item
+  Limited exchange -- limited examples of rRNA gene sharing between organisms
+\end{enumerate}
+
+\hypertarget{s-rrna-vs-rpob-rna-polymerase-ux3b2-subunit-gene}{%
+\subsection{16S rRNA vs rpoB (RNA polymerase β subunit gene)}\label{s-rrna-vs-rpob-rna-polymerase-ux3b2-subunit-gene}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{2Kjellerberg et al, Microbial Ecology, 2007}
+\end{figure}
+
+\hypertarget{s-rrna-hypervariable-regions}{%
+\subsubsection{16S rRNA hypervariable regions}\label{s-rrna-hypervariable-regions}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Microbiome.com}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{BMC Bioinf, 2016}
+\end{figure}
+
+Illustration of different hypervariable regions of 16S rRNA
+
+\hypertarget{basic-workflow-for-16s-gene-based-sequencing}{%
+\section{Basic Workflow for 16S Gene Based Sequencing}\label{basic-workflow-for-16s-gene-based-sequencing}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{J. Investigative Dermatol, 2016}
+\end{figure}
+
+\hypertarget{addressing-the-fine-print-while-generating-16s-rrna-gene-amplicon-libraries}{%
+\section{Addressing the `fine print' while generating 16S rRNA gene amplicon libraries}\label{addressing-the-fine-print-while-generating-16s-rrna-gene-amplicon-libraries}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sample Collection
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Sample collection significantly influences the microbiome profiler
+  after sequencing
+\item
+  Sample storage
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  DNA isolation
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Template concentration
+\item
+  Template extraction protocol
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  PCR amplification
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  PCR bias and inhibitors
+\item
+  Amplification of contaminants
+\end{itemize}
+
+J. Microbiol Methods (2018), App. Environ. Microbiol. (2014), Microbiome (2015)
+
+\hypertarget{steps-involved}{%
+\section{Steps Involved}\label{steps-involved}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Experimental Design: How many samples can be included in the sequencing run?
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  By using barcoded primers, numerous samples can be sequenced simultaneously (multiplexing)
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{V4 Region}
+\end{figure}
+
+\hypertarget{samples}{%
+\subsection{Samples}\label{samples}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  More the number of samples, more cost effective the run (sequencing depth will be compromised)
+\end{enumerate}
+
+Comparison of multiplexing capacity by sequencing system
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Illumina.com}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  It is critical to have a `library prep manifest' to document the position of each sample with its associated barcode along with additional metadata information
+\end{enumerate}
+
+\hypertarget{include-controls}{%
+\subsection{Include Controls}\label{include-controls}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Between run repeat (process any sample in duplicate per run to measure reproducibility across runs)
+\item
+  Within run repeat (process any sample in duplicate per plate to measure reproducibility)
+\item
+  Water used during PCR (water blank- to determine if any contaminant was introduced during PCR reaction)
+\item
+  Water spiked with known bacterial DNA (mock bacterial communities- enables quantification of sequencing errors, minimizes bias during sampling and library preparation )
+\end{enumerate}
+
+\hypertarget{dna-extraction-protocol}{%
+\subsection{DNA extraction protocol}\label{dna-extraction-protocol}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Effect of mechanical lysis methods for extraction
+\item
+  Presence of inhibitors such as organic matter, humic acid, bile salts, polysaccharides
+\item
+  DNA yield post extraction and reproducibility
+\end{enumerate}
+
+Effect of bead beating was larger than sampling time over 5 months
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Bead beating}
+\end{figure}
+
+A. Percentage read abundance of the 11 most abundant phyla as a result of bead beating intensity
+B. PCA of samples with different bead beating intensities vs.~samples taken at different dates
+
+\hypertarget{selection-of-primers-and-region-of-16s-gene-influence-microbial-profile}{%
+\subsection{Selection of primers and region of 16S gene influence microbial profile}\label{selection-of-primers-and-region-of-16s-gene-influence-microbial-profile}}
+
+V2, V4, V6-V7 regions produced consistent results
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Plos}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  V2, V3 and V6 contain maximum nucleotide heterogeneity
+\item
+  V6 is the shortest hypervariable region
+  with the maximum sequence
+  heterogeneity
+\item
+  V1 is best target for distinguishing
+  pathogenic S aureus
+\item
+  V2 and V3 are excellent targets for
+  speciation among Staph and Strep pathogens as well as Clostridium and Neisseria species
+\item
+  V2 especially useful for speciation of Mycobacterium sp. and detection of E coli O157:H7
+\item
+  V3 useful for speciation of
+  Haemophilus sp
+\item
+  V6 best target for probe based PCR assays to identify CDC select agents (bio-terrorism agents)
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{HHS}
+\end{figure}
+
+\hypertarget{purification-of-amplicons}{%
+\subsection{Purification of Amplicons}\label{purification-of-amplicons}}
+
+After one --step or two-step PCR, products are cleaned up using AMpure beads
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Ampure}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Gel Electrophoresis and quantification of cleaned amplicon products
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Qubit
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Sample pooling -- equimolar concentrations (how many samples do you want to pool? How many reads per sample?
+\item
+  Gel extraction of pooled product
+\item
+  Final clean up (Qiagen kit) and QC
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{16S Summary}
+\end{figure}
+
+\href{https://www.pacb.com/wp-content/uploads/Multiplexed-Amplicon-Library-Preparation-Using-SMRTbell-Express-Template-Prep-Kit-2.0-–-Customer-Training.pdf}{Amplicon Sequencing Library Prep - PacBio}
+
+\hypertarget{overview-of-generic-amplicon-workflow}{%
+\subsubsection{Overview of generic amplicon workflow}\label{overview-of-generic-amplicon-workflow}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Amplicon Workflow}
+\end{figure}
+
+\hypertarget{data-processing}{%
+\section*{Data Processing}\label{data-processing}}
+\addcontentsline{toc}{section}{Data Processing}
+
+\hypertarget{fastqc}{%
+\subsection{FastQC}\label{fastqc}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{FastQC}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Many tools/options to filter and trim data
+\item
+  Trimming does not always improve things as valuable information
+  can be lost!
+\item
+  Removal of adapters is critical for downstream analysis
+\end{enumerate}
+
+\hypertarget{dereplication}{%
+\subsection{Dereplication}\label{dereplication}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  In this process all the quality-filtered sequences are collapsed into a set of unique reads, which are then clustered into OTUs
+\item
+  Dereplication step significantly reduces computation time by eliminating redundant sequences
+\end{enumerate}
+
+\hypertarget{chimera-detection-and-removal-of-non-bacterial-sequences}{%
+\subsection{Chimera detection and removal of non-bacterial sequences}\label{chimera-detection-and-removal-of-non-bacterial-sequences}}
+
+Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Chimera}
+\end{figure}
+
+Incomplete extensions during PCR allow subsequent PCR cycles to use a partially extended strand to bind to the template of a different, but similar, sequence. This partially extended strand then acts as a primer to extend and form a chimeric sequence.
+
+\hypertarget{clustering}{%
+\subsection{Clustering}\label{clustering}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Analysis of 16S rRNA relies on clustering of related sequences at a particular level of identity and counting the representatives of each cluster
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Clustering}
+\end{figure}
+
+Some level of sequence divergence should be allowed -- 95\% (genus-level, partial 16S gene), 97\% (species-level) or 99\% typical similarity cutoffs used in
+practice and the resulting cluster of nearly identical tags (assumedly identical genomes) is referred to as an OTU (Operational Taxonomic Unit)
+
+\hypertarget{create-otu-tables}{%
+\subsection{Create OTU tables}\label{create-otu-tables}}
+
+OTU table is a matrix that gives the number of reads per sample per OTU
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{OTUs}
+\end{figure}
+
+\hypertarget{bin-otus-into-taxonomy-assign-taxonomy}{%
+\subsection{Bin OTUs into Taxonomy (assign taxonomy)}\label{bin-otus-into-taxonomy-assign-taxonomy}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Accuracy of assigning taxonomy depends on the
+  reference database chosen
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Ribosomal Database Project
+\item
+  GreenGenes
+\item
+  SILVA
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Accuracy depends on the completeness of databases
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Database}
+\end{figure}
+
+\hypertarget{assess-population-diversity-alpha-diversity}{%
+\subsection{\texorpdfstring{Assess Population Diversity: \textbf{alpha diversity}}{Assess Population Diversity: alpha diversity}}\label{assess-population-diversity-alpha-diversity}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Assessment of diversity involves two aspects
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Species richness (\# of species present in a sample)
+\item
+  Species evenness (distribution of relative abundance of species)
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Total community diversity of a single sample/environment is given by alpha-diversity and represented using rarefaction curves
+\item
+  Quantitative methods such as Shannon or Simpson indices measure evenness of the alpha- diversity
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Human Mol. Genet., 2013}
+\end{figure}
+
+\hypertarget{assess-beta-diversity}{%
+\subsection{Assess Beta Diversity}\label{assess-beta-diversity}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Beta-diversity measures community structure differences (taxon composition and relative abundance) between two or more samples
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  For example, beta-diversity indices can compare similarities and differences in microbial communities in healthy and diseases states
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Many qualitative (presence/absence taxa) and
+  quantitative(taxon abundance) measures of community
+  distance are available using several tools
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  LIBHUFF, TreeClimber, DPCoA, UniFrac (QIIME)
+\end{itemize}
+
+\hypertarget{measuring-population-diversity-alpha-and-beta-diversity}{%
+\subsection{\texorpdfstring{Measuring Population Diversity: \textbf{alpha and beta diversity}}{Measuring Population Diversity: alpha and beta diversity}}\label{measuring-population-diversity-alpha-and-beta-diversity}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{PLoS Computational Biol.,2012}
+\end{figure}
+
+\hypertarget{diversity-measurements-with-16s-rrna-sequencing}{%
+\section{Diversity Measurements with 16s rRNA sequencing}\label{diversity-measurements-with-16s-rrna-sequencing}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Overall Benefits
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Cost effective
+\item
+  Data analysis can be performed by established pipelines
+\item
+  Large body of archived data is available for reference
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Overall Limitations
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Sequences only a single region of the genome
+\item
+  Classifications often lack accuracy at the
+  species level
+\item
+  Copy number per genome can vary. While they
+  tend to be taxon specific, variation among
+  strains is possible
+\item
+  Relative abundance measurements are
+  unreliable because of amplification biases
+\item
+  Diversity of the gene tends to overinflate
+  diversity estimates
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  FastQC for 16S rRNA dataset
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Extremely biased per base sequence content
+\item
+  Extremely narrow distribution of GC content
+\item
+  Very high sequence duplication levels
+\item
+  Abundance of overrepresented sequences
+\item
+  In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
+\end{itemize}
+
+\hypertarget{qiime-2}{%
+\section{QIIME 2}\label{qiime-2}}
+
+Importing data
+Demultiplexing
+Running Quality Control
+Creating a feature table
+Building a phylogenetic tree
+Calculating core diversity metrics
+Testing alpha diversity group significance and correlation
+Performing beta diversity ordination
+Testing beta diversity group significance
+Assigning taxonomies
+Performing differential abundance analysis with ANCOM and/or gneiss
+
+\hypertarget{taxonomy-expectation-vs-reality}{%
+\section{Taxonomy: Expectation vs Reality}\label{taxonomy-expectation-vs-reality}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Expectation vs.~Reality}
+\end{figure}
+
+\hypertarget{beta-diversity---unifrac}{%
+\section{Beta Diversity - UniFrac}\label{beta-diversity---unifrac}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Measures how different two samples' component sequences are
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\caption{Unifrac}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Weighted Unifrac: takes abundance of each sequence into account
+\end{enumerate}
+
+\hypertarget{results-from-paper}{%
+\section{Results from Paper}\label{results-from-paper}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Main phyla: Firmicutes, Bacteroidetes, Proteobacteria, Actinobacteria, Fusobacteria with differences bw samples
+\item
+  Sputum (patient) samples had highest diversity followed by oropharynx samples followed by nasal
+\item
+  Healthy controls (N and O) more diverse than samples from TB patients
+\item
+  Between-group comparisons?
+\item
+  Phyla differences?
+\end{enumerate}
 
 \hypertarget{visualizing-genomes}{%
 \chapter{Visualizing Genomes}\label{visualizing-genomes}}
@@ -1749,8 +2755,8 @@ It can align short or long reads or assemblies against a reference using the see
   View with Bandage
 \end{enumerate}
 
-\hypertarget{yeast-assemblies-1}{%
-\section{Yeast Assemblies}\label{yeast-assemblies-1}}
+\hypertarget{yeast-assemblies}{%
+\section{Yeast Assemblies}\label{yeast-assemblies}}
 
 \emph{12 Mb}\\
 \emph{16 chromosomes}
@@ -2095,7 +3101,7 @@ Download your gfa file onto your computer and upload it into Bandage.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ yprp/assemblies/S288C.genome.fa }\VariableTok{$(}\FunctionTok{ls}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{fa }\KeywordTok{|} \FunctionTok{grep} \AttributeTok{{-}v}\NormalTok{ S288C}\VariableTok{)} \OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa }\DecValTok{2}\OperatorTok{\textgreater{}}\NormalTok{yprp.minigraph.err}
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ /home/pangenomics/data/yprp/assemblies/S288C.genome.fa }\VariableTok{$(}\FunctionTok{ls}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{fa }\KeywordTok{|} \FunctionTok{grep} \AttributeTok{{-}v}\NormalTok{ S288C}\VariableTok{)} \OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa }\DecValTok{2}\OperatorTok{\textgreater{}}\NormalTok{yprp.minigraph.err}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2193,6 +3199,7 @@ Try to answer the following questions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\BuiltInTok{export} \VariableTok{PATH}\OperatorTok{=}\VariableTok{$PATH}\NormalTok{:/home/vesw/gfatools/}
 \ExtensionTok{gfatools}\NormalTok{ stat yprp.minigraph.gfa}
 \end{Highlighting}
 \end{Shaded}
@@ -2519,7 +3526,7 @@ Read length = 151 nts
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}x}\NormalTok{ sr /home/pangenomics/data/yprp/reads/SK1.illumina.fastq.gz }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ SK1.mapped.gaf}
+\ExtensionTok{minigraph} \AttributeTok{{-}x}\NormalTok{ sr yprp.minigraph.gfa /home/pangenomics/data/yprp/reads/SK1.illumina.fastq.gz }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ SK1.mapped.gaf}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2717,7 +3724,7 @@ Let's do all the samples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{.fa}\KeywordTok{;} \ControlFlowTok{do}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ /home/pangenomics/data/yprp/assemblies/}\PreprocessorTok{*}\NormalTok{.fa}\KeywordTok{;} \ControlFlowTok{do}
    \VariableTok{bn}\OperatorTok{=}\KeywordTok{\textasciigrave{}}\FunctionTok{basename} \VariableTok{$i}\NormalTok{ .fa}\KeywordTok{\textasciigrave{}}
    \ExtensionTok{minigraph} \AttributeTok{{-}xasm} \AttributeTok{{-}l100} \AttributeTok{{-}{-}call}\NormalTok{ cup1.gfa }\VariableTok{$i} \OperatorTok{\textgreater{}} \VariableTok{$bn}\NormalTok{.call.bed}
 \ControlFlowTok{done}

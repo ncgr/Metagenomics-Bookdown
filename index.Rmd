@@ -1,6 +1,6 @@
 
 ---
-title: "Pangenomics Workshop NCGR"
+title: "Metagenomics Workshop NCGR"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -14,164 +14,532 @@ link-citations: yes
 github-repo: rstudio/bookdown-demo
 ---
 
-# Introduction to Pangenomics
+# Community Profiling and Metagenomics
 
-![Pangenome: https://en.wikipedia.org/wiki/Pan-genome](./Figures/Pangenome.png){width=80%}
+## Microbes were the first life forms on this planet
 
-![Instructors](./Figures/JoannAlan.png){width=80%}
+1. Earth declares its independence about 4600 MYA
 
-## What is a "pangenome"?
+![Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre](./Figures/Planets.png){width=80%}
 
-The term “pangenome” was first coined by Sigaux et al. and was used to describe a public database containing an assessment of genome and transcriptome alterations in major types of tumors, tissues, and experimental models.
+2. First photosynthetic bacteria 3.4 billion years ago (BYA)
++ Used sunlight for energy to create biomass
++ Anaerobic (anoxic photosynthesis)
 
-+ Sigaux F. Génome du cancer ou de la construction des cartes d'identité moléculaire des tumeurs [Cancer genome or the development of molecular portraits of tumors]. Bull Acad Natl Med. 2000;184(7):1441-7; discussion 1448-9. French. PMID: 11261250.
+![Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre](./Figures/Planets.png){width=80%}
 
-![Sigaux et al.](./Figures/Abstract1.png){width=80%}
+3. 2.7 BYA first oxygen producers emerge
++ Oxygen as waste product during respiration
++ Most of the oxygen was sequestered and not readily available
 
-The term was later revitalized by Tettelin et al. to describe a microbial genome by which genes were in the core (present in all strains) and which genes were dispensable (missing from one or more of the strains).
+![Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre](./Figures/Planets.png){width=80%}
 
-+ Tettelin, H., Masignani, V., Cieslewicz, M. J., Donati, C., Medini, D., Ward, N. L., ... & Fraser, C. M. (2005). Genome analysis of multiple pathogenic isolates of Streptococcus agalactiae: implications for the microbial “pan-genome”. Proceedings of the National Academy of Sciences, 102(39), 13950-13955.
+4. 2.3 BYA atmosphere has oxygen
+5. 500 million year ago (MYA) first terrestrial plants
+6. 200 MYA mammals emerged
+7. 13 MYA one of us makes all of us proud by learning how to fly
+8. 10 MYA the branch of life currently called homo emerges
+9. 400 years ago humans observe the first microbe under
+a simple scope
 
-![Tettelin et al.](./Figures/Abstract2.png){width=80%}
+![Earth. Image credit: NASA/JPL-Caltech/Lizbeth B. De La Torre](./Figures/Planets.png){width=80%}
 
-### Open vs. Closed Genomes
+#### THERE WOULD BE NO LIFE WITHOUT MICROBES{-}
 
-![Open and Closed Pangenomes: https://en.wikipedia.org/wiki/Pan-genome](./Figures/ClosedvOpen.png){width=65%}
+### Microbes enable habitability on Earth by catalyzing reactions of biogeochemical cycles
 
-### Then vs. Now
+1. The amount or % of elements on Earth remains constant
+2. Recycling of these elements, flux, and bio-availability is
+largely taken care of by microbes
+3. Best example to illustrate – nitrogen
 
-![Cost per Genome: https://www.genome.gov/about-genomics/fact-sheets/DNA-Sequencing-Costs-Data](./Figures/CostGenome.png){width=90%}
++ 78% of Earths atm is N2
++ Required for important biological processes
++ In gaseous form it is unavailable
++ In fact many processes are N2 limited
++ Making N2 bioavailable in a form that can be
+by eukaryotes is completely on the shoulders of microbes
 
-- Low Cost
-- High Quality Long Reads (HiFi)
-- Many reference-quality assemblies per species
+#### Nitrogen Cycle
+ 
+![Nitrogen Cycle](./Figures/Planets.png){width=80%}
 
-![Pangenome Publications: https://www.nature.com/articles/s41477-020-0733-0](./Figures/GenomePubs.png){width=75%}
+#### Carbon Cycle
 
-### "Pangenome" Today
+![Carbon Cycle](./Figures/Planets.png){width=80%}
 
-“Any collection of genomic sequences to be analyzed jointly or to be used as a reference. These sequences can be linked in a graph-like structure, or simply constitute sets of (aligned or unaligned) sequences.” – Computational Pangenomics Consortium
+How many microbes??
 
-https://academic.oup.com/bib/article/19/1/118/2566735
+1. 40 million microbes in a gram of soil
+2. One million microbes in a ml of fresh water
+3. One trillion in a human body
 
-### The Benefit of Pangenomes
+#### MICROBES ARE ABUNDANT......AND EXTREMELY DIVERSE!{-}
 
-+ Removes reference bias
-  + May only represent one organism
-  + Could be a “mosaic”of individuals, i.e. doesn’t represent a coherent haplotype
-  + Allele bias
-  + Doesn’t include common variation
-+ Allow multiple assemblies to be analyzed simultaneously, i.e. efficiently
+## How many kinds of living beings are there?
 
-###  What are pangenomes good for?
+1. Aristotle’s Scala naturae – 350 BC
 
-+ Core vs dispensable genes:
-  + How big is the core?
-  + How big is the dispensable?
-  + How big is the pangenome?
-  + What traits are associated with the core/dispensable?
-+ Unbiased read mapping and variant calling
-+ More robust variation-trait association
-+ Visual exploration of genomic structure of population
+![Carbon Cycle](./Figures/Planets.png){width=80%}
 
-##  Computational Pangenomics
+2. 2000 yrs later
 
-“Questions about efficient data structures, algorithms and statistical methods to perform bioinformatic analyses of pan-genomes give rise to the discipline of ‘computational pan-genomics’.”
++ Edward Hitchcoc
+    + 1840
 
- ![Computational Pangenomics: https://academic.oup.com/bib/article/19/1/118/2566735](./Figures/Computational.png){width=90%}    
+![Carbon Cycle](./Figures/Planets.png){width=80%}
 
-### Pangenome Representations
++ Ernst Haeckel
+    + 1879
 
-+ Gene sets
-+ Multiple sequence alignments
-+ K-mer sets
-+ Graphs
-  + De Bruijn graphs
-  + Haptotype graphs
-  + **Genome/Variation graphs**
+![Carbon Cycle](./Figures/Planets.png){width=80%}
 
-### Genome/Variation Graphs
++ Charles Darwin 
+    + 1837
+    + The idea that species could have evolved from an ancestor
+    + This could have happened through transmutations
+    + Premise for trees today
+    + ALL METHODS DEPEND ON **OBSERVABLE MORPHOLOGICAL TRAITS** FOR CATEGORIZATION
 
-+ Variation forms bubbles Nodes represent sequences
-+ Chains of nodes represent contiguous sequence in one or more assemblies
-+ The sequences of nodes connected by an edge may overlap
-+ Graphs can be acyclic or cyclic
-+ Haplotypes are “threaded” through graph as paths
+## What happened when we found out about microbes?
 
-![Pangenome Representations: https://academic.oup.com/bib/article/19/1/118/2566735](./Figures/VariationGraphA.png){width=96%}
+![Carbon Cycle](./Figures/Planets.png){width=80%}
 
-![Pangenome Representations: https://academic.oup.com/bib/article/19/1/118/2566735](./Figures/VariationGraphB.png){width=96%}
+### Roadmap to where we are now with determining microbial diversity{-}
 
-### Types of Variation Graphs
+1. Leeuwenhoek
++ Father of microbiology
++ Late 1600’s
++ Microscope
 
-1. Reference Graph (vg)
-  + A reference with variants
-  + E.G. [Human reference now includes VCF with common variation](https://www.ncbi.nlm.nih.gov/genome/guide/human/)
-2. Reference Backbone; “iterative” (minigraph)
-  + Graph starts as reference and other sequences are layered
-on, i.e. variants can be relative to sequences other than the
-reference
-3. Reference-Free (cactus)
-  + Graph is built using non-reference techniques, such as multiple sequence alignment
+![Leeuwenhoek](./Figures/Planets.png){width=80%}
+
+2. Robert Koch
++ 1890
++ First time bringing microbes to the lab
++ Cultivation of microbes
+
+![Robert Koch](./Figures/Planets.png){width=80%}
+
+3. Discovery of DNA structure
++ Rosiland Franklin
+    + 1951
+
+![Rosiland Franklin](./Figures/Planets.png){width=80%}
+
++ Frederick Sanger
+    + 1975
+    
+![Frederick Sanger](./Figures/Planets.png){width=80%}
+
++ Carl Woese
+    + 1977
+
+![Carl Woese](./Figures/Planets.png){width=80%}
+
+#### DNA Structure{-}
+
+![DNA Structure](./Figures/Planets.png){width=80%}
 
 
-These are all methods used by the [Human Pangenome Reference Consortium](https://humanpangenome.org)
+## Tree of Life
 
-### Mapping Reads to Variation Graphs
+![Tree of Life](./Figures/Planets.png){width=80%}
 
-![Genotyping Variation: https://link.springer.com/article/10.1186/s13059-020-1941-7](./Figures/ReadsToVariation.png){width=100%}
+“Visible organisms represent the smallest sliver of life’s diversity. Bacteria are the true lords of the world. They have been on this planet for billions of years and have irrevocably changed it, while diversifying into endless forms most wonderful and most beautiful.” (The Atlantic)
 
-## Pangenome Data Sets
+Life just got weird!
 
-+ [Human Pangenome Reference Consortium](https://humanpangenome.org)
-+ [Zoonomia (200 mammalss) Project](https://zoonomiaproject.org/the-data/)
-+ [Maize NAM founder genomes](https://www.science.org/doi/10.1126/science.abg5289)
-+ [Yeast Population Reference Panel (YPRP)](https://yjx1217.github.io/Yeast_PacBio_2016/welcome/)
+![Comparing Trees of Life](./Figures/Planets.png){width=80%}
 
-### Data/Yeast Genomes:
+## What Makes Microbes so Special?
 
-![Yeast Genomes: https://yjx1217.github.io/Yeast_PacBio_2016/welcome/](./Figures/Yeast.png){width=100%}
+1. -15oC/4oF to 130oC/266oF temperatures
+2. 0 to 12.8 pH acidity
+3. More than 200 atm pressure
+4. 4 miles deep into Earth’s crust
+5. Up to 5kGy radiation
 
-+ 12 Mb
-+ 16 chromosomes
-+ [12 strains from Yeast Population Reference Panel (YPRP)](https://yjx1217.github.io/Yeast_PacBio_2016/welcome/)
-  + 7 Saccharomyces cerevisiae (brewer’s yeast)
-    + Includes S288C reference
-+ 5 *Saccharomyces paradoxus* (wild yeast)
+###  Grand Prismatic Spring – YNP – 183oC{-}
 
-+ [Manuscript](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2659681/)
-+ Software (LRSDAY)
-  + [Manuscript](https://www.nature.com/articles/nprot.2018.025)
-  + [GitHub](https://github.com/yjx1217/LRSDAY)
+1. Validates the importance of microbes and sums up life on Earth with boundaries.
 
-### Yeast Assemblies
+![Grand Prismatic Spring](./Figures/Planets.png){width=80%}
 
-+ [YPRP: 12 Yeast PacBio Assemblies (Chromosome level)](https://yjx1217.github.io/Yeast_PacBio_2016/data/)
-  + ~100-200x PacBio sequencing reads
-  + HGAP + Quiver polishing
-  + ~200-500x Illumina (Pilon correction)
-  + Manual curation
-  + Annotation
+2. Microbes are constantly trying to evolve and get deeper and deeper into the hot springs
 
-### SK1 Illumina Reads
+3. Eukaryotes only surround this spring – cannot survive close to the hot spring
 
-SK1 is the most distant from S288C
+### The great “plate count” anomaly
 
-![Yeast Genomes: https://yjx1217.github.io/Yeast_PacBio_2016/welcome/](./Figures/YeastB.png){width=100%}
+1. Cultivation based cell counts are orders of magnitude lower than direct microscopic observation
 
-### CUP1 Gene
+![Plate Count Anomaly](./Figures/Planets.png){width=80%}
 
-![Structrual Rearrangements: https://www.nature.com/articles/ng.3847](./Figures/StructuralRearrangements.png){width=100%}
+2. As microbiologists, we are able to cultivate only a small minority of naturally occurring microbes
 
-+ [CUP1](https://www.yeastgenome.org/locus/S000001095) - A gene involved in heavy metal (copper) tolerance with copy-number variation (CNV) in population.
-+ [YHR054C](https://www.yeastgenome.org/locus/S000001096) - Putative protein of unknown function.
+3. Our nucleic acid derived understanding of microbial diversity has rapidly outpaced our ability to culture new microbes
 
-### We Changed the Names
+### Total number of genomes at NCBI
 
-+ YPRP FASTA files only contain chromosome names
-+ We prefixed every chromosome with its assembly name and a "." delineator
-  + e.g. S288C.chrVIII
-+ [Pangenome Sequence Naming Specification](https://github.com/pangenome/PanSN-spec)
+1. Haploid genome
+2. Single circular chromosome, plasmids
+3. Metabolic diversity
+4. Genetic malleability
+5. No nucleus
+6. Easy interspecies gene transfer
+
+![Plate Count Anomaly](./Figures/Planets.png){width=80%}
+
+https://www.ncbi.nlm.nih.gov/genome/browse/#!/overview/
+
+## Roadmap to Culture Independent Techniques
+
+1. rRNA as an evolutionary marker 
++ 1977 
++ (Woese and Fox, PNAS)
+2. Polymerase Chain Reaction
++ 1985
++ (K. Mullis, Science)
+3. “Universal Primers” for rRNA sequencing
++ 1985
++ (N. Pace, PNAS)
+4. PCR amplification of 16S rRNA gene
++ 1989
++ (Bottger, FEMS Microbiol)
+5. Curation and hosting of RDP
++ Early 1990’s
++ (rRNA database) FTP
+6. Term ‘microbiome’
++ 2001
++ coined by Lederberg and McCray
+
+## Microbiomes and their significance
++ Microbes do not work or function as a single entity
++ Most microbial activities are performed by complex communities of microorganisms
+    + **Microbiome**
+
+### What is a microbiome
+
+1. Totality of microbes in a defined environment, and their intricate interactions with each other and the surrounding environment
++ A population of a single species is a culture(monoculture), extremely rare outside of lab and in some infections
++ A microbiome is a mixed population of different microbial species
++ MIXED COMMUNITY IS THE NORM!
+ 
+### Why Study Microbiomes
+ 
+1. Microbes modulate and maintain the atmosphere
++ Critical elemental cycles (carbon, nitrogen, sulfur, iron,...)
++ Pollution control, clean up fuel leaks
+2. Microbes keep us healthy
++ Protection from pathogens
++ Absorption/production of nutrients in the gut
++ Role in chronic diseases (obesity, Crohn’s/IBD, arthritis...)
+3. Microbes support plant growth and suppress plant disease
++ Most complex communities reside in soil
++ Crop productivity
+
+### Why is Microbiome Research New?
+
+1. Bias for microbes (especially pathogens) that are
+cultivable
++ Culture-based methods do not detect majority of microbes
++ Only pathogens are easily detected
++ And most microbes are not pathogens
+2. Availability of tools
++ Discovery of culture independent techniques
++ Amplicon sequencing and DNA sequencing
+
+
+![Diversity of the Microbiome, Trends in Genetics ](./Figures/Planets.png){width=80%}
+
+![Cell 2019 Western](./Figures/Planets.png){width=80%}
+
+![Cell 2019 Western](./Figures/Planets.png){width=80%}
+
+1. Recovered over 150,000 microbial genomes from ~10,000 metagenomes
+
+2. 70,178 genomes assembled with higher than 90% completeness
+
+3. 3,796 SGBs (species-level genome bins) identified -77% of the total representing species without any publicly available genomes
+ 
+### Microbiome Projects and Databases
+
+1. American Gut Project
+2. Earth microbiome Project
+3. Human Oral Microbiome Database
+4. CardioBiome
+5. Human Microbiome Studies – JCVI
+6. MetaSub – Metagenomics and metadesign of Subways and Urban Biomes
+7. Gut microbiota for Health
+8. NASA: Study of the impact of long term space travel in the Astronaut’s
+microbiome
+9. Michigan microbiome project
+10. Coral microbiome project 
+11. Seagrass microbiome project
+
+## Structural and Functional Approaches to study microbiomes
+
+![International Journal of Genomics, 2018](./Figures/Planets.png){width=80%}
+
+### 16S rRNA as an evolutionary chronometer
+
+![Kjellerberg et al, Microbial Ecology, 2007](./Figures/Planets.png){width=80%}
+
+1. Ubiquitous – present in all known life (excluding viruses)
+2. Functionally constant wrt translation and secondary structure
+3. Evolves very slowly – mutations are extremely rare
+4. Large enough to extract information for evolutionary inference
+5. Limited exchange – limited examples of rRNA gene sharing between organisms
+
+### 16S rRNA vs rpoB (RNA polymerase β subunit gene)
+
+![2Kjellerberg et al, Microbial Ecology, 2007](./Figures/Planets.png){width=80%}
+
+#### 16S rRNA hypervariable regions
+
+![Microbiome.com](./Figures/Planets.png){width=80%}
+
+![BMC Bioinf, 2016](./Figures/Planets.png){width=80%}
+
+Illustration of different hypervariable regions of 16S rRNA
+
+## Basic Workflow for 16S Gene Based Sequencing
+
+![J. Investigative Dermatol, 2016](./Figures/Planets.png){width=80%}
+
+## Addressing the ‘fine print’ while generating 16S rRNA gene amplicon libraries
+
+1. Sample Collection
++ Sample collection significantly influences the microbiome profiler 
+after sequencing
++ Sample storage
+2. DNA isolation
++ Template concentration
++ Template extraction protocol
+3. PCR amplification
++ PCR bias and inhibitors
++ Amplification of contaminants
+
+J. Microbiol Methods (2018), App. Environ. Microbiol. (2014), Microbiome (2015)
+
+## Steps Involved
+
+1. Experimental Design: How many samples can be included in the sequencing run?
++ By using barcoded primers, numerous samples can be sequenced simultaneously (multiplexing)
+
+![V4 Region](./Figures/Planets.png){width=80%}
+
+### Samples
+
+1. More the number of samples, more cost effective the run (sequencing depth will be compromised)
+
+Comparison of multiplexing capacity by sequencing system
+
+![Illumina.com](./Figures/Planets.png){width=80%}
+
+2. It is critical to have a ‘library prep manifest’ to document the position of each sample with its associated barcode along with additional metadata information
+
+### Include Controls
+
+1. Between run repeat (process any sample in duplicate per run to measure reproducibility across runs)
+2. Within run repeat (process any sample in duplicate per plate to measure reproducibility)
+3. Water used during PCR (water blank- to determine if any contaminant was introduced during PCR reaction)
+4. Water spiked with known bacterial DNA (mock bacterial communities- enables quantification of sequencing errors, minimizes bias during sampling and library preparation )
+
+### DNA extraction protocol
+
+1. Effect of mechanical lysis methods for extraction
+2. Presence of inhibitors such as organic matter, humic acid, bile salts, polysaccharides
+3. DNA yield post extraction and reproducibility
+
+Effect of bead beating was larger than sampling time over 5 months
+
+![Bead beating](./Figures/Planets.png){width=80%}
+
+A. Percentage read abundance of the 11 most abundant phyla as a result of bead beating intensity 
+B. PCA of samples with different bead beating intensities vs. samples taken at different dates
+
+### Selection of primers and region of 16S gene influence microbial profile
+
+V2, V4, V6-V7 regions produced consistent results
+
+![Plos](./Figures/Planets.png){width=80%}
+
+1. V2, V3 and V6 contain maximum nucleotide heterogeneity
+2. V6 is the shortest hypervariable region
+with the maximum sequence
+heterogeneity
+3. V1 is best target for distinguishing
+pathogenic S aureus
+4. V2 and V3 are excellent targets for
+speciation among Staph and Strep pathogens as well as Clostridium and Neisseria species
+5. V2 especially useful for speciation of Mycobacterium sp. and detection of E coli O157:H7
+6. V3 useful for speciation of
+Haemophilus sp
+7. V6 best target for probe based PCR assays to identify CDC select agents (bio-terrorism agents)
+
+![HHS](./Figures/Planets.png){width=80%}
+
+### Purification of Amplicons
+
+After one –step or two-step PCR, products are cleaned up using AMpure beads
+
+![Ampure](./Figures/Planets.png){width=80%}
+
+1. Gel Electrophoresis and quantification of cleaned amplicon products
++ Qubit
+2. Sample pooling – equimolar concentrations (how many samples do you want to pool? How many reads per sample?
+3. Gel extraction of pooled product
+4. Final clean up (Qiagen kit) and QC
+
+![16S Summary](./Figures/Planets.png){width=80%}
+
+[Amplicon Sequencing Library Prep - PacBio](https://www.pacb.com/wp-content/uploads/Multiplexed-Amplicon-Library-Preparation-Using-SMRTbell-Express-Template-Prep-Kit-2.0-–-Customer-Training.pdf)
+
+
+#### Overview of generic amplicon workflow
+
+![Amplicon Workflow](./Figures/Planets.png){width=80%}
+
+## Data Processing{-}
+
+### FastQC
+
+![FastQC](./Figures/Planets.png){width=80%}
+
+1. Many tools/options to filter and trim data
+2. Trimming does not always improve things as valuable information
+can be lost!
+3. Removal of adapters is critical for downstream analysis
+
+### Dereplication
+
+1. In this process all the quality-filtered sequences are collapsed into a set of unique reads, which are then clustered into OTUs
+2. Dereplication step significantly reduces computation time by eliminating redundant sequences
+
+### Chimera detection and removal of non-bacterial sequences
+
+Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together
+ 
+![Chimera](./Figures/Planets.png){width=80%}
+
+Incomplete extensions during PCR allow subsequent PCR cycles to use a partially extended strand to bind to the template of a different, but similar, sequence. This partially extended strand then acts as a primer to extend and form a chimeric sequence.
+
+### Clustering
+
+1. Analysis of 16S rRNA relies on clustering of related sequences at a particular level of identity and counting the representatives of each cluster
+
+![Clustering](./Figures/Planets.png){width=80%}
+
+Some level of sequence divergence should be allowed – 95% (genus-level, partial 16S gene), 97% (species-level) or 99% typical similarity cutoffs used in
+practice and the resulting cluster of nearly identical tags (assumedly identical genomes) is referred to as an OTU (Operational Taxonomic Unit)
+
+### Create OTU tables
+
+OTU table is a matrix that gives the number of reads per sample per OTU
+
+![OTUs](./Figures/Planets.png){width=80%}
+
+### Bin OTUs into Taxonomy (assign taxonomy)
+
+1. Accuracy of assigning taxonomy depends on the
+reference database chosen
++ Ribosomal Database Project
++ GreenGenes
++ SILVA
+2. Accuracy depends on the completeness of databases
+
+![Database](./Figures/Planets.png){width=80%}
+
+### Assess Population Diversity: **alpha diversity**
+
+1. Assessment of diversity involves two aspects
++ Species richness (# of species present in a sample)
++ Species evenness (distribution of relative abundance of species)
+
+2. Total community diversity of a single sample/environment is given by alpha-diversity and represented using rarefaction curves
+
+3. Quantitative methods such as Shannon or Simpson indices measure evenness of the alpha- diversity
+ 
+![Human Mol. Genet., 2013](./Figures/Planets.png){width=80%}
+
+### Assess Beta Diversity
+
+1. Beta-diversity measures community structure differences (taxon composition and relative abundance) between two or more samples
++ For example, beta-diversity indices can compare similarities and differences in microbial communities in healthy and diseases states
+2. Many qualitative (presence/absence taxa) and
+quantitative(taxon abundance) measures of community
+distance are available using several tools
++ LIBHUFF, TreeClimber, DPCoA, UniFrac (QIIME)
+ 
+### Measuring Population Diversity: **alpha and beta diversity**
+
+![PLoS Computational Biol.,2012](./Figures/Planets.png){width=80%}
+
+## Diversity Measurements with 16s rRNA sequencing
+
+1. Overall Benefits
++ Cost effective
++ Data analysis can be performed by established pipelines
++ Large body of archived data is available for reference
+
+2. Overall Limitations
++ Sequences only a single region of the genome
++ Classifications often lack accuracy at the
+species level
++ Copy number per genome can vary. While they
+tend to be taxon specific, variation among
+strains is possible
++ Relative abundance measurements are
+unreliable because of amplification biases
++ Diversity of the gene tends to overinflate
+diversity estimates
+
+3. FastQC for 16S rRNA dataset
++ Extremely biased per base sequence content
++ Extremely narrow distribution of GC content
++ Very high sequence duplication levels
++ Abundance of overrepresented sequences
++ In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
+ 
+
+## QIIME 2
+
+Importing data
+Demultiplexing
+Running Quality Control
+Creating a feature table
+Building a phylogenetic tree
+Calculating core diversity metrics
+Testing alpha diversity group significance and correlation
+Performing beta diversity ordination
+Testing beta diversity group significance
+Assigning taxonomies
+Performing differential abundance analysis with ANCOM and/or  gneiss
+
+## Taxonomy: Expectation vs Reality
+
+![Expectation vs. Reality](./Figures/Planets.png){width=80%}
+
+## Beta Diversity - UniFrac
+
+1. Measures how different two samples’ component  sequences are
+
+![Unifrac](./Figures/Planets.png){width=80%}
+
+2. Weighted Unifrac: takes abundance of each sequence  into account
+
+## Results from Paper
+
+1. Main phyla: Firmicutes, Bacteroidetes, Proteobacteria,  Actinobacteria, Fusobacteria with differences bw samples
+2. Sputum (patient) samples had highest diversity followed  by oropharynx samples followed by nasal
+3. Healthy controls (N and O) more diverse than samples  from TB patients
+4. Between-group comparisons?
+5. Phyla differences?
+
+
+
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
