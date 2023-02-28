@@ -1,0 +1,2351 @@
+
+---
+title: "Pangenomics Workshop NCGR"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  The HTML output format for this example is bookdown::gitbook,
+  set in the _output.yml file.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# Introduction to Pangenomics
+
+![Pangenome: https://en.wikipedia.org/wiki/Pan-genome](./Figures/Pangenome.png){width=80%}
+
+![Instructors](./Figures/JoannAlan.png){width=80%}
+
+## What is a "pangenome"?
+
+The term “pangenome” was first coined by Sigaux et al. and was used to describe a public database containing an assessment of genome and transcriptome alterations in major types of tumors, tissues, and experimental models.
+
++ Sigaux F. Génome du cancer ou de la construction des cartes d'identité moléculaire des tumeurs [Cancer genome or the development of molecular portraits of tumors]. Bull Acad Natl Med. 2000;184(7):1441-7; discussion 1448-9. French. PMID: 11261250.
+
+![Sigaux et al.](./Figures/Abstract1.png){width=80%}
+
+The term was later revitalized by Tettelin et al. to describe a microbial genome by which genes were in the core (present in all strains) and which genes were dispensable (missing from one or more of the strains).
+
++ Tettelin, H., Masignani, V., Cieslewicz, M. J., Donati, C., Medini, D., Ward, N. L., ... & Fraser, C. M. (2005). Genome analysis of multiple pathogenic isolates of Streptococcus agalactiae: implications for the microbial “pan-genome”. Proceedings of the National Academy of Sciences, 102(39), 13950-13955.
+
+![Tettelin et al.](./Figures/Abstract2.png){width=80%}
+
+### Open vs. Closed Genomes
+
+![Open and Closed Pangenomes: https://en.wikipedia.org/wiki/Pan-genome](./Figures/ClosedvOpen.png){width=65%}
+
+### Then vs. Now
+
+![Cost per Genome: https://www.genome.gov/about-genomics/fact-sheets/DNA-Sequencing-Costs-Data](./Figures/CostGenome.png){width=90%}
+
+- Low Cost
+- High Quality Long Reads (HiFi)
+- Many reference-quality assemblies per species
+
+![Pangenome Publications: https://www.nature.com/articles/s41477-020-0733-0](./Figures/GenomePubs.png){width=75%}
+
+### "Pangenome" Today
+
+“Any collection of genomic sequences to be analyzed jointly or to be used as a reference. These sequences can be linked in a graph-like structure, or simply constitute sets of (aligned or unaligned) sequences.” – Computational Pangenomics Consortium
+
+https://academic.oup.com/bib/article/19/1/118/2566735
+
+### The Benefit of Pangenomes
+
++ Removes reference bias
+  + May only represent one organism
+  + Could be a “mosaic”of individuals, i.e. doesn’t represent a coherent haplotype
+  + Allele bias
+  + Doesn’t include common variation
++ Allow multiple assemblies to be analyzed simultaneously, i.e. efficiently
+
+###  What are pangenomes good for?
+
++ Core vs dispensable genes:
+  + How big is the core?
+  + How big is the dispensable?
+  + How big is the pangenome?
+  + What traits are associated with the core/dispensable?
++ Unbiased read mapping and variant calling
++ More robust variation-trait association
++ Visual exploration of genomic structure of population
+
+##  Computational Pangenomics
+
+“Questions about efficient data structures, algorithms and statistical methods to perform bioinformatic analyses of pan-genomes give rise to the discipline of ‘computational pan-genomics’.”
+
+ ![Computational Pangenomics: https://academic.oup.com/bib/article/19/1/118/2566735](./Figures/Computational.png){width=90%}    
+
+### Pangenome Representations
+
++ Gene sets
++ Multiple sequence alignments
++ K-mer sets
++ Graphs
+  + De Bruijn graphs
+  + Haptotype graphs
+  + **Genome/Variation graphs**
+
+### Genome/Variation Graphs
+
++ Variation forms bubbles Nodes represent sequences
++ Chains of nodes represent contiguous sequence in one or more assemblies
++ The sequences of nodes connected by an edge may overlap
++ Graphs can be acyclic or cyclic
++ Haplotypes are “threaded” through graph as paths
+
+![Pangenome Representations: https://academic.oup.com/bib/article/19/1/118/2566735](./Figures/VariationGraphA.png){width=96%}
+
+![Pangenome Representations: https://academic.oup.com/bib/article/19/1/118/2566735](./Figures/VariationGraphB.png){width=96%}
+
+### Types of Variation Graphs
+
+1. Reference Graph (vg)
+  + A reference with variants
+  + E.G. [Human reference now includes VCF with common variation](https://www.ncbi.nlm.nih.gov/genome/guide/human/)
+2. Reference Backbone; “iterative” (minigraph)
+  + Graph starts as reference and other sequences are layered
+on, i.e. variants can be relative to sequences other than the
+reference
+3. Reference-Free (cactus)
+  + Graph is built using non-reference techniques, such as multiple sequence alignment
+
+
+These are all methods used by the [Human Pangenome Reference Consortium](https://humanpangenome.org)
+
+### Mapping Reads to Variation Graphs
+
+![Genotyping Variation: https://link.springer.com/article/10.1186/s13059-020-1941-7](./Figures/ReadsToVariation.png){width=100%}
+
+## Pangenome Data Sets
+
++ [Human Pangenome Reference Consortium](https://humanpangenome.org)
++ [Zoonomia (200 mammalss) Project](https://zoonomiaproject.org/the-data/)
++ [Maize NAM founder genomes](https://www.science.org/doi/10.1126/science.abg5289)
++ [Yeast Population Reference Panel (YPRP)](https://yjx1217.github.io/Yeast_PacBio_2016/welcome/)
+
+### Data/Yeast Genomes:
+
+![Yeast Genomes: https://yjx1217.github.io/Yeast_PacBio_2016/welcome/](./Figures/Yeast.png){width=100%}
+
++ 12 Mb
++ 16 chromosomes
++ [12 strains from Yeast Population Reference Panel (YPRP)](https://yjx1217.github.io/Yeast_PacBio_2016/welcome/)
+  + 7 Saccharomyces cerevisiae (brewer’s yeast)
+    + Includes S288C reference
++ 5 *Saccharomyces paradoxus* (wild yeast)
+
++ [Manuscript](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2659681/)
++ Software (LRSDAY)
+  + [Manuscript](https://www.nature.com/articles/nprot.2018.025)
+  + [GitHub](https://github.com/yjx1217/LRSDAY)
+
+### Yeast Assemblies
+
++ [YPRP: 12 Yeast PacBio Assemblies (Chromosome level)](https://yjx1217.github.io/Yeast_PacBio_2016/data/)
+  + ~100-200x PacBio sequencing reads
+  + HGAP + Quiver polishing
+  + ~200-500x Illumina (Pilon correction)
+  + Manual curation
+  + Annotation
+
+### SK1 Illumina Reads
+
+SK1 is the most distant from S288C
+
+![Yeast Genomes: https://yjx1217.github.io/Yeast_PacBio_2016/welcome/](./Figures/YeastB.png){width=100%}
+
+### CUP1 Gene
+
+![Structrual Rearrangements: https://www.nature.com/articles/ng.3847](./Figures/StructuralRearrangements.png){width=100%}
+
++ [CUP1](https://www.yeastgenome.org/locus/S000001095) - A gene involved in heavy metal (copper) tolerance with copy-number variation (CNV) in population.
++ [YHR054C](https://www.yeastgenome.org/locus/S000001096) - Putative protein of unknown function.
+
+### We Changed the Names
+
++ YPRP FASTA files only contain chromosome names
++ We prefixed every chromosome with its assembly name and a "." delineator
+  + e.g. S288C.chrVIII
++ [Pangenome Sequence Naming Specification](https://github.com/pangenome/PanSN-spec)
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+<!--chapter:end:index.Rmd-->
+
+# Visualizing Genomes
+
+![Compressed de Bruijn graphs “hairballs”: https://academic.oup.com/bioinformatics/article/30/24/3476/2422268](./Figures/hairballsB.png){width=100%}
+
+## Set up Directories
+
+1. Make sure you're working in a **screen**
+
+2. Make directory
+
+```
+mkdir viz
+```
+3. Navigate to the directory
+
+```
+cd viz
+```
+4. Link to data
+
+```
+ln -s /home/pangenomics/data/yprp/ .
+```
+
+## Graphical Fragment Assembly (GFA) format
+
++ Originally developed for representing genomes during assembly
++ Now used for pangenomics 
++ More on this later...
+
+## Bandage
+
+![Bandage: https://rrwick.github.io/Bandage/](./Figures/Bandage.png){width=100%}
+
++ BLAST integration
+  + Can build a local BLAST database of the graph
+  + Can do a web BLAST search with sequences from nodes
+2. More details on making CSV labels: https://github.com/rrwick/Bandage/wiki/CSV-labels
+
+### **Group exercise:**{-}
+
+1. Copy the following example graph from logrus to your computer:
+```
+logrus:/home/<username>/yprp/example/S288C.SK1.minigraph.gfa
+```
+2. Open Bandage and load the graph
+3. Spend some time exploring the graph
+4. If your have BLAST, find [CUP1](https://www.yeastgenome.org/locus/S000001095) and [YHR054C](https://www.yeastgenome.org/locus/S000001096) via BLAST
+  + How many copies are in the graph?
+  + What does the structure it’s in look like?
+  + Take a screenshot of the region that CUP1 is in with the gene colored
+
+## General Feature Format (GFF)
+
+https://genome.ucsc.edu/FAQ/FAQformat.html#format3
+
+
++ Plain text file
++ 3 different versions
++ Each line represents a feature
++ 9 Columns
+  + Tab separated
+  + First 7 are the same for all feature types
+    + seqname, source, feature, start, end, score, strand
+  + 8th column is phase of CDS (coding DNA sequence) features
+    + 0, 1, or 2 for CDS features, . otherwise
+  + 9th column is for additional attributes related to feature
+
+## Browser Extensible Data (BED) Format
+
+https://genome.ucsc.edu/FAQ/FAQformat.html#format1
+
++ Plain text file
++ Designed for drawing features in genome browsers
++ Each line represents a genomic region and associated annotations
+  + Features aren’t necessary biological
++ 12 Columns
+  + Tab or white-space separated
+  + First 3 are required
+    + chrom, chromStart, chromEnd
+  + The next 9 are optional
+    + name, score, strand, thickStart, thickEnd, itemRgb, blockCount, blockSizes, blockStart
+
+## Integrative Genomics Viewer (IGV)
+
+https://software.broadinstitute.org/software/igv/
+
++ View GFF/BED files relative to FASTA and multiple sequence alignments
++ Doesn’t work with with names that contain dots “.”
+  + This conflicts with our naming convention, but we’ll work around it...
+
+### **Group exercise:**{-}
+
+1. Open IGV with S288C and GFF from [YPRP](https://yjx1217.github.io/Yeast_PacBio_2016/data/)
+2. Find [CUP1](https://www.yeastgenome.org/locus/S000001095) and [YHR054C](https://www.yeastgenome.org/locus/S000001096)
+    + How many copies does it have?
+
+## Linking IGV with Bandage
+
+1. Convert graph from gfa to bed
+
+```
+gfatools gfa2bed yprp/example/S288C.SK1.minigraph.gfa > S288C.SK1.minigraph.bed
+
+```
+
+### **Group Exercise**{-}
+
+1. Find an interesting structure in Bandage
+2. Get its node ID(s)
+3. `grep` the BED file for the ID(s)
+
+Why isn’t this BED file going to work in IGV?
++ How should we solve this issue?
+
+4. Implement *your* solution
+5. Are there any other nuances you notice in the BED file?
+
+
+
+
+<!--chapter:end:01-visualizing-genomes.Rmd-->
+
+# Reference Graphs with VG
+
+## Variation Graph Toolkit (VG)
+
++ Constructs graphs
++ Manipulates graphs
++ Indexes graphs
++ Maps sequences to graphs
++ Calls variants on mapped sequences
++ Visualizes graphs
+
+![Garrison, E., Sirén, J., Novak, A. et al.](./Figures/VGref.png){width=65%}
+
+![vg Graph Genomics Pipeline: https://github.com/vgteam/vg](./Figures/VGpipe.png){width=100%}
+
+Also does:
+
++ [Transcriptomic analysis](https://github.com/vgteam/vg#transcriptomic-analysis)
++ Assembly-based pipelines
++ So much more
+
+Graphs are cyclic, but otherwise general, i.e. reference, iterative, reference-free, etc.
+
+## Reference Graphs
+
+A reference genome "decorated" with variants:
+
+![GRAF™ Pan Genome Reference: https://www.sevenbridges.com/graf/](./Figures/GRAF.png){width=100%}
+ 
+## Pipeline
+
+1. Prepare input
+2. Construct graph
+3. View with Bandage
+
+## Preparing the Input
+
+Already **done** for you:
+
++ Reference FASTA
+  + Description lines should only contain chromosome names
+  + Remove extraneous sequences, e.g. mitochondrial DNA
++ VCF
+  + Ideally chromosome names exactly match chromosome names in reference
+
+## Set up directories
+
+1. Make sure you're working in a **screen**
+2. Make directory
+
+```
+mkdir vg
+```
+3. Navigate to the directory
+
+```
+cd vg
+```
+4. Link to data
+
+```
+ln -s /home/pangenomics/data/yprp/ .
+```
+
+## Variant Call (VCF) Format
+
+https://en.wikipedia.org/wiki/Variant_Call_Format 
+
++ Plain text file
++ Header:
+  + Header lines start with #
+  + Header lines with special keywords start with ##
++ Columns
+  + Tab separated
+  + 8 mandatory columns
+    + CHROM, POS, ID, REF, ALT, QUAL , FILTER, INFO
+  + 9th column is optional
+    + FORMAT
+  + Each additional column represents a sample and has the format described in the FORMAT column
+ 
+## Variation Graph (VG) Format
+
+https://github.com/vgteam/vg/wiki/File-Formats
+
++ [Protocol Buffer](https://protobuf.dev) messages (protobufs) describing a graph that can store sequence in its nodes and paths
++ Encoded as binary
++ Code for reading/writing protobufs can be generated for
+many languages
++ [vg.proto](https://github.com/vgteam/libvgio/blob/master/deps/vg.proto)
+
+## Yeast Data
+
+Reference: **S288C**
+
+VCF: [3 SV calling pipelines on the 11 non-reference strains](https://link.springer.com/article/10.1186/s13059-020-1941-7)
+
++ [Minimap2](https://github.com/lh3/minimap2) and paftools call
++ [LAST](https://last.cbrc.jp) and [AsmVar](https://github.com/bioinformatics-centre/AsmVar)
++ [nucmer](https://github.com/mummer4/mummer) and [Assemblytics](https://github.com/marianattestad/assemblytics)
+
+This workshop used an updated version of the Phase 1 pipeline available [here](https://github.com/alancleary/sv-genotyping-paper/tree/master/yeast#1-prepare-yeast-assemblies-and-call-svs-relative-to-the-reference-strain-s288c)
+
+## Construct Graph
+
+Construct a graph from the reference and VCF:
+```
+vg construct -r yprp/assemblies/S288C.genome.fa -v yprp/variants/S288C.vcf -S -a -f -p -t 20 > S288C.vg
+```
+
++ **-r yprp/assemblies/S288C.fa**
+    + the reference genome
++ **-v yprp/variants/S288C.sv.vcf**
+    + the VCF file containing variants (indels, structures, etc)
++ **-S**
+    + include structural variants in construction of graph
++ **-a**
+    + save paths for alts of variants by variant ID
++ **-f**
+    + don't chop up alternate alleles from input VCF
++ **-p**
+    + show progress
++ **-t 20** 
+    + use 20 threads
++ **> S288C.vg**
+    + write the standard out (the computed graph) into S288C.vg
+
+Compact chains of nodes:
+```
+vg mod -u S288C.vg -t 20 > S288C.unchop.vg
+```
+
++ **-u**
+    + unchop nodes, i.e. compact chains
+
+## Viewing with Bandage
+
+Convert the graph from vg to gfa:
+```
+vg view S288C.unchop.vg -g > S288C.unchop.gfa
+```
+
++ **-g**
+    + output GFA format
+
+### Exercise
+
+1. Open with Bandage
+2. Where’s CUP1?
+3. Does the graph capture any CNV?
+4. What does it look like?
+5. Take a screenshot of the CUP1 region
+ 
+## VG Index Formats
+
+https://github.com/vgteam/vg/wiki/File-Formats
+
+XG (lightweight graph / path representation)
+
++ Binary file containing graph structure (nodes, edges, paths) but no sequences
++ Complex data structure that answers graph queries efficiently
+
+GCSA (Generalized Compressed Suffix Array)
+
++ Equivalent to .sa file created by bwa index
++ Binary file containing a suffix array that efficiently looks up where sequences occur in the graph
+
+## Indexing
+
+Generate .xg and .gcsa files (5min):
+```
+vg index -x S288C.xg -g S288C.gcsa S288C.vg -t 20
+```
+
++ **-x S288C.xg**
+    + the output .xg file
++ **-g S288C.gcsa** 
+    + the output GCSA file
++ **-t 20** 
+    + use 20 threads
+    
+NOTE: **Don’t** index the **unchopped** file!
+
+NOTE: You can index a GFA file but this may have implications for mapping.
+There’s also an [autoindex](https://github.com/vgteam/vg/wiki/Automatic-indexing-for-read-mapping-and-downstream-inference) command.
+
+## Graph Alignment/Map (GAM) Format
+ 
+https://github.com/vgteam/vg/wiki/File-Formats
+
++ Analogous to BAM, but for graphs
++ Binary file describing where reads mapped to in the graph
+structure
++ Uncompressed has one read per line
++ Can be converted to JSON for manual parsing (very inefficient!)
+
+## Read Mapping
+
+Map reads (13min):
+```
+vg map -d S288C -f yprp/reads/SK1.illumina.fastq.gz -t 20 > S288C.SK1.illumina.gam
+```
+
++ **-d S288C**
+    + use the S288C.xg and S288C.gcsa files
++ **-f yprp/reads/SK1.illumina.fastq.gz**
+    + the reads file
++ **-t 20**
+    + use 20 threads
++ **S288C.SK1.illumina.gam**
+    + the output GAM file
+
+Computing mapping stats (1min):
+
+```
+vg stats -a S288C.SK1.illumina.gam
+```
+
++ **-a**
+    + input is an alignment (GAM) file
+
+
+##  Bringing Alignments Back to Single Genomes
+
+Map reads (2min):
+
+```
+vg surject -x S288C.xg -b S288C.SK1.illumina.gam -t 20 > S288C.SK1.illumina.BAM
+```
++ **-x S288C.xg**
+    + graph or xg to use
++ **-b**
+    + BAM output
++ **-t 20**
+    + use 20 threads
+
+### **Exercise:**{-}
+
+1. Rename chromosomes in BED for us with IGV
+2. Copy BED to personal computer
+3. Spend some time looking at BED in IGV and share any interesting observations
+you may have? 
++ What’s up with CUP1?
+ 
+
+##  Preparing the BAM IGV (or other genome viewer)
+
+Only necessary if genome viewer can’t match UCSC style names names in BAM to chromosomes in reference 
+===>
+
+1. Convert BAM to SAM:
+
+```
+samtools view -h -o S288C.SK1.illumina.sorted.sam S288C.SK1.illumina.sorted.bam
+```
+
+2. Remove assembly name:
+
+```
+sed 's/S288C.//' S288C.SK1.illumina.sorted.sam > S288C.SK1.illumina.sorted.renamed.sam
+```
+ 
+3. Convert SAM to BAM
+
+```
+samtools view -bS S288C.SK1.illumina.sorted.renamed.sam > S288C.SK1.illumina.sorted.renamed.bam
+```
+<===
+ 
+4. Sort the bam file:
+
+```
+samtools sort -o S288C.SK1.illumina.sorted.bam S288C.SK1.illumina.bam
+```
+
+5. Index BAM:
+
+```
+samtools index S288C.SK1.illumina.sorted.renamed.bam
+```
+
+## Pack (pileup support) Format
+
+https://github.com/vgteam/vg/wiki/File-Formats
+
++ Binary file
++ Computes pileup support for each read in a mapping
++ The format isn’t actually documented...
+
+## Calling Graph Supported Variants
+
+Compute read support for variation already in the graph (1min):
+
+```
+vg pack -x S288C.xg -g S288C.SK1.illumina.gam -Q 5 -s 5 -o S288C.SK1.illumina.pack -t 20
+```
+
++ **-Q 5**
+    + ignore mapping and base quality < 5
++ **-s 5**
+    + ignore the first and last 5pb of each read
++ **-o S288C.SK1.illumina.pack**
+    + the output pack file
++ **-t 20**
+    + use 20 threads
+    
+Generate a VCF from the support (1min):
+
+```
+vg call S288C.xg -k S288C.SK1.illumina.pack -t 20 > S288C.SK1.illumina.graph_calls.vcf
+```
+
+## Calling Novel Variants
+
+Augment the graph with the mapped reads (52min):
+
+```
+vg augment S288C.vg S288C.SK1.illumina.gam -A S288C.SK1.illumina.aug.gam -t 20 > S288C.SK1.illumina.aug.vg
+```
+
++ *NOTE: Only supports VG files and indexes used for mapping must be built from the same VG file being augmented, i.e. indexes build from GFA files that were then converted to VG won’t work.*
+
+Index the augmented graph (2min):
+
+``` 
+vg index -x S288C.SK1.illumina.aug.xg S288C.SK1.illumina.aug.vg -t 20
+```
+
+Compute read support for novel variation (3min):
+
+```
+vg pack -x S288C.SK1.illumina.aug.xg -g S288C.SK1.illumina.aug.gam -Q 5 -s 5 -o S288C.SK1.illumina.aug.pack -t 20
+```
+
+Generate a VCF from the support (5min)
+
+```
+vg call S288C.SK1.illumina.aug.xg -k S288C.SK1.illumina.aug.pack -t 20 > S288C.SK1.illumina.aug_calls.vcf
+ ```
+ 
+## Calling Variants Already in the Graph
+
+Output variants used to construct graph (<1min):
+
+```
+vg deconstruct S288C.xg -P S288C -t 20 > S288C.deconstruct.vcf
+ ```
+ 
++ **-P S288C**
+    + report variants relative to paths with names that start with S288C
+
+**`S288C.deconstruct.vcf` might not be identical to S288C.vcf because VG takes liberties with variants when constructing the graph.**
+
+##  Pros and Cons Reference Graphs
+
+**Pros:**
+
++ Graphs are relatively small
+  + Easy to inspect visually
+  + Good for low-quality / fragmented assemblies
+  + Shorter run-times
+
+**Cons:**
+
++ Variation represented is determined by VCF pipeline
+  + Only describes variation relative to the reference
+  + Suboptimal mappings
+  + Suboptimal population structure
+ 
+##  Additional vg Commands that are Useful
+
+### vg combine
+
+Combines two or more graphs into one.
+
++ Use to construct graph in parts (e.g. individual chromosomes) and then combine
++ Use to combine graphs of related species
+
+### Modifying and Simplifying Graphs
+
+**vg chunk** - Splits graphs or alignments into smaller chunks. 
+
+**vg mod** - Used to modify graphs.
+
+  + We’ve already used vg mod -u to “unchop” nodes. 
+
+**vg simplifying** - Simplifies a graph.
+
+**vg find** - Used to identify subgraphs based on various metrics and parameters.
+
+  + e.g. anchored by a region on a specific chromosome. 
+
+Use **--help** with any command to learn how to use it.
+
+## Drawing Graphs 
+
+**vg view** - Outputs graphs and other structures for drawing.
+
+  + We’ve already used vg *view -g* to convert from vg to gfa for viewing in Bandage.
+  + Can also output dot (among other files types) which is a more general graph drawing format (compatible with [Graphviz](https://graphviz.org)).
+
+**vg viz** - Basic graph drawing ([documentation](https://github.com/vgteam/vg/wiki/Visualization)).
+  + Recommend only using on **small (sub)graphs**.
+  + Use in conjunction with *chunk*, *mod*, and/or *find* to draw an interesting subgraph.
+  + You can include mapped reads in the visualization!
+ 
+
+
+<!--chapter:end:02-reference-graphs-vg.Rmd-->
+
+# Incremental Graphs with *minigraph*
+
+## Minigraph Functions
+
+Constructs graphs
+
+Maps sequences to graphs
+
+https://github.com/lh3/minigraph
+
+
+## Minigraph Overview
+
+Finds approximate positions of diverged sequences and adds them into the graph
+
+1-to-1 orthogonal regions
+
+<center>
+![Graph Construction https://github.com/lh3/minigraph](./Figures/Minigraph.png){width=50%}
+</center>
+
+## Minimizers and Minimap2
+Minigraph is built off of ideas and code from Minimap2.
+
+### Minimizers {-}
+From the minimap2 usage:
+"A minimizer is the smallest k-mer in a window of w consecutive k-mers."
+
+Essentially a minimizer tags a sequence window with the kmer that is first alphabetically.
+
+
+A nice tutorial:  
++ https://homolog.us/blogs/bioinfo/2017/10/25/intro-minimizer/
+
+### Minimap2 {-}
+Minimap2 is a fast sequence aligner.
+It can align short or long reads or assemblies against a reference using the seed-chain-align approach that many aligners employ. It finds exact matches (anchors) between query minimizers (seeds) and indexed reference minimizers. It links colinear anchors together (chains). For nt-level alignment it fills in regions between anchors within chains and between chains (align).
+
+https://github.com/lh3/minimap2  
+https://academic.oup.com/bioinformatics/article/34/18/3094/4994778
+
+## Pipeline
+
+1. Prepare the input
+2. Build graphs
++ Build a single genome graph and incrementally add more sequences
++ Or build a graph for all sequences at once
+3. View with Bandage
+
+## Yeast Assemblies
+
+*12 Mb*  
+*16 chromosomes*
+
+<br>
+Yeast Population Reference Panel (YPRP)  https://yjx1217.github.io/Yeast_PacBio_2016/data/
+
+12 Yeast PacBio Assemblies (Chromosome level)
+
+>1. ~100-200x PacBio sequencing reads 
+>2. HGAP + Quiver polishing  
+>3. ~200-500x Illumina (Pilon correction)  
+>4. Manual curation  
+>5. Annotation
+
+<br>
+
+
+![YPRP Assemblies https://yjx1217.github.io/Yeast_PacBio_2016/data/](./Figures/Yeast.png){width=100%}
+
+
+<br>
+
+>Make sure your chromosome names are unique across all samples and that they contain the sample name. We’re using \<strain name>.\<chromosome> (>S288C.chrVIII)
+
+<br>
+
+## Prepare the Input
+
+1. Make sure you're working in a **screen**
+
+2. Make Directory
+
+```{bash, eval=FALSE}
+mkdir --parents ~/pangenomics/minigraph
+```
+3. Navigate to the Directory
+
+```{bash, eval=FALSE}
+cd ~/pangenomics/minigraph
+```
+4. Link to data
+
+```{bash, eval=FALSE}
+ln -s /home/pangenomics/data/yprp/assemblies/*.fa .
+```
+
+## Graphical Fragment Assembly (GFA) format
+
+
+Tab-delimited text
+
+Lines start with one of the following types:
+
+
+| Type | Description | Explanation |
+|:--|:-----|:---------|
+| **H**  |  Header  |       |
+| **S**  |  Segment  |  A continuous sequence or subsequence   |
+| **L** |  Link |  Segment overlaps (basepairs & orientations)  |
+| **J** | Jump | Jumps link sequences across gaps |
+| **C** | Containment | Segment contained in another segment |
+| **P** | Path | An ordered & oriented list of linked segments |
+| **W** | Walk | An ordered & oriented list of segments w/o overlaps |
+| **#** | Comment | |
+
+Optional Fields TAG:TYPE:VALUE  
+http://gfa-spec.github.io/GFA-spec/GFA1.html
+
+Let's go to the specification to look at optional fields and an example:  
+http://gfa-spec.github.io/GFA-spec/GFA1.html
+
+
+## *reference* Graphical Fragment Assembly (rGFA)
+
+https://github.com/lh3/gfatools/blob/master/doc/rGFA.md
+
++ Strict subset of GFA
++ Tags that trace origin
++ Stable coordinates
+
+<center>
+![Additional required tags trace origin of segment](./Figures/rGFA1.png){width=80%}
+
+![Example rGFA](./Figures/rGFA2.png){width=70%}
+</center>
+
+## Build Graphs
+
+
+1. The first sequence in the graph is used as a “reference”:
+
+```{bash, eval=FALSE}
+minigraph -xggs reference.fa -t 20 > ref.minigraph.gfa
+```
+
++ **-xggs** 
+    + build a graph using a simple (ggs) algorithm
++ **-t 20**
+    + use 20 threads
+
+2. Incrementally add strains to graph:
+
+```{bash, eval=FALSE}
+minigraph -xggs ref.minigraph.gfa strain_1.fa > strain_1.minigraph.gfa
+
+minigraph -xggs strain_1.gfa strain_2.fa > strain_2.minigrpah.gfa
+...
+
+minigraph -xggs string_N-1.gfa strain_N.fa > yprp.minigraph.gfa
+```
+
+3. Or build a graph for all strains at once:
+
+```{bash, eval=FALSE}
+minigraph -xggs ref.minigraph.gfa strain_*.fa > yprp.minigraph.gfa
+```
+
+## Reference Graph
+
+Activate the environment
+```{bash, eval=FALSE}
+source activate pangenomics
+```
+
+Now that you know how to build a minigraph, try to create a graph for the reference (S288C) and answer the following questions.
+
+1. Make the reference graph
+```{bash, eval=FALSE}
+
+```
+
+2. How many lines in the gfa file?
+```{bash, eval=FALSE}
+
+```
+
+3. What type of lines are they?
+```{bash, eval=FALSE}
+
+```
+
+### Reference Graph Commands {-}
+
+1. Make the reference graph
+
+```{bash, eval=FALSE}
+minigraph -xggs S288C.genome.fa > ref.minigraph.gfa
+```
+
+2. How many lines in the gfa file?
+
+```{bash, eval=FALSE}
+wc -l ref.minigraph.gfa
+```
+
+3. What type of lines are they?
+
+```{bash, eval=FALSE}
+cut -f 1 ref.minigraph.gfa | sort | uniq -c
+```
+
+### Reference Graph Bandage Visualization {-}
+
+Download your gfa file onto your computer and upload it into Bandage.
+
+![Reference Graph Bandage](./Figures/Bandage2.png){width=70%}
+
+## YPRP Graphs
+
+
+1. Add in the rest of the lines
++ we’ll do this alphabetically
++ capture the stderr
+
+```{bash, eval=FALSE}
+minigraph -xggs ref.minigraph.gfa $(ls yprp/assemblies/*fa | grep -v S288C) > yprp.minigraph.gfa 2>yprp.minigraph.err
+```
+
+*Note:* We can simply use the reference fasta instead of a gfa
+
+```{bash, eval=FALSE}
+minigraph -xggs yprp/assemblies/S288C.genome.fa $(ls yprp/assemblies/*fa | grep -v S288C) > yprp.minigraph.gfa 2>yprp.minigraph.err
+```
+
+Try to answer the following questions:
+
+1. How many lines are in the gfa file?
+
+```{bash, eval=FALSE}
+
+```
+
+2. What type of lines are they?
+
+```{bash, eval=FALSE}
+
+```
+
+3. How many yeast assemblies have inversions compared to S288C (hint: look in the stderr)?
+
+```{bash, eval=FALSE}
+
+```
+
+### YPRP Commands {-}
+
+1. How many lines are in the gfa file?
+
+```{bash, eval=FALSE}
+wc -l yprp.minigraph.gfa
+```
+
+2. What type of lines are they?
+
+```{bash, eval=FALSE}
+cut -f 1 yprp.minigraph.gfa | sort | uniq -c
+```
+
+3. How many yeast assemblies have inversions compared to S288C (hint: look in the stderr)?
+
+```{bash, eval=FALSE}
+grep inv yprp.minigraph.err
+```
+
+### YPRP Graph Statistics {-}
+
+```{bash, eval=FALSE}
+gfatools stat yprp.minigraph.gfa
+```
+
+Number of segments: 2729
+
+Number of links: 3864
+
+Number of arcs: 7728
+
+Max rank: 11
+
+Total segment length: 13243550
+
+Average segment length: 4852.895
+
+Sum of rank-0 segment lengths: 12157149
+
+Max degree: 7
+
+Average degree: 1.416
+
+
+
+### YPRP Graph in Bandage {-}
+
+Take a look at the YPRP graph in Bandage. Your might be rendered differently.
+
+![YPRP Graph Bandage](./Figures/YPRPBandage1.png){width=100%} 
+<br>
+<br>
+
+## Structures in the graph
+
+### Insertions and Diverged Regions {-}
+
+Zoom in on segment s1054.
+
+Trace the S288C path (hint: the S288C segments are numbered sequentially).
+
+Identify insertions and regions that have diverged.
+
+ 
+![YPRP Graph Bandage](./Figures/YPRPBandage2.png){width=100%} 
+
+### Group Exercise{-}
+
+1. Find a simple and a complex region
+2. Discuss it in your group
+3. Share it with everyone
+4. Keep track of the segments
+
+### Inversions {-}
+
+Here are some examples of inversions.
+
+![Inversion signatures](./Figures/Inversionsx2.png){width=75%} 
+
+Let's find them in bandage.
+
+s1289 LN:i:24089 SN:Z:S288C.chrXIV SO:i:567595
+
+s1672 LN:i:257 SN:Z:DBVPG6044.chrV SO:i:446168
+
+
+Click on the links (black) to see the direction that paths can travel.
+
+Do a web-blast in Bandage to see what they might code for.
+
+
+
+### Inversions in the GFA {-}
+
+I found the inversions by searching the graph GFA file for pairs of segments that have two links between them.
+
+```{bash, eval=FALSE}
+ grep '^L' yprp.minigraph.gfa | awk '{print $2 "\t" $4}'|sort|uniq -c|awk '$1>=2{print}'
+```
+
+
+2 s1288 s1289  
+2 s1289 s1290  
+2 s1671 s1672  
+2 s1672 s1673
+
+
+1. Pull out s1289, its adjacent segments and the links connecting them
+
+```{bash, eval=FALSE}
+gfatools view -l s1289 -r 1 yprp.minigraph.gfa
+```
+
+>**-l STR/@FILE**.       segment list to subset [ ]   
+>**-r INT**.       subset radius (effective with -l) [0]
+    
+Showing just the links here:  
+L       s1288   +       s1289   +       0M      SR:i:0  L1:i:4105       L2:i:24089  
+L       s1288   +       s1289   -       0M      SR:i:5  L1:i:4105       L2:i:24089  
+L       s1289   +       s1290   +       0M      SR:i:0  L1:i:24089      L2:i:1511  
+L       s1289   -       s1290   +       0M      SR:i:5  L1:i:24089      L2:i:1511
+
+2. Now do the same for s1672
+
+3. Try extending the surrounding region by increasing the -r parameter
+
+## Minigraph Blog
+
+Heng Li
+http://lh3.github.io/2021/01/11/minigraph-as-a-multi-assembly-sv-caller
+
+## Bonus Questions
+
+1. What is the longest segment in the graph?
+[Hint: Parse out the number from the 4th field of the segment line]
+2. What is the shortest segment in the graph?
+3. What cigar strings exist for the overlaps in the links? [Hint:
+Field 6 of the link line]
+4. How many segments are attributed to each genome? [Hint: Parse out field 5 of the segment line]
+ 
+### Commands for Bonus Questions {-}
+
+1. What is the longest segment in the graph?
+
+```{bash, eval=FALSE}
+grep "^S" yprp.minigraph.gfa |cut -f 4|sed 's/.\+://'|sort -n | tail -1
+```
+
+2. What is the shortest segment in the graph?
+
+```{bash, eval=FALSE}
+grep "^S" yprp.minigraph.gfa |cut -f 4|sed 's/.\+://'|sort -n | head -1
+```
+
+3. What cigar strings exist for the overlaps in the links? [Hint: Field 6 of the link line]
+
+```{bash, eval=FALSE}
+grep "^L" yprp.minigraph.gfa |cut -f 6|sort -u
+```
+
+4. How many segments are attributed to each genome?
+
+```{bash, eval=FALSE}
+grep "^S" yprp.minigraph.gfa |cut -f 5|sed 's/SN:Z://'|sed 's/\..\+//'|sort|uniq -c
+```
+
+*Note:* There are lots of ways to do this.
+
+## Graph to Fasta
+
+We can convert the gfa graph file to a fasta file the represents the sequence of the pangenome.
+
+>Fasta format:  
+>>header  
+>ACGCGCTAGCGCGAC  
+>ACGGCGTAGGGGCAG  
+>ACGGCT
+
+```{bash, eval=FALSE}
+gfatools gfa2fa -s yprp.minigraph.gfa > minigraph.stable.fa
+```
+
+### FASTA questions {-}
+
+Answer the following questions:
+
+1. How many sequences?
+
+```{bash, eval=FALSE}
+
+```
+
+2. Take a look at the headers
+
+```{bash, eval=FALSE}
+
+```
+
+### FASTA Commands {-}
+
+1. How many sequences?
+
+```{bash, eval=FALSE}
+grep -c '>' minigraph.stable.fa
+```
+
+2. Take a look at the headers
+
+```{bash, eval=FALSE}
+grep '>' minigraph.stable.fa|less
+```
+
+## GAF format
+
+“The only visual difference between GAF and PAF is that the 6th column in GAF may encode a graph path like >MT_human:0-4001<MT_orang:3426-3927 instead of a contig/chromosome name.”
+
+https://github.com/lh3/minigraph
+
+
+Let's look at PAF format
+https://lh3.github.io/minimap2/minimap2.html
+
+
+## Read Mapping
+
+Align reads from SK1 to the minigraph
+
+21,906,518 paired Illumina reads  
+Read length = 151 nts
+
+```{bash, eval=FALSE}
+minigraph -x sr /home/pangenomics/data/yprp/reads/SK1.illumina.fastq.gz -t 20 > SK1.mapped.gaf
+```
+
+>**-x sr**        map short reads (sr)
+
+
+## Read Mapping Stats
+
+Ideally we would convert from GAF to GAM using vg convert the calculate stats with vg stats but it doesn't work.
+
+Count the number of primary alignments
+
+```{bash, eval=FALSE}
+grep -c "tp:A:P" SK1.mapped.gaf
+```
+
+18092858 primary alignments  
+
+Calculate the percent of reads that had alignments
+
+18092858/21906518 = 82.59% of reads aligned
+
+
+## Structural Variant Calling
+
+Call structural variants with gfatools (doesn’t work with VG graphs):
+
+```{bash, eval=FALSE}
+gfatools bubble yprp.minigraph.gfa > yprp.minigraph.structural.bed
+```
+ 
+
+![BED](./Figures/BED.png){width=100%}
+https://github.com/lh3/minigraph
+ 
+### Structural Variant Stats {-}
+
+1. Total number of variants:
+
+```{bash, eval=FALSE}
+wc -l yprp.minigraph.structural.bed
+```
+
+2. Indels (the shortest path is 0)
+
+```{bash, eval=FALSE}
+awk '$7==0{print}'
+yprp.minigraph.structural.bed|wc -l
+```
+
+3. Inversions
+
+```{bash, eval=FALSE}
+awk '$6==1{print}' yprp.minigraph.structural.bed | cut -f 1-12
+```
+
+![Inversions](./Figures/Inversions.png){width=100%}
+
+
+## CUP1
+
+### Visualize the CUP1 region {-}
+
+10 working copies + 1 pseudogene in S288C
+
+![Structural Rearrangement](./Figures/StructuralRearrangements.png){width=100%}
+ 
+1. Find the region in the graph based on its S288C coordinates  
+S288C.chrVIII:213045-233214
+
+```{bash, eval=FALSE}
+gfatools view -R S288C.chrVIII:213045-233214 yprp.minigraph.gfa > cup1.gfa
+```
+
+
+2. Create a .csv to bring in the segment names  
+Note that you need a header
+
+```{bash, eval=FALSE}
+ cat <(echo "Segment,Name") <(grep "^S" cup1.gfa | awk '{print $2 "," $5}') > cup1.csv
+```
+
+3. Load the graph and the .csv file into Bandage
+
+<center>
+![Bandage](./Figures/Bandage3.png){width=60%}
+</center>
+
+
+This compares S288C and SK1.
+
+<center>
+![Bandage](./Figures/Bandage4.png){width=35%}
+
+![Structural Rearrangement](./Figures/StructuralRearrangements.png){width=100%}
+</center>
+
+If you have blast installed on your computer, you can blast the two gene sequences to their positions. CUP1 is the smaller one. Gene sequences are in: /home/pangenomics/data/yprp/genes/
+
+<center>
+![Bandage](./Figures/Bandage5.png){width=70%}
+</center>
+
+### CUP1 Paths in Y12 {-}
+
+Let's find the Y12 paths through the graph for all bubbles in the CUP1 graph file.
+
+```{bash, eval=FALSE}
+minigraph -xasm -l100 --call cup1.gfa /home/pangenomics/data/yprp/assemblies/Y12.genome.fa > Y12.call.bed
+```
+
+Output
+S288C.chrVIII   213609  233593  >s720   >s722 >s2512>s2052>s2513>s2054>s2514>s2056>s2515>s2058:11410:+:Y12.chrVIII:206778:21819
+
+alignment path through the bubble:path length:mapping strand:the contig name:approximate contig start:approximate contig end
+
+
+### CUP1 Paths in all yeast genomes {-}
+
+Let’s do all the samples:
+
+```{bash, eval=FALSE}
+for i in yprp/assemblies/*.fa; do
+   bn=`basename $i .fa`
+   minigraph -xasm -l100 --call cup1.gfa $i > $bn.call.bed
+done
+```
+
+Compare to the Bandage Graph
+
+## Minigraph Pros and Cons
+
+**Pros**
+
+Captures length variation   
+Efficient   
+Easy to add new genomes
+
+**Cons**
+
+Lack of base level alignment + sample input order dependency =  
+    + suboptimal mappings  
+    + suboptimal local graphs  
+Needs collinear chains so it doesn’t work well with many short segments such as rare SNPs.
+
+https://github.com/lh3/minigraph#limitations
+
+“Please do not overinterpret complex subgraphs. If you are interested in a particular subgraph, it is recommended to extract the input contig subsequences involved in the subgraph with the --call option and manually curated the results.”
+
+## Blog Battle
+
+**Heng Li (Minigraph)**
+
+https://lh3.github.io/2019/07/08/on-a-refere nce-pan-genome-model
+
+**Erik Garrison (VG)**
+
+https://ekg.github.io/2019/07/09/Untangling -graphical-pangenomics
+
+**Heng Li (Minigraph)**
+
++ https://lh3.github.io/2019/07/12/on-a-refere nce-pan-genome-model-part-ii
+ 
+## Exercises
+
+### Start with another reference {-}
+
+1. What reference did you choose? 
+2. What order are the other samples in?
+3. How does the graph compare?
+4. How does read mapping compare?
+5. How do structural variant calls compare? 
+6. How does the cup1 region compare? 
+7. Any other interesting differences?
+
+### Another Yeast Dataset {-}
+
+A subset of yeast genomes from: https://www.nature.com/articles/s41586-018-0030-5.pdf
+
+Data are in: /home/pangenomics/data/1011yeast/assemblies/*fa.gz
+
+1. How many sequences in each assembly? Min? Max?
+2. Make and characterize a minigraph
++ Choose 13 lines to match the number of genomes we ran earlier   
++ Try all 127 assemblies  
+3. How do these graphs compare to our previous yeast graph? 
+4. Pick a region from one of the graphs and make and characterize a subgraph.
+
+### Human GFA {-}
+
+**lipoprotein(a) - LPA** 
+
+See if you can pull out and visualize the LPA region pictured below from two human GFA files from different versions of the human reference (GRCh38.p13 and CHM13). BLAST the LPA gene against the graphs in Bandage.
+
+GFA files are in /home/pangenomics/data/1011yeast/assemblies/. The LPA gene sequence is in /home/pangenomics/data/human/genes/
+
+Approximate Positions:
+
++ GRCh38.p13 chr6 160000000-161000000 complement
+
++ CHM13 chr6 161200000-162200000
+
+
+<center>
+![LPA](./Figures/LPA.png){width=60%}
+http://lh3.github.io/2021/01/11/minigraph-as-a-multi-assembly-sv-caller
+</center>
+
+Your results should look something like this.
+
+![GRCh38.p13](./Figures/GRCh38.p13.png){width=100%}
+
+### Convert to VG and call variants {-}
+
+Convert minigraph to vg (<1min):
+
+```{bash, eval=FALSE}
+vg convert -g yprp.minigraph.gfa -v -t 20 > yprp.minigraph.vg
+```
+
+>**-g**        input GFA graph
+>**-v**        output VG graph
+>**-t 20**       use 20 threads
+    
+Make vertices small enough (<=1024bp) for indexing (<1min):
+
+```{bash, eval=FALSE}
+vg mod -X 256 yprp.minigraph.vg -t 20 > yprp.minigraph.mod.vg
+```
+
+>**-X**       max node size
+>**-t 20**       use 20 threads
+    
+*NOTE:* Converting to VG isn’t required if not calling variants, i.e. you can index and map directly on GFA.
+
+1. Use vg to index the VG graph (2min)
+2. Use vg to map SK1 reads to minigraph GFA (17min)
+3. Use vg to call variants on read mapping GAM
+    a. pack (20min)
+    b. call (<1min)
+    c. don’t do augment; run-time too long!
+
+
+<!--chapter:end:03-incremental-graphs-minigraph.Rmd-->
+
+# Reference-Free Graphs with Cactus
+
+## Cactus
+
+https://github.com/ComparativeGenomicsToolkit/cactus
+
++ Reference-free whole genome MSA 
++ Constructs graph based on MSA
+ 
+## Cactus Graphs
+
+Cactus Graphs “naturally decompose the common substructures in a set of related genomes into a hierarchy of chains that can be visualized as two-dimensional multiple alignments and nets that can be visualized in circular genome plots”
+
+https://www.liebertpub.com/ doi/abs/10.1089/cmb.2010.02 52
+
+![Cactus](./Figures/Cactus.png){width=100%} 
+
+##  Cactus Algorithm
+
+1. Multiple sequence aligner
+2. Originally developed for multi-species alignments
+3. Fast because it uses a guide tree (Newick format)
++ https://evolution.genetics.washington.edu/phylip/newicktree.html
+4. Now supports minigraph GFA in place of guide tree for pangenome
+alignments
++ https://github.com/lh3/minigraph
+
+![Yeast](./Figures/Yeast.png){width=100%}
+
+## Reference-Free Graphs
+
+https://academic.oup.com/bioinformatics/article/30/24/3476/2422268
+
+![Input Genomes](./Figures/InputGenomes.png){width=100%}
+
+## Pipeline
+
+1. minigraph
+2. Prepare the input
+3. cactus
+4. vg
+5. View with Bandage
+
+### Set up Directories
+
+1. Make sure you're working in a **screen**
+
+2. Make Directory
+
+```
+mkdir cactus
+```
+3. Navigate to the Directory
+
+```
+cd cactus
+```
+4. Link to data
+
+```
+cp -r /home/pangenomics/data/yprp/assemblies .
+```
+
+*Note:* Don't use "ln -s /home/pangenomics/data/yprp/ ."
+
+## Yeast Data
+
+Reference:
++ S288C
+
+Using all 12 YPRP assemblies
+
+## Preparing the Input
+
+**(already done for you)**
+
+1. FASTA files
++ Chromosome names should be unique across files
+    + We’re using: 
+    
+    ```
+    <strain name>.<chromosome>*
+    ```
+    
+E.G.
+
+>S288C.chrI
+
+## minigraph
+
+Use the graph we previously built: yprp.minigraph.gfa
+
+## Preparing the Input (exercise)
+
+1. Cactus seqFile tells Cactus where to load sequences from
++ Maps sequence names to file paths
+    + We’re using: 
+    
+    ```
+    “strain name>\t<path to sequence>”
+    ```
+
+    + Must include “_MINIGRAPH_” entry for path to minigraph GFA 
+
+E.G.
+
+seqFile:
+S288C ./S288C.genome.fa _MINIGRAPH_ yprp.minigraph.gfa
+
++ It’s recommended the minigraph contains all the sequences in the seqFile
+
+2. Call it **yprp.seqFile.txt**
+
+## Cactus
+
+1. Align each input FASTA to the minigraph (2min):
+
+```
+ cactus-graphmap jobStore yprp.seqFile.txt yprp.minigraph.gfa
+ yprp.cactus.paf --outputFasta yprp.minigraph.gfa.fa
+ --maxCores 20
+ ```
+
++ **jobstore**
+    + a directory where intermediate files should be stored (shouldn’t exist)
++ **yprp.seqfile.txt**
+    + text file mapping sequence names to file paths
++ **yprp.minigraph.gfa**
+    + the graph constructed by minigraph
++ **yprp.cactus.paf**
+    + what to name the output pairwise mapping file
++ **yprp.minigraph.gfa.fa**
+    + a FASTA to output the GFA’s sequence to 
+*NOTE:* This command modifiers the seqFile. Make a copy before running!
+
+2. Generate multiple alignment and VG graph (19min):
+
+*NOTE*: Don’t run this command if you intend to use
+
+```
+ cactus-graphmap-split
+ cactus-align jobStore yprp.seqFile.txt yprp.cactus.paf
+ yprp.cactus.hal --pangenome --pafInput --outVG
+ --reference S288C --maxCores 20
+ ```
+
++ **yprp.cactus.hal**
+    + what to name the output multiple sequence alignment file
++ **reference S288C**
+    + the name of the reference in the seqFile (should be the same as
+the reference in the minigraph GFA)
+
+## Preparing the Input (exercise)
+
+1. Cactus contigs files tells Cactus to contigs to split the graph on
++ A list of all the S288C contigs
++ Call it S288C.contigs.txt
+
+### Preparing the Input (solution)
+
+Make a reference contigs file:
+
+```
+grep -Po "^>\K.*" ~/cactus/yprp/assemblies/S288C.genome.fa >
+S288C.contigs.txt
+```
+
+## Cactus Split
+
+1. Align each input FASTA to the minigraph and split by reference chromosome (4min):
+
+```
+ cactus-graphmap-split jobStore yprp.seqFile.txt
+ yprp.minigraph.gfa yprp.cactus.paf
+ --refContigsFile S288C.contigs.txt --reference S288C
+ --outDir chroms --maxCores 20
+ ```
+ 
++ **yprp.seqFile.txt**
+    + modified version from previous *cactus-graphmap* command
++ **yprp.cactus.paf**
+    + output from previous *cactus-graphmap* command
++ **-refContigsFile**
+    + the names of the chromosomes in the reference FASTA
++ **–reference**
+    + the name of the reference in the seqFile
++ **-outDir**
+    + where the split outputs should be placed
+
+2. Generate multiple alignment and graph for a chromosome (35min total):
+
+```
+cactus-align jobStore chroms/seqfiles/S288C.chrI.seqFile
+chroms/S288C.chrI/S288C.chrI.paf
+yprp.S288C.chrI.cactus.hal --pangenome --pafInput --outVG
+--reference S288C --maxCores 20
+```
+
++ Recommend automating with a bash script; 
+    + see: /home/pangenomics/scripts/cactus-align-chromosomes.sh
+
+*NOTE*: Other options are:
+
++ cactus-align --batch
++ cactus-align-batch
+
+## Viewing with Bandage
+
+View **one chromosome at a time** with Bandage
+
+
+
+
+
+<!--chapter:end:04-reference-free-graphs-cactus.Rmd-->
+
+# Reference-Free Graphs with *pggb*
+
+## pggb
+
+https://github.com/pangenome/pggb
+
++ All-pairs whole genome alignment 
++ Induces a graph from the alignments
+ 
+## PanGenome Graph Builder
+
+pggb is built on the idea that a pangenome graph represents an alignment of the genomes in the graph (this is literally what Cactus does), but infers the graph from all pairwise alignments instead of a multiple alignment.
+
+pggb computes all pairwise alignments efficiently by focusing on long, colinear homologies, instead of using the more traditional k-mer matching alignment approach.
+
+Critically, pggb performs graph *normalization* to ensure that paths through the graph (e.g. chromosomes) have a linear structure while allowing for cyclic graph structures that capture structural variation.
+
+## Reference-Free Graphs
+
+https://academic.oup.com/bioinformatics/article/30/24/3476/2422268
+
+![Input Genomes](./Figures/InputGenomes.png){width=100%}
+
+##  Cactus Algorithm
+
+1. All-pairs align genomes with [wfmash](https://github.com/waveygang/wfmash)
+2. Convert alignments into a graph using [seqwish](https://github.com/ekg/seqwish)
+3. Progressively normalize graph with [smoothxg](https://github.com/pangenome/smoothxg) and [gfaffix](https://github.com/marschall-lab/GFAffix)
+
+## Pipeline
+
+1. Prepare the input
+3. pggb
+4. View with Bandage
+
+### Set up Directories
+
+1. Make sure you're working in a **screen**
+
+2. Make Directory
+
+```
+mkdir pggb
+```
+3. Navigate to the Directory
+
+```
+cd pggb
+```
+4. Link to data
+
+```
+cp -r /home/pangenomics/data/yprp/assemblies .
+```
+
+*Note:* Don't use `ln -s /home/pangenomics/data/yprp/ .`
+
+## Yeast Data
+
+Reference:
+
++ S288C
+
+Using all 12 YPRP assemblies
+
+## Preparing the Input (exercise)
+
+1. Create a FASTA file containing all the yprp assemblies. Call it `yprp.all.fa`.
+2. Create a FASTA file containing chromosome VIIII from every assembly. Call it `yprp.chrVIII.fa`.
+3. How can you confirm that the contens of these files is correct?
+
+### Preparing the Input (solution)
+
+1. `cat yprp/assemblies/*.fa > yprp.all.fa`
+2.
+3. `grep -c ‘>’ yprp.all.fa`
+
+## Preparing the Input
+
+[bgzip](https://www.htslib.org/doc/bgzip.html) the FASTA files (~1min):
+```
+bgzip -c yprp.all.fa > yprp.all.fa.gz
+bgzip -c yprp.chrVIII.fa > yprp.chrVIII.fa.gz
+```
+
++ **-c**
+    + output the bgzipped file to standard output
++ **>**
+    + redirect the standard output into a file
+    
+Index the bgzip files with [samtools](http://www.htslib.org/doc/samtools.html) [faidx](http://www.htslib.org/doc/samtools-faidx.html):
+```
+samtools faidx yprp.all.fa.gz
+samtools faidz yprp.chrVIII.fa.gz
+```
+
+## Singularity
+
+Note that we’re using [Singularity](https://sylabs.io/guides/main/user-guide) to run pggb.
+```
+singularity [options] run <image file> [image arguments]
+ ```
+**Singularity sets the working directory inside the container to your `$PWD` directory by default.** If you want to use a different directory you’ll have to mount it manually with **-B**.
+
+*Singularity* is a program for running containers. A *container* contains the program you want to run AND everything you need to run it, e.g. other software it depends on, config files, etc. The inside of a container is usually another Linux operating system! An *image* is a file that describes a container. Multiple containers of the same image can be run simultaneously.
+
+## Running pggb on Chromosome VIII
+
+Build a graph containing all the yprp assemblies (~5min):
+```
+singularity run /home/pangenomics/singularity_images/pggb_latest.sif
+    pggb build -i yprp.chrVIII.fa.gz -o output_chrVIII -n 12 -t 20 -p 95
+```
+
++ **-i yprp.chrVIII.fa**
+    + an input FASTA containing all sequences
++ **-o output_chrVIIII**
+    + the directory where all output files should be placed
++ **-n 12>**
+    + the number of haplotypes (assemblies) in the input file
++ **-t 20**
+    + the number of threads to use
++ **-p 95**
+    + minimum sequence identity of alignment segments
++ **-2 5000**
+    + nucleotide segment length when scaffolding the graph
+    
+NOTE: These arguments were taken from the [pggb paper](https://github.com/pangenome/pggb-paper/blob/main/workflows/AllSpecies.md). Refer to the paper for other species.
+
+## Viewing with Bandage
+
+View your Chromsome VIII graph with Bandage (exercise):
+1. Find CUP1 and YHR054C
+2. Take a screenshot
+
+## Exercises
+
+1. Use vg to index the chromosome VIII graph
+2. Use vg to map SK1 reads to the chromosome VIII graph
+3. Use vg to call variants on chromosome VIII read mapping GAMS
+
+## Running pggb on all Chromosomes
+
+Partition the sequences before building the graph (<1min):
+```
+singularity run /home/pangenomics/singularity_images/pggb_latest.sif
+    partition-before-pggb -i yprp.all.fa.gz -o output_all -n 12 -t 20 -p 95 -s 5000
+ ```
+This partitions the input FASTA into smaller FASTAs containing sequences that should be in the same subgraph:
+
++ Will likely correspond to chromosomes if you have complete assemblies
++ May improve run-time of normalization step and make downstream analysis easier
++ Consider skipping if your assemblies/organism has complex structure you want represented in the graph, e.g. ploidy, translocations, etc.
+
+This will print a `pggb` command for every partition to the command line.
+
++ Commands are also written to a log file: `output_all/yprp.all.fa.gz.<gibberish>.log`
+
+### Exercise
+
+1. Make a bash script to run all of the generated commands with singularity
+  + Run the command **NOT DURING THE WORKSHOP** to build the graphs (~1hr40min)
+
+## How do you handle larger graphs? Nextflow
+
+[Nextflow](https://www.nextflow.io/docs/latest/index.html) - Software for running workflows in parallel / distributed computing environments
+
++ Supports Singularity and Docker containers
++ Nextflow pipelines are open-source
+  + You can use other people’s pipelines
+  + You can build and share your own pipelines
++ [nf-core/pangenome](https://nf-co.re/pangenome) contains pggb along with other pangenome software
+
+## Pros and Cons
+
+Pros:
+
++ Graphs are truly reference-free
++ Includes normalization step
+  + Especially good for species with complex structural variation, such as plants
+  
+Cons:
+
++ Normalization step is currently a bottleneck
++ Partitioning removes inter-chromosome structural variation
+
+
+
+
+
+<!--chapter:end:05-reference-free-graphs-pggb.Rmd-->
+
+# Other Tools and Methods
+
+
+## Workshop Tools Review
+
++ **vg**
+    + https://github.com/vgteam/vg
+    + https://www.nature.com/articles/nbt.4227
++ **minigraph**
+    + https://github.com/lh3/minigraph
+    + https://link.springer.com/article/10.1186/s13059-020-02168-z
++ **cactus**
+    + https://github.com/ComparativeGenomicsToolkit/cactus
+    + https://www.nature.com/articles/s41586-020-2871-y
++ **gfatools**
+    + https://github.com/lh3/gfatools
++ **Bandage**
+    + https://rrwick.github.io/Bandage/
+    + https://academic.oup.com/bioinformatics/article/31/20/3350/196114
++ **IGV**
+    + https://software.broadinstitute.org/software/igv/
+    + https://www.nature.com/articles/nbt.1754
+
+## Other Visualizations 
+
++ Bandage with paths
++ GfaViz
++ Panache
++ Anvi’o
++ Visualizing Alignment of Microbial Genomes
++ PanX
++ Genome Context Viewer
++ Sequence Tube Maps
++ MoMI-G
++ PGV (Pangenome Graph Viewer)
+
+## Bandage with Paths
+
+https://github.com/asl/Bandage
+
+A fork of Bandage that supports embedded paths
+
++ graphs constructed with minigraph **don’t have paths**!
+    
+![Fork of a Bandage](./Figures/Fork.png){width=100%}
+
+## GfaViz
+
+https://github.com/ggonnella/gfaviz 
+
++ Manuscript:
+    + https://academic.oup.com/bioinformatics/article/35/16/2853/5267826?login=false
+
+A GFA viewer that explicitly supports variation graphs (Fig c).
+
+![Example Applications of GfaViz](./Figures/Fig2.png){width=100%}
+
+## Panache 
+
+https://github.com/SouthGreenPlatform/panache
+
++ Manuscript:
+    + https://academic.oup.com/bioinformatics/article/37/23/4556/6380547
+
+Web browser-based visualization of linearized pangenomes
+
+![Panache Genome Representations](./Figures/Panache.png){width=100%}
+
+## Anvi'o
+
+https://anvio.org
+
++ Manuscript:
+    + https://peerj.com/articles/1319/
++ Pangenomics Workflow:
+    + https://merenlab.org/2016/11/08/pangenomics-v2/
+
+An analysis and visualization platform that can run pipelines on microbial pangenomic data.
+
+![Anvi'o Genome Bins for infant gut ](./Figures/fig-2-full.png){width=100%}
+
+![Anvi'o](./Figures/Anvio.png){width=100%}
+
+
+## Visualizing Alignment of Microbial Genomes
+
++ Manuscript:
+    + https://peerj.com/articles/9576/
+    
+Sequence-level alignment showing common and rare variations at sequence level.
+
+![Seq-level Alignment](./Figures/MicrobialSeqAlign.png){width=80%}
+
+## PanX
+
+https://github.com/neherlab/pan-genome-analysis
+
++ Manuscript:
+    + https://academic.oup.com/nar/article/46/1/e5/4564799
++ Demo:
+    + https://pangenome.org
+    
+Pangenome analysis pipeline and visualizations.
+
+![Interconnected Components of PanX](./Figures/PanXFig.png){width=100%}
+
+## Genome Context Viewer
+
+https://github.com/legumeinfo/gcv
+
++ Manuscript:
+    + https://academic.oup.com/nar/article/46/1/e5/4564799
++ Demo:
+  + https://www.legumeinfo.org/gcv2/instructions
+  
+Visual exploration of population using synteny derived from gene homology relationships (e.g. gene families).
+
+
+![Viewer](./Figures/PanXFig2.png){width=100%}
+
+## Sequence Tube Maps
+
+https://github.com/vgteam/sequenceTubeMap
+
++ Manuscript:
+    + https://academic.oup.com/bioinformatics/article/35/24/5318/5542397
++ Demo:
+    + https://vgteam.github.io/sequenceTubeMap/
+
+![Seq Tube](./Figures/SeqTube.png){width=100%}
+
+## MoMI-G
+
+https://github.com/MoMI-G/MoMI-G
+
++ Manuscript
+    + https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-3145-2
++ Demo:
+    + http://demo.momig.tokyo
+
+Web-based multi-scale genome graph browser.
+
+![MoMI-G](./Figures/momig1.png){width=100%}
+
+![MoMI-G](./Figures/momig2.png){width=50%}
+
+## PGV (Pangenome Graph Viewer)
+
+https://github.com/ucrbioinfo/PGV
+
++ Manuscript:
+    + https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04424-w
++ Demo:
+    + https://panviz-22b36.firebaseapp.com 
+
+Web-based reference-agnostic representation and visualization of pan-genomes constructed using a **progressiveMauve** pipeline.
+
++ https://darlinglab.org/mauve/user-guide/progressivemauve.html
+
+![MoMI-G](./Figures/PGV.png){width=100%}
+
+![MoMI-G](./Figures/PGV2.png){width=100%}
+
+## Other Graph Construction / Manipulation Tools / Pipelines
+
++ odgi
++ seqwish
++ smoothxg
++ pggb
+
+## odgi (optimized dynamic genome/graph implementation)
+
+https://github.com/pangenome/odgi
+
++ Manuscript:
+    + https://www.biorxiv.org/content/10.1101/2021.11.10.467921v1
++ Documentation:
+    + https://odgi.readthedocs.io/en/latest/
+    
+“A toolkit for understanding pangenome graphs.”
+
+Functionality:
+
+1. Explore graphs via 1D and 2D visualization
+2. Detect complex regions in the graph
+3. Extract selected loci
+4. Sorting and laying out, e.g. in preparation for visualization
+5. Navigating and annotating graphs, e.g. bringing annotations in
+to Bandage
+6. Remove artifacts and complex regions
+7. MultiQC report for graph statistics
+
+## seqwish
+
+https://github.com/ekg/seqwish
+
++ Dissertation
+    + https://github.com/ekg/seqwish
+    
+“The sequences wish they were squished into a graph.” 
+
++ Converts pairwise alignments between sequences into a variation graph, i.e. pangenome.
+
++ Takes one or more PAF files as input (e.g. output of minimap2)
++ Infers graph nodes and node orderings from alignment blocks
+and how they overlap between sequences.
+
+##  smoothxg
+
+https://github.com/pangenome/smoothxg
+
+“Linearize and simplify variation graphs using blocked partial order alignment.”
+
++ “Smooths” graph by consolidating structures that are artifacts of graph assembly / data.
+
+## pggb (pangenome graph build)
+
+https://github.com/pangenome/pggb
+
+A pipeline under development for efficiently building reference-free pangenome graphs.
+
+Basic pipeline:
+
+1. Align sequences with **wfmash**
++ https://github.com/waveygang/wfmash
+2. Construct graph from alignments using **seqwish**
++ https://github.com/ekg/seqwish
+3. Use **smoothxg** to remove artifacts and make graph acyclic for
+compatibility with tools like vg
++ https://github.com/pangenome/smoothxg
+
+## Other Mapping, Variant Calling, and Genotyping Tools
+
++ GraphAligner
++ GraphTyper / GraphTyper2
++ BayesTyper
++ Paragraph
++ Practical Haplotype Graph
+
+## GraphAligner
+
+https://github.com/maickrau/GraphAligner
+
++ Manuscript
+    + https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02157-2
+    
+“Aligns long reads to genome graphs. Compared to the state-of-the-art tools, GraphAligner is 13x faster and uses 3x less memory. When employing GraphAligner for error correction, we find it to be more than twice as accurate and over 12x faster than extant tools.”
+
+## GraphTyper / GraphTyper2
+
+https://github.com/DecodeGenetics/graphtyper
+
++ Manuscripts
+    + https://www.nature.com/articles/ng.3964
+    + https://www.nature.com/articles/s41467-019-13341-9
+
+“A graph-based variant caller capable of genotyping population-scale short read data sets. It represents a reference genome and known variants of a genomic region using an acyclic graph structure (a "pangenome reference"), which high-throughput sequence reads are re-aligned to for the purpose of discovering and genotyping SNPs, small indels, and structural variants.”
+
++ GraphTyper2 is the v2 release of GraphTyper, i.e. the same GitHub repository
+
+## BayesTyper
+
+https://github.com/bioinformatics-centre/BayesTyper
+
++ Manuscript:
+    + https://www.nature.com/articles/s41588-018-0145-5
+
+Performs genotyping of all types of variation by exactly aligning sequence k-mers to a reference graph and then using Bayesian inference built on a “variation-prior” database to do genotyping.
+
+BayesTyper enables “sensitive and accurate genotyping across classes and varying lengths of structural variants” as compared to other methods
+
+## Paragraph
+
+https://github.com/Illumina/paragraph
+
++ Manuscript
+    + https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1909-7
+
+A suite of graph-based genotyping tools to support accurate genotyping of short-read data.
+
+Developed by Illumina.
+
+“Paragraph has better accuracy than other existing genotypers and can be applied to population-scale studies.”
+
+## Practical Haplotype Graph (PHG)
+
+https://bitbucket.org/bucklerlab/practicalhaplotypegraph/wiki/Home
+
++ Manuscript
+    + https://academic.oup.com/g3journal/article/12/2/jkab390/6423995
+    
+A graphical genotyping data storage and genotype imputation platform designed to be used on skim sequencing methods to infer high-density genotypes directly from low-coverage sequence.
+
++ Developed by the Buckler Lab
++ Has been used extensively with wheat and maize    
+    
+## So Much More...
+
+### The Pangenome book, edited by Tettlin!
+
+https://library.oapen.org/handle/20.500.12657/37707
+
+<!--chapter:end:06-other-tools.Rmd-->
+
+# Graph-specific Analyses
+
+![Analysis](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/GraphSpecific.png){width=50%} 
+
+## Frequented Region (FR) Algorithm
+
+Identify regions in a graph that are co-visited by a set of supporting
+paths from individual sequences in the pangenome.
+
+![FR](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/FRAlg.png){width=80%} 
+
+
+1. Similar evolutionary histories
+2. Similar selection pressures
+
+3. Heuristic but scalable
+4. Node merging with noise tolerance
+    + Error
+    + Divergence
+5. Nucleotide level
+
+### A few of the parameters
+
+1. penetrance (𝛼)
+minimum fraction of nodes
+2. the maximum insertion parameter (κ)
+maximum number of inserted nodes
+
+## Yeast Insertion for Alcohol Tolerance
+
+### 17kb insertion on chromosome XIV
+
+![Alcohol Tolerance Insertion](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/etohTolerance.png){width=100%} 
+
+### 17kb insertion across all 55 strains
+
++ 9 of 20 additional alcohol related strains share EC1118’s inserted FRs. 
++ Strains sharing four or more FRs are highlighted.
++ 5 genes inserted
+
+
+![Insertion](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Insertion.png){width=100%} 
+
+## SARS-CoV-2
+
++ Identify conserved genomic regions
+    + Vaccine and treatment targets
+
++ Identify genomic shifts over time and geographic space
+    + Mutations affecting spread and virulence
+
++ Identify genomic regions that differentiate strains
+    + Implications in modelling and treatment
+ 
+![Virus Cartoon](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Virus.png){width=20%}
+
+## Genomic shifts across time and space
+
+733 SARS-CoV-2 genomes from the beginning of the pandemic through April
+
+Highlight
+
++ Early strains:
+    + (Wuhan, 12/30/2019)
+    + (Italy, 4/27/2020)
+    
++ **Spike protein**
+    + Engages the human ACE2 cell receptor to gain entry into the host cell. Target for vaccines, template for antibody production, and candidate for generating entry inhibitors.
+    
+### Wuhan & Italy compared to 733 strain support
+
+Spike protein conserved, especially end Genomic shift
+
+![Shift](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Shift.png){width=100%}
+
+![Path Support](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/PathSupport.png){width=100%}
+
+### D614G mutation
+
+A mutation seen in Europe in February that spread across the globe to become the dominant strain. Preliminary analyses suggest it might increase contagion and/or virulence and that strains people with immunity to the original strain might not be immune to the mutated strain. The figure shows the region has undergone genomic shift and isn’t conserved in all the genomes.
+
+![D614G](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/D614G.png){width=100%}
+
+### Conserved haplotype blocks and selection coefficients
+
+##### Soft and incomplete selective sweeps{-}
+
+![Haplotype Blocks](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/haplotype.png){width=80%}
+
+
+
+![ORF1a](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Orf1a.png){width=100%}
+
+## Medicago truncatula
+
+![M. truncatula](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Medicago.png){width=50%}
+
++ Model legume
++ 450 Mb genome
++ Selfing
++ Whole genome duplications
++ High level of rearrangements and gene family expansions
+
+### Medicago Pan-13 genome size curve
+
+![M. truncatula genome](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Medicago2.png){width=100%}
+
++ Zhou, P., Silverstein, K.A., Ramaraj, T., Guhlin, J., Denny, R., Liu,
+J., Farmer, A.D., Steele, K.P., Stupar, R.M. & Miller, J.R. Exploring
+structural variation and gene family architecture with De Novo
+assemblies of 15 Medicago genomes. BMC genomics 18, 261 (2017).
+
+### Medicago Pan-13 *proteome* size curve
+
+![M. truncatula proteome](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/MedicagoProteome.png){width=100%}
+
+### Medicago HapMap Summary
+
+1. As much as 22% of the genome is involved in large structural changes;
+2. Medicago 13 pangenome expands reference space by 16% (63 Mbp);
+3. Pangenome analysis revealed that 42% (180 Mbp) of genomic sequences are missing in one or more assemblies, while pan-proteome analysis identified 67% (50,700) of all ortholog groups as dispensable;
+4. Environmentally Sensitive Gene Families found to be enriched in the accession-specific gene pool.
+
+### Medicago: 23 accessions for de novo assembly 
+
+1. 15 genomes from 3 phylogenetic hubs (incl. A17)
+2. 6 genomes from RIL parents
+3. 3 “random” genomes
+
+![Accessions](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Accessions.png){width=60%}
+
+### Medicago: LEED..PEED (LP) family
+
+1. Short secreted peptides
+2. Transcribed in nitrogen-fixing nodules but absent from other plant tissues
+3. Not found in other sequenced legumes
+4. M. truncatula A17 (reference)
+    + 12 LP genes on chromosome 7
+    + 1 LP gene on chromosome 4
+    
++ leucine:glutamic acid:glutamic acid:aspartic acid
++ proline:glutamic acid:glutamic acid:aspartic acid
+
+Genomic Characterization of the LEED..PEEDs, a Gene Family Unique to the Medicago Lineage
+Diana I. Trujillo, Kevin A. T. Silverstein and Nevin D. Young 
+G3: GENES, GENOMES, GENETICS October 1, 2014 vol. 4 no. 10 2003-2012; https://doi.org/10.1534/g3.114.011874
+
+#### LEED..PEED{-}
+
+![LEED..PEED](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/LeedPeed.png){width=100%}
+
+### *Medicago truncatula*
+
+1. Horizontal gene transfer among symbionts and between symbionts and plants
+
+2. Nodule specific gene families
+
+3. Expansion of plant gene families
+
+## Using Machine Learning to Connect Genotype to Phenotype
+
+![Predicting Phenotype](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/GWAS.png){width=100%}
+
+### Yeast
+
+1. FR matrix as features
+2. Random Forest
+3. Predict Phenotypes
+
+### Yeast Root Mean Square Error (RMSE)
+
+![RMSE](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/RMSE.png){width=100%}
+
+![RMSE](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/RMSE2.png){width=100%}
+
+![Predicted Phenotype](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Phenotype.png){width=100%}
+
+## VG and Machine Learning
+
+### vg vectorize (xg graph or gcsa)
+
+![Predicted Phenotype](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Vectorize1.png){width=100%}
+
+![Predicted Phenotype](~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Vectorize2.png){width=100%}
+
+
+
+
+
+<!--chapter:end:08-graph-specific-analyses.Rmd-->
+

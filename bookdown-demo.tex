@@ -1,0 +1,4876 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Pangenomics Workshop NCGR},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Pangenomics Workshop NCGR}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{introduction-to-pangenomics}{%
+\chapter{Introduction to Pangenomics}\label{introduction-to-pangenomics}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Pangenome.png}
+\caption{Pangenome: \url{https://en.wikipedia.org/wiki/Pan-genome}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/JoannAlan.png}
+\caption{Instructors}
+\end{figure}
+
+\hypertarget{what-is-a-pangenome}{%
+\section{What is a ``pangenome''?}\label{what-is-a-pangenome}}
+
+The term ``pangenome'' was first coined by Sigaux et al.~and was used to describe a public database containing an assessment of genome and transcriptome alterations in major types of tumors, tissues, and experimental models.
+
+\begin{itemize}
+\tightlist
+\item
+  Sigaux F. Génome du cancer ou de la construction des cartes d'identité moléculaire des tumeurs {[}Cancer genome or the development of molecular portraits of tumors{]}. Bull Acad Natl Med. 2000;184(7):1441-7; discussion 1448-9. French. PMID: 11261250.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Abstract1.png}
+\caption{Sigaux et al.}
+\end{figure}
+
+The term was later revitalized by Tettelin et al.~to describe a microbial genome by which genes were in the core (present in all strains) and which genes were dispensable (missing from one or more of the strains).
+
+\begin{itemize}
+\tightlist
+\item
+  Tettelin, H., Masignani, V., Cieslewicz, M. J., Donati, C., Medini, D., Ward, N. L., \ldots{} \& Fraser, C. M. (2005). Genome analysis of multiple pathogenic isolates of Streptococcus agalactiae: implications for the microbial ``pan-genome''. Proceedings of the National Academy of Sciences, 102(39), 13950-13955.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Abstract2.png}
+\caption{Tettelin et al.}
+\end{figure}
+
+\hypertarget{open-vs.-closed-genomes}{%
+\subsection{Open vs.~Closed Genomes}\label{open-vs.-closed-genomes}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.65\textwidth,height=\textheight]{./Figures/ClosedvOpen.png}
+\caption{Open and Closed Pangenomes: \url{https://en.wikipedia.org/wiki/Pan-genome}}
+\end{figure}
+
+\hypertarget{then-vs.-now}{%
+\subsection{Then vs.~Now}\label{then-vs.-now}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth,height=\textheight]{./Figures/CostGenome.png}
+\caption{Cost per Genome: \url{https://www.genome.gov/about-genomics/fact-sheets/DNA-Sequencing-Costs-Data}}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Low Cost
+\item
+  High Quality Long Reads (HiFi)
+\item
+  Many reference-quality assemblies per species
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth,height=\textheight]{./Figures/GenomePubs.png}
+\caption{Pangenome Publications: \url{https://www.nature.com/articles/s41477-020-0733-0}}
+\end{figure}
+
+\hypertarget{pangenome-today}{%
+\subsection{``Pangenome'' Today}\label{pangenome-today}}
+
+``Any collection of genomic sequences to be analyzed jointly or to be used as a reference. These sequences can be linked in a graph-like structure, or simply constitute sets of (aligned or unaligned) sequences.'' -- Computational Pangenomics Consortium
+
+\url{https://academic.oup.com/bib/article/19/1/118/2566735}
+
+\hypertarget{the-benefit-of-pangenomes}{%
+\subsection{The Benefit of Pangenomes}\label{the-benefit-of-pangenomes}}
+
+\begin{itemize}
+\tightlist
+\item
+  Removes reference bias
+
+  \begin{itemize}
+  \tightlist
+  \item
+    May only represent one organism
+  \item
+    Could be a ``mosaic''of individuals, i.e.~doesn't represent a coherent haplotype
+  \item
+    Allele bias
+  \item
+    Doesn't include common variation
+  \end{itemize}
+\item
+  Allow multiple assemblies to be analyzed simultaneously, i.e.~efficiently
+\end{itemize}
+
+\hypertarget{what-are-pangenomes-good-for}{%
+\subsection{What are pangenomes good for?}\label{what-are-pangenomes-good-for}}
+
+\begin{itemize}
+\tightlist
+\item
+  Core vs dispensable genes:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    How big is the core?
+  \item
+    How big is the dispensable?
+  \item
+    How big is the pangenome?
+  \item
+    What traits are associated with the core/dispensable?
+  \end{itemize}
+\item
+  Unbiased read mapping and variant calling
+\item
+  More robust variation-trait association
+\item
+  Visual exploration of genomic structure of population
+\end{itemize}
+
+\hypertarget{computational-pangenomics}{%
+\section{Computational Pangenomics}\label{computational-pangenomics}}
+
+``Questions about efficient data structures, algorithms and statistical methods to perform bioinformatic analyses of pan-genomes give rise to the discipline of `computational pan-genomics'.''
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth,height=\textheight]{./Figures/Computational.png}
+\caption{Computational Pangenomics: \url{https://academic.oup.com/bib/article/19/1/118/2566735}}
+\end{figure}
+
+\hypertarget{pangenome-representations}{%
+\subsection{Pangenome Representations}\label{pangenome-representations}}
+
+\begin{itemize}
+\tightlist
+\item
+  Gene sets
+\item
+  Multiple sequence alignments
+\item
+  K-mer sets
+\item
+  Graphs
+
+  \begin{itemize}
+  \tightlist
+  \item
+    De Bruijn graphs
+  \item
+    Haptotype graphs
+  \item
+    \textbf{Genome/Variation graphs}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{genomevariation-graphs}{%
+\subsection{Genome/Variation Graphs}\label{genomevariation-graphs}}
+
+\begin{itemize}
+\tightlist
+\item
+  Variation forms bubbles Nodes represent sequences
+\item
+  Chains of nodes represent contiguous sequence in one or more assemblies
+\item
+  The sequences of nodes connected by an edge may overlap
+\item
+  Graphs can be acyclic or cyclic
+\item
+  Haplotypes are ``threaded'' through graph as paths
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.96\textwidth,height=\textheight]{./Figures/VariationGraphA.png}
+\caption{Pangenome Representations: \url{https://academic.oup.com/bib/article/19/1/118/2566735}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.96\textwidth,height=\textheight]{./Figures/VariationGraphB.png}
+\caption{Pangenome Representations: \url{https://academic.oup.com/bib/article/19/1/118/2566735}}
+\end{figure}
+
+\hypertarget{types-of-variation-graphs}{%
+\subsection{Types of Variation Graphs}\label{types-of-variation-graphs}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Reference Graph (vg)
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  A reference with variants
+\item
+  E.G. \href{https://www.ncbi.nlm.nih.gov/genome/guide/human/}{Human reference now includes VCF with common variation}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Reference Backbone; ``iterative'' (minigraph)
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Graph starts as reference and other sequences are layered
+  on, i.e.~variants can be relative to sequences other than the
+  reference
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Reference-Free (cactus)
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Graph is built using non-reference techniques, such as multiple sequence alignment
+\end{itemize}
+
+These are all methods used by the \href{https://humanpangenome.org}{Human Pangenome Reference Consortium}
+
+\hypertarget{mapping-reads-to-variation-graphs}{%
+\subsection{Mapping Reads to Variation Graphs}\label{mapping-reads-to-variation-graphs}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/ReadsToVariation.png}
+\caption{Genotyping Variation: \url{https://link.springer.com/article/10.1186/s13059-020-1941-7}}
+\end{figure}
+
+\hypertarget{pangenome-data-sets}{%
+\section{Pangenome Data Sets}\label{pangenome-data-sets}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://humanpangenome.org}{Human Pangenome Reference Consortium}
+\item
+  \href{https://zoonomiaproject.org/the-data/}{Zoonomia (200 mammalss) Project}
+\item
+  \href{https://www.science.org/doi/10.1126/science.abg5289}{Maize NAM founder genomes}
+\item
+  \href{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}{Yeast Population Reference Panel (YPRP)}
+\end{itemize}
+
+\hypertarget{datayeast-genomes}{%
+\subsection{Data/Yeast Genomes:}\label{datayeast-genomes}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Yeast.png}
+\caption{Yeast Genomes: \url{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}}
+\end{figure}
+
+\begin{itemize}
+\item
+  12 Mb
+\item
+  16 chromosomes
+\item
+  \href{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}{12 strains from Yeast Population Reference Panel (YPRP)}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    7 Saccharomyces cerevisiae (brewer's yeast)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Includes S288C reference
+    \end{itemize}
+  \end{itemize}
+\item
+  5 \emph{Saccharomyces paradoxus} (wild yeast)
+\item
+  \href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2659681/}{Manuscript}
+\item
+  Software (LRSDAY)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://www.nature.com/articles/nprot.2018.025}{Manuscript}
+  \item
+    \href{https://github.com/yjx1217/LRSDAY}{GitHub}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{yeast-assemblies}{%
+\subsection{Yeast Assemblies}\label{yeast-assemblies}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://yjx1217.github.io/Yeast_PacBio_2016/data/}{YPRP: 12 Yeast PacBio Assemblies (Chromosome level)}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textasciitilde100-200x PacBio sequencing reads
+  \item
+    HGAP + Quiver polishing
+  \item
+    \textasciitilde200-500x Illumina (Pilon correction)
+  \item
+    Manual curation
+  \item
+    Annotation
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{sk1-illumina-reads}{%
+\subsection{SK1 Illumina Reads}\label{sk1-illumina-reads}}
+
+SK1 is the most distant from S288C
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/YeastB.png}
+\caption{Yeast Genomes: \url{https://yjx1217.github.io/Yeast_PacBio_2016/welcome/}}
+\end{figure}
+
+\hypertarget{cup1-gene}{%
+\subsection{CUP1 Gene}\label{cup1-gene}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/StructuralRearrangements.png}
+\caption{Structrual Rearrangements: \url{https://www.nature.com/articles/ng.3847}}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.yeastgenome.org/locus/S000001095}{CUP1} - A gene involved in heavy metal (copper) tolerance with copy-number variation (CNV) in population.
+\item
+  \href{https://www.yeastgenome.org/locus/S000001096}{YHR054C} - Putative protein of unknown function.
+\end{itemize}
+
+\hypertarget{we-changed-the-names}{%
+\subsection{We Changed the Names}\label{we-changed-the-names}}
+
+\begin{itemize}
+\tightlist
+\item
+  YPRP FASTA files only contain chromosome names
+\item
+  We prefixed every chromosome with its assembly name and a ``.'' delineator
+
+  \begin{itemize}
+  \tightlist
+  \item
+    e.g.~S288C.chrVIII
+  \end{itemize}
+\item
+  \href{https://github.com/pangenome/PanSN-spec}{Pangenome Sequence Naming Specification}
+\end{itemize}
+
+\hypertarget{visualizing-genomes}{%
+\chapter{Visualizing Genomes}\label{visualizing-genomes}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/hairballsB.png}
+\caption{Compressed de Bruijn graphs ``hairballs'': \url{https://academic.oup.com/bioinformatics/article/30/24/3476/2422268}}
+\end{figure}
+
+\hypertarget{set-up-directories}{%
+\section{Set up Directories}\label{set-up-directories}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Make sure you're working in a \textbf{screen}
+\item
+  Make directory
+\end{enumerate}
+
+\begin{verbatim}
+mkdir viz
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Navigate to the directory
+\end{enumerate}
+
+\begin{verbatim}
+cd viz
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Link to data
+\end{enumerate}
+
+\begin{verbatim}
+ln -s /home/pangenomics/data/yprp/ .
+\end{verbatim}
+
+\hypertarget{graphical-fragment-assembly-gfa-format}{%
+\section{Graphical Fragment Assembly (GFA) format}\label{graphical-fragment-assembly-gfa-format}}
+
+\begin{itemize}
+\tightlist
+\item
+  Originally developed for representing genomes during assembly
+\item
+  Now used for pangenomics
+\item
+  More on this later\ldots{}
+\end{itemize}
+
+\hypertarget{bandage}{%
+\section{Bandage}\label{bandage}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Bandage.png}
+\caption{Bandage: \url{https://rrwick.github.io/Bandage/}}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  BLAST integration
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Can build a local BLAST database of the graph
+  \item
+    Can do a web BLAST search with sequences from nodes
+  \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  More details on making CSV labels: \url{https://github.com/rrwick/Bandage/wiki/CSV-labels}
+\end{enumerate}
+
+\hypertarget{group-exercise}{%
+\subsection*{\texorpdfstring{\textbf{Group exercise:}}{Group exercise:}}\label{group-exercise}}
+\addcontentsline{toc}{subsection}{\textbf{Group exercise:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Copy the following example graph from logrus to your computer:
+\end{enumerate}
+
+\begin{verbatim}
+logrus:/home/<username>/yprp/example/S288C.SK1.minigraph.gfa
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Open Bandage and load the graph
+\item
+  Spend some time exploring the graph
+\item
+  If your have BLAST, find \href{https://www.yeastgenome.org/locus/S000001095}{CUP1} and \href{https://www.yeastgenome.org/locus/S000001096}{YHR054C} via BLAST
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  How many copies are in the graph?
+\item
+  What does the structure it's in look like?
+\item
+  Take a screenshot of the region that CUP1 is in with the gene colored
+\end{itemize}
+
+\hypertarget{general-feature-format-gff}{%
+\section{General Feature Format (GFF)}\label{general-feature-format-gff}}
+
+\url{https://genome.ucsc.edu/FAQ/FAQformat.html\#format3}
+
+\begin{itemize}
+\tightlist
+\item
+  Plain text file
+\item
+  3 different versions
+\item
+  Each line represents a feature
+\item
+  9 Columns
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tab separated
+  \item
+    First 7 are the same for all feature types
+
+    \begin{itemize}
+    \tightlist
+    \item
+      seqname, source, feature, start, end, score, strand
+    \end{itemize}
+  \item
+    8th column is phase of CDS (coding DNA sequence) features
+
+    \begin{itemize}
+    \tightlist
+    \item
+      0, 1, or 2 for CDS features, . otherwise
+    \end{itemize}
+  \item
+    9th column is for additional attributes related to feature
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{browser-extensible-data-bed-format}{%
+\section{Browser Extensible Data (BED) Format}\label{browser-extensible-data-bed-format}}
+
+\url{https://genome.ucsc.edu/FAQ/FAQformat.html\#format1}
+
+\begin{itemize}
+\tightlist
+\item
+  Plain text file
+\item
+  Designed for drawing features in genome browsers
+\item
+  Each line represents a genomic region and associated annotations
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Features aren't necessary biological
+  \end{itemize}
+\item
+  12 Columns
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tab or white-space separated
+  \item
+    First 3 are required
+
+    \begin{itemize}
+    \tightlist
+    \item
+      chrom, chromStart, chromEnd
+    \end{itemize}
+  \item
+    The next 9 are optional
+
+    \begin{itemize}
+    \tightlist
+    \item
+      name, score, strand, thickStart, thickEnd, itemRgb, blockCount, blockSizes, blockStart
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{integrative-genomics-viewer-igv}{%
+\section{Integrative Genomics Viewer (IGV)}\label{integrative-genomics-viewer-igv}}
+
+\url{https://software.broadinstitute.org/software/igv/}
+
+\begin{itemize}
+\tightlist
+\item
+  View GFF/BED files relative to FASTA and multiple sequence alignments
+\item
+  Doesn't work with with names that contain dots ``.''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This conflicts with our naming convention, but we'll work around it\ldots{}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{group-exercise-1}{%
+\subsection*{\texorpdfstring{\textbf{Group exercise:}}{Group exercise:}}\label{group-exercise-1}}
+\addcontentsline{toc}{subsection}{\textbf{Group exercise:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Open IGV with S288C and GFF from \href{https://yjx1217.github.io/Yeast_PacBio_2016/data/}{YPRP}
+\item
+  Find \href{https://www.yeastgenome.org/locus/S000001095}{CUP1} and \href{https://www.yeastgenome.org/locus/S000001096}{YHR054C}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    How many copies does it have?
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{linking-igv-with-bandage}{%
+\section{Linking IGV with Bandage}\label{linking-igv-with-bandage}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Convert graph from gfa to bed
+\end{enumerate}
+
+\begin{verbatim}
+gfatools gfa2bed yprp/example/S288C.SK1.minigraph.gfa > S288C.SK1.minigraph.bed
+\end{verbatim}
+
+\hypertarget{group-exercise-2}{%
+\subsection*{\texorpdfstring{\textbf{Group Exercise}}{Group Exercise}}\label{group-exercise-2}}
+\addcontentsline{toc}{subsection}{\textbf{Group Exercise}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find an interesting structure in Bandage
+\item
+  Get its node ID(s)
+\item
+  \texttt{grep} the BED file for the ID(s)
+\end{enumerate}
+
+Why isn't this BED file going to work in IGV?
++ How should we solve this issue?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Implement \emph{your} solution
+\item
+  Are there any other nuances you notice in the BED file?
+\end{enumerate}
+
+\hypertarget{reference-graphs-with-vg}{%
+\chapter{Reference Graphs with VG}\label{reference-graphs-with-vg}}
+
+\hypertarget{variation-graph-toolkit-vg}{%
+\section{Variation Graph Toolkit (VG)}\label{variation-graph-toolkit-vg}}
+
+\begin{itemize}
+\tightlist
+\item
+  Constructs graphs
+\item
+  Manipulates graphs
+\item
+  Indexes graphs
+\item
+  Maps sequences to graphs
+\item
+  Calls variants on mapped sequences
+\item
+  Visualizes graphs
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.65\textwidth,height=\textheight]{./Figures/VGref.png}
+\caption{Garrison, E., Sirén, J., Novak, A. et al.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/VGpipe.png}
+\caption{vg Graph Genomics Pipeline: \url{https://github.com/vgteam/vg}}
+\end{figure}
+
+Also does:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/vgteam/vg\#transcriptomic-analysis}{Transcriptomic analysis}
+\item
+  Assembly-based pipelines
+\item
+  So much more
+\end{itemize}
+
+Graphs are cyclic, but otherwise general, i.e.~reference, iterative, reference-free, etc.
+
+\hypertarget{reference-graphs}{%
+\section{Reference Graphs}\label{reference-graphs}}
+
+A reference genome ``decorated'' with variants:
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/GRAF.png}
+\caption{GRAF™ Pan Genome Reference: \url{https://www.sevenbridges.com/graf/}}
+\end{figure}
+
+\hypertarget{pipeline}{%
+\section{Pipeline}\label{pipeline}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Prepare input
+\item
+  Construct graph
+\item
+  View with Bandage
+\end{enumerate}
+
+\hypertarget{preparing-the-input}{%
+\section{Preparing the Input}\label{preparing-the-input}}
+
+Already \textbf{done} for you:
+
+\begin{itemize}
+\tightlist
+\item
+  Reference FASTA
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Description lines should only contain chromosome names
+  \item
+    Remove extraneous sequences, e.g.~mitochondrial DNA
+  \end{itemize}
+\item
+  VCF
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Ideally chromosome names exactly match chromosome names in reference
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{set-up-directories-1}{%
+\section{Set up directories}\label{set-up-directories-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make sure you're working in a \textbf{screen}
+\item
+  Make directory
+\end{enumerate}
+
+\begin{verbatim}
+mkdir vg
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Navigate to the directory
+\end{enumerate}
+
+\begin{verbatim}
+cd vg
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Link to data
+\end{enumerate}
+
+\begin{verbatim}
+ln -s /home/pangenomics/data/yprp/ .
+\end{verbatim}
+
+\hypertarget{variant-call-vcf-format}{%
+\section{Variant Call (VCF) Format}\label{variant-call-vcf-format}}
+
+\url{https://en.wikipedia.org/wiki/Variant_Call_Format}
+
+\begin{itemize}
+\tightlist
+\item
+  Plain text file
+\item
+  Header:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Header lines start with \#
+  \item
+    Header lines with special keywords start with \#\#
+  \end{itemize}
+\item
+  Columns
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tab separated
+  \item
+    8 mandatory columns
+
+    \begin{itemize}
+    \tightlist
+    \item
+      CHROM, POS, ID, REF, ALT, QUAL , FILTER, INFO
+    \end{itemize}
+  \item
+    9th column is optional
+
+    \begin{itemize}
+    \tightlist
+    \item
+      FORMAT
+    \end{itemize}
+  \item
+    Each additional column represents a sample and has the format described in the FORMAT column
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{variation-graph-vg-format}{%
+\section{Variation Graph (VG) Format}\label{variation-graph-vg-format}}
+
+\url{https://github.com/vgteam/vg/wiki/File-Formats}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://protobuf.dev}{Protocol Buffer} messages (protobufs) describing a graph that can store sequence in its nodes and paths
+\item
+  Encoded as binary
+\item
+  Code for reading/writing protobufs can be generated for
+  many languages
+\item
+  \href{https://github.com/vgteam/libvgio/blob/master/deps/vg.proto}{vg.proto}
+\end{itemize}
+
+\hypertarget{yeast-data}{%
+\section{Yeast Data}\label{yeast-data}}
+
+Reference: \textbf{S288C}
+
+VCF: \href{https://link.springer.com/article/10.1186/s13059-020-1941-7}{3 SV calling pipelines on the 11 non-reference strains}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://github.com/lh3/minimap2}{Minimap2} and paftools call
+\item
+  \href{https://last.cbrc.jp}{LAST} and \href{https://github.com/bioinformatics-centre/AsmVar}{AsmVar}
+\item
+  \href{https://github.com/mummer4/mummer}{nucmer} and \href{https://github.com/marianattestad/assemblytics}{Assemblytics}
+\end{itemize}
+
+This workshop used an updated version of the Phase 1 pipeline available \href{https://github.com/alancleary/sv-genotyping-paper/tree/master/yeast\#1-prepare-yeast-assemblies-and-call-svs-relative-to-the-reference-strain-s288c}{here}
+
+\hypertarget{construct-graph}{%
+\section{Construct Graph}\label{construct-graph}}
+
+Construct a graph from the reference and VCF:
+
+\begin{verbatim}
+vg construct -r yprp/assemblies/S288C.genome.fa -v yprp/variants/S288C.vcf -S -a -f -p -t 20 > S288C.vg
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-r yprp/assemblies/S288C.fa}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the reference genome
+  \end{itemize}
+\item
+  \textbf{-v yprp/variants/S288C.sv.vcf}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the VCF file containing variants (indels, structures, etc)
+  \end{itemize}
+\item
+  \textbf{-S}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    include structural variants in construction of graph
+  \end{itemize}
+\item
+  \textbf{-a}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    save paths for alts of variants by variant ID
+  \end{itemize}
+\item
+  \textbf{-f}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    don't chop up alternate alleles from input VCF
+  \end{itemize}
+\item
+  \textbf{-p}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    show progress
+  \end{itemize}
+\item
+  \textbf{-t 20}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use 20 threads
+  \end{itemize}
+\item
+  \textbf{\textgreater{} S288C.vg}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    write the standard out (the computed graph) into S288C.vg
+  \end{itemize}
+\end{itemize}
+
+Compact chains of nodes:
+
+\begin{verbatim}
+vg mod -u S288C.vg -t 20 > S288C.unchop.vg
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-u}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    unchop nodes, i.e.~compact chains
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{viewing-with-bandage}{%
+\section{Viewing with Bandage}\label{viewing-with-bandage}}
+
+Convert the graph from vg to gfa:
+
+\begin{verbatim}
+vg view S288C.unchop.vg -g > S288C.unchop.gfa
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-g}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    output GFA format
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{exercise}{%
+\subsection{Exercise}\label{exercise}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Open with Bandage
+\item
+  Where's CUP1?
+\item
+  Does the graph capture any CNV?
+\item
+  What does it look like?
+\item
+  Take a screenshot of the CUP1 region
+\end{enumerate}
+
+\hypertarget{vg-index-formats}{%
+\section{VG Index Formats}\label{vg-index-formats}}
+
+\url{https://github.com/vgteam/vg/wiki/File-Formats}
+
+XG (lightweight graph / path representation)
+
+\begin{itemize}
+\tightlist
+\item
+  Binary file containing graph structure (nodes, edges, paths) but no sequences
+\item
+  Complex data structure that answers graph queries efficiently
+\end{itemize}
+
+GCSA (Generalized Compressed Suffix Array)
+
+\begin{itemize}
+\tightlist
+\item
+  Equivalent to .sa file created by bwa index
+\item
+  Binary file containing a suffix array that efficiently looks up where sequences occur in the graph
+\end{itemize}
+
+\hypertarget{indexing}{%
+\section{Indexing}\label{indexing}}
+
+Generate .xg and .gcsa files (5min):
+
+\begin{verbatim}
+vg index -x S288C.xg -g S288C.gcsa S288C.vg -t 20
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-x S288C.xg}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the output .xg file
+  \end{itemize}
+\item
+  \textbf{-g S288C.gcsa}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the output GCSA file
+  \end{itemize}
+\item
+  \textbf{-t 20}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use 20 threads
+  \end{itemize}
+\end{itemize}
+
+NOTE: \textbf{Don't} index the \textbf{unchopped} file!
+
+NOTE: You can index a GFA file but this may have implications for mapping.
+There's also an \href{https://github.com/vgteam/vg/wiki/Automatic-indexing-for-read-mapping-and-downstream-inference}{autoindex} command.
+
+\hypertarget{graph-alignmentmap-gam-format}{%
+\section{Graph Alignment/Map (GAM) Format}\label{graph-alignmentmap-gam-format}}
+
+\url{https://github.com/vgteam/vg/wiki/File-Formats}
+
+\begin{itemize}
+\tightlist
+\item
+  Analogous to BAM, but for graphs
+\item
+  Binary file describing where reads mapped to in the graph
+  structure
+\item
+  Uncompressed has one read per line
+\item
+  Can be converted to JSON for manual parsing (very inefficient!)
+\end{itemize}
+
+\hypertarget{read-mapping}{%
+\section{Read Mapping}\label{read-mapping}}
+
+Map reads (13min):
+
+\begin{verbatim}
+vg map -d S288C -f yprp/reads/SK1.illumina.fastq.gz -t 20 > S288C.SK1.illumina.gam
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-d S288C}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use the S288C.xg and S288C.gcsa files
+  \end{itemize}
+\item
+  \textbf{-f yprp/reads/SK1.illumina.fastq.gz}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the reads file
+  \end{itemize}
+\item
+  \textbf{-t 20}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use 20 threads
+  \end{itemize}
+\item
+  \textbf{S288C.SK1.illumina.gam}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the output GAM file
+  \end{itemize}
+\end{itemize}
+
+Computing mapping stats (1min):
+
+\begin{verbatim}
+vg stats -a S288C.SK1.illumina.gam
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-a}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    input is an alignment (GAM) file
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{bringing-alignments-back-to-single-genomes}{%
+\section{Bringing Alignments Back to Single Genomes}\label{bringing-alignments-back-to-single-genomes}}
+
+Map reads (2min):
+
+\begin{verbatim}
+vg surject -x S288C.xg -b S288C.SK1.illumina.gam -t 20 > S288C.SK1.illumina.BAM
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-x S288C.xg}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    graph or xg to use
+  \end{itemize}
+\item
+  \textbf{-b}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    BAM output
+  \end{itemize}
+\item
+  \textbf{-t 20}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use 20 threads
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{exercise-1}{%
+\subsection*{\texorpdfstring{\textbf{Exercise:}}{Exercise:}}\label{exercise-1}}
+\addcontentsline{toc}{subsection}{\textbf{Exercise:}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Rename chromosomes in BED for us with IGV
+\item
+  Copy BED to personal computer
+\item
+  Spend some time looking at BED in IGV and share any interesting observations
+  you may have?
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  What's up with CUP1?
+\end{itemize}
+
+\hypertarget{preparing-the-bam-igv-or-other-genome-viewer}{%
+\section{Preparing the BAM IGV (or other genome viewer)}\label{preparing-the-bam-igv-or-other-genome-viewer}}
+
+Only necessary if genome viewer can't match UCSC style names names in BAM to chromosomes in reference
+===\textgreater{}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Convert BAM to SAM:
+\end{enumerate}
+
+\begin{verbatim}
+samtools view -h -o S288C.SK1.illumina.sorted.sam S288C.SK1.illumina.sorted.bam
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Remove assembly name:
+\end{enumerate}
+
+\begin{verbatim}
+sed 's/S288C.//' S288C.SK1.illumina.sorted.sam > S288C.SK1.illumina.sorted.renamed.sam
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Convert SAM to BAM
+\end{enumerate}
+
+\begin{verbatim}
+samtools view -bS S288C.SK1.illumina.sorted.renamed.sam > S288C.SK1.illumina.sorted.renamed.bam
+\end{verbatim}
+
+\textless===
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Sort the bam file:
+\end{enumerate}
+
+\begin{verbatim}
+samtools sort -o S288C.SK1.illumina.sorted.bam S288C.SK1.illumina.bam
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Index BAM:
+\end{enumerate}
+
+\begin{verbatim}
+samtools index S288C.SK1.illumina.sorted.renamed.bam
+\end{verbatim}
+
+\hypertarget{pack-pileup-support-format}{%
+\section{Pack (pileup support) Format}\label{pack-pileup-support-format}}
+
+\url{https://github.com/vgteam/vg/wiki/File-Formats}
+
+\begin{itemize}
+\tightlist
+\item
+  Binary file
+\item
+  Computes pileup support for each read in a mapping
+\item
+  The format isn't actually documented\ldots{}
+\end{itemize}
+
+\hypertarget{calling-graph-supported-variants}{%
+\section{Calling Graph Supported Variants}\label{calling-graph-supported-variants}}
+
+Compute read support for variation already in the graph (1min):
+
+\begin{verbatim}
+vg pack -x S288C.xg -g S288C.SK1.illumina.gam -Q 5 -s 5 -o S288C.SK1.illumina.pack -t 20
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-Q 5}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ignore mapping and base quality \textless{} 5
+  \end{itemize}
+\item
+  \textbf{-s 5}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ignore the first and last 5pb of each read
+  \end{itemize}
+\item
+  \textbf{-o S288C.SK1.illumina.pack}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the output pack file
+  \end{itemize}
+\item
+  \textbf{-t 20}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use 20 threads
+  \end{itemize}
+\end{itemize}
+
+Generate a VCF from the support (1min):
+
+\begin{verbatim}
+vg call S288C.xg -k S288C.SK1.illumina.pack -t 20 > S288C.SK1.illumina.graph_calls.vcf
+\end{verbatim}
+
+\hypertarget{calling-novel-variants}{%
+\section{Calling Novel Variants}\label{calling-novel-variants}}
+
+Augment the graph with the mapped reads (52min):
+
+\begin{verbatim}
+vg augment S288C.vg S288C.SK1.illumina.gam -A S288C.SK1.illumina.aug.gam -t 20 > S288C.SK1.illumina.aug.vg
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{NOTE: Only supports VG files and indexes used for mapping must be built from the same VG file being augmented, i.e.~indexes build from GFA files that were then converted to VG won't work.}
+\end{itemize}
+
+Index the augmented graph (2min):
+
+\begin{verbatim}
+vg index -x S288C.SK1.illumina.aug.xg S288C.SK1.illumina.aug.vg -t 20
+\end{verbatim}
+
+Compute read support for novel variation (3min):
+
+\begin{verbatim}
+vg pack -x S288C.SK1.illumina.aug.xg -g S288C.SK1.illumina.aug.gam -Q 5 -s 5 -o S288C.SK1.illumina.aug.pack -t 20
+\end{verbatim}
+
+Generate a VCF from the support (5min)
+
+\begin{verbatim}
+vg call S288C.SK1.illumina.aug.xg -k S288C.SK1.illumina.aug.pack -t 20 > S288C.SK1.illumina.aug_calls.vcf
+\end{verbatim}
+
+\hypertarget{calling-variants-already-in-the-graph}{%
+\section{Calling Variants Already in the Graph}\label{calling-variants-already-in-the-graph}}
+
+Output variants used to construct graph (\textless1min):
+
+\begin{verbatim}
+vg deconstruct S288C.xg -P S288C -t 20 > S288C.deconstruct.vcf
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-P S288C}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    report variants relative to paths with names that start with S288C
+  \end{itemize}
+\end{itemize}
+
+\textbf{\texttt{S288C.deconstruct.vcf} might not be identical to S288C.vcf because VG takes liberties with variants when constructing the graph.}
+
+\hypertarget{pros-and-cons-reference-graphs}{%
+\section{Pros and Cons Reference Graphs}\label{pros-and-cons-reference-graphs}}
+
+\textbf{Pros:}
+
+\begin{itemize}
+\tightlist
+\item
+  Graphs are relatively small
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Easy to inspect visually
+  \item
+    Good for low-quality / fragmented assemblies
+  \item
+    Shorter run-times
+  \end{itemize}
+\end{itemize}
+
+\textbf{Cons:}
+
+\begin{itemize}
+\tightlist
+\item
+  Variation represented is determined by VCF pipeline
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Only describes variation relative to the reference
+  \item
+    Suboptimal mappings
+  \item
+    Suboptimal population structure
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{additional-vg-commands-that-are-useful}{%
+\section{Additional vg Commands that are Useful}\label{additional-vg-commands-that-are-useful}}
+
+\hypertarget{vg-combine}{%
+\subsection{vg combine}\label{vg-combine}}
+
+Combines two or more graphs into one.
+
+\begin{itemize}
+\tightlist
+\item
+  Use to construct graph in parts (e.g.~individual chromosomes) and then combine
+\item
+  Use to combine graphs of related species
+\end{itemize}
+
+\hypertarget{modifying-and-simplifying-graphs}{%
+\subsection{Modifying and Simplifying Graphs}\label{modifying-and-simplifying-graphs}}
+
+\textbf{vg chunk} - Splits graphs or alignments into smaller chunks.
+
+\textbf{vg mod} - Used to modify graphs.
+
+\begin{itemize}
+\tightlist
+\item
+  We've already used vg mod -u to ``unchop'' nodes.
+\end{itemize}
+
+\textbf{vg simplifying} - Simplifies a graph.
+
+\textbf{vg find} - Used to identify subgraphs based on various metrics and parameters.
+
+\begin{itemize}
+\tightlist
+\item
+  e.g.~anchored by a region on a specific chromosome.
+\end{itemize}
+
+Use \textbf{--help} with any command to learn how to use it.
+
+\hypertarget{drawing-graphs}{%
+\section{Drawing Graphs}\label{drawing-graphs}}
+
+\textbf{vg view} - Outputs graphs and other structures for drawing.
+
+\begin{itemize}
+\tightlist
+\item
+  We've already used vg \emph{view -g} to convert from vg to gfa for viewing in Bandage.
+\item
+  Can also output dot (among other files types) which is a more general graph drawing format (compatible with \href{https://graphviz.org}{Graphviz}).
+\end{itemize}
+
+\textbf{vg viz} - Basic graph drawing (\href{https://github.com/vgteam/vg/wiki/Visualization}{documentation}).
++ Recommend only using on \textbf{small (sub)graphs}.
++ Use in conjunction with \emph{chunk}, \emph{mod}, and/or \emph{find} to draw an interesting subgraph.
++ You can include mapped reads in the visualization!
+
+\hypertarget{incremental-graphs-with-minigraph}{%
+\chapter{\texorpdfstring{Incremental Graphs with \emph{minigraph}}{Incremental Graphs with minigraph}}\label{incremental-graphs-with-minigraph}}
+
+\hypertarget{minigraph-functions}{%
+\section{Minigraph Functions}\label{minigraph-functions}}
+
+Constructs graphs
+
+Maps sequences to graphs
+
+\url{https://github.com/lh3/minigraph}
+
+\hypertarget{minigraph-overview}{%
+\section{Minigraph Overview}\label{minigraph-overview}}
+
+Finds approximate positions of diverged sequences and adds them into the graph
+
+1-to-1 orthogonal regions
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{./Figures/Minigraph.png}
+\caption{Graph Construction \url{https://github.com/lh3/minigraph}}
+\end{figure}
+
+\hypertarget{minimizers-and-minimap2}{%
+\section{Minimizers and Minimap2}\label{minimizers-and-minimap2}}
+
+Minigraph is built off of ideas and code from Minimap2.
+
+\hypertarget{minimizers}{%
+\subsection*{Minimizers}\label{minimizers}}
+\addcontentsline{toc}{subsection}{Minimizers}
+
+From the minimap2 usage:
+``A minimizer is the smallest k-mer in a window of w consecutive k-mers.''
+
+Essentially a minimizer tags a sequence window with the kmer that is first alphabetically.
+
+A nice tutorial:\\
++ \url{https://homolog.us/blogs/bioinfo/2017/10/25/intro-minimizer/}
+
+\hypertarget{minimap2}{%
+\subsection*{Minimap2}\label{minimap2}}
+\addcontentsline{toc}{subsection}{Minimap2}
+
+Minimap2 is a fast sequence aligner.
+It can align short or long reads or assemblies against a reference using the seed-chain-align approach that many aligners employ. It finds exact matches (anchors) between query minimizers (seeds) and indexed reference minimizers. It links colinear anchors together (chains). For nt-level alignment it fills in regions between anchors within chains and between chains (align).
+
+\url{https://github.com/lh3/minimap2}\strut \\
+\url{https://academic.oup.com/bioinformatics/article/34/18/3094/4994778}
+
+\hypertarget{pipeline-1}{%
+\section{Pipeline}\label{pipeline-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Prepare the input
+\item
+  Build graphs
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Build a single genome graph and incrementally add more sequences
+\item
+  Or build a graph for all sequences at once
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  View with Bandage
+\end{enumerate}
+
+\hypertarget{yeast-assemblies-1}{%
+\section{Yeast Assemblies}\label{yeast-assemblies-1}}
+
+\emph{12 Mb}\\
+\emph{16 chromosomes}
+
+Yeast Population Reference Panel (YPRP) \url{https://yjx1217.github.io/Yeast_PacBio_2016/data/}
+
+12 Yeast PacBio Assemblies (Chromosome level)
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textasciitilde100-200x PacBio sequencing reads
+\item
+  HGAP + Quiver polishing\\
+\item
+  \textasciitilde200-500x Illumina (Pilon correction)\\
+\item
+  Manual curation\\
+\item
+  Annotation
+\end{enumerate}
+\end{quote}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Yeast.png}
+\caption{YPRP Assemblies \url{https://yjx1217.github.io/Yeast_PacBio_2016/data/}}
+\end{figure}
+
+\begin{quote}
+Make sure your chromosome names are unique across all samples and that they contain the sample name. We're using \textless strain name\textgreater.\textless chromosome\textgreater{} (\textgreater S288C.chrVIII)
+\end{quote}
+
+\hypertarget{prepare-the-input}{%
+\section{Prepare the Input}\label{prepare-the-input}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Make sure you're working in a \textbf{screen}
+\item
+  Make Directory
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mkdir} \AttributeTok{{-}{-}parents}\NormalTok{ \textasciitilde{}/pangenomics/minigraph}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Navigate to the Directory
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{cd}\NormalTok{ \textasciitilde{}/pangenomics/minigraph}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Link to data
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ln} \AttributeTok{{-}s}\NormalTok{ /home/pangenomics/data/yprp/assemblies/}\PreprocessorTok{*}\NormalTok{.fa .}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{graphical-fragment-assembly-gfa-format-1}{%
+\section{Graphical Fragment Assembly (GFA) format}\label{graphical-fragment-assembly-gfa-format-1}}
+
+Tab-delimited text
+
+Lines start with one of the following types:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule()
+Type & Description & Explanation \\
+\midrule()
+\endhead
+\textbf{H} & Header & \\
+\textbf{S} & Segment & A continuous sequence or subsequence \\
+\textbf{L} & Link & Segment overlaps (basepairs \& orientations) \\
+\textbf{J} & Jump & Jumps link sequences across gaps \\
+\textbf{C} & Containment & Segment contained in another segment \\
+\textbf{P} & Path & An ordered \& oriented list of linked segments \\
+\textbf{W} & Walk & An ordered \& oriented list of segments w/o overlaps \\
+\textbf{\#} & Comment & \\
+\bottomrule()
+\end{longtable}
+
+Optional Fields \url{TAG:TYPE:VALUE}\\
+\url{http://gfa-spec.github.io/GFA-spec/GFA1.html}
+
+Let's go to the specification to look at optional fields and an example:\\
+\url{http://gfa-spec.github.io/GFA-spec/GFA1.html}
+
+\hypertarget{reference-graphical-fragment-assembly-rgfa}{%
+\section{\texorpdfstring{\emph{reference} Graphical Fragment Assembly (rGFA)}{reference Graphical Fragment Assembly (rGFA)}}\label{reference-graphical-fragment-assembly-rgfa}}
+
+\url{https://github.com/lh3/gfatools/blob/master/doc/rGFA.md}
+
+\begin{itemize}
+\tightlist
+\item
+  Strict subset of GFA
+\item
+  Tags that trace origin
+\item
+  Stable coordinates
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/rGFA1.png}
+\caption{Additional required tags trace origin of segment}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/rGFA2.png}
+\caption{Example rGFA}
+\end{figure}
+
+\hypertarget{build-graphs}{%
+\section{Build Graphs}\label{build-graphs}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The first sequence in the graph is used as a ``reference'':
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ reference.fa }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ ref.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-xggs}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    build a graph using a simple (ggs) algorithm
+  \end{itemize}
+\item
+  \textbf{-t 20}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    use 20 threads
+  \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Incrementally add strains to graph:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ ref.minigraph.gfa strain\_1.fa }\OperatorTok{\textgreater{}}\NormalTok{ strain\_1.minigraph.gfa}
+
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ strain\_1.gfa strain\_2.fa }\OperatorTok{\textgreater{}}\NormalTok{ strain\_2.minigrpah.gfa}
+\ExtensionTok{...}
+
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ string\_N{-}1.gfa strain\_N.fa }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Or build a graph for all strains at once:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ ref.minigraph.gfa strain\_}\PreprocessorTok{*}\NormalTok{.fa }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reference-graph}{%
+\section{Reference Graph}\label{reference-graph}}
+
+Activate the environment
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{source}\NormalTok{ activate pangenomics}
+\end{Highlighting}
+\end{Shaded}
+
+Now that you know how to build a minigraph, try to create a graph for the reference (S288C) and answer the following questions.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make the reference graph
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  How many lines in the gfa file?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  What type of lines are they?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reference-graph-commands}{%
+\subsection*{Reference Graph Commands}\label{reference-graph-commands}}
+\addcontentsline{toc}{subsection}{Reference Graph Commands}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make the reference graph
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ S288C.genome.fa }\OperatorTok{\textgreater{}}\NormalTok{ ref.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  How many lines in the gfa file?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wc} \AttributeTok{{-}l}\NormalTok{ ref.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  What type of lines are they?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 1 ref.minigraph.gfa }\KeywordTok{|} \FunctionTok{sort} \KeywordTok{|} \FunctionTok{uniq} \AttributeTok{{-}c}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reference-graph-bandage-visualization}{%
+\subsection*{Reference Graph Bandage Visualization}\label{reference-graph-bandage-visualization}}
+\addcontentsline{toc}{subsection}{Reference Graph Bandage Visualization}
+
+Download your gfa file onto your computer and upload it into Bandage.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/Bandage2.png}
+\caption{Reference Graph Bandage}
+\end{figure}
+
+\hypertarget{yprp-graphs}{%
+\section{YPRP Graphs}\label{yprp-graphs}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Add in the rest of the lines
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  we'll do this alphabetically
+\item
+  capture the stderr
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ ref.minigraph.gfa }\VariableTok{$(}\FunctionTok{ls}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{fa }\KeywordTok{|} \FunctionTok{grep} \AttributeTok{{-}v}\NormalTok{ S288C}\VariableTok{)} \OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa }\DecValTok{2}\OperatorTok{\textgreater{}}\NormalTok{yprp.minigraph.err}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Note:} We can simply use the reference fasta instead of a gfa
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ yprp/assemblies/S288C.genome.fa }\VariableTok{$(}\FunctionTok{ls}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{fa }\KeywordTok{|} \FunctionTok{grep} \AttributeTok{{-}v}\NormalTok{ S288C}\VariableTok{)} \OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa }\DecValTok{2}\OperatorTok{\textgreater{}}\NormalTok{yprp.minigraph.err}
+\end{Highlighting}
+\end{Shaded}
+
+Try to answer the following questions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many lines are in the gfa file?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What type of lines are they?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  How many yeast assemblies have inversions compared to S288C (hint: look in the stderr)?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{yprp-commands}{%
+\subsection*{YPRP Commands}\label{yprp-commands}}
+\addcontentsline{toc}{subsection}{YPRP Commands}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many lines are in the gfa file?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wc} \AttributeTok{{-}l}\NormalTok{ yprp.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What type of lines are they?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 1 yprp.minigraph.gfa }\KeywordTok{|} \FunctionTok{sort} \KeywordTok{|} \FunctionTok{uniq} \AttributeTok{{-}c}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  How many yeast assemblies have inversions compared to S288C (hint: look in the stderr)?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep}\NormalTok{ inv yprp.minigraph.err}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{yprp-graph-statistics}{%
+\subsection*{YPRP Graph Statistics}\label{yprp-graph-statistics}}
+\addcontentsline{toc}{subsection}{YPRP Graph Statistics}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{gfatools}\NormalTok{ stat yprp.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+Number of segments: 2729
+
+Number of links: 3864
+
+Number of arcs: 7728
+
+Max rank: 11
+
+Total segment length: 13243550
+
+Average segment length: 4852.895
+
+Sum of rank-0 segment lengths: 12157149
+
+Max degree: 7
+
+Average degree: 1.416
+
+\hypertarget{yprp-graph-in-bandage}{%
+\subsection*{YPRP Graph in Bandage}\label{yprp-graph-in-bandage}}
+\addcontentsline{toc}{subsection}{YPRP Graph in Bandage}
+
+Take a look at the YPRP graph in Bandage. Your might be rendered differently.
+
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/YPRPBandage1.png}
+
+\hypertarget{structures-in-the-graph}{%
+\section{Structures in the graph}\label{structures-in-the-graph}}
+
+\hypertarget{insertions-and-diverged-regions}{%
+\subsection*{Insertions and Diverged Regions}\label{insertions-and-diverged-regions}}
+\addcontentsline{toc}{subsection}{Insertions and Diverged Regions}
+
+Zoom in on segment s1054.
+
+Trace the S288C path (hint: the S288C segments are numbered sequentially).
+
+Identify insertions and regions that have diverged.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/YPRPBandage2.png}
+\caption{YPRP Graph Bandage}
+\end{figure}
+
+\hypertarget{group-exercise-3}{%
+\subsection*{Group Exercise}\label{group-exercise-3}}
+\addcontentsline{toc}{subsection}{Group Exercise}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find a simple and a complex region
+\item
+  Discuss it in your group
+\item
+  Share it with everyone
+\item
+  Keep track of the segments
+\end{enumerate}
+
+\hypertarget{inversions}{%
+\subsection*{Inversions}\label{inversions}}
+\addcontentsline{toc}{subsection}{Inversions}
+
+Here are some examples of inversions.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth,height=\textheight]{./Figures/Inversionsx2.png}
+\caption{Inversion signatures}
+\end{figure}
+
+Let's find them in bandage.
+
+s1289 LN:i:24089 SN:Z:S288C.chrXIV SO:i:567595
+
+s1672 LN:i:257 SN:Z:DBVPG6044.chrV SO:i:446168
+
+Click on the links (black) to see the direction that paths can travel.
+
+Do a web-blast in Bandage to see what they might code for.
+
+\hypertarget{inversions-in-the-gfa}{%
+\subsection*{Inversions in the GFA}\label{inversions-in-the-gfa}}
+\addcontentsline{toc}{subsection}{Inversions in the GFA}
+
+I found the inversions by searching the graph GFA file for pairs of segments that have two links between them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \FunctionTok{grep} \StringTok{\textquotesingle{}\^{}L\textquotesingle{}}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|} \FunctionTok{awk} \StringTok{\textquotesingle{}\{print $2 "\textbackslash{}t" $4\}\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort}\KeywordTok{|}\FunctionTok{uniq} \AttributeTok{{-}c}\KeywordTok{|}\FunctionTok{awk} \StringTok{\textquotesingle{}$1\textgreater{}=2\{print\}\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+2 s1288 s1289\\
+2 s1289 s1290\\
+2 s1671 s1672\\
+2 s1672 s1673
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Pull out s1289, its adjacent segments and the links connecting them
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{gfatools}\NormalTok{ view }\AttributeTok{{-}l}\NormalTok{ s1289 }\AttributeTok{{-}r}\NormalTok{ 1 yprp.minigraph.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\textbf{-l \href{mailto:STR/@FILE}{\nolinkurl{STR/@FILE}}}. segment list to subset {[} {]}\\
+\textbf{-r INT}. subset radius (effective with -l) {[}0{]}
+\end{quote}
+
+Showing just the links here:\\
+L s1288 + s1289 + 0M SR:i:0 L1:i:4105 L2:i:24089\\
+L s1288 + s1289 - 0M SR:i:5 L1:i:4105 L2:i:24089\\
+L s1289 + s1290 + 0M SR:i:0 L1:i:24089 L2:i:1511\\
+L s1289 - s1290 + 0M SR:i:5 L1:i:24089 L2:i:1511
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Now do the same for s1672
+\item
+  Try extending the surrounding region by increasing the -r parameter
+\end{enumerate}
+
+\hypertarget{minigraph-blog}{%
+\section{Minigraph Blog}\label{minigraph-blog}}
+
+Heng Li
+\url{http://lh3.github.io/2021/01/11/minigraph-as-a-multi-assembly-sv-caller}
+
+\hypertarget{bonus-questions}{%
+\section{Bonus Questions}\label{bonus-questions}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What is the longest segment in the graph?
+  {[}Hint: Parse out the number from the 4th field of the segment line{]}
+\item
+  What is the shortest segment in the graph?
+\item
+  What cigar strings exist for the overlaps in the links? {[}Hint:
+  Field 6 of the link line{]}
+\item
+  How many segments are attributed to each genome? {[}Hint: Parse out field 5 of the segment line{]}
+\end{enumerate}
+
+\hypertarget{commands-for-bonus-questions}{%
+\subsection*{Commands for Bonus Questions}\label{commands-for-bonus-questions}}
+\addcontentsline{toc}{subsection}{Commands for Bonus Questions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What is the longest segment in the graph?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 4}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/.\textbackslash{}+://\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort} \AttributeTok{{-}n} \KeywordTok{|} \FunctionTok{tail} \AttributeTok{{-}1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What is the shortest segment in the graph?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 4}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/.\textbackslash{}+://\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort} \AttributeTok{{-}n} \KeywordTok{|} \FunctionTok{head} \AttributeTok{{-}1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  What cigar strings exist for the overlaps in the links? {[}Hint: Field 6 of the link line{]}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep} \StringTok{"\^{}L"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 6}\KeywordTok{|}\FunctionTok{sort} \AttributeTok{{-}u}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  How many segments are attributed to each genome?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 5}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/SN:Z://\textquotesingle{}}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/\textbackslash{}..\textbackslash{}+//\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort}\KeywordTok{|}\FunctionTok{uniq} \AttributeTok{{-}c}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Note:} There are lots of ways to do this.
+
+\hypertarget{graph-to-fasta}{%
+\section{Graph to Fasta}\label{graph-to-fasta}}
+
+We can convert the gfa graph file to a fasta file the represents the sequence of the pangenome.
+
+\begin{quote}
+Fasta format:\\
+\textgreater header\\
+ACGCGCTAGCGCGAC\\
+ACGGCGTAGGGGCAG\\
+ACGGCT
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{gfatools}\NormalTok{ gfa2fa }\AttributeTok{{-}s}\NormalTok{ yprp.minigraph.gfa }\OperatorTok{\textgreater{}}\NormalTok{ minigraph.stable.fa}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{fasta-questions}{%
+\subsection*{FASTA questions}\label{fasta-questions}}
+\addcontentsline{toc}{subsection}{FASTA questions}
+
+Answer the following questions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many sequences?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Take a look at the headers
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{fasta-commands}{%
+\subsection*{FASTA Commands}\label{fasta-commands}}
+\addcontentsline{toc}{subsection}{FASTA Commands}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many sequences?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep} \AttributeTok{{-}c} \StringTok{\textquotesingle{}\textgreater{}\textquotesingle{}}\NormalTok{ minigraph.stable.fa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Take a look at the headers
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep} \StringTok{\textquotesingle{}\textgreater{}\textquotesingle{}}\NormalTok{ minigraph.stable.fa}\KeywordTok{|}\FunctionTok{less}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{gaf-format}{%
+\section{GAF format}\label{gaf-format}}
+
+``The only visual difference between GAF and PAF is that the 6th column in GAF may encode a graph path like \textgreater MT\_human:0-4001\textless MT\_orang:3426-3927 instead of a contig/chromosome name.''
+
+\url{https://github.com/lh3/minigraph}
+
+Let's look at PAF format
+\url{https://lh3.github.io/minimap2/minimap2.html}
+
+\hypertarget{read-mapping-1}{%
+\section{Read Mapping}\label{read-mapping-1}}
+
+Align reads from SK1 to the minigraph
+
+21,906,518 paired Illumina reads\\
+Read length = 151 nts
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}x}\NormalTok{ sr /home/pangenomics/data/yprp/reads/SK1.illumina.fastq.gz }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ SK1.mapped.gaf}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\textbf{-x sr} map short reads (sr)
+\end{quote}
+
+\hypertarget{read-mapping-stats}{%
+\section{Read Mapping Stats}\label{read-mapping-stats}}
+
+Ideally we would convert from GAF to GAM using vg convert the calculate stats with vg stats but it doesn't work.
+
+Count the number of primary alignments
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep} \AttributeTok{{-}c} \StringTok{"tp:A:P"}\NormalTok{ SK1.mapped.gaf}
+\end{Highlighting}
+\end{Shaded}
+
+18092858 primary alignments
+
+Calculate the percent of reads that had alignments
+
+18092858/21906518 = 82.59\% of reads aligned
+
+\hypertarget{structural-variant-calling}{%
+\section{Structural Variant Calling}\label{structural-variant-calling}}
+
+Call structural variants with gfatools (doesn't work with VG graphs):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{gfatools}\NormalTok{ bubble yprp.minigraph.gfa }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.structural.bed}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/BED.png}
+\url{https://github.com/lh3/minigraph}
+
+\hypertarget{structural-variant-stats}{%
+\subsection*{Structural Variant Stats}\label{structural-variant-stats}}
+\addcontentsline{toc}{subsection}{Structural Variant Stats}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Total number of variants:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wc} \AttributeTok{{-}l}\NormalTok{ yprp.minigraph.structural.bed}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Indels (the shortest path is 0)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{awk} \StringTok{\textquotesingle{}$7==0\{print\}\textquotesingle{}}
+\ExtensionTok{yprp.minigraph.structural.bed}\KeywordTok{|}\FunctionTok{wc} \AttributeTok{{-}l}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Inversions
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{awk} \StringTok{\textquotesingle{}$6==1\{print\}\textquotesingle{}}\NormalTok{ yprp.minigraph.structural.bed }\KeywordTok{|} \FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 1{-}12}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Inversions.png}
+\caption{Inversions}
+\end{figure}
+
+\hypertarget{cup1}{%
+\section{CUP1}\label{cup1}}
+
+\hypertarget{visualize-the-cup1-region}{%
+\subsection*{Visualize the CUP1 region}\label{visualize-the-cup1-region}}
+\addcontentsline{toc}{subsection}{Visualize the CUP1 region}
+
+10 working copies + 1 pseudogene in S288C
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/StructuralRearrangements.png}
+\caption{Structural Rearrangement}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find the region in the graph based on its S288C coordinates\\
+  S288C.chrVIII:213045-233214
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{gfatools}\NormalTok{ view }\AttributeTok{{-}R}\NormalTok{ S288C.chrVIII:213045{-}233214 yprp.minigraph.gfa }\OperatorTok{\textgreater{}}\NormalTok{ cup1.gfa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create a .csv to bring in the segment names\\
+  Note that you need a header
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \FunctionTok{cat} \OperatorTok{\textless{}(}\BuiltInTok{echo} \StringTok{"Segment,Name"}\OperatorTok{)} \OperatorTok{\textless{}(}\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ cup1.gfa }\KeywordTok{|} \FunctionTok{awk} \StringTok{\textquotesingle{}\{print $2 "," $5\}\textquotesingle{}}\OperatorTok{)} \OperatorTok{\textgreater{}}\NormalTok{ cup1.csv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Load the graph and the .csv file into Bandage
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{./Figures/Bandage3.png}
+\caption{Bandage}
+\end{figure}
+
+This compares S288C and SK1.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.35\textwidth,height=\textheight]{./Figures/Bandage4.png}
+\caption{Bandage}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/StructuralRearrangements.png}
+\caption{Structural Rearrangement}
+\end{figure}
+
+If you have blast installed on your computer, you can blast the two gene sequences to their positions. CUP1 is the smaller one. Gene sequences are in: /home/pangenomics/data/yprp/genes/
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/Bandage5.png}
+\caption{Bandage}
+\end{figure}
+
+\hypertarget{cup1-paths-in-y12}{%
+\subsection*{CUP1 Paths in Y12}\label{cup1-paths-in-y12}}
+\addcontentsline{toc}{subsection}{CUP1 Paths in Y12}
+
+Let's find the Y12 paths through the graph for all bubbles in the CUP1 graph file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{minigraph} \AttributeTok{{-}xasm} \AttributeTok{{-}l100} \AttributeTok{{-}{-}call}\NormalTok{ cup1.gfa /home/pangenomics/data/yprp/assemblies/Y12.genome.fa }\OperatorTok{\textgreater{}}\NormalTok{ Y12.call.bed}
+\end{Highlighting}
+\end{Shaded}
+
+Output
+S288C.chrVIII 213609 233593 \textgreater s720 \textgreater s722 \textgreater s2512\textgreater s2052\textgreater s2513\textgreater s2054\textgreater s2514\textgreater s2056\textgreater s2515\textgreater s2058:11410:+:Y12.chrVIII:206778:21819
+
+alignment path through the bubble:path length:mapping strand:the contig name:approximate contig start:approximate contig end
+
+\hypertarget{cup1-paths-in-all-yeast-genomes}{%
+\subsection*{CUP1 Paths in all yeast genomes}\label{cup1-paths-in-all-yeast-genomes}}
+\addcontentsline{toc}{subsection}{CUP1 Paths in all yeast genomes}
+
+Let's do all the samples:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{.fa}\KeywordTok{;} \ControlFlowTok{do}
+   \VariableTok{bn}\OperatorTok{=}\KeywordTok{\textasciigrave{}}\FunctionTok{basename} \VariableTok{$i}\NormalTok{ .fa}\KeywordTok{\textasciigrave{}}
+   \ExtensionTok{minigraph} \AttributeTok{{-}xasm} \AttributeTok{{-}l100} \AttributeTok{{-}{-}call}\NormalTok{ cup1.gfa }\VariableTok{$i} \OperatorTok{\textgreater{}} \VariableTok{$bn}\NormalTok{.call.bed}
+\ControlFlowTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+Compare to the Bandage Graph
+
+\hypertarget{minigraph-pros-and-cons}{%
+\section{Minigraph Pros and Cons}\label{minigraph-pros-and-cons}}
+
+\textbf{Pros}
+
+Captures length variation\\
+Efficient\\
+Easy to add new genomes
+
+\textbf{Cons}
+
+Lack of base level alignment + sample input order dependency =\\
++ suboptimal mappings\\
++ suboptimal local graphs\\
+Needs collinear chains so it doesn't work well with many short segments such as rare SNPs.
+
+\url{https://github.com/lh3/minigraph\#limitations}
+
+``Please do not overinterpret complex subgraphs. If you are interested in a particular subgraph, it is recommended to extract the input contig subsequences involved in the subgraph with the --call option and manually curated the results.''
+
+\hypertarget{blog-battle}{%
+\section{Blog Battle}\label{blog-battle}}
+
+\textbf{Heng Li (Minigraph)}
+
+\url{https://lh3.github.io/2019/07/08/on-a-refere} nce-pan-genome-model
+
+\textbf{Erik Garrison (VG)}
+
+\url{https://ekg.github.io/2019/07/09/Untangling} -graphical-pangenomics
+
+\textbf{Heng Li (Minigraph)}
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://lh3.github.io/2019/07/12/on-a-refere} nce-pan-genome-model-part-ii
+\end{itemize}
+
+\hypertarget{exercises}{%
+\section{Exercises}\label{exercises}}
+
+\hypertarget{start-with-another-reference}{%
+\subsection*{Start with another reference}\label{start-with-another-reference}}
+\addcontentsline{toc}{subsection}{Start with another reference}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What reference did you choose?
+\item
+  What order are the other samples in?
+\item
+  How does the graph compare?
+\item
+  How does read mapping compare?
+\item
+  How do structural variant calls compare?
+\item
+  How does the cup1 region compare?
+\item
+  Any other interesting differences?
+\end{enumerate}
+
+\hypertarget{another-yeast-dataset}{%
+\subsection*{Another Yeast Dataset}\label{another-yeast-dataset}}
+\addcontentsline{toc}{subsection}{Another Yeast Dataset}
+
+A subset of yeast genomes from: \url{https://www.nature.com/articles/s41586-018-0030-5.pdf}
+
+Data are in: /home/pangenomics/data/1011yeast/assemblies/*fa.gz
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many sequences in each assembly? Min? Max?
+\item
+  Make and characterize a minigraph
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Choose 13 lines to match the number of genomes we ran earlier\\
+\item
+  Try all 127 assemblies\\
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  How do these graphs compare to our previous yeast graph?
+\item
+  Pick a region from one of the graphs and make and characterize a subgraph.
+\end{enumerate}
+
+\hypertarget{human-gfa}{%
+\subsection*{Human GFA}\label{human-gfa}}
+\addcontentsline{toc}{subsection}{Human GFA}
+
+\textbf{lipoprotein(a) - LPA}
+
+See if you can pull out and visualize the LPA region pictured below from two human GFA files from different versions of the human reference (GRCh38.p13 and CHM13). BLAST the LPA gene against the graphs in Bandage.
+
+GFA files are in /home/pangenomics/data/1011yeast/assemblies/. The LPA gene sequence is in /home/pangenomics/data/human/genes/
+
+Approximate Positions:
+
+\begin{itemize}
+\item
+  GRCh38.p13 chr6 160000000-161000000 complement
+\item
+  CHM13 chr6 161200000-162200000
+\end{itemize}
+
+\includegraphics[width=0.6\textwidth,height=\textheight]{./Figures/LPA.png}
+\url{http://lh3.github.io/2021/01/11/minigraph-as-a-multi-assembly-sv-caller}
+
+Your results should look something like this.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/GRCh38.p13.png}
+\caption{GRCh38.p13}
+\end{figure}
+
+\hypertarget{convert-to-vg-and-call-variants}{%
+\subsection*{Convert to VG and call variants}\label{convert-to-vg-and-call-variants}}
+\addcontentsline{toc}{subsection}{Convert to VG and call variants}
+
+Convert minigraph to vg (\textless1min):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{vg}\NormalTok{ convert }\AttributeTok{{-}g}\NormalTok{ yprp.minigraph.gfa }\AttributeTok{{-}v} \AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.vg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\textbf{-g} input GFA graph
+\textbf{-v} output VG graph
+\textbf{-t 20} use 20 threads
+\end{quote}
+
+Make vertices small enough (\textless=1024bp) for indexing (\textless1min):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{vg}\NormalTok{ mod }\AttributeTok{{-}X}\NormalTok{ 256 yprp.minigraph.vg }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.mod.vg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\textbf{-X} max node size
+\textbf{-t 20} use 20 threads
+\end{quote}
+
+\emph{NOTE:} Converting to VG isn't required if not calling variants, i.e.~you can index and map directly on GFA.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use vg to index the VG graph (2min)
+\item
+  Use vg to map SK1 reads to minigraph GFA (17min)
+\item
+  Use vg to call variants on read mapping GAM
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    pack (20min)
+  \item
+    call (\textless1min)
+  \item
+    don't do augment; run-time too long!
+  \end{enumerate}
+\end{enumerate}
+
+\hypertarget{reference-free-graphs-with-cactus}{%
+\chapter{Reference-Free Graphs with Cactus}\label{reference-free-graphs-with-cactus}}
+
+\hypertarget{cactus}{%
+\section{Cactus}\label{cactus}}
+
+\url{https://github.com/ComparativeGenomicsToolkit/cactus}
+
+\begin{itemize}
+\tightlist
+\item
+  Reference-free whole genome MSA
+\item
+  Constructs graph based on MSA
+\end{itemize}
+
+\hypertarget{cactus-graphs}{%
+\section{Cactus Graphs}\label{cactus-graphs}}
+
+Cactus Graphs ``naturally decompose the common substructures in a set of related genomes into a hierarchy of chains that can be visualized as two-dimensional multiple alignments and nets that can be visualized in circular genome plots''
+
+\url{https://www.liebertpub.com/} doi/abs/10.1089/cmb.2010.02 52
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Cactus.png}
+\caption{Cactus}
+\end{figure}
+
+\hypertarget{cactus-algorithm}{%
+\section{Cactus Algorithm}\label{cactus-algorithm}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Multiple sequence aligner
+\item
+  Originally developed for multi-species alignments
+\item
+  Fast because it uses a guide tree (Newick format)
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://evolution.genetics.washington.edu/phylip/newicktree.html}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Now supports minigraph GFA in place of guide tree for pangenome
+  alignments
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://github.com/lh3/minigraph}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Yeast.png}
+\caption{Yeast}
+\end{figure}
+
+\hypertarget{reference-free-graphs}{%
+\section{Reference-Free Graphs}\label{reference-free-graphs}}
+
+\url{https://academic.oup.com/bioinformatics/article/30/24/3476/2422268}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/InputGenomes.png}
+\caption{Input Genomes}
+\end{figure}
+
+\hypertarget{pipeline-2}{%
+\section{Pipeline}\label{pipeline-2}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  minigraph
+\item
+  Prepare the input
+\item
+  cactus
+\item
+  vg
+\item
+  View with Bandage
+\end{enumerate}
+
+\hypertarget{set-up-directories-2}{%
+\subsection{Set up Directories}\label{set-up-directories-2}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Make sure you're working in a \textbf{screen}
+\item
+  Make Directory
+\end{enumerate}
+
+\begin{verbatim}
+mkdir cactus
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Navigate to the Directory
+\end{enumerate}
+
+\begin{verbatim}
+cd cactus
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Link to data
+\end{enumerate}
+
+\begin{verbatim}
+cp -r /home/pangenomics/data/yprp/assemblies .
+\end{verbatim}
+
+\emph{Note:} Don't use ``ln -s /home/pangenomics/data/yprp/ .''
+
+\hypertarget{yeast-data-1}{%
+\section{Yeast Data}\label{yeast-data-1}}
+
+Reference:
++ S288C
+
+Using all 12 YPRP assemblies
+
+\hypertarget{preparing-the-input-1}{%
+\section{Preparing the Input}\label{preparing-the-input-1}}
+
+\textbf{(already done for you)}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  FASTA files
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Chromosome names should be unique across files
+
+  \begin{itemize}
+  \tightlist
+  \item
+    We're using:
+  \end{itemize}
+
+\begin{verbatim}
+<strain name>.<chromosome>*
+\end{verbatim}
+\end{itemize}
+
+E.G.
+
+\begin{quote}
+S288C.chrI
+\end{quote}
+
+\hypertarget{minigraph}{%
+\section{minigraph}\label{minigraph}}
+
+Use the graph we previously built: yprp.minigraph.gfa
+
+\hypertarget{preparing-the-input-exercise}{%
+\section{Preparing the Input (exercise)}\label{preparing-the-input-exercise}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cactus seqFile tells Cactus where to load sequences from
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Maps sequence names to file paths
+
+  \begin{itemize}
+  \tightlist
+  \item
+    We're using:
+  \end{itemize}
+
+\begin{verbatim}
+“strain name>\t<path to sequence>”
+\end{verbatim}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Must include ``\emph{MINIGRAPH}'' entry for path to minigraph GFA
+  \end{itemize}
+\end{itemize}
+
+E.G.
+
+seqFile:
+S288C ./S288C.genome.fa \emph{MINIGRAPH} yprp.minigraph.gfa
+
+\begin{itemize}
+\tightlist
+\item
+  It's recommended the minigraph contains all the sequences in the seqFile
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Call it \textbf{yprp.seqFile.txt}
+\end{enumerate}
+
+\hypertarget{cactus-1}{%
+\section{Cactus}\label{cactus-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Align each input FASTA to the minigraph (2min):
+\end{enumerate}
+
+\begin{verbatim}
+ cactus-graphmap jobStore yprp.seqFile.txt yprp.minigraph.gfa
+ yprp.cactus.paf --outputFasta yprp.minigraph.gfa.fa
+ --maxCores 20
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{jobstore}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    a directory where intermediate files should be stored (shouldn't exist)
+  \end{itemize}
+\item
+  \textbf{yprp.seqfile.txt}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    text file mapping sequence names to file paths
+  \end{itemize}
+\item
+  \textbf{yprp.minigraph.gfa}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the graph constructed by minigraph
+  \end{itemize}
+\item
+  \textbf{yprp.cactus.paf}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    what to name the output pairwise mapping file
+  \end{itemize}
+\item
+  \textbf{yprp.minigraph.gfa.fa}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    a FASTA to output the GFA's sequence to
+    \emph{NOTE:} This command modifiers the seqFile. Make a copy before running!
+  \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Generate multiple alignment and VG graph (19min):
+\end{enumerate}
+
+\emph{NOTE}: Don't run this command if you intend to use
+
+\begin{verbatim}
+ cactus-graphmap-split
+ cactus-align jobStore yprp.seqFile.txt yprp.cactus.paf
+ yprp.cactus.hal --pangenome --pafInput --outVG
+ --reference S288C --maxCores 20
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{yprp.cactus.hal}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    what to name the output multiple sequence alignment file
+  \end{itemize}
+\item
+  \textbf{reference S288C}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the name of the reference in the seqFile (should be the same as
+    the reference in the minigraph GFA)
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{preparing-the-input-exercise-1}{%
+\section{Preparing the Input (exercise)}\label{preparing-the-input-exercise-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cactus contigs files tells Cactus to contigs to split the graph on
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  A list of all the S288C contigs
+\item
+  Call it S288C.contigs.txt
+\end{itemize}
+
+\hypertarget{preparing-the-input-solution}{%
+\subsection{Preparing the Input (solution)}\label{preparing-the-input-solution}}
+
+Make a reference contigs file:
+
+\begin{verbatim}
+grep -Po "^>\K.*" ~/cactus/yprp/assemblies/S288C.genome.fa >
+S288C.contigs.txt
+\end{verbatim}
+
+\hypertarget{cactus-split}{%
+\section{Cactus Split}\label{cactus-split}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Align each input FASTA to the minigraph and split by reference chromosome (4min):
+\end{enumerate}
+
+\begin{verbatim}
+ cactus-graphmap-split jobStore yprp.seqFile.txt
+ yprp.minigraph.gfa yprp.cactus.paf
+ --refContigsFile S288C.contigs.txt --reference S288C
+ --outDir chroms --maxCores 20
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{yprp.seqFile.txt}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    modified version from previous \emph{cactus-graphmap} command
+  \end{itemize}
+\item
+  \textbf{yprp.cactus.paf}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    output from previous \emph{cactus-graphmap} command
+  \end{itemize}
+\item
+  \textbf{-refContigsFile}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the names of the chromosomes in the reference FASTA
+  \end{itemize}
+\item
+  \textbf{--reference}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the name of the reference in the seqFile
+  \end{itemize}
+\item
+  \textbf{-outDir}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    where the split outputs should be placed
+  \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Generate multiple alignment and graph for a chromosome (35min total):
+\end{enumerate}
+
+\begin{verbatim}
+cactus-align jobStore chroms/seqfiles/S288C.chrI.seqFile
+chroms/S288C.chrI/S288C.chrI.paf
+yprp.S288C.chrI.cactus.hal --pangenome --pafInput --outVG
+--reference S288C --maxCores 20
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Recommend automating with a bash script;
+
+  \begin{itemize}
+  \tightlist
+  \item
+    see: /home/pangenomics/scripts/cactus-align-chromosomes.sh
+  \end{itemize}
+\end{itemize}
+
+\emph{NOTE}: Other options are:
+
+\begin{itemize}
+\tightlist
+\item
+  cactus-align --batch
+\item
+  cactus-align-batch
+\end{itemize}
+
+\hypertarget{viewing-with-bandage-1}{%
+\section{Viewing with Bandage}\label{viewing-with-bandage-1}}
+
+View \textbf{one chromosome at a time} with Bandage
+
+\hypertarget{reference-free-graphs-with-pggb}{%
+\chapter{\texorpdfstring{Reference-Free Graphs with \emph{pggb}}{Reference-Free Graphs with pggb}}\label{reference-free-graphs-with-pggb}}
+
+\hypertarget{pggb}{%
+\section{pggb}\label{pggb}}
+
+\url{https://github.com/pangenome/pggb}
+
+\begin{itemize}
+\tightlist
+\item
+  All-pairs whole genome alignment
+\item
+  Induces a graph from the alignments
+\end{itemize}
+
+\hypertarget{pangenome-graph-builder}{%
+\section{PanGenome Graph Builder}\label{pangenome-graph-builder}}
+
+pggb is built on the idea that a pangenome graph represents an alignment of the genomes in the graph (this is literally what Cactus does), but infers the graph from all pairwise alignments instead of a multiple alignment.
+
+pggb computes all pairwise alignments efficiently by focusing on long, colinear homologies, instead of using the more traditional k-mer matching alignment approach.
+
+Critically, pggb performs graph \emph{normalization} to ensure that paths through the graph (e.g.~chromosomes) have a linear structure while allowing for cyclic graph structures that capture structural variation.
+
+\hypertarget{reference-free-graphs-1}{%
+\section{Reference-Free Graphs}\label{reference-free-graphs-1}}
+
+\url{https://academic.oup.com/bioinformatics/article/30/24/3476/2422268}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/InputGenomes.png}
+\caption{Input Genomes}
+\end{figure}
+
+\hypertarget{cactus-algorithm-1}{%
+\section{Cactus Algorithm}\label{cactus-algorithm-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  All-pairs align genomes with \href{https://github.com/waveygang/wfmash}{wfmash}
+\item
+  Convert alignments into a graph using \href{https://github.com/ekg/seqwish}{seqwish}
+\item
+  Progressively normalize graph with \href{https://github.com/pangenome/smoothxg}{smoothxg} and \href{https://github.com/marschall-lab/GFAffix}{gfaffix}
+\end{enumerate}
+
+\hypertarget{pipeline-3}{%
+\section{Pipeline}\label{pipeline-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Prepare the input
+\item
+  pggb
+\item
+  View with Bandage
+\end{enumerate}
+
+\hypertarget{set-up-directories-3}{%
+\subsection{Set up Directories}\label{set-up-directories-3}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Make sure you're working in a \textbf{screen}
+\item
+  Make Directory
+\end{enumerate}
+
+\begin{verbatim}
+mkdir pggb
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Navigate to the Directory
+\end{enumerate}
+
+\begin{verbatim}
+cd pggb
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Link to data
+\end{enumerate}
+
+\begin{verbatim}
+cp -r /home/pangenomics/data/yprp/assemblies .
+\end{verbatim}
+
+\emph{Note:} Don't use \texttt{ln\ -s\ /home/pangenomics/data/yprp/\ .}
+
+\hypertarget{yeast-data-2}{%
+\section{Yeast Data}\label{yeast-data-2}}
+
+Reference:
+
+\begin{itemize}
+\tightlist
+\item
+  S288C
+\end{itemize}
+
+Using all 12 YPRP assemblies
+
+\hypertarget{preparing-the-input-exercise-2}{%
+\section{Preparing the Input (exercise)}\label{preparing-the-input-exercise-2}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a FASTA file containing all the yprp assemblies. Call it \texttt{yprp.all.fa}.
+\item
+  Create a FASTA file containing chromosome VIIII from every assembly. Call it \texttt{yprp.chrVIII.fa}.
+\item
+  How can you confirm that the contens of these files is correct?
+\end{enumerate}
+
+\hypertarget{preparing-the-input-solution-1}{%
+\subsection{Preparing the Input (solution)}\label{preparing-the-input-solution-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{cat\ yprp/assemblies/*.fa\ \textgreater{}\ yprp.all.fa}
+\item
+\item
+  \texttt{grep\ -c\ ‘\textgreater{}’\ yprp.all.fa}
+\end{enumerate}
+
+\hypertarget{preparing-the-input-2}{%
+\section{Preparing the Input}\label{preparing-the-input-2}}
+
+\href{https://www.htslib.org/doc/bgzip.html}{bgzip} the FASTA files (\textasciitilde1min):
+
+\begin{verbatim}
+bgzip -c yprp.all.fa > yprp.all.fa.gz
+bgzip -c yprp.chrVIII.fa > yprp.chrVIII.fa.gz
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-c}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    output the bgzipped file to standard output
+  \end{itemize}
+\item
+  \textbf{\textgreater{}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    redirect the standard output into a file
+  \end{itemize}
+\end{itemize}
+
+Index the bgzip files with \href{http://www.htslib.org/doc/samtools.html}{samtools} \href{http://www.htslib.org/doc/samtools-faidx.html}{faidx}:
+
+\begin{verbatim}
+samtools faidx yprp.all.fa.gz
+samtools faidz yprp.chrVIII.fa.gz
+\end{verbatim}
+
+\hypertarget{singularity}{%
+\section{Singularity}\label{singularity}}
+
+Note that we're using \href{https://sylabs.io/guides/main/user-guide}{Singularity} to run pggb.
+
+\begin{verbatim}
+singularity [options] run <image file> [image arguments]
+\end{verbatim}
+
+\textbf{Singularity sets the working directory inside the container to your \texttt{\$PWD} directory by default.} If you want to use a different directory you'll have to mount it manually with \textbf{-B}.
+
+\emph{Singularity} is a program for running containers. A \emph{container} contains the program you want to run AND everything you need to run it, e.g.~other software it depends on, config files, etc. The inside of a container is usually another Linux operating system! An \emph{image} is a file that describes a container. Multiple containers of the same image can be run simultaneously.
+
+\hypertarget{running-pggb-on-chromosome-viii}{%
+\section{Running pggb on Chromosome VIII}\label{running-pggb-on-chromosome-viii}}
+
+Build a graph containing all the yprp assemblies (\textasciitilde5min):
+
+\begin{verbatim}
+singularity run /home/pangenomics/singularity_images/pggb_latest.sif
+    pggb build -i yprp.chrVIII.fa.gz -o output_chrVIII -n 12 -t 20 -p 95
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{-i yprp.chrVIII.fa}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    an input FASTA containing all sequences
+  \end{itemize}
+\item
+  \textbf{-o output\_chrVIIII}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the directory where all output files should be placed
+  \end{itemize}
+\item
+  \textbf{-n 12\textgreater{}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the number of haplotypes (assemblies) in the input file
+  \end{itemize}
+\item
+  \textbf{-t 20}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the number of threads to use
+  \end{itemize}
+\item
+  \textbf{-p 95}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    minimum sequence identity of alignment segments
+  \end{itemize}
+\item
+  \textbf{-2 5000}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    nucleotide segment length when scaffolding the graph
+  \end{itemize}
+\end{itemize}
+
+NOTE: These arguments were taken from the \href{https://github.com/pangenome/pggb-paper/blob/main/workflows/AllSpecies.md}{pggb paper}. Refer to the paper for other species.
+
+\hypertarget{viewing-with-bandage-2}{%
+\section{Viewing with Bandage}\label{viewing-with-bandage-2}}
+
+View your Chromsome VIII graph with Bandage (exercise):
+1. Find CUP1 and YHR054C
+2. Take a screenshot
+
+\hypertarget{exercises-1}{%
+\section{Exercises}\label{exercises-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use vg to index the chromosome VIII graph
+\item
+  Use vg to map SK1 reads to the chromosome VIII graph
+\item
+  Use vg to call variants on chromosome VIII read mapping GAMS
+\end{enumerate}
+
+\hypertarget{running-pggb-on-all-chromosomes}{%
+\section{Running pggb on all Chromosomes}\label{running-pggb-on-all-chromosomes}}
+
+Partition the sequences before building the graph (\textless1min):
+
+\begin{verbatim}
+singularity run /home/pangenomics/singularity_images/pggb_latest.sif
+    partition-before-pggb -i yprp.all.fa.gz -o output_all -n 12 -t 20 -p 95 -s 5000
+\end{verbatim}
+
+This partitions the input FASTA into smaller FASTAs containing sequences that should be in the same subgraph:
+
+\begin{itemize}
+\tightlist
+\item
+  Will likely correspond to chromosomes if you have complete assemblies
+\item
+  May improve run-time of normalization step and make downstream analysis easier
+\item
+  Consider skipping if your assemblies/organism has complex structure you want represented in the graph, e.g.~ploidy, translocations, etc.
+\end{itemize}
+
+This will print a \texttt{pggb} command for every partition to the command line.
+
+\begin{itemize}
+\tightlist
+\item
+  Commands are also written to a log file: \texttt{output\_all/yprp.all.fa.gz.\textless{}gibberish\textgreater{}.log}
+\end{itemize}
+
+\hypertarget{exercise-2}{%
+\subsection{Exercise}\label{exercise-2}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make a bash script to run all of the generated commands with singularity
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Run the command \textbf{NOT DURING THE WORKSHOP} to build the graphs (\textasciitilde1hr40min)
+\end{itemize}
+
+\hypertarget{how-do-you-handle-larger-graphs-nextflow}{%
+\section{How do you handle larger graphs? Nextflow}\label{how-do-you-handle-larger-graphs-nextflow}}
+
+\href{https://www.nextflow.io/docs/latest/index.html}{Nextflow} - Software for running workflows in parallel / distributed computing environments
+
+\begin{itemize}
+\tightlist
+\item
+  Supports Singularity and Docker containers
+\item
+  Nextflow pipelines are open-source
+
+  \begin{itemize}
+  \tightlist
+  \item
+    You can use other people's pipelines
+  \item
+    You can build and share your own pipelines
+  \end{itemize}
+\item
+  \href{https://nf-co.re/pangenome}{nf-core/pangenome} contains pggb along with other pangenome software
+\end{itemize}
+
+\hypertarget{pros-and-cons}{%
+\section{Pros and Cons}\label{pros-and-cons}}
+
+Pros:
+
+\begin{itemize}
+\tightlist
+\item
+  Graphs are truly reference-free
+\item
+  Includes normalization step
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Especially good for species with complex structural variation, such as plants
+  \end{itemize}
+\end{itemize}
+
+Cons:
+
+\begin{itemize}
+\tightlist
+\item
+  Normalization step is currently a bottleneck
+\item
+  Partitioning removes inter-chromosome structural variation
+\end{itemize}
+
+\hypertarget{other-tools-and-methods}{%
+\chapter{Other Tools and Methods}\label{other-tools-and-methods}}
+
+\hypertarget{workshop-tools-review}{%
+\section{Workshop Tools Review}\label{workshop-tools-review}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{vg}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://github.com/vgteam/vg}
+  \item
+    \url{https://www.nature.com/articles/nbt.4227}
+  \end{itemize}
+\item
+  \textbf{minigraph}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://github.com/lh3/minigraph}
+  \item
+    \url{https://link.springer.com/article/10.1186/s13059-020-02168-z}
+  \end{itemize}
+\item
+  \textbf{cactus}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://github.com/ComparativeGenomicsToolkit/cactus}
+  \item
+    \url{https://www.nature.com/articles/s41586-020-2871-y}
+  \end{itemize}
+\item
+  \textbf{gfatools}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://github.com/lh3/gfatools}
+  \end{itemize}
+\item
+  \textbf{Bandage}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://rrwick.github.io/Bandage/}
+  \item
+    \url{https://academic.oup.com/bioinformatics/article/31/20/3350/196114}
+  \end{itemize}
+\item
+  \textbf{IGV}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://software.broadinstitute.org/software/igv/}
+  \item
+    \url{https://www.nature.com/articles/nbt.1754}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{other-visualizations}{%
+\section{Other Visualizations}\label{other-visualizations}}
+
+\begin{itemize}
+\tightlist
+\item
+  Bandage with paths
+\item
+  GfaViz
+\item
+  Panache
+\item
+  Anvi'o
+\item
+  Visualizing Alignment of Microbial Genomes
+\item
+  PanX
+\item
+  Genome Context Viewer
+\item
+  Sequence Tube Maps
+\item
+  MoMI-G
+\item
+  PGV (Pangenome Graph Viewer)
+\end{itemize}
+
+\hypertarget{bandage-with-paths}{%
+\section{Bandage with Paths}\label{bandage-with-paths}}
+
+\url{https://github.com/asl/Bandage}
+
+A fork of Bandage that supports embedded paths
+
+\begin{itemize}
+\tightlist
+\item
+  graphs constructed with minigraph \textbf{don't have paths}!
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Fork.png}
+\caption{Fork of a Bandage}
+\end{figure}
+
+\hypertarget{gfaviz}{%
+\section{GfaViz}\label{gfaviz}}
+
+\url{https://github.com/ggonnella/gfaviz}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://academic.oup.com/bioinformatics/article/35/16/2853/5267826?login=false}
+  \end{itemize}
+\end{itemize}
+
+A GFA viewer that explicitly supports variation graphs (Fig c).
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Fig2.png}
+\caption{Example Applications of GfaViz}
+\end{figure}
+
+\hypertarget{panache}{%
+\section{Panache}\label{panache}}
+
+\url{https://github.com/SouthGreenPlatform/panache}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://academic.oup.com/bioinformatics/article/37/23/4556/6380547}
+  \end{itemize}
+\end{itemize}
+
+Web browser-based visualization of linearized pangenomes
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Panache.png}
+\caption{Panache Genome Representations}
+\end{figure}
+
+\hypertarget{anvio}{%
+\section{Anvi'o}\label{anvio}}
+
+\url{https://anvio.org}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://peerj.com/articles/1319/}
+  \end{itemize}
+\item
+  Pangenomics Workflow:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://merenlab.org/2016/11/08/pangenomics-v2/}
+  \end{itemize}
+\end{itemize}
+
+An analysis and visualization platform that can run pipelines on microbial pangenomic data.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/fig-2-full.png}
+\caption{Anvi'o Genome Bins for infant gut}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Anvio.png}
+\caption{Anvi'o}
+\end{figure}
+
+\hypertarget{visualizing-alignment-of-microbial-genomes}{%
+\section{Visualizing Alignment of Microbial Genomes}\label{visualizing-alignment-of-microbial-genomes}}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://peerj.com/articles/9576/}
+  \end{itemize}
+\end{itemize}
+
+Sequence-level alignment showing common and rare variations at sequence level.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/MicrobialSeqAlign.png}
+\caption{Seq-level Alignment}
+\end{figure}
+
+\hypertarget{panx}{%
+\section{PanX}\label{panx}}
+
+\url{https://github.com/neherlab/pan-genome-analysis}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://academic.oup.com/nar/article/46/1/e5/4564799}
+  \end{itemize}
+\item
+  Demo:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://pangenome.org}
+  \end{itemize}
+\end{itemize}
+
+Pangenome analysis pipeline and visualizations.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/PanXFig.png}
+\caption{Interconnected Components of PanX}
+\end{figure}
+
+\hypertarget{genome-context-viewer}{%
+\section{Genome Context Viewer}\label{genome-context-viewer}}
+
+\url{https://github.com/legumeinfo/gcv}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://academic.oup.com/nar/article/46/1/e5/4564799}
+  \end{itemize}
+\item
+  Demo:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://www.legumeinfo.org/gcv2/instructions}
+  \end{itemize}
+\end{itemize}
+
+Visual exploration of population using synteny derived from gene homology relationships (e.g.~gene families).
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/PanXFig2.png}
+\caption{Viewer}
+\end{figure}
+
+\hypertarget{sequence-tube-maps}{%
+\section{Sequence Tube Maps}\label{sequence-tube-maps}}
+
+\url{https://github.com/vgteam/sequenceTubeMap}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://academic.oup.com/bioinformatics/article/35/24/5318/5542397}
+  \end{itemize}
+\item
+  Demo:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://vgteam.github.io/sequenceTubeMap/}
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/SeqTube.png}
+\caption{Seq Tube}
+\end{figure}
+
+\hypertarget{momi-g}{%
+\section{MoMI-G}\label{momi-g}}
+
+\url{https://github.com/MoMI-G/MoMI-G}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-019-3145-2}
+  \end{itemize}
+\item
+  Demo:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{http://demo.momig.tokyo}
+  \end{itemize}
+\end{itemize}
+
+Web-based multi-scale genome graph browser.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/momig1.png}
+\caption{MoMI-G}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{./Figures/momig2.png}
+\caption{MoMI-G}
+\end{figure}
+
+\hypertarget{pgv-pangenome-graph-viewer}{%
+\section{PGV (Pangenome Graph Viewer)}\label{pgv-pangenome-graph-viewer}}
+
+\url{https://github.com/ucrbioinfo/PGV}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04424-w}
+  \end{itemize}
+\item
+  Demo:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://panviz-22b36.firebaseapp.com}
+  \end{itemize}
+\end{itemize}
+
+Web-based reference-agnostic representation and visualization of pan-genomes constructed using a \textbf{progressiveMauve} pipeline.
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://darlinglab.org/mauve/user-guide/progressivemauve.html}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/PGV.png}
+\caption{MoMI-G}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/PGV2.png}
+\caption{MoMI-G}
+\end{figure}
+
+\hypertarget{other-graph-construction-manipulation-tools-pipelines}{%
+\section{Other Graph Construction / Manipulation Tools / Pipelines}\label{other-graph-construction-manipulation-tools-pipelines}}
+
+\begin{itemize}
+\tightlist
+\item
+  odgi
+\item
+  seqwish
+\item
+  smoothxg
+\item
+  pggb
+\end{itemize}
+
+\hypertarget{odgi-optimized-dynamic-genomegraph-implementation}{%
+\section{odgi (optimized dynamic genome/graph implementation)}\label{odgi-optimized-dynamic-genomegraph-implementation}}
+
+\url{https://github.com/pangenome/odgi}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://www.biorxiv.org/content/10.1101/2021.11.10.467921v1}
+  \end{itemize}
+\item
+  Documentation:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://odgi.readthedocs.io/en/latest/}
+  \end{itemize}
+\end{itemize}
+
+``A toolkit for understanding pangenome graphs.''
+
+Functionality:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Explore graphs via 1D and 2D visualization
+\item
+  Detect complex regions in the graph
+\item
+  Extract selected loci
+\item
+  Sorting and laying out, e.g.~in preparation for visualization
+\item
+  Navigating and annotating graphs, e.g.~bringing annotations in
+  to Bandage
+\item
+  Remove artifacts and complex regions
+\item
+  MultiQC report for graph statistics
+\end{enumerate}
+
+\hypertarget{seqwish}{%
+\section{seqwish}\label{seqwish}}
+
+\url{https://github.com/ekg/seqwish}
+
+\begin{itemize}
+\tightlist
+\item
+  Dissertation
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://github.com/ekg/seqwish}
+  \end{itemize}
+\end{itemize}
+
+``The sequences wish they were squished into a graph.''
+
+\begin{itemize}
+\item
+  Converts pairwise alignments between sequences into a variation graph, i.e.~pangenome.
+\item
+  Takes one or more PAF files as input (e.g.~output of minimap2)
+\item
+  Infers graph nodes and node orderings from alignment blocks
+  and how they overlap between sequences.
+\end{itemize}
+
+\hypertarget{smoothxg}{%
+\section{smoothxg}\label{smoothxg}}
+
+\url{https://github.com/pangenome/smoothxg}
+
+``Linearize and simplify variation graphs using blocked partial order alignment.''
+
+\begin{itemize}
+\tightlist
+\item
+  ``Smooths'' graph by consolidating structures that are artifacts of graph assembly / data.
+\end{itemize}
+
+\hypertarget{pggb-pangenome-graph-build}{%
+\section{pggb (pangenome graph build)}\label{pggb-pangenome-graph-build}}
+
+\url{https://github.com/pangenome/pggb}
+
+A pipeline under development for efficiently building reference-free pangenome graphs.
+
+Basic pipeline:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Align sequences with \textbf{wfmash}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://github.com/waveygang/wfmash}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Construct graph from alignments using \textbf{seqwish}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://github.com/ekg/seqwish}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Use \textbf{smoothxg} to remove artifacts and make graph acyclic for
+  compatibility with tools like vg
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://github.com/pangenome/smoothxg}
+\end{itemize}
+
+\hypertarget{other-mapping-variant-calling-and-genotyping-tools}{%
+\section{Other Mapping, Variant Calling, and Genotyping Tools}\label{other-mapping-variant-calling-and-genotyping-tools}}
+
+\begin{itemize}
+\tightlist
+\item
+  GraphAligner
+\item
+  GraphTyper / GraphTyper2
+\item
+  BayesTyper
+\item
+  Paragraph
+\item
+  Practical Haplotype Graph
+\end{itemize}
+
+\hypertarget{graphaligner}{%
+\section{GraphAligner}\label{graphaligner}}
+
+\url{https://github.com/maickrau/GraphAligner}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02157-2}
+  \end{itemize}
+\end{itemize}
+
+``Aligns long reads to genome graphs. Compared to the state-of-the-art tools, GraphAligner is 13x faster and uses 3x less memory. When employing GraphAligner for error correction, we find it to be more than twice as accurate and over 12x faster than extant tools.''
+
+\hypertarget{graphtyper-graphtyper2}{%
+\section{GraphTyper / GraphTyper2}\label{graphtyper-graphtyper2}}
+
+\url{https://github.com/DecodeGenetics/graphtyper}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscripts
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://www.nature.com/articles/ng.3964}
+  \item
+    \url{https://www.nature.com/articles/s41467-019-13341-9}
+  \end{itemize}
+\end{itemize}
+
+``A graph-based variant caller capable of genotyping population-scale short read data sets. It represents a reference genome and known variants of a genomic region using an acyclic graph structure (a''pangenome reference''), which high-throughput sequence reads are re-aligned to for the purpose of discovering and genotyping SNPs, small indels, and structural variants.''
+
+\begin{itemize}
+\tightlist
+\item
+  GraphTyper2 is the v2 release of GraphTyper, i.e.~the same GitHub repository
+\end{itemize}
+
+\hypertarget{bayestyper}{%
+\section{BayesTyper}\label{bayestyper}}
+
+\url{https://github.com/bioinformatics-centre/BayesTyper}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://www.nature.com/articles/s41588-018-0145-5}
+  \end{itemize}
+\end{itemize}
+
+Performs genotyping of all types of variation by exactly aligning sequence k-mers to a reference graph and then using Bayesian inference built on a ``variation-prior'' database to do genotyping.
+
+BayesTyper enables ``sensitive and accurate genotyping across classes and varying lengths of structural variants'' as compared to other methods
+
+\hypertarget{paragraph}{%
+\section{Paragraph}\label{paragraph}}
+
+\url{https://github.com/Illumina/paragraph}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1909-7}
+  \end{itemize}
+\end{itemize}
+
+A suite of graph-based genotyping tools to support accurate genotyping of short-read data.
+
+Developed by Illumina.
+
+``Paragraph has better accuracy than other existing genotypers and can be applied to population-scale studies.''
+
+\hypertarget{practical-haplotype-graph-phg}{%
+\section{Practical Haplotype Graph (PHG)}\label{practical-haplotype-graph-phg}}
+
+\url{https://bitbucket.org/bucklerlab/practicalhaplotypegraph/wiki/Home}
+
+\begin{itemize}
+\tightlist
+\item
+  Manuscript
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \url{https://academic.oup.com/g3journal/article/12/2/jkab390/6423995}
+  \end{itemize}
+\end{itemize}
+
+A graphical genotyping data storage and genotype imputation platform designed to be used on skim sequencing methods to infer high-density genotypes directly from low-coverage sequence.
+
+\begin{itemize}
+\tightlist
+\item
+  Developed by the Buckler Lab
+\item
+  Has been used extensively with wheat and maize
+\end{itemize}
+
+\hypertarget{so-much-more}{%
+\section{So Much More\ldots{}}\label{so-much-more}}
+
+\hypertarget{the-pangenome-book-edited-by-tettlin}{%
+\subsection{The Pangenome book, edited by Tettlin!}\label{the-pangenome-book-edited-by-tettlin}}
+
+\url{https://library.oapen.org/handle/20.500.12657/37707}
+
+\hypertarget{graph-specific-analyses}{%
+\chapter{Graph-specific Analyses}\label{graph-specific-analyses}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/GraphSpecific.png}
+\caption{Analysis}
+\end{figure}
+
+\hypertarget{frequented-region-fr-algorithm}{%
+\section{Frequented Region (FR) Algorithm}\label{frequented-region-fr-algorithm}}
+
+Identify regions in a graph that are co-visited by a set of supporting
+paths from individual sequences in the pangenome.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/FRAlg.png}
+\caption{FR}
+\end{figure}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Similar evolutionary histories
+\item
+  Similar selection pressures
+\item
+  Heuristic but scalable
+\item
+  Node merging with noise tolerance
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Error
+  \item
+    Divergence
+  \end{itemize}
+\item
+  Nucleotide level
+\end{enumerate}
+
+\hypertarget{a-few-of-the-parameters}{%
+\subsection{A few of the parameters}\label{a-few-of-the-parameters}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  penetrance (𝛼)
+  minimum fraction of nodes
+\item
+  the maximum insertion parameter (κ)
+  maximum number of inserted nodes
+\end{enumerate}
+
+\hypertarget{yeast-insertion-for-alcohol-tolerance}{%
+\section{Yeast Insertion for Alcohol Tolerance}\label{yeast-insertion-for-alcohol-tolerance}}
+
+\hypertarget{kb-insertion-on-chromosome-xiv}{%
+\subsection{17kb insertion on chromosome XIV}\label{kb-insertion-on-chromosome-xiv}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/etohTolerance.png}
+\caption{Alcohol Tolerance Insertion}
+\end{figure}
+
+\hypertarget{kb-insertion-across-all-55-strains}{%
+\subsection{17kb insertion across all 55 strains}\label{kb-insertion-across-all-55-strains}}
+
+\begin{itemize}
+\tightlist
+\item
+  9 of 20 additional alcohol related strains share EC1118's inserted FRs.
+\item
+  Strains sharing four or more FRs are highlighted.
+\item
+  5 genes inserted
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Insertion.png}
+\caption{Insertion}
+\end{figure}
+
+\hypertarget{sars-cov-2}{%
+\section{SARS-CoV-2}\label{sars-cov-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Identify conserved genomic regions
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Vaccine and treatment targets
+  \end{itemize}
+\item
+  Identify genomic shifts over time and geographic space
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Mutations affecting spread and virulence
+  \end{itemize}
+\item
+  Identify genomic regions that differentiate strains
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Implications in modelling and treatment
+  \end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.2\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Virus.png}
+\caption{Virus Cartoon}
+\end{figure}
+
+\hypertarget{genomic-shifts-across-time-and-space}{%
+\section{Genomic shifts across time and space}\label{genomic-shifts-across-time-and-space}}
+
+733 SARS-CoV-2 genomes from the beginning of the pandemic through April
+
+Highlight
+
+\begin{itemize}
+\tightlist
+\item
+  Early strains:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (Wuhan, 12/30/2019)
+  \item
+    (Italy, 4/27/2020)
+  \end{itemize}
+\item
+  \textbf{Spike protein}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Engages the human ACE2 cell receptor to gain entry into the host cell. Target for vaccines, template for antibody production, and candidate for generating entry inhibitors.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{wuhan-italy-compared-to-733-strain-support}{%
+\subsection{Wuhan \& Italy compared to 733 strain support}\label{wuhan-italy-compared-to-733-strain-support}}
+
+Spike protein conserved, especially end Genomic shift
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Shift.png}
+\caption{Shift}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/PathSupport.png}
+\caption{Path Support}
+\end{figure}
+
+\hypertarget{d614g-mutation}{%
+\subsection{D614G mutation}\label{d614g-mutation}}
+
+A mutation seen in Europe in February that spread across the globe to become the dominant strain. Preliminary analyses suggest it might increase contagion and/or virulence and that strains people with immunity to the original strain might not be immune to the mutated strain. The figure shows the region has undergone genomic shift and isn't conserved in all the genomes.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/D614G.png}
+\caption{D614G}
+\end{figure}
+
+\hypertarget{conserved-haplotype-blocks-and-selection-coefficients}{%
+\subsection{Conserved haplotype blocks and selection coefficients}\label{conserved-haplotype-blocks-and-selection-coefficients}}
+
+\hypertarget{soft-and-incomplete-selective-sweeps}{%
+\paragraph*{Soft and incomplete selective sweeps}\label{soft-and-incomplete-selective-sweeps}}
+\addcontentsline{toc}{paragraph}{Soft and incomplete selective sweeps}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/haplotype.png}
+\caption{Haplotype Blocks}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Orf1a.png}
+\caption{ORF1a}
+\end{figure}
+
+\hypertarget{medicago-truncatula}{%
+\section{Medicago truncatula}\label{medicago-truncatula}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Medicago.png}
+\caption{M. truncatula}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Model legume
+\item
+  450 Mb genome
+\item
+  Selfing
+\item
+  Whole genome duplications
+\item
+  High level of rearrangements and gene family expansions
+\end{itemize}
+
+\hypertarget{medicago-pan-13-genome-size-curve}{%
+\subsection{Medicago Pan-13 genome size curve}\label{medicago-pan-13-genome-size-curve}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Medicago2.png}
+\caption{M. truncatula genome}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  Zhou, P., Silverstein, K.A., Ramaraj, T., Guhlin, J., Denny, R., Liu,
+  J., Farmer, A.D., Steele, K.P., Stupar, R.M. \& Miller, J.R. Exploring
+  structural variation and gene family architecture with De Novo
+  assemblies of 15 Medicago genomes. BMC genomics 18, 261 (2017).
+\end{itemize}
+
+\hypertarget{medicago-pan-13-proteome-size-curve}{%
+\subsection{\texorpdfstring{Medicago Pan-13 \emph{proteome} size curve}{Medicago Pan-13 proteome size curve}}\label{medicago-pan-13-proteome-size-curve}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/MedicagoProteome.png}
+\caption{M. truncatula proteome}
+\end{figure}
+
+\hypertarget{medicago-hapmap-summary}{%
+\subsection{Medicago HapMap Summary}\label{medicago-hapmap-summary}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  As much as 22\% of the genome is involved in large structural changes;
+\item
+  Medicago 13 pangenome expands reference space by 16\% (63 Mbp);
+\item
+  Pangenome analysis revealed that 42\% (180 Mbp) of genomic sequences are missing in one or more assemblies, while pan-proteome analysis identified 67\% (50,700) of all ortholog groups as dispensable;
+\item
+  Environmentally Sensitive Gene Families found to be enriched in the accession-specific gene pool.
+\end{enumerate}
+
+\hypertarget{medicago-23-accessions-for-de-novo-assembly}{%
+\subsection{Medicago: 23 accessions for de novo assembly}\label{medicago-23-accessions-for-de-novo-assembly}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  15 genomes from 3 phylogenetic hubs (incl.~A17)
+\item
+  6 genomes from RIL parents
+\item
+  3 ``random'' genomes
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Accessions.png}
+\caption{Accessions}
+\end{figure}
+
+\hypertarget{medicago-leed..peed-lp-family}{%
+\subsection{Medicago: LEED..PEED (LP) family}\label{medicago-leed..peed-lp-family}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Short secreted peptides
+\item
+  Transcribed in nitrogen-fixing nodules but absent from other plant tissues
+\item
+  Not found in other sequenced legumes
+\item
+  M. truncatula A17 (reference)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    12 LP genes on chromosome 7
+  \item
+    1 LP gene on chromosome 4
+  \end{itemize}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  leucine:glutamic acid:glutamic acid:aspartic acid
+\item
+  proline:glutamic acid:glutamic acid:aspartic acid
+\end{itemize}
+
+Genomic Characterization of the LEED..PEEDs, a Gene Family Unique to the Medicago Lineage
+Diana I. Trujillo, Kevin A. T. Silverstein and Nevin D. Young
+G3: GENES, GENOMES, GENETICS October 1, 2014 vol.~4 no. 10 2003-2012; \url{https://doi.org/10.1534/g3.114.011874}
+
+\hypertarget{leed..peed}{%
+\subsubsection*{LEED..PEED}\label{leed..peed}}
+\addcontentsline{toc}{subsubsection}{LEED..PEED}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/LeedPeed.png}
+\caption{LEED..PEED}
+\end{figure}
+
+\hypertarget{medicago-truncatula-1}{%
+\subsection{\texorpdfstring{\emph{Medicago truncatula}}{Medicago truncatula}}\label{medicago-truncatula-1}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Horizontal gene transfer among symbionts and between symbionts and plants
+\item
+  Nodule specific gene families
+\item
+  Expansion of plant gene families
+\end{enumerate}
+
+\hypertarget{using-machine-learning-to-connect-genotype-to-phenotype}{%
+\section{Using Machine Learning to Connect Genotype to Phenotype}\label{using-machine-learning-to-connect-genotype-to-phenotype}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/GWAS.png}
+\caption{Predicting Phenotype}
+\end{figure}
+
+\hypertarget{yeast}{%
+\subsection{Yeast}\label{yeast}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  FR matrix as features
+\item
+  Random Forest
+\item
+  Predict Phenotypes
+\end{enumerate}
+
+\hypertarget{yeast-root-mean-square-error-rmse}{%
+\subsection{Yeast Root Mean Square Error (RMSE)}\label{yeast-root-mean-square-error-rmse}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/RMSE.png}
+\caption{RMSE}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/RMSE2.png}
+\caption{RMSE}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Phenotype.png}
+\caption{Predicted Phenotype}
+\end{figure}
+
+\hypertarget{vg-and-machine-learning}{%
+\section{VG and Machine Learning}\label{vg-and-machine-learning}}
+
+\hypertarget{vg-vectorize-xg-graph-or-gcsa}{%
+\subsection{vg vectorize (xg graph or gcsa)}\label{vg-vectorize-xg-graph-or-gcsa}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Vectorize1.png}
+\caption{Predicted Phenotype}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Vectorize2.png}
+\caption{Predicted Phenotype}
+\end{figure}
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}
