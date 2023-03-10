@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Reference-Free Graphs with Cactus | 04-reference-free-graphs-cactus.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Reference-Free Graphs with Cactus | 04-reference-free-graphs-cactus.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Reference-Free Graphs with Cactus | 04-reference-free-graphs-cactus.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pangenomics Workshop NCGR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path=""><a href="#reference-free-graphs-with-cactus"><i class="fa fa-check"></i><b>1</b> Reference-Free Graphs with Cactus</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path=""><a href="#cactus"><i class="fa fa-check"></i><b>1.1</b> Cactus</a></li>
+<li class="chapter" data-level="1.2" data-path=""><a href="#cactus-graphs"><i class="fa fa-check"></i><b>1.2</b> Cactus Graphs</a></li>
+<li class="chapter" data-level="1.3" data-path=""><a href="#cactus-algorithm"><i class="fa fa-check"></i><b>1.3</b> Cactus Algorithm</a></li>
+<li class="chapter" data-level="1.4" data-path=""><a href="#reference-free-graphs"><i class="fa fa-check"></i><b>1.4</b> Reference-Free Graphs</a></li>
+<li class="chapter" data-level="1.5" data-path=""><a href="#pipeline"><i class="fa fa-check"></i><b>1.5</b> Pipeline</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path=""><a href="#set-up-directories"><i class="fa fa-check"></i><b>1.5.1</b> Set up Directories</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path=""><a href="#yeast-data"><i class="fa fa-check"></i><b>1.6</b> Yeast Data</a></li>
+<li class="chapter" data-level="1.7" data-path=""><a href="#preparing-the-input"><i class="fa fa-check"></i><b>1.7</b> Preparing the Input</a></li>
+<li class="chapter" data-level="1.8" data-path=""><a href="#minigraph"><i class="fa fa-check"></i><b>1.8</b> minigraph</a></li>
+<li class="chapter" data-level="1.9" data-path=""><a href="#preparing-the-input-exercise"><i class="fa fa-check"></i><b>1.9</b> Preparing the Input (exercise)</a></li>
+<li class="chapter" data-level="1.10" data-path=""><a href="#cactus-1"><i class="fa fa-check"></i><b>1.10</b> Cactus</a></li>
+<li class="chapter" data-level="1.11" data-path=""><a href="#preparing-the-input-exercise-1"><i class="fa fa-check"></i><b>1.11</b> Preparing the Input (exercise)</a>
+<ul>
+<li class="chapter" data-level="1.11.1" data-path=""><a href="#preparing-the-input-solution"><i class="fa fa-check"></i><b>1.11.1</b> Preparing the Input (solution)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.12" data-path=""><a href="#cactus-split"><i class="fa fa-check"></i><b>1.12</b> Cactus Split</a></li>
+<li class="chapter" data-level="1.13" data-path=""><a href="#viewing-with-bandage"><i class="fa fa-check"></i><b>1.13</b> Viewing with Bandage</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:title:end-->
+<!--bookdown:title:start-->
+<div id="reference-free-graphs-with-cactus" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Reference-Free Graphs with Cactus<a href="#reference-free-graphs-with-cactus" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="cactus" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Cactus<a href="#cactus" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://github.com/ComparativeGenomicsToolkit/cactus" class="uri">https://github.com/ComparativeGenomicsToolkit/cactus</a></p>
+<ul>
+<li>Reference-free whole genome MSA</li>
+<li>Constructs graph based on MSA</li>
+</ul>
+</div>
+<div id="cactus-graphs" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Cactus Graphs<a href="#cactus-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cactus Graphs “naturally decompose the common substructures in a set of related genomes into a hierarchy of chains that can be visualized as two-dimensional multiple alignments and nets that can be visualized in circular genome plots”</p>
+<p><a href="https://www.liebertpub.com/" class="uri">https://www.liebertpub.com/</a> doi/abs/10.1089/cmb.2010.02 52</p>
+<div class="figure">
+<img src="./Figures/Cactus.png" style="width:100.0%" alt="" />
+<p class="caption">Cactus</p>
+</div>
+</div>
+<div id="cactus-algorithm" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Cactus Algorithm<a href="#cactus-algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Multiple sequence aligner</li>
+<li>Originally developed for multi-species alignments</li>
+<li>Fast because it uses a guide tree (Newick format)</li>
+</ol>
+<ul>
+<li><a href="https://evolution.genetics.washington.edu/phylip/newicktree.html" class="uri">https://evolution.genetics.washington.edu/phylip/newicktree.html</a></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Now supports minigraph GFA in place of guide tree for pangenome
+alignments</li>
+</ol>
+<ul>
+<li><a href="https://github.com/lh3/minigraph" class="uri">https://github.com/lh3/minigraph</a></li>
+</ul>
+<div class="figure">
+<img src="./Figures/Yeast.png" style="width:100.0%" alt="" />
+<p class="caption">Yeast</p>
+</div>
+</div>
+<div id="reference-free-graphs" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Reference-Free Graphs<a href="#reference-free-graphs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://academic.oup.com/bioinformatics/article/30/24/3476/2422268" class="uri">https://academic.oup.com/bioinformatics/article/30/24/3476/2422268</a></p>
+<div class="figure">
+<img src="./Figures/InputGenomes.png" style="width:100.0%" alt="" />
+<p class="caption">Input Genomes</p>
+</div>
+</div>
+<div id="pipeline" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Pipeline<a href="#pipeline" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>minigraph</li>
+<li>Prepare the input</li>
+<li>cactus</li>
+<li>vg</li>
+<li>View with Bandage</li>
+</ol>
+<div id="set-up-directories" class="section level3 hasAnchor" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Set up Directories<a href="#set-up-directories" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Make sure you’re working in a <strong>screen</strong></p></li>
+<li><p>Make Directory</p></li>
+</ol>
+<pre><code>mkdir cactus</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Navigate to the Directory</li>
+</ol>
+<pre><code>cd cactus</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Link to data</li>
+</ol>
+<pre><code>cp -r /home/pangenomics/data/yprp/assemblies .</code></pre>
+<p><em>Note:</em> Don’t use “ln -s /home/pangenomics/data/yprp/ .”</p>
+</div>
+</div>
+<div id="yeast-data" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Yeast Data<a href="#yeast-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Reference:
++ S288C</p>
+<p>Using all 12 YPRP assemblies</p>
+</div>
+<div id="preparing-the-input" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Preparing the Input<a href="#preparing-the-input" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>(already done for you)</strong></p>
+<ol style="list-style-type: decimal">
+<li>FASTA files</li>
+</ol>
+<ul>
+<li>Chromosome names should be unique across files
+<ul>
+<li>We’re using:</li>
+</ul>
+<pre><code>&lt;strain name&gt;.&lt;chromosome&gt;*</code></pre></li>
+</ul>
+<p>E.G.</p>
+<blockquote>
+<p>S288C.chrI</p>
+</blockquote>
+</div>
+<div id="minigraph" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> minigraph<a href="#minigraph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Use the graph we previously built: yprp.minigraph.gfa</p>
+</div>
+<div id="preparing-the-input-exercise" class="section level2 hasAnchor" number="1.9">
+<h2><span class="header-section-number">1.9</span> Preparing the Input (exercise)<a href="#preparing-the-input-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Cactus seqFile tells Cactus where to load sequences from</li>
+</ol>
+<ul>
+<li>Maps sequence names to file paths
+<ul>
+<li>We’re using:</li>
+</ul>
+<pre><code>“strain name&gt;\t&lt;path to sequence&gt;”</code></pre>
+<ul>
+<li>Must include “<em>MINIGRAPH</em>” entry for path to minigraph GFA</li>
+</ul></li>
+</ul>
+<p>E.G.</p>
+<p>seqFile:
+S288C ./S288C.genome.fa <em>MINIGRAPH</em> yprp.minigraph.gfa</p>
+<ul>
+<li>It’s recommended the minigraph contains all the sequences in the seqFile</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Call it <strong>yprp.seqFile.txt</strong></li>
+</ol>
+</div>
+<div id="cactus-1" class="section level2 hasAnchor" number="1.10">
+<h2><span class="header-section-number">1.10</span> Cactus<a href="#cactus-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Align each input FASTA to the minigraph (2min):</li>
+</ol>
+<pre><code> cactus-graphmap jobStore yprp.seqFile.txt yprp.minigraph.gfa
+ yprp.cactus.paf --outputFasta yprp.minigraph.gfa.fa
+ --maxCores 20</code></pre>
+<ul>
+<li><strong>jobstore</strong>
+<ul>
+<li>a directory where intermediate files should be stored (shouldn’t exist)</li>
+</ul></li>
+<li><strong>yprp.seqfile.txt</strong>
+<ul>
+<li>text file mapping sequence names to file paths</li>
+</ul></li>
+<li><strong>yprp.minigraph.gfa</strong>
+<ul>
+<li>the graph constructed by minigraph</li>
+</ul></li>
+<li><strong>yprp.cactus.paf</strong>
+<ul>
+<li>what to name the output pairwise mapping file</li>
+</ul></li>
+<li><strong>yprp.minigraph.gfa.fa</strong>
+<ul>
+<li>a FASTA to output the GFA’s sequence to
+<em>NOTE:</em> This command modifiers the seqFile. Make a copy before running!</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Generate multiple alignment and VG graph (19min):</li>
+</ol>
+<p><em>NOTE</em>: Don’t run this command if you intend to use</p>
+<pre><code> cactus-graphmap-split
+ cactus-align jobStore yprp.seqFile.txt yprp.cactus.paf
+ yprp.cactus.hal --pangenome --pafInput --outVG
+ --reference S288C --maxCores 20</code></pre>
+<ul>
+<li><strong>yprp.cactus.hal</strong>
+<ul>
+<li>what to name the output multiple sequence alignment file</li>
+</ul></li>
+<li><strong>reference S288C</strong>
+<ul>
+<li>the name of the reference in the seqFile (should be the same as
+the reference in the minigraph GFA)</li>
+</ul></li>
+</ul>
+</div>
+<div id="preparing-the-input-exercise-1" class="section level2 hasAnchor" number="1.11">
+<h2><span class="header-section-number">1.11</span> Preparing the Input (exercise)<a href="#preparing-the-input-exercise-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Cactus contigs files tells Cactus to contigs to split the graph on</li>
+</ol>
+<ul>
+<li>A list of all the S288C contigs</li>
+<li>Call it S288C.contigs.txt</li>
+</ul>
+<div id="preparing-the-input-solution" class="section level3 hasAnchor" number="1.11.1">
+<h3><span class="header-section-number">1.11.1</span> Preparing the Input (solution)<a href="#preparing-the-input-solution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Make a reference contigs file:</p>
+<pre><code>grep -Po &quot;^&gt;\K.*&quot; ~/cactus/yprp/assemblies/S288C.genome.fa &gt;
+S288C.contigs.txt</code></pre>
+</div>
+</div>
+<div id="cactus-split" class="section level2 hasAnchor" number="1.12">
+<h2><span class="header-section-number">1.12</span> Cactus Split<a href="#cactus-split" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Align each input FASTA to the minigraph and split by reference chromosome (4min):</li>
+</ol>
+<pre><code> cactus-graphmap-split jobStore yprp.seqFile.txt
+ yprp.minigraph.gfa yprp.cactus.paf
+ --refContigsFile S288C.contigs.txt --reference S288C
+ --outDir chroms --maxCores 20</code></pre>
+<ul>
+<li><strong>yprp.seqFile.txt</strong>
+<ul>
+<li>modified version from previous <em>cactus-graphmap</em> command</li>
+</ul></li>
+<li><strong>yprp.cactus.paf</strong>
+<ul>
+<li>output from previous <em>cactus-graphmap</em> command</li>
+</ul></li>
+<li><strong>-refContigsFile</strong>
+<ul>
+<li>the names of the chromosomes in the reference FASTA</li>
+</ul></li>
+<li><strong>–reference</strong>
+<ul>
+<li>the name of the reference in the seqFile</li>
+</ul></li>
+<li><strong>-outDir</strong>
+<ul>
+<li>where the split outputs should be placed</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Generate multiple alignment and graph for a chromosome (35min total):</li>
+</ol>
+<pre><code>cactus-align jobStore chroms/seqfiles/S288C.chrI.seqFile
+chroms/S288C.chrI/S288C.chrI.paf
+yprp.S288C.chrI.cactus.hal --pangenome --pafInput --outVG
+--reference S288C --maxCores 20</code></pre>
+<ul>
+<li>Recommend automating with a bash script;
+<ul>
+<li>see: /home/pangenomics/scripts/cactus-align-chromosomes.sh</li>
+</ul></li>
+</ul>
+<p><em>NOTE</em>: Other options are:</p>
+<ul>
+<li>cactus-align –batch</li>
+<li>cactus-align-batch</li>
+</ul>
+</div>
+<div id="viewing-with-bandage" class="section level2 hasAnchor" number="1.13">
+<h2><span class="header-section-number">1.13</span> Viewing with Bandage<a href="#viewing-with-bandage" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>View <strong>one chromosome at a time</strong> with Bandage</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/%s",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
