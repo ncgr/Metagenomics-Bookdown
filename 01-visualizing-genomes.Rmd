@@ -1,129 +1,60 @@
-# Visualizing Genomes
+# Filter out Red Alder Sequencing Reads
 
-![Compressed de Bruijn graphs “hairballs”: https://academic.oup.com/bioinformatics/article/30/24/3476/2422268](./Figures/hairballsB.png){width=100%}
+In order to focus on sequencing reads from the microbes in the nodule, we will filter out reads that align to the red alder genome as follows:
 
+1 Align the fastq-formatted reads to the red alder genome using minimap2.
+2 Extract reads that do not align to red alder and sort them using samtools.
+3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
+4 Compress the fastq file using gzip.
 
-```{bash}
-
-```
-
-
-
-
-
-## Set up Directories
-
-1. Make sure you're working in a **screen**
-
-2. Make directory
++ Activate the environment that contains minimap2 and samtools
 
 ```
-mkdir viz
-```
-3. Navigate to the directory
-
-```
-cd viz
-```
-4. Link to data
-
-```
-ln -s /home/pangenomics/data/yprp/ .
+conda activate seqtools
 ```
 
-## Graphical Fragment Assembly (GFA) format
-
-+ Originally developed for representing genomes during assembly
-+ Now used for pangenomics 
-+ More on this later...
-
-## Bandage
-
-![Bandage: https://rrwick.github.io/Bandage/](./Figures/Bandage.png){width=100%}
-
-+ BLAST integration
-  + Can build a local BLAST database of the graph
-  + Can do a web BLAST search with sequences from nodes
-2. More details on making CSV labels: https://github.com/rrwick/Bandage/wiki/CSV-labels
-
-### **Group exercise:**{-}
-
-1. Copy the following example graph from logrus to your computer:
-```
-logrus:/home/<username>/yprp/example/S288C.SK1.minigraph.gfa
-```
-2. Open Bandage and load the graph
-3. Spend some time exploring the graph
-4. If your have BLAST, find [CUP1](https://www.yeastgenome.org/locus/S000001095) and [YHR054C](https://www.yeastgenome.org/locus/S000001096) via BLAST
-  + How many copies are in the graph?
-  + What does the structure it’s in look like?
-  + Take a screenshot of the region that CUP1 is in with the gene colored
-
-## General Feature Format (GFF)
-
-https://genome.ucsc.edu/FAQ/FAQformat.html#format3
-
-
-+ Plain text file
-+ 3 different versions
-+ Each line represents a feature
-+ 9 Columns
-  + Tab separated
-  + First 7 are the same for all feature types
-    + seqname, source, feature, start, end, score, strand
-  + 8th column is phase of CDS (coding DNA sequence) features
-    + 0, 1, or 2 for CDS features, . otherwise
-  + 9th column is for additional attributes related to feature
-
-## Browser Extensible Data (BED) Format
-
-https://genome.ucsc.edu/FAQ/FAQformat.html#format1
-
-+ Plain text file
-+ Designed for drawing features in genome browsers
-+ Each line represents a genomic region and associated annotations
-  + Features aren’t necessary biological
-+ 12 Columns
-  + Tab or white-space separated
-  + First 3 are required
-    + chrom, chromStart, chromEnd
-  + The next 9 are optional
-    + name, score, strand, thickStart, thickEnd, itemRgb, blockCount, blockSizes, blockStart
-
-## Integrative Genomics Viewer (IGV)
-
-https://software.broadinstitute.org/software/igv/
-
-+ View GFF/BED files relative to FASTA and multiple sequence alignments
-+ Doesn’t work with with names that contain dots “.”
-  + This conflicts with our naming convention, but we’ll work around it...
-
-### **Group exercise:**{-}
-
-1. Open IGV with S288C and GFF from [YPRP](https://yjx1217.github.io/Yeast_PacBio_2016/data/)
-2. Find [CUP1](https://www.yeastgenome.org/locus/S000001095) and [YHR054C](https://www.yeastgenome.org/locus/S000001096)
-    + How many copies does it have?
-
-## Linking IGV with Bandage
-
-1. Convert graph from gfa to bed
++ Make a directory and go into it
 
 ```
-gfatools gfa2bed yprp/example/S288C.SK1.minigraph.gfa > S288C.SK1.minigraph.bed
-
+mkdir ~/microbe_fastq
+cd ~/microbe_fastq
 ```
 
-### **Group Exercise**{-}
++ Link to the merged minion reads
 
-1. Find an interesting structure in Bandage
-2. Get its node ID(s)
-3. `grep` the BED file for the ID(s)
+```
+ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
+```
 
-Why isn’t this BED file going to work in IGV?
-+ How should we solve this issue?
++ Run Minimap2 to align the MinION reads to the red alder genome
+    + he -x map-ont parameter (allows ~10% error + divergence)
 
-4. Implement *your* solution
-5. Are there any other nuances you notice in the BED file?
+```
+minimap2 -x map-ont -L -t 8 -a \
+/home/cjb/minion/2019/indexes/red_alder_genome/consensus.fasta \
+3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
+```
+
++ Convert the unmapped reads in the alignment file (sam) to a fastq file
+    + The -f4 includes only reads with the 4 flag (unmapped)
+
+```
+samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
+```
+
++ Compress the new fastq file 
+    + (note that it will automatically add the extension .gz)
+
+```
+gzip 3469-3.microbe.fq
+```
+
+### Now run these steps with 4956-3 (minit3){-}
+
+Reads are here: 
+
+/home/cjb/minion/2022/data/minit3/data/aldernodule4956-3/4956-3/20220701_2154_MC-113286_FAS37509_f3119554/fastq_pass/all.fastq
+
 
 
 
