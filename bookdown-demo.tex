@@ -4,6 +4,17 @@
 %
 \documentclass[
 ]{book}
+\title{QIIME2}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Hands On Command Line Tutorial}
+\author{}
+\date{\vspace{-2.5em}}
+
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -33,6 +44,13 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={QIIME2},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -113,17 +131,6 @@
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{plainnat}
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
-\hypersetup{
-  pdftitle={Metagenomics Workshop NCGR},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-
-\title{Metagenomics Workshop NCGR}
-\author{}
-\date{\vspace{-2.5em}}
 
 \begin{document}
 \maketitle
@@ -2694,11 +2701,7 @@ Finds approximate positions of diverged sequences and adds them into the graph
 
 1-to-1 orthogonal regions
 
-\begin{figure}
-\centering
 \includegraphics[width=0.5\textwidth,height=\textheight]{./Figures/Minigraph.png}
-\caption{Graph Construction \url{https://github.com/lh3/minigraph}}
-\end{figure}
 
 \hypertarget{minimizers-and-minimap2}{%
 \section{Minimizers and Minimap2}\label{minimizers-and-minimap2}}
@@ -2845,9 +2848,9 @@ Tab-delimited text
 Lines start with one of the following types:
 
 \begin{longtable}[]{@{}lll@{}}
-\toprule()
+\toprule
 Type & Description & Explanation \\
-\midrule()
+\midrule
 \endhead
 \textbf{H} & Header & \\
 \textbf{S} & Segment & A continuous sequence or subsequence \\
@@ -2857,7 +2860,7 @@ Type & Description & Explanation \\
 \textbf{P} & Path & An ordered \& oriented list of linked segments \\
 \textbf{W} & Walk & An ordered \& oriented list of segments w/o overlaps \\
 \textbf{\#} & Comment & \\
-\bottomrule()
+\bottomrule
 \end{longtable}
 
 Optional Fields \url{TAG:TYPE:VALUE}\\
@@ -2887,11 +2890,7 @@ Let's go to the specification to look at optional fields and an example:\\
 \caption{Additional required tags trace origin of segment}
 \end{figure}
 
-\begin{figure}
-\centering
 \includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/rGFA2.png}
-\caption{Example rGFA}
-\end{figure}
 
 \hypertarget{build-graphs}{%
 \section{Build Graphs}\label{build-graphs}}
@@ -3671,11 +3670,7 @@ Call structural variants with gfatools (doesn't work with VG graphs):
   Load the graph and the .csv file into Bandage
 \end{enumerate}
 
-\begin{figure}
-\centering
 \includegraphics[width=0.6\textwidth,height=\textheight]{./Figures/Bandage3.png}
-\caption{Bandage}
-\end{figure}
 
 This compares S288C and SK1.
 
@@ -3685,19 +3680,11 @@ This compares S288C and SK1.
 \caption{Bandage}
 \end{figure}
 
-\begin{figure}
-\centering
 \includegraphics[width=1\textwidth,height=\textheight]{./Figures/StructuralRearrangements.png}
-\caption{Structural Rearrangement}
-\end{figure}
 
 If you have blast installed on your computer, you can blast the two gene sequences to their positions. CUP1 is the smaller one. Gene sequences are in: /home/pangenomics/data/yprp/genes/
 
-\begin{figure}
-\centering
 \includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/Bandage5.png}
-\caption{Bandage}
-\end{figure}
 
 \hypertarget{cup1-paths-in-y12}{%
 \subsection*{CUP1 Paths in Y12}\label{cup1-paths-in-y12}}
@@ -5877,6 +5864,854 @@ G3: GENES, GENOMES, GENETICS October 1, 2014 vol.~4 no. 10 2003-2012; \url{https
 \includegraphics[width=1\textwidth,height=\textheight]{~/Desktop/Bookdown/Pangenomics-Bookdown/Figures/Vectorize2.png}
 \caption{Predicted Phenotype}
 \end{figure}
+
+\hypertarget{logging-on-to-the-server}{%
+\section{Logging on to the server}\label{logging-on-to-the-server}}
+
+Make it a practice to start a screen before you begin analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ssh} \AttributeTok{{-}p}\NormalTok{ 44111 }\OperatorTok{\textless{}}\NormalTok{USERNAME}\OperatorTok{\textgreater{}}\NormalTok{@gateway.training.ncgr.org}
+
+\ExtensionTok{screen} \AttributeTok{{-}S}\NormalTok{ QIIME2}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{setting-up-a-working-directory-for-qiime2-analysis}{%
+\section{Setting up a working directory for QIIME2 analysis}\label{setting-up-a-working-directory-for-qiime2-analysis}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/}
+
+\FunctionTok{mkdir}\NormalTok{ QIIME2\_Analysis}
+
+\BuiltInTok{cd}\NormalTok{ QIIME2\_Analysis}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{dataset-for-analysis}{%
+\section{Dataset for analysis}\label{dataset-for-analysis}}
+
+For this tutorial, we will use data from the following published manuscript:
+\url{https://microbiomejournal.biomedcentral.com/articles/10.1186/2049-2618-2-29}
+
+Respiratory tract clinical sample selection for microbiota analysis in patients with pulmonary tuberculosis
+
+Pulmonary Tuberculosis (The Human Microbiome in the Fight Against Tuberculosis, 2017)
+
+\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.png}
+Why study microbiome in relation to TB?
+1. Microbiome composition is a potential risk factors for TB infection and disease susceptibility, disease progression,
+and treatment outcomes
+2. TB infection and disease can affect microbiome, subsequently impacting health via alteration of immune responses
+
+This pilot study was carried out using sputum, oropharynx, and nasal respiratory tract samples collected from patients
+with pulmonary tuberculosis and healthy control individuals, in order to compare sample types and their usefulness in
+assessing changes in bacterial and fungal communities.
+
+\hypertarget{data-download}{%
+\section{Data download}\label{data-download}}
+
+Data was downloaded from the National Center for Biotechnology Information (NCBI) based on the SRA accession
+numbers reported in the manuscript - PRJNA242354.
+A program called fastq-dump version 2.10.0 was used to download the data directly from NCBI SRA database. Tbe
+following exercise will help you use fastq-dump for your own projects too.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{source}\NormalTok{ activate fastqdump}
+\CommentTok{\# MAKE SURE YOU ARE IN THE FOLLOWING FOLDER}
+\ExtensionTok{/home/}\VariableTok{$USER}\ExtensionTok{/QIIME2\_Analysis}
+\CommentTok{\# CREATE A FOLDER FOR DOWNLOADING FASTQ FILES TO ANALYZE}
+
+\FunctionTok{mkdir}\NormalTok{ input\_data}
+\BuiltInTok{cd}\NormalTok{ input\_data}
+\ExtensionTok{fastq{-}dump} \AttributeTok{{-}{-}gzip} \AttributeTok{{-}{-}outdir}\NormalTok{ ./ }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1204628 SRR1204630 SRR1204627 SRR1204629 SRR1204626 SRR1204623 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1204625 SRR1204624 SRR1204622 SRR1204631 SRR1204638 SRR1204642 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1204633 SRR1204632 SRR1204634 SRR1204639 SRR1204646 SRR1204647 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1204641 SRR1204640 SRR1204636 SRR1204637 SRR1369696 SRR1369694 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1204635 SRR1204643 SRR1204644 SRR1204645 SRR1369709 SRR1369707 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1369690 SRR1369691 SRR1369692 SRR1369693 SRR1369710 SRR1369713 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1204650 SRR1204651 SRR1369688 SRR1369689 SRR1369695 SRR1204649 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1204648 SRR1369697 SRR1369704 SRR1369703 SRR1369706 SRR1369705 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1369708 SRR1369698 SRR1369699 SRR1369701 SRR1369700 SRR1369702 }\DataTypeTok{\textbackslash{}}
+\NormalTok{SRR1369714 SRR1369717 SRR1369716 SRR1369715 SRR1369711 SRR1369712}
+\CommentTok{\# {-}{-}outdir {-}\textgreater{} Path to Output directory}
+\CommentTok{\# {-}{-}gzip {-}\textgreater{} Compress output files using gzip}
+
+\CommentTok{\# After running this step, you will have 60 files in your input\_data folder}
+\CommentTok{\# To check, cd into folder that has fastq files, type this command}
+\FunctionTok{ls} \AttributeTok{{-}l} \KeywordTok{|} \FunctionTok{wc} \AttributeTok{{-}l}
+\CommentTok{\# Optional exercise:}
+\CommentTok{\# Count the number of sequences in the two fastq files pertaining to one sample and sum them.}
+\ExtensionTok{conda}\NormalTok{ deactivate}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{quality-control}{%
+\section{Quality Control}\label{quality-control}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filter poor quality reads}
+\BuiltInTok{source}\NormalTok{ activate fastp}
+
+\ControlFlowTok{for}\NormalTok{ file }\KeywordTok{in} \PreprocessorTok{*}\NormalTok{.fastq}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{fastp} \AttributeTok{{-}i} \VariableTok{$\{file\}} \AttributeTok{{-}o} \VariableTok{$\{file\}}\NormalTok{.filtered}\KeywordTok{;} \ControlFlowTok{done}
+\ExtensionTok{conda}\NormalTok{ deactivate}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png}
+Data was collected from 30 Individuals.
+
+• 6 TB Patients - Nasal
+
+• 6 TB Patients - oropharynx
+
+• 6 TB Patients - Sputum
+
+• 6 Healthy Controls - Nasal
+
+• 6 Healthy Controls - oropharynx
+
+DATA TABLE:
+
+\begin{verbatim}
+SAMPLE FASTA FILE                   TOTAL NUMBER OF READS 
+Control_1_Nasal_L001_R1_001.fasta   41056
+Control_1_Pharynx_L001_R1_001.fasta 119972
+Control_2_Nasal_L001_R1_001.fasta   32142
+Control_2_Pharynx_L001_R1_001.fasta 42973
+Control_3_Nasal_L001_R1_001.fasta   32953
+Control_3_Pharynx_L001_R1_001.fasta 39148
+Control_4_Nasal_L001_R1_001.fasta   83174
+Control_4_Pharynx_L001_R1_001.fasta 17475
+Control_5_Nasal_L001_R1_001.fasta   29146
+Control_5_Pharynx_L001_R1_001.fasta 32728
+Control_6_Nasal_L001_R1_001.fasta   32738
+Control_6_Pharynx_L001_R1_001.fasta 15320
+Patient_1_Nasal_L001_R1_001.fasta   69995
+Patient_1_Pharynx_L001_R1_001.fasta 59646
+Patient_1_Sputum_L001_R1_001.fasta  66725
+Patient_2_Nasal_L001_R1_001.fasta   61070
+Patient_2_Pharynx_L001_R1_001.fasta 27106
+Patient_2_Sputum_L001_R1_001.fasta  71434
+Patient_3_Nasal_L001_R1_001.fasta   91920
+Patient_3_Pharynx_L001_R1_001.fasta 36224
+Patient_3_Sputum_L001_R1_001.fasta  27533
+Patient_4_Nasal_L001_R1_001.fasta   28996
+Patient_4_Pharynx_L001_R1_001.fasta 30713
+Patient_4_Sputum_L001_R1_001.fasta  59433
+Patient_5_Nasal_L001_R1_001.fasta   70843
+Patient_5_Pharynx_L001_R1_001.fasta 39674
+Patient_5_Sputum_L001_R1_001.fasta  29576
+Patient_6_Nasal_L001_R1_001.fasta   106178
+Patient_6_Pharynx_L001_R1_001.fasta 58956
+Patient_6_Sputum_L001_R1_001.fasta  35703
+\end{verbatim}
+
+\hypertarget{what-is-qiime2}{%
+\section{What is QIIME2?}\label{what-is-qiime2}}
+
+\url{https://docs.qiime2.org/2020.11/about/}
+
+QIIME 2 is a powerful microbiome analysis package with a focus on data and analysis transparency. QIIME2 enables researchers to start an analysis with raw DNA sequence data and finish with publication-quality figures and statistical results.
+
+Key features:
+
+• Integrated and automatic tracking of data provenance
+
+• Plugin system for extending microbiome analysis functionality
+
+• Support for multiple types of user interfaces (e.g.~API, command line, graphical)
+
+Plugin availability - \url{https://docs.qiime2.org/2020.11/plugins/available/}
+
+\hypertarget{metadata-setup}{%
+\section{Metadata setup}\label{metadata-setup}}
+
+Metadata file that we will be using for our data set: (mappingFile.txt on logrus)
+
+Here is how you will make a metadata file on your own: \url{https://docs.qiime2.org/2017.6/tutorials/metadata/}
+
+\begin{verbatim}
+#SampleID   Treatment   TreatmentSite   TreatmentNumber     Sex     BodySite    Description 
+C_1_N   C   CN  1   F   Nasal       Control 1 Nasal 
+C_1_P   C   CP  2   F   Oropharynx  Control 1 Pharynx 
+C_2_N   C   CN  1   M   Nasal       Control 2 Nasal 
+C_2_P   C   CP  2   M   Oropharynx  Control 2 Pharynx 
+C_3_N   C   CN  1   M   Nasal       Control 3 Nasal 
+C_3_P   C   CP  2   M   Oropharynx  Control 3 Pharynx 
+C_4_N   C   CN  1   M   Nasal       Control 4 Nasal 
+C_4_P   C   CP  2   M   Oropharynx  Control 4 Pharynx 
+C_5_N   C   CN  1   M   Nasal       Control 5 Nasal 
+C_5_P   C   CP  2   M   Oropharynx  Control 5 Pharynx 
+C_6_N   C   CN  1   M   Nasal       Control 6 Nasal 
+C_6_P   C   CP  2   M   Oropharynx  Control 6 Pharynx 
+P_1_N   P   PN  3   F   Nasal       Patient 1 Nasal 
+P_1_P   P   PP  4   F   Oropharynx  Patient 1 Pharynx 
+P_1_S   P   PS  5   F   Sputum      Patient 1 Sputum 
+P_2_N   P   PN  3   M   Nasal       Patient 2 Nasal 
+P_2_P   P   PP  4   M   Oropharynx  Patient 2 Pharynx 
+P_2_S   P   PS  5   M   Sputum      Patient 2 Sputum 
+P_3_N   P   PN  3   M   Nasal       Patient 3 Nasal 
+P_3_P   P   PP  4   M   Oropharynx  Patient 3 Pharynx 
+P_3_S   P   PS  5   M   Sputum      Patient 3 Sputum 
+P_4_N   P   PN  3   M   Nasal       Patient 4 Nasal 
+P_4_P   P   PP  4   M   Oropharynx  Patient 4 Pharynx 
+P_4_S   P   PS  5   M   Sputum      Patient 4 Sputum 
+P_5_N   P   PN  3   M   Nasal       Patient 5 Nasal 
+P_5_P   P   PP  4   M   Oropharynx  Patient 5 Pharynx 
+P_5_S   P   PS  5   M   Sputum      Patient 5 Sputum 
+P_6_N   P   PN  3   M   Nasal       Patient 6 Nasal 
+P_6_P   P   PP  4   M   Oropharynx  Patient 6 Pharynx 
+P_6_S   P   PS  5   M   Sputum      Patient 6 Sputum 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Move out of the input\_data directory}
+
+\BuiltInTok{cd}\NormalTok{ ../}
+
+\CommentTok{\# Copy metadata file from my workspace to your workspace,}
+
+\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/QIIME2\_Analysis}
+
+\FunctionTok{cp}\NormalTok{ /home/elavelle/QIIME2\_Analysis/mappingFile.txt ./}
+
+\FunctionTok{less}\NormalTok{ mappingFile.txt }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-import}{%
+\section{Data import}\label{data-import}}
+
+We will be beginning our analysis with demultiplexed, quality controlled sequences.
+
+For the purpose of this workshop we will not use the entire dataset per sample. We have created 1000 sequences per sample as subset. This will be your input dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/QIIME2\_Analysis}
+
+\CommentTok{\# Copy the subset file of sequences:}
+
+\FunctionTok{cp}\NormalTok{ /home/metag/data/seqs.1000.fna ./}
+
+\ExtensionTok{conda}\NormalTok{ deactivate}
+
+\BuiltInTok{source}\NormalTok{ activate qiime2}
+
+\CommentTok{\# This command will vary depending input data type and format}
+\CommentTok{\# Here, we are importing .fasta reads (no quality scores)}
+
+\ExtensionTok{qiime}\NormalTok{ tools import }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}input{-}path seqs.1000.fna }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}output{-}path seqs.1000.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}type }\StringTok{\textquotesingle{}SampleData[Sequences]\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{dereplicate}{%
+\section{Dereplicate}\label{dereplicate}}
+
+From \url{https://docs.qiime2.org/2021.2/tutorials/overview/\#derep-denoise}
+
+• We dereplicate our sequences to reduce repetition and file size/memory requirements in downstream steps (Don't worry, we keep count of each replicate).
+
+• We denoise to correct for stochastic sequencing effects and PCR error.
+
+• We cluster sequences to collapse similar sequences (e.g., those that are ≥ 97\% similar to each other) into single replicate sequences. This process, also known as OTU picking, was once a common procedure, used to simultaneously dereplicate but also perform a quick-and-dirty denoising procedure. Use denoising methods instead if you can.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\ExtensionTok{qiime}\NormalTok{ vsearch dereplicate{-}sequences }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}sequences seqs.1000.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}dereplicated{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}dereplicated{-}sequences rep{-}seqs.qza }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{generating-a-feature-table}{%
+\section{Generating a feature table}\label{generating-a-feature-table}}
+
+The final products of all denoising and clustering methods/workflows are a FeatureTable{[}Frequency{]} (feature table) artifact and a FeatureData{[}Sequence{]} (representative sequences) artifact. These are two of the most important artifacts in an amplicon sequencing workflow, and are used for many downstream analyses, as discussed below. Indeed, feature tables are crucial to any QIIME 2 analysis, as the central record of all observations per sample.
+
+\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/derep-denoise.png}
+The feature-table summarize command will give you information on how many sequences are associated with each sample and with each feature, histograms of those distributions, and some related summary statistics. The feature-table and tabulate-seqs commands will provide a mapping of feature IDs to sequences, and provide links to easily BLAST each sequence against the NCBI nt database.
+
+\hypertarget{visualization}{%
+\section{Visualization}\label{visualization}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\ExtensionTok{qiime}\NormalTok{ feature{-}table summarize }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization table.qzv}
+
+
+\ExtensionTok{qiime}\NormalTok{ feature{-}table tabulate{-}seqs }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}data rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization rep{-}seqs.qzv}
+\end{Highlighting}
+\end{Shaded}
+
+Look at the format of a feature table from a mock dataset as well as other tutorials:
+\url{https://view.qiime2.org/visualization/?type=html\&src=https\%3A\%2F\%2Fdocs.qiime2.org\%2F2020.11\%2Fdata\%2Ftutorials\%2Fmoving-pictures\%2Ftable.qzv}
+
+\hypertarget{setting-up-a-reference}{%
+\section{Setting up a reference}\label{setting-up-a-reference}}
+
+Greengenes (16S rRNA) and Silva (16S/18S rRNA) databases have to be imported as QIIME2 artifacts before using them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\ExtensionTok{qiime}\NormalTok{ tools import }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}input{-}path /home/metag/QIIME2\_greengenes/Greengenes\_16S\_rRNA/}\DataTypeTok{\textbackslash{}}
+\NormalTok{gg\_13\_8\_otus/rep\_set/99\_otus.fasta }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}output{-}path 99\_otus.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}type FeatureData[Sequence]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{clustering-1}{%
+\section{Clustering}\label{clustering-1}}
+
+\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/qiimeimage.png}
+There are three types of clustering,
+
+I. De novo Operational Taxonomic Unit (OTU) clustering
+
+De novo OTU picking is used when we dont have a reference sequence collection to cluster against, for example, working with an infrequently used marker gene.
+
+De novo OTU picking cannot be used in the following two scenarios,
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Comparing non-overlapping amplicons, such as V2 and V4 regions of 16S rRNA
+\item
+  Working with very large data sets, e.g., HiSeq
+\end{enumerate}
+
+Advantage: No reference is required.
+
+Disadvantage: Run time can be very expensive depending on the volume of data (parallel processing not possible)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# EXAMPLE{-} DO NOT RUN THE ABOVE COMMAND TO COMPLETION.}
+
+\ExtensionTok{qiime}\NormalTok{ vsearch cluster{-}features{-}de{-}novo }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}sequences rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}perc{-}identity 0.99 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}clustered{-}table table{-}dn{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}clustered{-}sequences rep{-}seqs{-}dn{-}99.qza}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\Roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Closed-reference OTU clustering
+\end{enumerate}
+
+Reads are clustered against a reference sequence collection. Any reads which do not hit a sequence in the reference sequence collection are excluded from downstream analyses.
+
+Closed-reference OTU picking is used:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  When comparing non-overlapping amplicons, such as V2 and V4 regions of the 16S rRNA.
+\item
+  When reference sequences span the sequenced regions.
+\end{enumerate}
+
+Closed-reference OTU picking is not used when reference sequence collection is not available
+
+Advantage: Fast, useful for extremely large data sets. Better trees and taxonomy. OTUs are defined in the reference and have a reliable tree/taxonomy.
+
+Disadvantage: Inability to detect novel diversity with respect to your reference sequence collection
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\# EXAMPLE{-} DO NOT RUN THE ABOVE COMMAND TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ vsearch cluster{-}features{-}closed{-}reference }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}sequences rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}reference{-}sequences 99\_otus.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}perc{-}identity 0.99 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}clustered{-}table table{-}cr{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}clustered{-}sequences rep{-}seqs{-}cr{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}unmatched{-}sequences unmatched{-}cr{-}99.qza}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\Roman{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Open-reference OTU clustering
+\end{enumerate}
+
+In open-reference OTU clustering, sequence reads are clustered against a reference sequence collection and any reads which do not hit the reference sequence collection are subsequently clustered de novo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\# EXAMPLE{-} DO NOT RUN THE ABOVE COMMAND TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ vsearch cluster{-}features{-}open{-}reference }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}sequences rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}reference{-}sequences 99\_otus.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}perc{-}identity 0.99 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}clustered{-}table table{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}clustered{-}sequences rep{-}seqs{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}new{-}reference{-}sequences new{-}ref{-}seqs{-}or{-}99.qza}
+\end{Highlighting}
+\end{Shaded}
+
+STEP 7: Building a phylogenetic tree
+
+Evolution is the core concept of biology. There is only so much you can learn from microbes while ignoring evolution. Evolution-aware analyses of a dataset needs a phylogenetic tree of its sequences. These trees can be built de-novo or they can be reference based. Phylogeny-based analyses in QIIME2 generally need a rooted tree.
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/forlyx.trees.qiime.png}
+\caption{workflow}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\# Carry out a multiple sequence alignment using Mafft}
+
+\ExtensionTok{qiime}\NormalTok{ alignment mafft }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}sequences rep{-}seqs{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}alignment aligned{-}rep{-}seqs.qza}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 4 MINUTES TO RUN TO COMPLETION}
+
+\CommentTok{\# Mask (or filter) the alignment to remove positions that are highly variable. }
+\CommentTok{\# These positions are generally considered to add noise to a}
+\CommentTok{\# resulting phylogenetic tree.}
+
+\ExtensionTok{qiime}\NormalTok{ alignment mask }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}alignment aligned{-}rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}masked{-}alignment masked{-}aligned{-}rep{-}seqs.qza}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 4 MINUTES TO RUN TO COMPLETION}
+
+\CommentTok{\# Create the tree using the Fasttree program}
+
+\ExtensionTok{qiime}\NormalTok{ phylogeny fasttree }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}alignment masked{-}aligned{-}rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}tree unrooted{-}tree.qza}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 9 MINUTES TO RUN TO COMPLETION}
+
+\CommentTok{\# root the tree using the longest root}
+
+\ExtensionTok{qiime}\NormalTok{ phylogeny midpoint{-}root }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}tree unrooted{-}tree.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}rooted{-}tree rooted{-}tree.qza}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 SECONDS TO RUN TO COMPLETION}
+\end{Highlighting}
+\end{Shaded}
+
+STEP 8: Alpha rarefaction
+
+What is rarefaction?
+
+Species richness is the number of species present in a system. However, the deeper you sequence, the more species you will find. That can be problematic if you gathered 500 reads from one sample and only 100 reads from another sample- you would expect to find more species if you sequenced 5x as many reads! To account for this, we perform an in-silico (i.e., on your computer) experiment called rarefaction. A rarefaction is a random collection of sequences from a sample, with a specified depth (number of sequences). For example, a rarefaction with a depth of 75 reads per sample is a simulation of what your sequencing results would look like if you sequenced exactly 75 reads from each sample. To look at alpha diversity systematically, we can perform many rarefactions: at multiple depths and repeat many times at each depth. In QIIME, this task is performed on your OTU table.
+
+• Concerns:
+
+-- Too low: ignore a lot of samples' information
+
+-- Too high: ignore a lot of samples
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\# EXAMPLE{-} DO NOT RUN THE ABOVE COMMAND TO COMPLETION}
+
+\FunctionTok{cp}\NormalTok{ /home/elavelle/mappingFile.txt ./}
+
+\ExtensionTok{qiime}\NormalTok{ diversity alpha{-}rarefaction }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}phylogeny rooted{-}tree.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}max{-}depth 1000 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization alpha{-}rarefaction.qzv}
+
+\CommentTok{\# Why specify a maximum depth of 1000?}
+\end{Highlighting}
+\end{Shaded}
+
+Look at the following example and decide what sampling-depth you would use:
+
+\url{https://view.qiime2.org/visualization/?type=html\&src=https\%3A\%2F\%2Fdocs.qiime2.org\%2F2020.11\%2Fdata\%2Ftutorials\%2Fmoving-pictures\%2Falpha-rarefaction.qzv}
+
+STEP 9: Calculating and exploring diversity metrics
+
+Species diversity is a valuable tool for describing the ecological complexity of a single sample (alpha diversity) or between samples (beta diversity).
+
+However, diversity is not a physical quantity that can be measured directly, and many different metrics have been proposed to quantify diversity
+
+Species diversity consists of three components: species richness, taxonomic or phylogenetic diversity and species evenness.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Species richness = the number of different species in a community.
+\item
+  Species evenness = how close the species abundencies in a community are.
+\item
+  Phylogenetic diversity = how closely related the species in a community are.
+\end{enumerate}
+
+QIIME 2 calculates comprehensive set of metrics for you with one command
+
+Alpha diversity metrics
+
+• Observed Features (a measure of community richness, called ``observed OTUs'' here for historical reasons)
+
+• Evenness (or Pielou's Evenness; a measure of community evenness; Pielou, 1966)
+
+• Shannon Diversity Index (a measure of community diversity; Shannon \& Weaver, 1949)
+
+• Faith's Phylogenetic Diversity (a measure of diversity that incorporates phylogenetic relationships between the features; Faith, 1992); this metric is sometimes referred to as PD\_whole\_tree, but we discourage the use of that name in favor of Faith's Phylogenetic Diversity or Faith's PD
+
+Beta diversity metrics
+
+• Jaccard distance (qualitative comparison: \# shared OTUs / \# union OTUs *100 ; (Jaccard, 1908)
+
+• Bray‐Curtis distance (a quantitative measure of community dissimilarity- includes abundance; Sørensen, 1948)
+
+• unweighted UniFrac distance (a qualitative measure of community dissimilarity- analogous to Jaccard- that incorporates phylogenetic relationships between the features; Lozupone \& Knight, 2005); implementation based on Striped UniFrac (McDonald et al., 2018) method
+
+• weighted UniFrac distance (a quantitative measure of community dissimilarity- analogous to Bray-Curtis- that incorporates phylogenetic relationships between the features; Lozupone, Hamady, Kelley, \& Knight, 2007); implementation based on Striped UniFrac (McDonald et al., 2018) method.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\# Generate diversity metrics}
+
+\ExtensionTok{qiime}\NormalTok{ diversity core{-}metrics{-}phylogenetic }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}phylogeny rooted{-}tree.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}sampling{-}depth 1000 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}output{-}dir core{-}metrics{-}results}
+
+\CommentTok{\# SEVERAL FILES WILL BE GENERATED IN A FOLDER/DIRECTORY TITLED "core{-}metrics{-}results"}
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 17 SECONDS TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ diversity alpha{-}group{-}significance }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}alpha{-}diversity core{-}metrics{-}results/faith\_pd\_vector.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization core{-}metrics{-}results/faith{-}pd{-}group{-}significance.qzv}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 5 SECONDS TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ diversity alpha{-}group{-}significance }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}alpha{-}diversity core{-}metrics{-}results/evenness\_vector.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization core{-}metrics{-}results/evenness{-}group{-}significance.qzv}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 5 SECONDS TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ diversity alpha{-}group{-}significance  }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}alpha{-}diversity core{-}metrics{-}results/shannon\_vector.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization core{-}metrics{-}results/shannon\_group{-}significance.qzv}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 5 SECONDS TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ diversity beta{-}group{-}significance }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}distance{-}matrix core{-}metrics{-}results/unweighted\_unifrac\_distance\_matrix.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}column BodySite }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization core{-}metrics{-}results/unweighted{-}unifrac{-}body{-}site{-}significance.qzv }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}pairwise}
+
+\CommentTok{\#THE ABOVE STEP SHOULD APPROXIMATELY TAKE 5 SECONDS TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ diversity beta{-}group{-}significance }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}distance{-}matrix core{-}metrics{-}results/unweighted\_unifrac\_distance\_matrix.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}column Sex }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization core{-}metrics{-}results/unweighted{-}unifrac{-}sex{-}significance.qzv }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}pairwise}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 SECONDS TO RUN TO COMPLETION}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/beta_diversity.png}
+Significance for a beta diversity metric indicates lesser ingroup distances for one or more groups compared to the inter-group distances.
+
+\hypertarget{pcoa-plot}{%
+\section{PCoA plot}\label{pcoa-plot}}
+
+Explore beta diversity metrics. Run any one metric for beta diversity, you do not have to run all the methods. Pick the one that most defines your dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\ExtensionTok{qiime}\NormalTok{ emperor plot }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}pcoa core{-}metrics{-}results/unweighted\_unifrac\_pcoa\_results.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}custom{-}axes TreatmentNumber  }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization core{-}metrics{-}results/unweighted{-}unifrac{-}emperor{-}TreatmentNumber.qzv}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 5 SECONDS TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ emperor plot }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}pcoa core{-}metrics{-}results/bray\_curtis\_pcoa\_results.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}custom{-}axes TreatmentNumber }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization core{-}metrics{-}results/bray{-}curtis{-}emperor{-}TreatmentNumber.qzv}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 5 SECONDS TO RUN TO COMPLETION}
+
+\CommentTok{\# Download the files to examine in the Qiime viewer}
+
+\FunctionTok{scp} \AttributeTok{{-}P}\NormalTok{ 44111 }\AttributeTok{{-}r} \OperatorTok{\textless{}}\NormalTok{username}\OperatorTok{\textgreater{}}\NormalTok{@gateway.training.ncgr.org:\textasciitilde{}/QIIME2\_Analysis/core{-}metrics{-}results Desktop/}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{assigning-taxonomy}{%
+\section{Assigning taxonomy}\label{assigning-taxonomy}}
+
+For many experiments, investigators aim to identify the organisms that are present in a sample. E.g., what genera or species are present in my samples? Are there any human pathogens in this patient's sample? We can do this by comparing our query sequences (i.e., our features, be they ASVs or OTUs) to a reference database of sequences with known taxonomic composition. Simply finding the closest alignment is not really good enough --- because other sequences that are equally close matches or nearly as close may have different taxonomic annotations. So we use taxonomy classifiers to determine the closest taxonomic affiliation with some degree of confidence or consensus (which may not be a species name if one cannot be predicted with certainty!), based on alignment, k-mer frequencies, etc.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{wget} \StringTok{"https://data.qiime2.org/2020.6/common/gg{-}13{-}8{-}99{-}nb{-}classifier.qza"}
+
+\ExtensionTok{qiime}\NormalTok{ feature{-}classifier classify{-}sklearn }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}classifier gg{-}13{-}8{-}99{-}nb{-}classifier.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}reads rep{-}seqs{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}classification taxonomy.qza}
+
+\CommentTok{\#THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 MINUTES TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ metadata tabulate }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}input{-}file taxonomy.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization taxonomy.qzv}
+
+\CommentTok{\#THE ABOVE STEP SHOULD APPROXIMATELY TAKE 5 SECONDS TO RUN TO COMPLETION}
+
+\ExtensionTok{qiime}\NormalTok{ taxa barplot }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}taxonomy taxonomy.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization taxa{-}bar{-}plots.qzv}
+
+\CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 7 SECONDS TO RUN TO COMPLETION}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{visualizing}{%
+\section{Visualizing}\label{visualizing}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Copy the visualization files}
+
+\FunctionTok{scp} \AttributeTok{{-}P}\NormalTok{ 44111 }\OperatorTok{\textless{}}\NormalTok{USERNAME}\OperatorTok{\textgreater{}}\NormalTok{@gateway.training.ncgr.org:/home/}\OperatorTok{\textless{}}\NormalTok{USERNAME}\OperatorTok{\textgreater{}}\NormalTok{/QIIME2\_1000\_Analysis}\DataTypeTok{\textbackslash{}}
+\NormalTok{/core{-}metrics{-}results/}\PreprocessorTok{*}\NormalTok{.qzv ./}
+\end{Highlighting}
+\end{Shaded}
+
+Open your browser and go to the following site:
+\url{https://view.qiime2.org/}
+
+STEP 12: Differential Abundance - ANCOM - Analysis of Composition of Microbes (Optional)
+
+• Identifies taxa that are present in different abundances across sample groups
+
+• Compares log ratio of the abundance of each taxon to the abundance of all remaining taxa one at a time
+
+• Assumes small percentage (\textless25\%) of features are changing between groups
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Limit ANCOM analysis to samples from a single body site (as many features }
+\CommentTok{\# are changing in abundance across body sites)}
+
+\ExtensionTok{qiime}\NormalTok{ feature{-}table filter{-}samples }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}where }\StringTok{"BodySite=\textquotesingle{}Nasal\textquotesingle{}"} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}filtered{-}table nasal{-}table.qza}
+
+\ExtensionTok{=================================================}
+
+\CommentTok{\# You should run the following command/plugin on your own dataset where you collapse }
+\CommentTok{\# features to a chosen taxonomic level before ANCOM }
+\CommentTok{\# (levels are 1{-}7, but choose something like 5 or 6)}
+
+\ExtensionTok{qiime}\NormalTok{ taxa collapse }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table nasal{-}table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}taxonomy taxonomy.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}level 6 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}collapsed{-}table nasal{-}table{-}level6.qza}
+
+\ExtensionTok{==================================================}
+
+\CommentTok{\# In this step, ANCOM takes logs and adds one count }
+\CommentTok{\# to every value (pseudocount)}
+
+\ExtensionTok{qiime}\NormalTok{ composition add{-}pseudocount }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table nasal{-}table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}composition{-}table comp{-}nasal{-}table.qza}
+
+\CommentTok{\#run ancom }
+
+\ExtensionTok{qiime}\NormalTok{ composition ancom }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table comp{-}nasal{-}table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}column Treatment }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization ancom{-}Treatment{-}nasal.qzv}
+\end{Highlighting}
+\end{Shaded}
+
+EXERCISE: Preparing your raw sequence data and importing -{[}\url{https://docs.qiime2.org/2020.11/tutorials/importing/\#}{]}
+
+When using Earth Microbiome Project (EMP) protocol, you should have access to forward reads, reverse reads (if applicable),
+
+and a barcode list, i.e.:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  forward.fastq.gz
+\item
+  reverse.fastq.gz
+\item
+  barcodes.fastq.gz
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{source}\NormalTok{ activate qiime2}
+
+\FunctionTok{mkdir}\NormalTok{ emp\_example}
+
+\BuiltInTok{cd}\NormalTok{ emp\_example}
+
+\ExtensionTok{qiime}\NormalTok{ tools import }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}type EMPPairedEndSequences }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}input{-}path ./ }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}output{-}path emp{-}paired{-}end{-}sequences.qza}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{demultiplexing}{%
+\section{Demultiplexing}\label{demultiplexing}}
+
+To demultiplex sequences we need to know which barcode sequence is associated with each sample. This information is contained in the sample metadata file.
+
+Note: Our TB data was is already demultiplexed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wget}\NormalTok{ https://data.qiime2.org/2019.1/tutorials/atacama{-}soils/sample\_metadata.tsv}
+
+\ExtensionTok{qiime}\NormalTok{ demux emp{-}paired }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}seqs emp{-}paired{-}end{-}sequences.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}barcodes{-}file sample\_metadata.tsv }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}barcodes{-}column BarcodeSequence }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}per{-}sample{-}sequences demux.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}rev{-}comp{-}mapping{-}barcodes }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}error{-}correction{-}details demux{-}details.qza}
+
+\CommentTok{\# convert the .qza artifact to a .qzv file for visualization}
+
+\ExtensionTok{qiime}\NormalTok{ demux summarize }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}data demux.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization demux.qzv}
+
+\CommentTok{\# scp the output file to your local machine and view in a web browser.}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{denoising}{%
+\section{Denoising}\label{denoising}}
+
+\url{https://docs.qiime2.org/2021.2/tutorials/atacama-soils/}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{qiime}\NormalTok{ dada2 denoise{-}paired }\DataTypeTok{\textbackslash{} }  
+\ExtensionTok{{-}{-}i{-}demultiplexed{-}seqs}\NormalTok{ demux.qza }\DataTypeTok{\textbackslash{} }  
+\ExtensionTok{{-}{-}p{-}trim{-}left{-}f}\NormalTok{ 13 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}trim{-}left{-}r 13 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}trunc{-}len{-}f 150 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}trunc{-}len{-}r 150 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}representative{-}sequences rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}denoising{-}stats denoising{-}stats.qza}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{chimeric-feature-filtering}{%
+\section{Chimeric feature filtering}\label{chimeric-feature-filtering}}
+
+\url{https://docs.qiime2.org/2021.2/tutorials/chimera/}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{qiime}\NormalTok{ vsearch uchime{-}denovo }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}sequences rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}output{-}dir uchime{-}dn{-}out}
+
+\CommentTok{\# tabulate for visualization}
+
+\ExtensionTok{qiime}\NormalTok{ metadata tabulate }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}input{-}file uchime{-}dn{-}out/stats.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization uchime{-}dn{-}out/stats.qzv}
+
+\CommentTok{\# creates filtered files}
+
+\ExtensionTok{qiime}\NormalTok{ feature{-}table filter{-}features }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file uchime{-}dn{-}out/nonchimeras.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}filtered{-}table uchime{-}dn{-}out/table{-}nonchimeric{-}wo{-}borderline.qza }
+
+\ExtensionTok{qiime}\NormalTok{ feature{-}table filter{-}seqs }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}data rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}m{-}metadata{-}file uchime{-}dn{-}out/nonchimeras.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}filtered{-}data uchime{-}dn{-}out/rep{-}seqs{-}nonchimeric{-}wo{-}borderline.qza }
+
+\ExtensionTok{qiime}\NormalTok{ feature{-}table summarize }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table uchime{-}dn{-}out/table{-}nonchimeric{-}wo{-}borderline.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}o{-}visualization uchime{-}dn{-}out/table{-}nonchimeric{-}wo{-}borderline.qzv}
+\end{Highlighting}
+\end{Shaded}
+
 
   \bibliography{book.bib,packages.bib}
 
