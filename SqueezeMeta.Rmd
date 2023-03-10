@@ -1,0 +1,12 @@
+---
+# title: "Metatranscriptomics Analysis with SqueezeMeta"
+output: html_document
+---
+
+## What is SqueezeMeta?
+
+SqueezeMeta is a fully automatic pipeline for metagenomics/metatranscriptomics. It includes multi-metagenome support that enables co-assembly of related metagenomes and retrieval of individual genomes.
+
+## SqueezeMeta Workflow
+![workflow](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/SqueezeMeta_workflow.png){width=100%}
+Workflow of the three modes of operation of SqueezeMeta: sequential, co-assembly and merged. Starting from metagenomic samples, green, blue and red arrows indicate main steps in sequential, merged and co-assembly modes. All modes create two of the three main results tables: open reading frame (ORF) and contig tables. Co-assembly and merged modes also apply binning and, therefore, they also create the bin table.
