@@ -2,10 +2,6 @@
 # QIIME2
 Hands On Command Line Tutorial
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Logging on to the server
 
 Make it a practice to start a screen before you begin analysis.
