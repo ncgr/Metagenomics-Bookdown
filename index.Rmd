@@ -141,12 +141,6 @@ https://hms.harvard.edu/news/diet-gut-microbes-immunity
 + Late 1600’s
 + Microscope
 
-```{bash}
-ln -s /home/pangenomics/data/yprp/ .
-```
-
-
-
 ![Original Microscope](./Figures/Microscope.png){width=80%}
 
 ![First Sketch of Microbes](./Figures/leeuwenhoeck.png){width=80%}
@@ -575,11 +569,7 @@ Performing differential abundance analysis with ANCOM and/or  gneiss
 4. Between-group comparisons?
 5. Phyla differences?
 
-
-
-
-```{r include=FALSE}
-# automatically create a bib database for R packages
+```
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')

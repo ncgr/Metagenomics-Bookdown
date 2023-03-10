@@ -431,6 +431,12 @@ How many microbes??
 
 \begin{figure}
 \centering
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Microscope.png}
+\caption{Original Microscope}
+\end{figure}
+
+\begin{figure}
+\centering
 \includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/leeuwenhoeck.png}
 \caption{First Sketch of Microbes}
 \end{figure}
@@ -1558,300 +1564,110 @@ Performing differential abundance analysis with ANCOM and/or gneiss
   Phyla differences?
 \end{enumerate}
 
-\hypertarget{visualizing-genomes}{%
-\chapter{Visualizing Genomes}\label{visualizing-genomes}}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/hairballsB.png}
-\caption{Compressed de Bruijn graphs ``hairballs'': \url{https://academic.oup.com/bioinformatics/article/30/24/3476/2422268}}
-\end{figure}
-
-\hypertarget{set-up-directories}{%
-\section{Set up Directories}\label{set-up-directories}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Make sure you're working in a \textbf{screen}
-\item
-  Make directory
-\end{enumerate}
-
 \begin{verbatim}
-mkdir viz
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
 \end{verbatim}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
+\hypertarget{filter-out-red-alder-sequencing-reads}{%
+\chapter{Filter out Red Alder Sequencing Reads}\label{filter-out-red-alder-sequencing-reads}}
+
+In order to focus on sequencing reads from the microbes in the nodule, we will filter out reads that align to the red alder genome as follows:
+
+1 Align the fastq-formatted reads to the red alder genome using minimap2.
+2 Extract reads that do not align to red alder and sort them using samtools.
+3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
+4 Compress the fastq file using gzip.
+
+\begin{itemize}
 \tightlist
 \item
-  Navigate to the directory
-\end{enumerate}
+  Activate the environment that contains minimap2 and samtools
+\end{itemize}
 
 \begin{verbatim}
-cd viz
+conda activate seqtools
 \end{verbatim}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
+\begin{itemize}
 \tightlist
 \item
-  Link to data
-\end{enumerate}
+  Make a directory and go into it
+\end{itemize}
 
 \begin{verbatim}
-ln -s /home/pangenomics/data/yprp/ .
+mkdir ~/microbe_fastq
+cd ~/microbe_fastq
 \end{verbatim}
 
-\hypertarget{graphical-fragment-assembly-gfa-format}{%
-\section{Graphical Fragment Assembly (GFA) format}\label{graphical-fragment-assembly-gfa-format}}
-
 \begin{itemize}
 \tightlist
 \item
-  Originally developed for representing genomes during assembly
-\item
-  Now used for pangenomics
-\item
-  More on this later\ldots{}
+  Link to the merged minion reads
 \end{itemize}
-
-\hypertarget{bandage}{%
-\section{Bandage}\label{bandage}}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Bandage.png}
-\caption{Bandage: \url{https://rrwick.github.io/Bandage/}}
-\end{figure}
-
-\begin{itemize}
-\tightlist
-\item
-  BLAST integration
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Can build a local BLAST database of the graph
-  \item
-    Can do a web BLAST search with sequences from nodes
-  \end{itemize}
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  More details on making CSV labels: \url{https://github.com/rrwick/Bandage/wiki/CSV-labels}
-\end{enumerate}
-
-\hypertarget{group-exercise}{%
-\subsection*{\texorpdfstring{\textbf{Group exercise:}}{Group exercise:}}\label{group-exercise}}
-\addcontentsline{toc}{subsection}{\textbf{Group exercise:}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Copy the following example graph from logrus to your computer:
-\end{enumerate}
 
 \begin{verbatim}
-logrus:/home/<username>/yprp/example/S288C.SK1.minigraph.gfa
+ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
 \end{verbatim}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Open Bandage and load the graph
-\item
-  Spend some time exploring the graph
-\item
-  If your have BLAST, find \href{https://www.yeastgenome.org/locus/S000001095}{CUP1} and \href{https://www.yeastgenome.org/locus/S000001096}{YHR054C} via BLAST
-\end{enumerate}
-
 \begin{itemize}
 \tightlist
 \item
-  How many copies are in the graph?
-\item
-  What does the structure it's in look like?
-\item
-  Take a screenshot of the region that CUP1 is in with the gene colored
-\end{itemize}
-
-\hypertarget{general-feature-format-gff}{%
-\section{General Feature Format (GFF)}\label{general-feature-format-gff}}
-
-\url{https://genome.ucsc.edu/FAQ/FAQformat.html\#format3}
-
-\begin{itemize}
-\tightlist
-\item
-  Plain text file
-\item
-  3 different versions
-\item
-  Each line represents a feature
-\item
-  9 Columns
+  Run Minimap2 to align the MinION reads to the red alder genome
 
   \begin{itemize}
   \tightlist
   \item
-    Tab separated
-  \item
-    First 7 are the same for all feature types
-
-    \begin{itemize}
-    \tightlist
-    \item
-      seqname, source, feature, start, end, score, strand
-    \end{itemize}
-  \item
-    8th column is phase of CDS (coding DNA sequence) features
-
-    \begin{itemize}
-    \tightlist
-    \item
-      0, 1, or 2 for CDS features, . otherwise
-    \end{itemize}
-  \item
-    9th column is for additional attributes related to feature
+    he -x map-ont parameter (allows \textasciitilde10\% error + divergence)
   \end{itemize}
 \end{itemize}
-
-\hypertarget{browser-extensible-data-bed-format}{%
-\section{Browser Extensible Data (BED) Format}\label{browser-extensible-data-bed-format}}
-
-\url{https://genome.ucsc.edu/FAQ/FAQformat.html\#format1}
-
-\begin{itemize}
-\tightlist
-\item
-  Plain text file
-\item
-  Designed for drawing features in genome browsers
-\item
-  Each line represents a genomic region and associated annotations
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Features aren't necessary biological
-  \end{itemize}
-\item
-  12 Columns
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Tab or white-space separated
-  \item
-    First 3 are required
-
-    \begin{itemize}
-    \tightlist
-    \item
-      chrom, chromStart, chromEnd
-    \end{itemize}
-  \item
-    The next 9 are optional
-
-    \begin{itemize}
-    \tightlist
-    \item
-      name, score, strand, thickStart, thickEnd, itemRgb, blockCount, blockSizes, blockStart
-    \end{itemize}
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{integrative-genomics-viewer-igv}{%
-\section{Integrative Genomics Viewer (IGV)}\label{integrative-genomics-viewer-igv}}
-
-\url{https://software.broadinstitute.org/software/igv/}
-
-\begin{itemize}
-\tightlist
-\item
-  View GFF/BED files relative to FASTA and multiple sequence alignments
-\item
-  Doesn't work with with names that contain dots ``.''
-
-  \begin{itemize}
-  \tightlist
-  \item
-    This conflicts with our naming convention, but we'll work around it\ldots{}
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{group-exercise-1}{%
-\subsection*{\texorpdfstring{\textbf{Group exercise:}}{Group exercise:}}\label{group-exercise-1}}
-\addcontentsline{toc}{subsection}{\textbf{Group exercise:}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Open IGV with S288C and GFF from \href{https://yjx1217.github.io/Yeast_PacBio_2016/data/}{YPRP}
-\item
-  Find \href{https://www.yeastgenome.org/locus/S000001095}{CUP1} and \href{https://www.yeastgenome.org/locus/S000001096}{YHR054C}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    How many copies does it have?
-  \end{itemize}
-\end{enumerate}
-
-\hypertarget{linking-igv-with-bandage}{%
-\section{Linking IGV with Bandage}\label{linking-igv-with-bandage}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Convert graph from gfa to bed
-\end{enumerate}
 
 \begin{verbatim}
-gfatools gfa2bed yprp/example/S288C.SK1.minigraph.gfa > S288C.SK1.minigraph.bed
+minimap2 -x map-ont -L -t 8 -a \
+/home/cjb/minion/2019/indexes/red_alder_genome/consensus.fasta \
+3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 \end{verbatim}
 
-\hypertarget{group-exercise-2}{%
-\subsection*{\texorpdfstring{\textbf{Group Exercise}}{Group Exercise}}\label{group-exercise-2}}
-\addcontentsline{toc}{subsection}{\textbf{Group Exercise}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
 \tightlist
 \item
-  Find an interesting structure in Bandage
-\item
-  Get its node ID(s)
-\item
-  \texttt{grep} the BED file for the ID(s)
-\end{enumerate}
+  Convert the unmapped reads in the alignment file (sam) to a fastq file
 
-Why isn't this BED file going to work in IGV?
-+ How should we solve this issue?
+  \begin{itemize}
+  \tightlist
+  \item
+    The -f4 includes only reads with the 4 flag (unmapped)
+  \end{itemize}
+\end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
+\begin{verbatim}
+samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
+\end{verbatim}
+
+\begin{itemize}
 \tightlist
 \item
-  Implement \emph{your} solution
-\item
-  Are there any other nuances you notice in the BED file?
-\end{enumerate}
+  Compress the new fastq file
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (note that it will automatically add the extension .gz)
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+gzip 3469-3.microbe.fq
+\end{verbatim}
+
+\hypertarget{now-run-these-steps-with-4956-3-minit3}{%
+\subsection*{Now run these steps with 4956-3 (minit3)}\label{now-run-these-steps-with-4956-3-minit3}}
+\addcontentsline{toc}{subsection}{Now run these steps with 4956-3 (minit3)}
+
+Reads are here:
+
+/home/cjb/minion/2022/data/minit3/data/aldernodule4956-3/4956-3/20220701\_2154\_MC-113286\_FAS37509\_f3119554/fastq\_pass/all.fastq
 
 \hypertarget{reference-graphs-with-vg}{%
 \chapter{Reference Graphs with VG}\label{reference-graphs-with-vg}}
@@ -1953,8 +1769,8 @@ Already \textbf{done} for you:
   \end{itemize}
 \end{itemize}
 
-\hypertarget{set-up-directories-1}{%
-\section{Set up directories}\label{set-up-directories-1}}
+\hypertarget{set-up-directories}{%
+\section{Set up directories}\label{set-up-directories}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2867,8 +2683,8 @@ Make sure your chromosome names are unique across all samples and that they cont
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{graphical-fragment-assembly-gfa-format-1}{%
-\section{Graphical Fragment Assembly (GFA) format}\label{graphical-fragment-assembly-gfa-format-1}}
+\hypertarget{graphical-fragment-assembly-gfa-format}{%
+\section{Graphical Fragment Assembly (GFA) format}\label{graphical-fragment-assembly-gfa-format}}
 
 Tab-delimited text
 
@@ -3279,8 +3095,8 @@ Identify insertions and regions that have diverged.
 \caption{YPRP Graph Bandage}
 \end{figure}
 
-\hypertarget{group-exercise-3}{%
-\subsection*{Group Exercise}\label{group-exercise-3}}
+\hypertarget{group-exercise}{%
+\subsection*{Group Exercise}\label{group-exercise}}
 \addcontentsline{toc}{subsection}{Group Exercise}
 
 \begin{enumerate}
@@ -4047,8 +3863,8 @@ Cactus Graphs ``naturally decompose the common substructures in a set of related
   View with Bandage
 \end{enumerate}
 
-\hypertarget{set-up-directories-2}{%
-\subsection{Set up Directories}\label{set-up-directories-2}}
+\hypertarget{set-up-directories-1}{%
+\subsection{Set up Directories}\label{set-up-directories-1}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4480,8 +4296,8 @@ Critically, pggb performs graph \emph{normalization} to ensure that paths throug
   View with Bandage
 \end{enumerate}
 
-\hypertarget{set-up-directories-3}{%
-\subsection{Set up Directories}\label{set-up-directories-3}}
+\hypertarget{set-up-directories-2}{%
+\subsection{Set up Directories}\label{set-up-directories-2}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
