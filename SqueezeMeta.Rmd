@@ -1,7 +1,6 @@
----
-# title: "Metatranscriptomics Analysis with SqueezeMeta"
-output: html_document
----
+
+# Metatranscriptomics Analysis with SqueezeMeta
+
 
 ## What is SqueezeMeta?
 
