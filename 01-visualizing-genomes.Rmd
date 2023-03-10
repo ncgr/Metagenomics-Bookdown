@@ -2,6 +2,15 @@
 
 ![Compressed de Bruijn graphs “hairballs”: https://academic.oup.com/bioinformatics/article/30/24/3476/2422268](./Figures/hairballsB.png){width=100%}
 
+
+```{bash}
+
+```
+
+
+
+
+
 ## Set up Directories
 
 1. Make sure you're working in a **screen**
