@@ -1,8 +1,7 @@
----
-title: "QIIME2"
-subtitle: "Hands On Command Line Tutorial"
-output: html_document
----
+# QIIME2
+
+## Hands On Command Line Tutorial
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
