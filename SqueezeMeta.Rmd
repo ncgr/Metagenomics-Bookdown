@@ -317,7 +317,8 @@ max_scale_value = 10)
 
 ## References
 [1] Tamames J, Puente-Sánchez F. SqueezeMeta, A Highly Portable, Fully Automatic Metagenomic Analysis Pipeline. Front
-Microbiol. 2019;9:3349. Published 2019 Jan 24. doi:10.3389/fmicb.2018.03349 Format:
+Microbiol. 2019;9:3349. Published 2019 Jan 24. doi:10.3389/fmicb.2018.03349 
+
 [2] Microbiota and Metatranscriptome Changes Accompanying the Onset of Gingivitis Emily M. Nowicki, Raghav Shroff, Jacqueline
 A. Singleton, Diane E. Renaud, Debra Wallace, Julie Drury, Jolene Zirnheld, Brock Colleti, Andrew D. Ellington,
 Richard J. Lamont, David A. Scott, Marvin Whiteley mBio. 2018 Mar-Apr; 9(2): e00575-18. Published online 2018 Apr 17.

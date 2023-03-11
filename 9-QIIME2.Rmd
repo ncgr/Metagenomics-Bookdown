@@ -29,7 +29,7 @@ Respiratory tract clinical sample selection for microbiota analysis in patients 
 
 Pulmonary Tuberculosis (The Human Microbiome in the Fight Against Tuberculosis, 2017)
 
-![tuberculosis](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.png){width=100%}
+![tuberculosis](./QIIMEpics/lyx.qiime.png){width=100%}
 Why study microbiome in relation to TB?
 1. Microbiome composition is a potential risk factors for TB infection and disease susceptibility, disease progression,
 and treatment outcomes

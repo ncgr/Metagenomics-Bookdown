@@ -1691,8 +1691,6 @@ Finds approximate positions of diverged sequences and adds them into the graph
 
 1-to-1 orthogonal regions
 
-\includegraphics[width=0.5\textwidth,height=\textheight]{./Figures/Minigraph.png}
-
 \hypertarget{minimizers-and-minimap2}{%
 \section{Minimizers and Minimap2}\label{minimizers-and-minimap2}}
 
@@ -1774,12 +1772,6 @@ Yeast Population Reference Panel (YPRP) \url{https://yjx1217.github.io/Yeast_Pac
   Annotation
 \end{enumerate}
 \end{quote}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Yeast.png}
-\caption{YPRP Assemblies \url{https://yjx1217.github.io/Yeast_PacBio_2016/data/}}
-\end{figure}
 
 \begin{quote}
 Make sure your chromosome names are unique across all samples and that they contain the sample name. We're using \textless strain name\textgreater.\textless chromosome\textgreater{} (\textgreater S288C.chrVIII)
@@ -1873,14 +1865,6 @@ Let's go to the specification to look at optional fields and an example:\\
 \item
   Stable coordinates
 \end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/rGFA1.png}
-\caption{Additional required tags trace origin of segment}
-\end{figure}
-
-\includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/rGFA2.png}
 
 \hypertarget{build-graphs}{%
 \section{Build Graphs}\label{build-graphs}}
@@ -2056,12 +2040,6 @@ Now that you know how to build a minigraph, try to create a graph for the refere
 
 Download your gfa file onto your computer and upload it into Bandage.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/Bandage2.png}
-\caption{Reference Graph Bandage}
-\end{figure}
-
 \hypertarget{yprp-graphs}{%
 \section{YPRP Graphs}\label{yprp-graphs}}
 
@@ -2217,8 +2195,6 @@ Average degree: 1.416
 
 Take a look at the YPRP graph in Bandage. Your might be rendered differently.
 
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/YPRPBandage1.png}
-
 \hypertarget{structures-in-the-graph}{%
 \section{Structures in the graph}\label{structures-in-the-graph}}
 
@@ -2231,12 +2207,6 @@ Zoom in on segment s1054.
 Trace the S288C path (hint: the S288C segments are numbered sequentially).
 
 Identify insertions and regions that have diverged.
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/YPRPBandage2.png}
-\caption{YPRP Graph Bandage}
-\end{figure}
 
 \hypertarget{group-exercise}{%
 \subsection*{Group Exercise}\label{group-exercise}}
@@ -2260,12 +2230,6 @@ Identify insertions and regions that have diverged.
 \addcontentsline{toc}{subsection}{Inversions}
 
 Here are some examples of inversions.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth,height=\textheight]{./Figures/Inversionsx2.png}
-\caption{Inversion signatures}
-\end{figure}
 
 Let's find them in bandage.
 
@@ -2553,7 +2517,6 @@ Call structural variants with gfatools (doesn't work with VG graphs):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/BED.png}
 \url{https://github.com/lh3/minigraph}
 
 \hypertarget{structural-variant-stats}{%
@@ -2602,12 +2565,6 @@ Call structural variants with gfatools (doesn't work with VG graphs):
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Inversions.png}
-\caption{Inversions}
-\end{figure}
-
 \hypertarget{cup1}{%
 \section{CUP1}\label{cup1}}
 
@@ -2616,12 +2573,6 @@ Call structural variants with gfatools (doesn't work with VG graphs):
 \addcontentsline{toc}{subsection}{Visualize the CUP1 region}
 
 10 working copies + 1 pseudogene in S288C
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/StructuralRearrangements.png}
-\caption{Structural Rearrangement}
-\end{figure}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2660,21 +2611,9 @@ Call structural variants with gfatools (doesn't work with VG graphs):
   Load the graph and the .csv file into Bandage
 \end{enumerate}
 
-\includegraphics[width=0.6\textwidth,height=\textheight]{./Figures/Bandage3.png}
-
 This compares S288C and SK1.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.35\textwidth,height=\textheight]{./Figures/Bandage4.png}
-\caption{Bandage}
-\end{figure}
-
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/StructuralRearrangements.png}
-
 If you have blast installed on your computer, you can blast the two gene sequences to their positions. CUP1 is the smaller one. Gene sequences are in: /home/pangenomics/data/yprp/genes/
-
-\includegraphics[width=0.7\textwidth,height=\textheight]{./Figures/Bandage5.png}
 
 \hypertarget{cup1-paths-in-y12}{%
 \subsection*{CUP1 Paths in Y12}\label{cup1-paths-in-y12}}
@@ -2829,16 +2768,7 @@ Approximate Positions:
   CHM13 chr6 161200000-162200000
 \end{itemize}
 
-\includegraphics[width=0.6\textwidth,height=\textheight]{./Figures/LPA.png}
-\url{http://lh3.github.io/2021/01/11/minigraph-as-a-multi-assembly-sv-caller}
-
 Your results should look something like this.
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/GRCh38.p13.png}
-\caption{GRCh38.p13}
-\end{figure}
 
 \hypertarget{convert-to-vg-and-call-variants}{%
 \subsection*{Convert to VG and call variants}\label{convert-to-vg-and-call-variants}}
@@ -2910,7 +2840,7 @@ Make vertices small enough (\textless=1024bp) for indexing (\textless1min):
 \hypertarget{qiime2}{%
 \chapter{QIIME2}\label{qiime2}}
 
-Hands On Command Line Tutorial
+Command Line Tutorial
 
 \hypertarget{logging-on-to-the-server}{%
 \section{Logging on to the server}\label{logging-on-to-the-server}}
@@ -2948,7 +2878,7 @@ Respiratory tract clinical sample selection for microbiota analysis in patients 
 
 Pulmonary Tuberculosis (The Human Microbiome in the Fight Against Tuberculosis, 2017)
 
-\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.png}
+\includegraphics[width=1\textwidth,height=\textheight]{./QIIMEpics/lyx.qiime.png}
 Why study microbiome in relation to TB?
 1. Microbiome composition is a potential risk factors for TB infection and disease susceptibility, disease progression,
 and treatment outcomes
@@ -3759,6 +3689,427 @@ Note: Our TB data was is already demultiplexed.
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{centrifuge}{%
+\chapter{Centrifuge}\label{centrifuge}}
+
+\hypertarget{what-is-centrifuge}{%
+\section{What is Centrifuge?}\label{what-is-centrifuge}}
+
+very rapid and memory-efficient system for the classification of DNA sequences from microbial
+samples, with better sensitivity than and comparable accuracy to other leading systems. The system uses a
+novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index,
+optimized specifically for the metagenomic classification problem{[}1{]}.
+
+\hypertarget{tutorial}{%
+\section{Tutorial}\label{tutorial}}
+
+For this tutorial we will use data from this publication ``Metagenomic Characterization of the Human Intestinal
+Microbiota in Fecal Samples from STEC-Infected Patients'' {[}2{]}: \url{https://www.frontiersin.org/articles/10.3389/fcimb.2018.00025/}
+All data used in this tutorial was retrieved from SRA with fastq-dump. SRAccession: PRJEB23207
+
+In this study, whole genome metagenomic sequencing was used to investigate possible changes in the composition
+of the intestinal microbiota in samples from patients with Shiga toxin-producing E. Coli (STEC) infection (N
+= 2) compared to Crohn's Patients (N =4), healthy (N = 2) and healed controls (N = 3). Faeces samples,
+collected during an outbreak, from STEC infected patients showed a lower intestinal abundance of beneficial
+microorganisms in comparison to controls where those microorganisms predominated. These differences were
+observed with bioinformatic approaches and seemed to be related with the STEC infection. So, using the
+metagenomics data from this study can you identify the STEC positive samples? Can you identify the specific
+strain of STEC?
+Many of the steps have been done for you. However, I have provided instructions and code so that you can
+build the full database indexes that we will use for classifying reads with Centrifuge.
+
+\hypertarget{environment}{%
+\section{Environment}\label{environment}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remember to start a screen}
+\CommentTok{\# Activate the fastqdump environment}
+
+\BuiltInTok{source}\NormalTok{ activate fastqdump}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-download-1}{%
+\section{Data Download}\label{data-download-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a directory to store results}
+\FunctionTok{mkdir} \AttributeTok{{-}p}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/fastq}
+\FunctionTok{mkdir} \AttributeTok{{-}p}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/taxonomy}
+
+\CommentTok{\# Copy the reads into your fastq directory}
+\FunctionTok{cp}\NormalTok{ /home/elavelle/centrifuge/fastq/}\PreprocessorTok{*}\NormalTok{.fastq /home/}\VariableTok{$USER}\NormalTok{/centrifuge/fastq}
+
+\CommentTok{\# Detach screen while this takes place}
+\CommentTok{\# This is an example for downloading a single fastq file from SRA:}
+\ExtensionTok{prefetch} \AttributeTok{{-}O}\NormalTok{ . }\AttributeTok{{-}p}\NormalTok{ ERR2271237}
+\ExtensionTok{fastq{-}dump} \AttributeTok{{-}{-}split{-}files} \AttributeTok{{-}{-}outdir}\NormalTok{ . }\AttributeTok{{-}{-}gzip} \AttributeTok{{-}{-}skip{-}technical} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}readids }\AttributeTok{{-}{-}read{-}filter}\NormalTok{ pass }\AttributeTok{{-}{-}dumpbase} \AttributeTok{{-}{-}split{-}e} \AttributeTok{{-}{-}clip} \DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/ERR2271237}
+\ExtensionTok{conda}\NormalTok{ deactivate}
+\CommentTok{\# Do NOT do for this tutorial.}
+\CommentTok{\# Use a for loop to download many files sequentially. First, write all of the SRA accession numbers}
+\CommentTok{\# that you want to download into a file, e.g., PRJEB23207\_accessions.txt}
+\CommentTok{\# Use a for loop to store the SRA accession numbers from the PRJEB23207\_accessions.txt file}
+\CommentTok{\# into a variable named accessions}
+\VariableTok{accessions}\OperatorTok{=}\KeywordTok{\textasciigrave{}}\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ PRJEB23207\_accessions.txt}\KeywordTok{;} \ControlFlowTok{do} \FunctionTok{cat} \VariableTok{$i}\KeywordTok{;}\ControlFlowTok{done}\KeywordTok{\textasciigrave{}}
+\CommentTok{\# Use a for loop to run prefetch fastq{-}dump for each SRA}
+\CommentTok{\# accession number in the accessions variable}
+\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$accessions}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{prefetch} \AttributeTok{{-}O}\NormalTok{ . }\AttributeTok{{-}p} \VariableTok{$j}\KeywordTok{;} \ControlFlowTok{done}
+\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$accessions}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{fastq{-}dump} \AttributeTok{{-}{-}outdir}\NormalTok{ . }\AttributeTok{{-}{-}gzip} \AttributeTok{{-}{-}skip{-}technical} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}readids }\AttributeTok{{-}{-}read{-}filter}\NormalTok{ pass }\AttributeTok{{-}{-}dumpbase} \AttributeTok{{-}{-}split{-}e} \AttributeTok{{-}{-}clip} \DataTypeTok{\textbackslash{}}
+\VariableTok{$j}\KeywordTok{;} \ControlFlowTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{retrieve-refseq-and-eupathdb-data}{%
+\section{Retrieve RefSeq and EuPathDB Data}\label{retrieve-refseq-and-eupathdb-data}}
+
+Centrifuge provides a few scripts that will allow you to download the NCBI taxonomy tree and RefSeq reference
+genomes.
+• To map sequence identifiers to taxonomy IDs, and taxonomy IDs to names and their parents, three taxonomy tree files are
+necessary in addition to the reference fasta files:
+-- taxonomy tree files:
+
+\begin{itemize}
+\item
+  nodes.dmp from the NCBI taxonomy dump. Links taxonomy IDs to their parents names.
+\item
+  names.dmp from the NCBI taxonomy dump. Links taxonomy IDs to their scientific name.
+\item
+  seqid2taxid.map is a tab-separated file that maps sequence IDs to taxonomy IDs.
+\end{itemize}
+
+• When using the provided scripts to download the genomes, these files are automatically downloaded or generated. When
+using custom taxonomy or sequence files, please refer to the manual section TODO to learn more about their format. Here
+is the link to the manual \url{https://ccb.jhu.edu/software/centrifuge/manual.shtml}
+
+• command flags:
+-o
+specifies the folder to which the files are downloaded.
+taxonomy
+Argument indicates the database to download. The options are refseq, genbank, contaminants or taxonomy.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Takes \textasciitilde{}20 seconds}
+\BuiltInTok{source}\NormalTok{ activate centrifuge}
+\ExtensionTok{centrifuge{-}download} \AttributeTok{{-}o}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/taxonomy taxonomy}
+\end{Highlighting}
+\end{Shaded}
+
+• Download complete fungal genomes from RefSeq with the centrifuge--download commands. Do this exercise for this tutorial
+on a reduced data set.
+
+• command flags:
+-a Only download genomes with the specified assembly level. Default: 'Complete Genome'. Use 'Any' for any assembly
+level.
+-m Mask low-complexity regions using dustmasker. This is part of the blast program that was installed in the metagenomics
+environment.
+-P Number of threads or processes to use when downloading.
+-d What domain to download. One or more of bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate\_
+mammalian, vertebrate\_other (comma separated).
+refseq Tells the program to use the refseq database.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Takes about 1 minute}
+\ExtensionTok{centrifuge{-}download} \AttributeTok{{-}o}\NormalTok{ library }\AttributeTok{{-}a} \StringTok{"Complete Genome"} \AttributeTok{{-}m} \AttributeTok{{-}P}\NormalTok{ 4 }\AttributeTok{{-}d} \StringTok{"fungi"}\NormalTok{ refseq }\OperatorTok{\textgreater{}}\NormalTok{ seqid2taxid.map}
+\end{Highlighting}
+\end{Shaded}
+
+• Do not do: This database was pre-built for you to use in the tutorial. Download complete archaea, bacteria, viral and fungal
+genomes from RefSeq with the centrifuge--download commands. This is what you should do to build a more comprehensive
+RefSeq database containing only complete genomes.
+• At the time of download, there were 289 Archea, 13,287 bacterial, 8,583 viral, and 10 fungal genomes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{centrifuge{-}download} \AttributeTok{{-}o}\NormalTok{ library }\AttributeTok{{-}a} \StringTok{"Complete Genome"} \AttributeTok{{-}m} \AttributeTok{{-}P}\NormalTok{ 30 }\AttributeTok{{-}d} \StringTok{"archaea,bacteria,viral,fungi"}\NormalTok{ refseq }\DataTypeTok{\textbackslash{}}
+\OperatorTok{\textgreater{}}\NormalTok{ seqid2taxid.map}
+\end{Highlighting}
+\end{Shaded}
+
+• Download the RefSeq chromosome level human genome reference with centrifuge-download commands.
+
+• Command flags are the same as the previous step:
+
+-t Only download the specified taxonomy IDs, comma separated. Default: any. 9606 is the taxonomy id for Human.
+
+-c Only download genomes in the specified refseq category. Default: any.
+
+\begin{quote}
+\begin{quote}
+Appends the human seqid2taxid. map to the previously generated fungi seqid2taxid.map file.
+\end{quote}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Took \textasciitilde{}14 minutes during testing}
+\ExtensionTok{centrifuge{-}download} \AttributeTok{{-}o}\NormalTok{ library }\AttributeTok{{-}a} \StringTok{"Chromosome"} \AttributeTok{{-}m} \AttributeTok{{-}P}\NormalTok{ 4 }\AttributeTok{{-}d} \StringTok{"vertebrate\_mammalian"} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}t 9606 }\AttributeTok{{-}c} \StringTok{"reference genome"}\NormalTok{ refseq }\OperatorTok{\textgreater{}\textgreater{}}\NormalTok{ seqid2taxid.map}
+\end{Highlighting}
+\end{Shaded}
+
+• *Optional. Customize your database by adding EuPathDB release 28 reference genomes. This step was done for you. The
+EuPathDB data comes from this publication.
+-- Here is the link to the publication \url{https://doi.org/10.1371/journal.pcbi.1006277} . Here is the webpage for the data
+download \url{https://ccb.jhu.edu/data/eupathDB/}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make new directory called eupath in the library directory. Something like this}
+\FunctionTok{mkdir} \AttributeTok{{-}p}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/library/eupath}
+
+\CommentTok{\# Move into the /home/$USER/centrifuge/library/eupath directory.}
+\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/library/eupath}
+
+\CommentTok{\# This wget command will download EuPathDB data from the following link.}
+\FunctionTok{wget}\NormalTok{ https://ccb.jhu.edu/data/eupathDB/dl/eupathDB.tar.gz}
+
+\CommentTok{\# Uncompress the eupathDB.tar.gz file into the eupath directory. You should see}
+\CommentTok{\# a directory named library}
+\FunctionTok{tar} \AttributeTok{{-}zxvf}\NormalTok{ eupathDB.tar.gz}
+
+\CommentTok{\# Move the fasta files from the /home/$USER/centrifuge/library/eupath/library directory}
+\CommentTok{\#to /home/$USER/centrifuge/library/eupath/ directory}
+\FunctionTok{mv}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/library/eupath/library/}\PreprocessorTok{*}\NormalTok{.fna }\DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/library/eupath/}
+
+\CommentTok{\# Extract and append the contig/scaffold and taxonomy id information from the prelim\_map.txt that was}
+\CommentTok{\# downloaded with eupathDB.tar.gz file to the seqid2taxid.map file}
+\FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{}\textbackslash{}t\textquotesingle{}} \StringTok{\textquotesingle{}\{print $2,$3\}\textquotesingle{}}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/library/eupath/library/}\DataTypeTok{\textbackslash{}}
+\NormalTok{prelim\_map.txt }\KeywordTok{|} \FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{}|\textquotesingle{}} \StringTok{\textquotesingle{}\{print $1,$3\}\textquotesingle{}} \KeywordTok{|} \FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{} \textquotesingle{}} \StringTok{\textquotesingle{}\{print $1"\textbackslash{}t"$2\}\textquotesingle{}} \DataTypeTok{\textbackslash{}}
+\OperatorTok{\textgreater{}\textgreater{}}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/seqid2taxid.map}
+\end{Highlighting}
+\end{Shaded}
+
+• Concatenate the reference genome fasta files that were downloaded with the centrifuge-download commands. We are using
+a for loop to do this; otherwise, we would have to type every file name on the command-line that we want to concatenatee.
+g., cat fasta\_1.fna fasta\_2.fna \ldots. \textgreater{} \textgreater{} all\_fasta\_files.fna . For practice, we will concatenate the fungi reference genome
+fasta files and the human fasta file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/library/}\PreprocessorTok{*}\NormalTok{/}\PreprocessorTok{*}\NormalTok{.fna}\KeywordTok{;} \ControlFlowTok{do} \FunctionTok{cat} \VariableTok{$i} \DataTypeTok{\textbackslash{}}
+\OperatorTok{\textgreater{}\textgreater{}}\NormalTok{ fungi\_Hum.fna}\KeywordTok{;}\ControlFlowTok{done}
+\CommentTok{\# Centrifuge doesn\textquotesingle{}t like the header format of some sequences. Reformat the headers:}
+\FunctionTok{sed} \StringTok{\textquotesingle{}s/|kraken[\^{}|]*|/ /\textquotesingle{}}\NormalTok{ fungi\_Hum.fna }\OperatorTok{\textgreater{}}\NormalTok{ fungi\_HumanFixed.fna}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{database-building}{%
+\section{Database building}\label{database-building}}
+
+Build the Centrifuge indexes using the centrifuge-build command. This has been done for you already. It took 14
+hrs and \textasciitilde{} 410 GBs of RAM using 30 threads to build this database index on logrus. And, this was just using the
+``Complete Genome'' Refseq genomes for archea, bacteria, viruses, fungi, human, and EuPathDB. I attempted
+to build a Centrifuge index using ``All'' RefSeq genomes for archea, bacteria, viruses, fungi, human plus the
+EuPAthDB but ran out of memory on logrus. I tried re-bulding this index on a higher memory server and Centrifuge
+was using 890 GBs of RAM before I killed the program. So, unless you have high-capacity compute you
+may not be able to build the indexes on your system. But, the Centrifuge developers have provided various premade
+indexes that you can download here, \url{ftp://ftp.ccb.jhu.edu/pub/infphilo/centrifuge/data/p+h+v.tar.gz},
+with wget.
+
+• Do this exercise for this tutorial. Build the Centrifuge database indexes with the centrifuge-build command. This is to
+practice building an index.
+4
+
+• command flags:
+
+-p The number of processes/threads to use for creating the index.
+
+--conversion-table The seqid2taxid.map file that you created with the centrifuge-download commands.
+
+--taxonomy-tree The nodes.dmp file that was downloaded with the first centrifuge-download command.
+
+--name-table The nodes.dmp file that was downloaded with the first centrifuge-download command.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Each run will use about 24 GB of RAM.}
+\CommentTok{\# It took 39 minutes to run during testing.}
+\ExtensionTok{centrifuge{-}build} \AttributeTok{{-}p}\NormalTok{ 4 }\AttributeTok{{-}{-}conversion{-}table}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/seqid2taxid.map }\AttributeTok{{-}{-}taxonomy{-}tree} \DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/taxonomy/nodes.dmp }\AttributeTok{{-}{-}name{-}table} \DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/taxonomy/names.dmp }\DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/library/fungi\_HumanFixed.fna }\DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/fungi\_Human\_indeces}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{classification}{%
+\section{Classification}\label{classification}}
+
+In this portion of the tutorial we will use the pre-built indexes that contain complete RefSeq genomes for archea,
+bacteria, viruses and fungi. The human chromosome level reference genome was included and we also added
+the EuPathDB database as well. Each file will use about 36 GB of RAM, so not every one can run
+samples at the same time.
+
+• Classify reads with Centrifuge.
+
+• command flags:
+
+-x Path to the indexes
+
+-- Index location
+/home/metag/centrifuge/complete\_genomes/Arc\_Bac\_Vir\_Hum\_Eupath\_v2
+
+-1 Read 1 fastq file
+
+-2 Read 2 fastq file
+
+-t Print wall-clock time taken by search phase. This is optional.
+
+-p Number of alignment threads to launch
+
+--met-file Send metrics to file at
+
+--met-stderr Send metrics to stderr
+
+-S Output file name
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make a directory to store your results:}
+\FunctionTok{mkdir} \AttributeTok{{-}p}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_results}
+\CommentTok{\# Run Centrifuge. It will take 10 {-} 20 minutes per sample to run.}
+\ExtensionTok{centrifuge} \AttributeTok{{-}x}\NormalTok{ /home/condasw/db/centrifuge/complete\_genomes/Arc\_Bac\_Vir\_Hum\_Eupath\_v2 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}1 /home/condasw/data/Metagenomics/centrifuge/ERR2271042\_1.fastq }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}2 /home/condasw/data/Metagenomics/centrifuge/ERR2271042\_2.fastq }\AttributeTok{{-}t} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}p 4 }\AttributeTok{{-}{-}met{-}file}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_results/ERR2271042\_meta.txt }\AttributeTok{{-}{-}met{-}stderr} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}S /home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_results/ERR2271042\_cent.out}
+
+\CommentTok{\# If you have many samples to analyze, use a for loop to run centrifuge on each sample sequentially.}
+\CommentTok{\# Use a for loop to store the names of the fastq files in a variable (like a list)}
+\CommentTok{\# named fastq using the basename command}
+\VariableTok{fastq}\OperatorTok{=}\KeywordTok{\textasciigrave{}}\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ /home/condasw/data/Metagenomics/centrifuge/}\PreprocessorTok{*}\NormalTok{\_1.fastq}\KeywordTok{;} \ControlFlowTok{do} \FunctionTok{basename} \AttributeTok{{-}s}\NormalTok{ \_1.fastq }\VariableTok{$i}\KeywordTok{;}\ControlFlowTok{done}\KeywordTok{\textasciigrave{}}
+\CommentTok{\# You can view the contents of the fastq variable with the echo command}
+\BuiltInTok{echo} \VariableTok{$fastq}
+\CommentTok{\# Use a second for loop to read through the variable list and run centrifuge on each file in the list}
+\CommentTok{\# sequentially.}
+\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$fastq}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{centrifuge} \AttributeTok{{-}x}\NormalTok{ /home/condasw/db/centrifuge/complete\_genomes/Arc\_Bac\_Vir\_Hum\_Eupath\_v2 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}1 /home/condasw/data/Metagenomics/centrifuge/}\VariableTok{$\{j\}}\NormalTok{\_1.fastq }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}2 /home/condasw/data/Metagenomics/centrifuge/}\VariableTok{$\{j\}}\NormalTok{\_2.fastq }\AttributeTok{{-}t} \AttributeTok{{-}p}\NormalTok{ 4 }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}met{-}file /home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_results/}\VariableTok{$\{j\}}\NormalTok{\_meta.txt }\AttributeTok{{-}{-}met{-}stderr} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}S /home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_results/}\VariableTok{$\{j\}}\NormalTok{\_cent.out}\KeywordTok{;} \ControlFlowTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{convert-output-to-kraken-style-reports}{%
+\section{Convert output to Kraken-style reports}\label{convert-output-to-kraken-style-reports}}
+
+• Create a Kraken style report from the Centrifuge output using the centrifuge-kreport command. This command used about
+17 GB of memory and took about 1 minute per file to complete during testing.
+
+• command flags:
+
+-x Path to the indexes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make a directory to store your output files:}
+\FunctionTok{mkdir} \AttributeTok{{-}p}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_krn\_results}
+
+\ExtensionTok{centrifuge{-}kreport} \AttributeTok{{-}x}\NormalTok{ /home/condasw/db/centrifuge/complete\_genomes/Arc\_Bac\_Vir\_Hum\_Eupath\_v2 }\DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_results/ERR2271042\_cent.out }\DataTypeTok{\textbackslash{}}
+\OperatorTok{\textgreater{}}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_krn\_results/ERR2271042\_cent.out.krn}
+\end{Highlighting}
+\end{Shaded}
+
+• Use a for loop if you have many samples to analyze.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Use a for loop to store the names of the fastq files in a variable (like a list)}
+\CommentTok{\# named output using the basename command}
+\VariableTok{output}\OperatorTok{=}\KeywordTok{\textasciigrave{}}\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ /home/metag/centrifuge/centrifuge\_results/}\PreprocessorTok{*}\NormalTok{\_cent.out}\KeywordTok{;} \ControlFlowTok{do} \FunctionTok{basename} \AttributeTok{{-}s}\NormalTok{ \_cent.out }\VariableTok{$i}\KeywordTok{;}\ControlFlowTok{done}\KeywordTok{\textasciigrave{}}
+\CommentTok{\# You can view the contents of the fastq variable with the echo command}
+\BuiltInTok{echo} \VariableTok{$output}
+\CommentTok{\# Use a second for loop to read through the variable list and run centrifuge on each file in the list}
+\CommentTok{\# sequentially.}
+\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$output}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{centrifuge{-}kreport} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}x /home/condasw/db/centrifuge/complete\_genomes/Arc\_Bac\_Vir\_Hum\_Eupath\_v2 }\DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_results/}\VariableTok{$\{j\}}\NormalTok{\_cent.out }\OperatorTok{\textgreater{}} \DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge/centrifuge\_krn\_results/}\VariableTok{$\{j\}}\NormalTok{.krn}\KeywordTok{;} \ControlFlowTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{parse-metadata}{%
+\section{Parse Metadata}\label{parse-metadata}}
+
+• Use awk to extract columns 2, 10, and 18 from the metadata file located at /home/metag/centrifuge/data/
+PRJEB23207\_metadata.txt . Then, pipe the output to grep and exclude samples that were sequenced with the ``Ion
+Torrent PGM'' platform
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Copy the /home/condasw/data/Metagenomics/centrifuge/PRJEB23207\_metadata.txt to your working directory}
+\FunctionTok{cp}\NormalTok{ /home/condasw/data/Metagenomics/centrifuge/PRJEB23207\_metadata.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/centrifuge}
+\CommentTok{\# Use awk and grep to parse the metadata file}
+\CommentTok{\# {-}F is the field separator flag. In this case the metadata file is tab{-}separated \textquotesingle{}\textbackslash{}t\textquotesingle{}.}
+\CommentTok{\# {-}i case{-}insensitive, {-}v exclude the search string, i.e., exclude lines that contain "ion"}
+\FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{}\textbackslash{}t\textquotesingle{}} \StringTok{\textquotesingle{}\{print $2,$10,$18\}\textquotesingle{}}\NormalTok{ PRJEB23207\_metadata.txt }\KeywordTok{|} \FunctionTok{grep} \AttributeTok{{-}i} \AttributeTok{{-}v} \StringTok{"ion"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{visualize-the-kraken-reports-with-pavian}{%
+\section{Visualize the Kraken Reports with Pavian}\label{visualize-the-kraken-reports-with-pavian}}
+
+• First, download all *.krn files to your computer using secure copy (scp) with unix, linux, or MobaXterm terminals.
+
+• This assumes that you have installed R on your computer.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Run R by opening a terminal}
+\ExtensionTok{R}
+\CommentTok{\# Or click on your R application from R{-}studio or R{-}console.}
+
+\CommentTok{\# Install Pavian if you haven\textquotesingle{}t done so:}
+\ControlFlowTok{if} \KeywordTok{(}\ExtensionTok{!require}\ErrorTok{(}\ExtensionTok{remotes}\KeywordTok{))} \KeywordTok{\{} \ExtensionTok{install.packages}\ErrorTok{(}\StringTok{"remotes"}\KeywordTok{)} \KeywordTok{\}}
+\ExtensionTok{remotes::install\_github}\ErrorTok{(}\StringTok{"fbreitwieser/pavian"}\KeywordTok{)}
+
+\CommentTok{\# Start Pavian in your browser from R}
+\ExtensionTok{pavian::runApp}\ErrorTok{(}\VariableTok{port}\OperatorTok{=}\NormalTok{5000}\KeywordTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+• A web browser should pop up. If not, Pavian can be accessed by entering this url into your browser. \url{http://127.0.0.1:5000}
+
+• Drag the .krn files to the ``Browse'' bar under the ``Upload files'' tab.
+
+• Click on the ``Results Overview'' tab on the left side of the screen.
+
+• Click on the ``Sample'' tab on the left side of the screen. You will notice an interactive Sankey chart that displays different
+classified taxa. You can click and drag nodes to reorder the nodes if you want. You can select different samples by clicking
+on the down arrow next to the ``Select sample'' header. Select sample ERR2270960 or ERR2270961 since we know that
+these two samples are likely infected with STEC.
+
+• From the ``Sample'' page, click on the ``Table'' tab. You should see an interactive, filterable and searchable table that
+summarizes the results of Centrifuge. For example, type ``Escherichia coli'' into the ``Search:'' box. A histogram will appear
+that displays the numbers of reads across all samples that were classified as ``Escherichia coli''. Sort the table by the most
+abundant taxa by clicking on the up arrow next to ``TaxonReads''.
+
+• Can you can you identify the strain(s) of STEC that samples ERR2270960 and ERR2270961 likely contain?
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+Gigliucci F, von Meijenfeldt FAB, Knijn A, Michelacci V, Scavia G, Minelli F, Dutilh BE, Ahmad HM, Raangs GC, Friedrich
+AW, Rossen JWA, Morabito S. Metagenomic Characterization of the Human Intestinal Microbiota in Fecal Samples from STECInfected
+Patients. Front Cell Infect Microbiol. 2018 Feb 6;8:25. doi: 10.3389/fcimb.2018.00025. eCollection 2018. PubMed
+PMID: 29468143; PubMed Central PMCID: PMC5808120.
+
+Kim D, Song L, Breitwieser FP, Salzberg SL. Centrifuge: rapid and sensitive classification of metagenomic sequences. Genome
+Res. 2016 Dec;26(12):1721-1729. Epub 2016 Oct 17. PubMed PMID: 27852649; PubMed Central PMCID: PMC5131823.
+
+Lu J, Salzberg SL. Removing contaminants from databases of draft genomes. PLoS Comput Biol. 2018 Jun 25;14(6):e1006277.
+doi: 10.1371/journal.pcbi.1006277. eCollection 2018 Jun.~PubMed PMID: 29939994; PubMed Central PMCID: PMC6034898.
+
 \hypertarget{metatranscriptomics-analysis-with-squeezemeta}{%
 \chapter{Metatranscriptomics Analysis with SqueezeMeta}\label{metatranscriptomics-analysis-with-squeezemeta}}
 
@@ -3823,11 +4174,13 @@ reference genomes.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{data-download-1}{%
-\section{Data Download}\label{data-download-1}}
+\hypertarget{data-download-2}{%
+\section{Data Download}\label{data-download-2}}
 
 • This was done already but we will practice downloading data from SRA. Download the metadata from SRA
+
 • Copy the following link into a web browser \url{https://www.ncbi.nlm.nih.gov/bioproject/PRJNA387475}
+
 • Select the RNA Seq data with the following SRA IDs and send to the Run selector.
 
 -- SRR5787581
@@ -4104,8 +4457,8 @@ metatranscriptomics and may be more suited for this dataset.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{references}{%
-\section{References}\label{references}}
+\hypertarget{references-1}{%
+\section{References}\label{references-1}}
 
 {[}1{]} Tamames J, Puente-Sánchez F. SqueezeMeta, A Highly Portable, Fully Automatic Metagenomic Analysis Pipeline. Front
 Microbiol. 2019;9:3349. Published 2019 Jan 24. \url{doi:10.3389/fmicb.2018.03349} Format:

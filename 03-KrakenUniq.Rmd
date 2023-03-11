@@ -62,9 +62,6 @@ Yeast Population Reference Panel (YPRP)  https://yjx1217.github.io/Yeast_PacBio_
 <br>
 
 
-![YPRP Assemblies https://yjx1217.github.io/Yeast_PacBio_2016/data/](./Figures/Yeast.png){width=100%}
-
-
 <br>
 
 >Make sure your chromosome names are unique across all samples and that they contain the sample name. We’re using \<strain name>.\<chromosome> (>S288C.chrVIII)
