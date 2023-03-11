@@ -1,5 +1,6 @@
 
 # QIIME2
+Command Line Tutorial
 
 ## Logging on to the server
 
@@ -83,7 +84,7 @@ source activate fastp
 for file in *.fastq; do fastp -i ${file} -o ${file}.filtered; done
 conda deactivate
 ```
-![tuberculosis](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png){width=100%}
+![data_table](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png){width=100%}
 Data was collected from 30 Individuals.
 
 • 6 TB Patients - Nasal
@@ -248,7 +249,7 @@ qiime vsearch dereplicate-sequences \
 ## Generating a feature table
 The final products of all denoising and clustering methods/workflows are a FeatureTable[Frequency] (feature table) artifact and a FeatureData[Sequence] (representative sequences) artifact. These are two of the most important artifacts in an amplicon sequencing workflow, and are used for many downstream analyses, as discussed below. Indeed, feature tables are crucial to any QIIME 2 analysis, as the central record of all observations per sample. 
 
-![workflow](/Users/elavelle/Desktop/Metagenomics-Bookdown/derep-denoise.png){width=100%}
+![workflow](./QIIMEpics/derep-denoise.png){width=100%}
 The feature-table summarize command will give you information on how many sequences are associated with each sample and with each feature, histograms of those distributions, and some related summary statistics. The feature-table and tabulate-seqs commands will provide a mapping of feature IDs to sequences, and provide links to easily BLAST each sequence against the NCBI nt database.
 
 ## Visualization
@@ -283,7 +284,7 @@ gg_13_8_otus/rep_set/99_otus.fasta \
 
 ## Clustering
 
-![workflow](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/qiimeimage.png){width=100%}
+![workflow](./QIIMEpics/qiimeimage.png){width=100%}
 There are three types of clustering,
 
 I. De novo Operational Taxonomic Unit (OTU) clustering
@@ -362,7 +363,7 @@ STEP 7: Building a phylogenetic tree
 
 Evolution is the core concept of biology. There is only so much you can learn from microbes while ignoring evolution. Evolution-aware analyses of a dataset needs a phylogenetic tree of its sequences. These trees can be built de-novo or they can be reference based. Phylogeny-based analyses in QIIME2 generally need a rooted tree. 
 
-![workflow](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/forlyx.trees.qiime.png){width=100%}
+![workflow](./QIIMEpics/forlyx.trees.qiime.png){width=100%}
 
 ```{bash, eval=FALSE}
 
@@ -522,7 +523,7 @@ qiime diversity beta-group-significance \
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 SECONDS TO RUN TO COMPLETION
 ```
 
-![workflow](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/beta_diversity.png){width=100%}
+![workflow](./QIIMEpics/beta_diversity.png){width=100%}
 Significance for a beta diversity metric indicates lesser ingroup distances for one or more groups compared to the inter-group distances.
 
 ## PCoA plot
