@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Metatranscriptomics Analysis with SqueezeMeta | SqueezeMeta.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Metatranscriptomics Analysis with SqueezeMeta | SqueezeMeta.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Metatranscriptomics Analysis with SqueezeMeta | SqueezeMeta.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pangenomics Workshop NCGR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path=""><a href="#metatranscriptomics-analysis-with-squeezemeta"><i class="fa fa-check"></i><b>1</b> Metatranscriptomics Analysis with SqueezeMeta</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path=""><a href="#what-is-squeezemeta"><i class="fa fa-check"></i><b>1.1</b> What is SqueezeMeta?</a></li>
+<li class="chapter" data-level="1.2" data-path=""><a href="#squeezemeta-workflow"><i class="fa fa-check"></i><b>1.2</b> SqueezeMeta Workflow</a></li>
+<li class="chapter" data-level="1.3" data-path=""><a href="#tutorial-introduction"><i class="fa fa-check"></i><b>1.3</b> Tutorial Introduction</a></li>
+<li class="chapter" data-level="1.4" data-path=""><a href="#conda-environment"><i class="fa fa-check"></i><b>1.4</b> Conda Environment</a></li>
+<li class="chapter" data-level="1.5" data-path=""><a href="#retrieve-databases"><i class="fa fa-check"></i><b>1.5</b> Retrieve Databases</a></li>
+<li class="chapter" data-level="1.6" data-path=""><a href="#data-download"><i class="fa fa-check"></i><b>1.6</b> Data Download</a></li>
+<li class="chapter" data-level="1.7" data-path=""><a href="#analysis-of-squeezemeta"><i class="fa fa-check"></i><b>1.7</b> Analysis of SqueezeMeta</a></li>
+<li class="chapter" data-level="1.8" data-path=""><a href="#references"><i class="fa fa-check"></i><b>1.8</b> References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:title:end-->
+<!--bookdown:title:start-->
+<div id="metatranscriptomics-analysis-with-squeezemeta" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Metatranscriptomics Analysis with SqueezeMeta<a href="#metatranscriptomics-analysis-with-squeezemeta" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="what-is-squeezemeta" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> What is SqueezeMeta?<a href="#what-is-squeezemeta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>SqueezeMeta is a fully automatic pipeline for metagenomics/metatranscriptomics. It includes multi-metagenome support that enables co-assembly of related metagenomes and retrieval of individual genomes[1].</p>
+</div>
+<div id="squeezemeta-workflow" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> SqueezeMeta Workflow<a href="#squeezemeta-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="Figures/SqueezeMeta_workflow.png" style="width:100.0%" alt="workflow" />
+Figure 1: Workflow of the three modes of operation of SqueezeMeta: sequential, co-assembly and merged. Starting from metagenomic samples, green, blue and red arrows indicate main steps in sequential, merged and co-assembly modes. All modes create two of the three main results tables: open reading frame (ORF) and contig tables. Co-assembly and merged modes also apply binning and, therefore, they also create the bin table.</p>
+</div>
+<div id="tutorial-introduction" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Tutorial Introduction<a href="#tutorial-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Over half of adults experience gingivitis, a mild yet treatable form of periodontal disease caused by the overgrowth
+of oral microbes. Left untreated, gingivitis can progress to a more severe and irreversible disease, most
+commonly chronic periodontitis. While periodontal diseases are associated with a shift in the oral microbiota
+composition, it remains unclear how this shift impacts microbiota function early in disease progression. Metatranscriptome
+sequencing analysis indicates that during the early stages of transition to gingivitis, a number of
+virulence-related transcripts were significantly differentially expressed in individual and across pooled patient
+samples[2].</p>
+<p>In this tutorial we will analyze metatranscriptomic data from this study to identify gene function that may be associated
+with disease progressions. The publication for this data is located here <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/18.pdf" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/18.pdf</a></p>
+<p><img src="Figures/gingivitis.png" style="width:100.0%" alt="teeth" />
+Figure 2: Study design and visualization of the progression from health to periodontal disease. On the left, the covered or uncovered teeth depict the study design utilized, in which an acrylic stent (shown in blue) was worn to cover either the entire top or bottom set of teeth during brushing throughout the course of the experiment, 2 weeks. The images on the right illustrate the clinical symptoms associated with gingivitis that were scored by trained dental professionals in this study. An modified gingival index (MGI) score of 0 represents a healthy tooth with no indication of inflammation (shown by increasing redness at the gum) or plaque (tan color on tooth). Healthy periodontia progress through various degrees of gingivitis as depicted by the MGI 1, MGI 2, and MGI 3 panels and can eventually progress to the destructive gum disease, chronic periodontitis, shown on the far right.</p>
+<p>Many of the steps have been completed beforehand. However, instructions and code are provided so that you
+can build the database and format the metadata that we will use with SqueezeMeta.</p>
+</div>
+<div id="conda-environment" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Conda Environment<a href="#conda-environment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Do not do for this tutorial</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> squeezemeta <span class="at">-c</span> bioconda <span class="at">-c</span> fpusan squeezemeta sra-tools</span></code></pre></div>
+</div>
+<div id="retrieve-databases" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Retrieve Databases<a href="#retrieve-databases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>SqueezeMeta provides a couple scripts that will allow you to download the NCBI taxonomy tree and RefSeq
+reference genomes.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a new directory and enter it.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> squeezemeta</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> squeezemeta</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Download from source and format the latest version of the annotation databases for use with SqueezeMeta. Do not do this step for this tutorial (It took ~14 hours).</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">make_databases.pl</span> /home/<span class="va">$USER</span>/squeezemeta/database</span></code></pre></div>
+</div>
+<div id="data-download" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Data Download<a href="#data-download" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>• This was done already but we will practice downloading data from SRA. Download the metadata from SRA
+• Copy the following link into a web browser <a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA387475" class="uri">https://www.ncbi.nlm.nih.gov/bioproject/PRJNA387475</a>
+• Select the RNA Seq data with the following SRA IDs and send to the Run selector.</p>
+<p>– SRR5787581
+– SRR5787582
+– SRR5787583
+– SRR5787584
+– SRR5787585
+– SRR5787586</p>
+<p>• Export the metadata to your computer and copy to logrus.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Download from source and format the latest version of the annotation databases for use with SqueezeMeta. Do not do this step for this tutorial (It took ~14 hours).</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the metadata to extract the SRR IDs and sample names. This will be need to create sample_file.txt</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;,&#39;</span> <span class="st">&#39;{if ($0 !~&quot;^Run&quot;) print $1,$27}&#39;</span> SraRunTable.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t_</span> <span class="at">-k2</span> <span class="at">-k1</span> <span class="op">&gt;</span> sample_groups.txt</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the sample_file.txt file from the sample_groups.txt file</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39; &#39;</span> <span class="st">&#39;{print $2&quot;\t&quot;$1&quot;_pass.fastq.gz&quot;&quot;\t&quot;&quot;pair1&quot;}&#39;</span> <span class="dt">\</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>sample_groups.txt <span class="op">&gt;</span> sample_file.txt</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a file with just the SRR accession IDs</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span> sample_groups.txt <span class="op">&gt;</span> sra_ids.txt</span></code></pre></div>
+<p>• Use the SRA ids for this study to download the raw fastq files from SRA using perfetch and fastq-dump from sra-tools.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a directory to store the fastq files</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/<span class="va">$USER</span>/squeezemeta/fastq</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Move into fastq directory</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/<span class="va">$USER</span>/squeezemeta/fastq</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download SRA data with prefetch</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">prefetch</span> <span class="at">-O</span> . <span class="at">-p</span> SRR5787581</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert SRA data to fastq format using fastq-dump from sra-tools</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fastq-dump</span> <span class="at">--outdir</span> . <span class="at">--gzip</span> <span class="at">--skip-technical</span> <span class="at">--readids</span> <span class="dt">\</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>--read-filter pass <span class="at">--dumpbase</span> <span class="at">--split-e</span> <span class="dt">\</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>--clip /home/<span class="va">$USER</span>/squeezemeta/fastq/SRR5787581</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a for loop to download many fastq from SRA.</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a variable called ids to store the SRA ids that contained</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># in the sra_ids.txt file that we created previously</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="va">ids</span><span class="op">=</span><span class="va">$(</span><span class="op">&lt;</span>sra_ids.txt<span class="va">)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Download SRA data with prefetch using a for loop</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$ids</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">prefetch</span> <span class="at">-O</span> . <span class="at">-p</span> <span class="va">$j</span><span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert SRA data to fastq format using a for loop</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$ids</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">fastq-dump</span> <span class="at">--outdir</span> . <span class="at">--gzip</span> <span class="at">--skip-technical</span> <span class="dt">\</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>--readids <span class="at">--read-filter</span> pass <span class="at">--dumpbase</span> <span class="at">--split-e</span> <span class="at">--clip</span> <span class="dt">\</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/squeezemeta/fastq/<span class="va">$j</span><span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Deactivate fastqdump environment</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre></div>
+<p>• Run SqueezeMeta. The top command runs SqueezeMeta using an assembly based method for metatranscriptomics. Unfortunately,
+the assembly based method my not be appropriate for this dataset. After assembly, less than 50% of the
+reads aligned to the assembly. The bottom command uses the sqm_read.pl script to perform a read based method for
+metatranscriptomics and may be more suited for this dataset.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate squeezemeta environment</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> activate squeezemeta</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a symbolic link to fastq files</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/<span class="va">$USER</span>/squeezemeta/fastq</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /home/condasw/data/Metagenomics/SqueezeMeta/fastq/<span class="pp">*</span>gz ./</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This is an assembly based method of metatranscriptomics (Finished running in ~4.25 hours)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/<span class="va">$USER</span>/squeezemeta</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">SqueezeMeta.pl</span> <span class="at">-m</span> coassembly <span class="at">-p</span> gingivitis_assembly_based <span class="at">-s</span> sample_file.txt <span class="dt">\</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>-f /home/<span class="va">$USER</span>/squeezemeta/fastq <span class="at">-a</span> megahit <span class="at">-map</span> minimap2-sr</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This is read based method of metatranscriptomics (Finished running in ~48 hours)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">sqm_reads.pl</span> <span class="at">-p</span> gingivitis_read_based <span class="at">-s</span> sample_file.txt <span class="dt">\</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>-f /home/<span class="va">$USER</span>/squeezemeta/fastq <span class="dt">\</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>--memory 0.1 <span class="at">--num-cpu-threads</span> 12 <span class="at">--euk</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Softlink to pre-run output directory</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /home/elavelle/squeezemeta/gingivitis_2 /home/<span class="va">$USER</span>/squeezemeta/</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Launch R</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span></code></pre></div>
+</div>
+<div id="analysis-of-squeezemeta" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Analysis of SqueezeMeta<a href="#analysis-of-squeezemeta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>• Load SQMtools library and analyze SqueezeMeta data.
+• SQMtools manuals <a href="https://github.com/jtamames/SqueezeMeta/blob/master/SQMtools_0.5.0.pdf" class="uri">https://github.com/jtamames/SqueezeMeta/blob/master/SQMtools_0.5.0.pdf</a>
+• SQMtools and R tutorial <a href="https://github.com/jtamames/SqueezeMeta/wiki/Using-R-to-analyze-your-SQM-results" class="uri">https://github.com/jtamames/SqueezeMeta/wiki/Using-R-to-analyze-your-SQM-results</a></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load SQMtools library</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;SQMtools&#39;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set working directory to directory containing gingivitis_2 folder</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># replace &lt;username&gt; with your username</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&#39;/home/$USER/squeezemeta/&#39;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load SqueezeMeta data into R</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>gingivitis <span class="ot">=</span> <span class="fu">loadSQM</span>(<span class="st">&#39;gingivitis_2&#39;</span>)</span></code></pre></div>
+<div class="figure">
+<img src="Figures/R_structure.jpg" style="width:100.0%" alt="" />
+<p class="caption">R_structure</p>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Access Matrix of genera and their abundances</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>genus_tax <span class="ot">=</span> gingivitis<span class="sc">$</span>taxa<span class="sc">$</span>genus<span class="sc">$</span>abund</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first 6 genera for all 6 samples</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>genus_tax[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Access Matrix of KEGG ids and their abundances</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>KEGG_table <span class="ot">=</span> gingivitis<span class="sc">$</span>functions<span class="sc">$</span>KEGG<span class="sc">$</span>abund</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first 6 KEGG ids for all 6 samples</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>KEGG_table[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># What Genera are there?</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the top 15 (N) taxonomies at the genus level</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace percent with abund to see raw abundance instead of percentages</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plots to file with ggplot2</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;ggplot2&#39;</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&#39;genus_abund.pdf&#39;</span>, <span class="at">width=</span><span class="dv">10</span>, <span class="at">height=</span><span class="dv">8</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTaxonomy</span>(gingivitis, <span class="at">rank=</span><span class="st">&#39;genus&#39;</span>, <span class="at">count=</span><span class="st">&#39;percent&#39;</span>, <span class="at">N =</span> <span class="dv">15</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, we know something about the microbial diversity in the samples,</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># but what are they doing? We should check the functional</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># profile(KEGG, COG and PFAM annotations) of the samples:</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&#39;KEGG_tpm.pdf&#39;</span>, <span class="at">width=</span><span class="dv">14</span>, <span class="at">height=</span><span class="dv">12</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFunctions</span>(gingivitis, <span class="at">fun_level =</span><span class="st">&quot;KEGG&quot;</span>, <span class="at">count =</span><span class="st">&quot;tpm&quot;</span>, <span class="at">N =</span> <span class="dv">20</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Which functions are more abundant in the project? We use the DESeq2 package to</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># analyze which functions are significantly more abundant in</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Load DESeq2 package</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&#39;DESeq2&#39;</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the required matrix with the raw abundances, colData (metadata file)</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;MGI0&#39;</span>,<span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&#39;MGI2&#39;</span>,<span class="dv">3</span>)))</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(metadata) <span class="ot">=</span> <span class="fu">colnames</span>(gingivitis<span class="sc">$</span>functions<span class="sc">$</span>KEGG<span class="sc">$</span>abund)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(metadata)<span class="ot">=</span><span class="st">&#39;condition&#39;</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify sample order</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">rownames</span>(metadata)<span class="sc">==</span><span class="fu">colnames</span>(gingivitis<span class="sc">$</span>functions<span class="sc">$</span>KEGG<span class="sc">$</span>abund))</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert your data to the format required by DESeq2</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">=</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> gingivitis<span class="sc">$</span>functions<span class="sc">$</span>KEGG<span class="sc">$</span>abund, <span class="at">colData =</span> metadata,</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="at">design =</span> <span class="sc">~</span> condition)</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove low abundant KEGGs:</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">=</span> <span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;=</span> <span class="dv">10</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">=</span> dds[keep,]</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose factor levels</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>condition<span class="ot">=</span><span class="fu">factor</span>(dds<span class="sc">$</span>condition, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&#39;MGI2&#39;</span>,<span class="st">&#39;MGI0&#39;</span>))</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Run DESeq2</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>dds2<span class="ot">=</span><span class="fu">DESeq</span>(dds)</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>results<span class="ot">=</span><span class="fu">results</span>(dds2, <span class="at">name=</span><span class="st">&#39;condition_MGI0_vs_MGI2&#39;</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Make and save MA plot</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;MA_plot.pdf&quot;</span>)</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMA</span>(results, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform data</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>rld <span class="ot">&lt;-</span> <span class="fu">rlogTransformation</span>(dds2)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Heatmap based on KEGG expression</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>sampleDists <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">dist</span>(<span class="fu">t</span>(<span class="fu">assay</span>(rld))))</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;KEGG-heatmap-samples.pdf&quot;</span>, <span class="at">w=</span><span class="dv">50</span>, <span class="at">h=</span><span class="dv">50</span>, <span class="at">pointsize=</span><span class="dv">50</span>)</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap.2</span>(<span class="fu">as.matrix</span>(sampleDists), <span class="at">key=</span>F, <span class="at">trace=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="at">col=</span><span class="fu">colorpanel</span>(<span class="dv">100</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="at">margin=</span><span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">30</span>), <span class="at">main=</span><span class="st">&quot;Sample Distance Matrix&quot;</span>)</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="co"># Principal components analysis</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Can do with built-in DESeq2 function:</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;KEGG_pca.pdf&quot;</span>)</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPCA</span>(rld, <span class="at">intgroup=</span><span class="fu">c</span>(<span class="st">&quot;condition&quot;</span>))</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Get differential expression results for MGI0 vs MGI2</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>MGI2_from_MGI0 <span class="ot">&lt;-</span> <span class="fu">results</span>(dds2, <span class="at">contrast=</span><span class="fu">c</span>(<span class="st">&quot;condition&quot;</span>, <span class="st">&quot;MGI0&quot;</span>, <span class="st">&quot;MGI2&quot;</span>))</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Order by adjusted p-value</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>MGI2_from_MGI0 <span class="ot">&lt;-</span> MGI2_from_MGI0[<span class="fu">order</span>(MGI2_from_MGI0<span class="sc">$</span>padj), ]</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with normalized count data</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>resdata <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">as.data.frame</span>(MGI2_from_MGI0), <span class="fu">as.data.frame</span>(<span class="fu">counts</span>(dds2, <span class="at">normalized=</span><span class="cn">TRUE</span>)),</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="at">by=</span><span class="st">&quot;row.names&quot;</span>, <span class="at">sort=</span><span class="cn">FALSE</span>)</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(resdata)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;KEGG&quot;</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resdata, <span class="at">n =</span> <span class="dv">15</span>)</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Write results</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(resdata, <span class="at">file=</span><span class="st">&quot;MGI2_from_MGI0_DE.csv&quot;</span>)</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can subset the SqueezeMeta results and create heatmaps for the most significant KEGGs</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>top15_sigs <span class="ot">=</span> <span class="fu">subsetFun</span>(gingivitis, <span class="at">fun =</span> <span class="st">&#39;K09942|K01775|K11607|K15022|K02647|K05524|K00176|K01267| \</span></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="st">|K03469|K07095|K08987|K11604|K17472|K11645|K16950&#39;</span>, <span class="at">fixed =</span> F)</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">&quot;top_15_sig.pdf&quot;</span>)</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFunctions</span>(top15_sigs, <span class="at">fun_level =</span> <span class="st">&quot;KEGG&quot;</span>, <span class="at">count =</span> <span class="st">&#39;tpm&#39;</span>)</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Now subset data for all significant pathways with padj &lt;= 0.05</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="co"># First we will look at the DE results spreadsheet MGI0_VS_MGI2_DE.CSV and select KEGGs with padj</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>all_sigs <span class="ot">=</span> <span class="fu">subsetFun</span>(gingivitis, <span class="at">fun =</span> <span class="st">&#39;K09942|K01775|K11607|K15022|K02647|K05524|K00176|K01267|\</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a><span class="st">|K03469|K07095|K08987|K11604|K17472|K11645|K16950|K16191|K06889|K15539|K19002|K00876|K02119|\</span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="st">|K02120|K16327|K06079|K08999|K04758|K11066|K08279|K09946|K02392|K11910|K03409|K07658|K01761|\</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="st">|K02794|K01364|K01923|K00278|K01284|K01489|K09797|K21556|K15582|K12410|K13789|K14982|K15125|\</span></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="st">|K06298|K03856|K00266|K03551|K09607|K04026|K03558|K20777|K02389|K01443|K03152|K11748|K02388|\</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="st">|K03426|K03584|K05515|K12527|K00226|K01783|K07444|K11995|K11720|K11617|K01006|K02039|K16066|\</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="st">|K00552|K16149|K03555|K17722|K01486|K07775|K07305|K03413|K03548|K09762|K03324|K07636|K00830|\</span></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="st">|K02666|K03273|K02970|K03817|K12994|K12264|K07106|K22431|K00412|K06948|K00812|K01961|K07729|\</span></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="st">|K00978|K03332|K03151|K06861|K13098|K02406|K06890|K01791|K13888|K00848|K02919|K00030|K01919|\</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="st">|K02409|K22212|K22432|K02656|K08364|K01182|K09775|K15789|K18987|K22293|K07346|K11708|K00265|\</span></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a><span class="st">|K05807|K04756|K03655|K03648|K01807|K16511|K00337|K13677|K00549|K02837|K02784|K07035|K07078|\</span></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="st">|K07258|K02824|K02556|K01627|K06188|K02836|K03831|K10119|K09474|K02518|K03292|K03308|K00826|\</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="st">|K06209|K02897|K02668|K21472|K12132|K06485|K07665|K03594|K00013|K03191|K01950|K01739|K01926|\</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="st">|K03718|K07343|K02395|K19286|K19354|K03205|K00570|K07137|K02393|K03585|K16301|K03589|K01887|\</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="st">|K03569|K00788|K05837|K19157|K02124|K02217|K07473|K06020|K16012|K02952|K03270|K03694|K20884|\</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="st">|K19304|K00748|K06178|K03828|K07791|K01092|K01609|K00794|K01507|K02028|K03086|K07037|K03339|\</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="st">|K06950|K07031|K09153|K13012|K00558|K02431|K03595|K02340|K08218|K07098|K01819|K18133|K06131|\</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="st">|K07216|K07273|K01420|K07816|K00602|K00158|K19158|K01924|K04082|K05601|K11145|K02123|K02529|\</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="st">|K01095|K11068|K06871|K02025|K02117|K11473|K03969|K14059|K01243|K01358|K20114|K07016|K09794|\</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a><span class="st">|K12960|K03289|K01653|K03790|K04764|K03841|K03089|K10530|K02563|K01754|K02343|K02110|K09791|\</span></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="st">|K06042|K03110|K13634|K01858|K04486|K00101|K01682|K03601&#39;</span>, <span class="at">fixed =</span> F)</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a><span class="co"># To calculate the log-fold change of a KEGG, you can provide a list of vectors.</span></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors with sample names by condition (cond):</span></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>MGI0.samples <span class="ot">=</span> gingivitis<span class="sc">$</span>misc<span class="sc">$</span>samples[<span class="fu">grep</span>(<span class="st">&#39;MGI0&#39;</span>, gingivitis<span class="sc">$</span>misc<span class="sc">$</span>samples)]</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>MGI2.samples <span class="ot">=</span> gingivitis<span class="sc">$</span>misc<span class="sc">$</span>samples[<span class="fu">grep</span>(<span class="st">&#39;MGI2&#39;</span>, gingivitis<span class="sc">$</span>misc<span class="sc">$</span>samples)]</span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">=</span> <span class="fu">list</span>(MGI0.samples, MGI2.samples)</span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose colors, one per condition</span></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;#006682&#39;</span>, <span class="st">&#39;#c26e00&#39;</span>) <span class="do">##006682 = blue , #c26e00 = orange</span></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot log2 fold changes using copy number abundances in the selected KEGG pathway:</span></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="co"># beta-Lactam resistance Ko01501</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="co"># The hue of the color depends on the value of the log-fold-change calculated using</span></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a><span class="co"># copy numbers: the darkest orange implies a log-fold-change value &gt;= 1.5</span></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="co">#(more abundant in MGI2) and the darkest blue a log-fold-change &lt;= -1.5</span></span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="co">#(more abundant in MGI0 samples). See Figure 3 below:</span></span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="fu">exportPathway</span>(all_sigs, <span class="st">&#39;01501&#39;</span>, <span class="at">output_suffix =</span> <span class="st">&#39;beta_lactam_resis.log2FC&#39;</span>,</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a><span class="at">fold_change_colors =</span> colors, <span class="at">fold_change_groups =</span> cond, <span class="at">count =</span><span class="st">&#39;copy_number&#39;</span>,</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a><span class="at">max_scale_value =</span> <span class="dv">10</span>)</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="co"># Periodontal Pathogens Produce Quorum Sensing Signal Molecules</span></span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="fu">exportPathway</span>(all_sigs, <span class="st">&#39;02024&#39;</span>, <span class="at">output_suffix =</span> <span class="st">&#39;Quorum_sensing.log2FC&#39;</span>,</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="at">fold_change_colors =</span> colors, <span class="at">fold_change_groups =</span> cond, <span class="at">count =</span><span class="st">&#39;copy_number&#39;</span>,</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a><span class="at">max_scale_value =</span> <span class="dv">10</span>)</span></code></pre></div>
+</div>
+<div id="references" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> References<a href="#references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>[1] Tamames J, Puente-Sánchez F. SqueezeMeta, A Highly Portable, Fully Automatic Metagenomic Analysis Pipeline. Front
+Microbiol. 2019;9:3349. Published 2019 Jan 24. <a href="doi:10.3389/fmicb.2018.03349" class="uri">doi:10.3389/fmicb.2018.03349</a> Format:
+[2] Microbiota and Metatranscriptome Changes Accompanying the Onset of Gingivitis Emily M. Nowicki, Raghav Shroff, Jacqueline
+A. Singleton, Diane E. Renaud, Debra Wallace, Julie Drury, Jolene Zirnheld, Brock Colleti, Andrew D. Ellington,
+Richard J. Lamont, David A. Scott, Marvin Whiteley mBio. 2018 Mar-Apr; 9(2): e00575-18. Published online 2018 Apr 17.
+doi: 10.1128/mBio.00575-18 PMCID: PMC5904416.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/%s",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -15,10 +15,6 @@ Finds approximate positions of diverged sequences and adds them into the graph
 
 1-to-1 orthogonal regions
 
-<center>
-![Graph Construction https://github.com/lh3/minigraph](./Figures/Minigraph.png){width=50%}
-</center>
-
 ## Minimizers and Minimap2
 Minigraph is built off of ideas and code from Minimap2.
 
@@ -129,12 +125,6 @@ https://github.com/lh3/gfatools/blob/master/doc/rGFA.md
 + Tags that trace origin
 + Stable coordinates
 
-<center>
-![Additional required tags trace origin of segment](./Figures/rGFA1.png){width=80%}
-
-![Example rGFA](./Figures/rGFA2.png){width=70%}
-</center>
-
 ## Build Graphs
 
 
@@ -213,8 +203,6 @@ cut -f 1 ref.minigraph.gfa | sort | uniq -c
 ### Reference Graph Bandage Visualization {-}
 
 Download your gfa file onto your computer and upload it into Bandage.
-
-![Reference Graph Bandage](./Figures/Bandage2.png){width=70%}
 
 ## YPRP Graphs
 
@@ -304,7 +292,6 @@ Average degree: 1.416
 
 Take a look at the YPRP graph in Bandage. Your might be rendered differently.
 
-![YPRP Graph Bandage](./Figures/YPRPBandage1.png){width=100%} 
 <br>
 <br>
 
@@ -318,9 +305,6 @@ Trace the S288C path (hint: the S288C segments are numbered sequentially).
 
 Identify insertions and regions that have diverged.
 
- 
-![YPRP Graph Bandage](./Figures/YPRPBandage2.png){width=100%} 
-
 ### Group Exercise{-}
 
 1. Find a simple and a complex region
@@ -331,8 +315,6 @@ Identify insertions and regions that have diverged.
 ### Inversions {-}
 
 Here are some examples of inversions.
-
-![Inversion signatures](./Figures/Inversionsx2.png){width=75%} 
 
 Let's find them in bandage.
 
@@ -517,8 +499,6 @@ Call structural variants with gfatools (doesn’t work with VG graphs):
 gfatools bubble yprp.minigraph.gfa > yprp.minigraph.structural.bed
 ```
  
-
-![BED](./Figures/BED.png){width=100%}
 https://github.com/lh3/minigraph
  
 ### Structural Variant Stats {-}
@@ -542,16 +522,11 @@ yprp.minigraph.structural.bed|wc -l
 awk '$6==1{print}' yprp.minigraph.structural.bed | cut -f 1-12
 ```
 
-![Inversions](./Figures/Inversions.png){width=100%}
-
-
 ## CUP1
 
 ### Visualize the CUP1 region {-}
 
 10 working copies + 1 pseudogene in S288C
-
-![Structural Rearrangement](./Figures/StructuralRearrangements.png){width=100%}
  
 1. Find the region in the graph based on its S288C coordinates  
 S288C.chrVIII:213045-233214
@@ -570,24 +545,10 @@ Note that you need a header
 
 3. Load the graph and the .csv file into Bandage
 
-<center>
-![Bandage](./Figures/Bandage3.png){width=60%}
-</center>
-
 
 This compares S288C and SK1.
 
-<center>
-![Bandage](./Figures/Bandage4.png){width=35%}
-
-![Structural Rearrangement](./Figures/StructuralRearrangements.png){width=100%}
-</center>
-
 If you have blast installed on your computer, you can blast the two gene sequences to their positions. CUP1 is the smaller one. Gene sequences are in: /home/pangenomics/data/yprp/genes/
-
-<center>
-![Bandage](./Figures/Bandage5.png){width=70%}
-</center>
 
 ### CUP1 Paths in Y12 {-}
 
@@ -689,14 +650,7 @@ Approximate Positions:
 + CHM13 chr6 161200000-162200000
 
 
-<center>
-![LPA](./Figures/LPA.png){width=60%}
-http://lh3.github.io/2021/01/11/minigraph-as-a-multi-assembly-sv-caller
-</center>
-
 Your results should look something like this.
-
-![GRCh38.p13](./Figures/GRCh38.p13.png){width=100%}
 
 ### Convert to VG and call variants {-}
 

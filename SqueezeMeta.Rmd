@@ -54,7 +54,9 @@ make_databases.pl /home/$USER/squeezemeta/database
 ## Data Download
 
 • This was done already but we will practice downloading data from SRA. Download the metadata from SRA
+
 • Copy the following link into a web browser https://www.ncbi.nlm.nih.gov/bioproject/PRJNA387475
+
 • Select the RNA Seq data with the following SRA IDs and send to the Run selector.
 
 – SRR5787581

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Centrifuge | Centrifuge.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Centrifuge | Centrifuge.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Centrifuge | Centrifuge.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Pangenomics Workshop NCGR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path=""><a href="#centrifuge"><i class="fa fa-check"></i><b>1</b> Centrifuge</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path=""><a href="#what-is-centrifuge"><i class="fa fa-check"></i><b>1.1</b> What is Centrifuge?</a></li>
+<li class="chapter" data-level="1.2" data-path=""><a href="#tutorial"><i class="fa fa-check"></i><b>1.2</b> Tutorial</a></li>
+<li class="chapter" data-level="1.3" data-path=""><a href="#environment"><i class="fa fa-check"></i><b>1.3</b> Environment</a></li>
+<li class="chapter" data-level="1.4" data-path=""><a href="#data-download"><i class="fa fa-check"></i><b>1.4</b> Data Download</a></li>
+<li class="chapter" data-level="1.5" data-path=""><a href="#retrieve-refseq-and-eupathdb-data"><i class="fa fa-check"></i><b>1.5</b> Retrieve RefSeq and EuPathDB Data</a></li>
+<li class="chapter" data-level="1.6" data-path=""><a href="#database-building"><i class="fa fa-check"></i><b>1.6</b> Database building</a></li>
+<li class="chapter" data-level="1.7" data-path=""><a href="#classification"><i class="fa fa-check"></i><b>1.7</b> Classification</a></li>
+<li class="chapter" data-level="1.8" data-path=""><a href="#convert-output-to-kraken-style-reports"><i class="fa fa-check"></i><b>1.8</b> Convert output to Kraken-style reports</a></li>
+<li class="chapter" data-level="1.9" data-path=""><a href="#parse-metadata"><i class="fa fa-check"></i><b>1.9</b> Parse Metadata</a></li>
+<li class="chapter" data-level="1.10" data-path=""><a href="#visualize-the-kraken-reports-with-pavian"><i class="fa fa-check"></i><b>1.10</b> Visualize the Kraken Reports with Pavian</a></li>
+<li class="chapter" data-level="1.11" data-path=""><a href="#references"><i class="fa fa-check"></i><b>1.11</b> References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:title:end-->
+<!--bookdown:title:start-->
+<div id="centrifuge" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Centrifuge<a href="#centrifuge" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="what-is-centrifuge" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> What is Centrifuge?<a href="#what-is-centrifuge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>very rapid and memory-efficient system for the classification of DNA sequences from microbial
+samples, with better sensitivity than and comparable accuracy to other leading systems. The system uses a
+novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index,
+optimized specifically for the metagenomic classification problem[1].</p>
+</div>
+<div id="tutorial" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Tutorial<a href="#tutorial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For this tutorial we will use data from this publication “Metagenomic Characterization of the Human Intestinal
+Microbiota in Fecal Samples from STEC-Infected Patients” [2]: <a href="https://www.frontiersin.org/articles/10.3389/fcimb.2018.00025/" class="uri">https://www.frontiersin.org/articles/10.3389/fcimb.2018.00025/</a>
+All data used in this tutorial was retrieved from SRA with fastq-dump. SRAccession: PRJEB23207</p>
+<p>In this study, whole genome metagenomic sequencing was used to investigate possible changes in the composition
+of the intestinal microbiota in samples from patients with Shiga toxin-producing E. Coli (STEC) infection (N
+= 2) compared to Crohn’s Patients (N =4), healthy (N = 2) and healed controls (N = 3). Faeces samples,
+collected during an outbreak, from STEC infected patients showed a lower intestinal abundance of beneficial
+microorganisms in comparison to controls where those microorganisms predominated. These differences were
+observed with bioinformatic approaches and seemed to be related with the STEC infection. So, using the
+metagenomics data from this study can you identify the STEC positive samples? Can you identify the specific
+strain of STEC?
+Many of the steps have been done for you. However, I have provided instructions and code so that you can
+build the full database indexes that we will use for classifying reads with Centrifuge.</p>
+</div>
+<div id="environment" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Environment<a href="#environment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember to start a screen</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate the fastqdump environment</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> activate fastqdump</span></code></pre></div>
+</div>
+<div id="data-download" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Data Download<a href="#data-download" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a directory to store results</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/<span class="va">$USER</span>/centrifuge/fastq</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/<span class="va">$USER</span>/centrifuge/taxonomy</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the reads into your fastq directory</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /home/elavelle/centrifuge/fastq/<span class="pp">*</span>.fastq /home/<span class="va">$USER</span>/centrifuge/fastq</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Detach screen while this takes place</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># This is an example for downloading a single fastq file from SRA:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">prefetch</span> <span class="at">-O</span> . <span class="at">-p</span> ERR2271237</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">fastq-dump</span> <span class="at">--split-files</span> <span class="at">--outdir</span> . <span class="at">--gzip</span> <span class="at">--skip-technical</span> <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>--readids <span class="at">--read-filter</span> pass <span class="at">--dumpbase</span> <span class="at">--split-e</span> <span class="at">--clip</span> <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/ERR2271237</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Do NOT do for this tutorial.</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a for loop to download many files sequentially. First, write all of the SRA accession numbers</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># that you want to download into a file, e.g., PRJEB23207_accessions.txt</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a for loop to store the SRA accession numbers from the PRJEB23207_accessions.txt file</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># into a variable named accessions</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="va">accessions</span><span class="op">=</span><span class="kw">`</span><span class="cf">for</span> i <span class="kw">in</span> PRJEB23207_accessions.txt<span class="kw">;</span> <span class="cf">do</span> <span class="fu">cat</span> <span class="va">$i</span><span class="kw">;</span><span class="cf">done</span><span class="kw">`</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a for loop to run prefetch fastq-dump for each SRA</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># accession number in the accessions variable</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$accessions</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">prefetch</span> <span class="at">-O</span> . <span class="at">-p</span> <span class="va">$j</span><span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$accessions</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">fastq-dump</span> <span class="at">--outdir</span> . <span class="at">--gzip</span> <span class="at">--skip-technical</span> <span class="dt">\</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>--readids <span class="at">--read-filter</span> pass <span class="at">--dumpbase</span> <span class="at">--split-e</span> <span class="at">--clip</span> <span class="dt">\</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="va">$j</span><span class="kw">;</span> <span class="cf">done</span></span></code></pre></div>
+</div>
+<div id="retrieve-refseq-and-eupathdb-data" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Retrieve RefSeq and EuPathDB Data<a href="#retrieve-refseq-and-eupathdb-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Centrifuge provides a few scripts that will allow you to download the NCBI taxonomy tree and RefSeq reference
+genomes.
+• To map sequence identifiers to taxonomy IDs, and taxonomy IDs to names and their parents, three taxonomy tree files are
+necessary in addition to the reference fasta files:
+– taxonomy tree files:</p>
+<ul>
+<li><p>nodes.dmp from the NCBI taxonomy dump. Links taxonomy IDs to their parents names.</p></li>
+<li><p>names.dmp from the NCBI taxonomy dump. Links taxonomy IDs to their scientific name.</p></li>
+<li><p>seqid2taxid.map is a tab-separated file that maps sequence IDs to taxonomy IDs.</p></li>
+</ul>
+<p>• When using the provided scripts to download the genomes, these files are automatically downloaded or generated. When
+using custom taxonomy or sequence files, please refer to the manual section TODO to learn more about their format. Here
+is the link to the manual <a href="https://ccb.jhu.edu/software/centrifuge/manual.shtml" class="uri">https://ccb.jhu.edu/software/centrifuge/manual.shtml</a></p>
+<p>• command flags:
+-o
+specifies the folder to which the files are downloaded.
+taxonomy
+Argument indicates the database to download. The options are refseq, genbank, contaminants or taxonomy.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes ~20 seconds</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> activate centrifuge</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">centrifuge-download</span> <span class="at">-o</span> /home/<span class="va">$USER</span>/centrifuge/taxonomy taxonomy</span></code></pre></div>
+<p>• Download complete fungal genomes from RefSeq with the centrifuge–download commands. Do this exercise for this tutorial
+on a reduced data set.</p>
+<p>• command flags:
+-a Only download genomes with the specified assembly level. Default: ’Complete Genome’. Use ’Any’ for any assembly
+level.
+-m Mask low-complexity regions using dustmasker. This is part of the blast program that was installed in the metagenomics
+environment.
+-P Number of threads or processes to use when downloading.
+-d What domain to download. One or more of bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate_
+mammalian, vertebrate_other (comma separated).
+refseq Tells the program to use the refseq database.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes about 1 minute</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">centrifuge-download</span> <span class="at">-o</span> library <span class="at">-a</span> <span class="st">&quot;Complete Genome&quot;</span> <span class="at">-m</span> <span class="at">-P</span> 4 <span class="at">-d</span> <span class="st">&quot;fungi&quot;</span> refseq <span class="op">&gt;</span> seqid2taxid.map</span></code></pre></div>
+<p>• Do not do: This database was pre-built for you to use in the tutorial. Download complete archaea, bacteria, viral and fungal
+genomes from RefSeq with the centrifuge–download commands. This is what you should do to build a more comprehensive
+RefSeq database containing only complete genomes.
+• At the time of download, there were 289 Archea, 13,287 bacterial, 8,583 viral, and 10 fungal genomes.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">centrifuge-download</span> <span class="at">-o</span> library <span class="at">-a</span> <span class="st">&quot;Complete Genome&quot;</span> <span class="at">-m</span> <span class="at">-P</span> 30 <span class="at">-d</span> <span class="st">&quot;archaea,bacteria,viral,fungi&quot;</span> refseq <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> seqid2taxid.map</span></code></pre></div>
+<p>• Download the RefSeq chromosome level human genome reference with centrifuge-download commands.</p>
+<p>• Command flags are the same as the previous step:</p>
+<p>-t Only download the specified taxonomy IDs, comma separated. Default: any. 9606 is the taxonomy id for Human.</p>
+<p>-c Only download genomes in the specified refseq category. Default: any.</p>
+<blockquote>
+<blockquote>
+<p>Appends the human seqid2taxid. map to the previously generated fungi seqid2taxid.map file.</p>
+</blockquote>
+</blockquote>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Took ~14 minutes during testing</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">centrifuge-download</span> <span class="at">-o</span> library <span class="at">-a</span> <span class="st">&quot;Chromosome&quot;</span> <span class="at">-m</span> <span class="at">-P</span> 4 <span class="at">-d</span> <span class="st">&quot;vertebrate_mammalian&quot;</span> <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>-t 9606 <span class="at">-c</span> <span class="st">&quot;reference genome&quot;</span> refseq <span class="op">&gt;&gt;</span> seqid2taxid.map</span></code></pre></div>
+<p>• *Optional. Customize your database by adding EuPathDB release 28 reference genomes. This step was done for you. The
+EuPathDB data comes from this publication.
+– Here is the link to the publication <a href="https://doi.org/10.1371/journal.pcbi.1006277" class="uri">https://doi.org/10.1371/journal.pcbi.1006277</a> . Here is the webpage for the data
+download <a href="https://ccb.jhu.edu/data/eupathDB/" class="uri">https://ccb.jhu.edu/data/eupathDB/</a></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make new directory called eupath in the library directory. Something like this</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/<span class="va">$USER</span>/centrifuge/library/eupath</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Move into the /home/$USER/centrifuge/library/eupath directory.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/<span class="va">$USER</span>/centrifuge/library/eupath</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This wget command will download EuPathDB data from the following link.</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ccb.jhu.edu/data/eupathDB/dl/eupathDB.tar.gz</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncompress the eupathDB.tar.gz file into the eupath directory. You should see</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># a directory named library</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-zxvf</span> eupathDB.tar.gz</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Move the fasta files from the /home/$USER/centrifuge/library/eupath/library directory</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#to /home/$USER/centrifuge/library/eupath/ directory</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> /home/<span class="va">$USER</span>/centrifuge/library/eupath/library/<span class="pp">*</span>.fna <span class="dt">\</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/library/eupath/</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract and append the contig/scaffold and taxonomy id information from the prelim_map.txt that was</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># downloaded with eupathDB.tar.gz file to the seqid2taxid.map file</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;\t&#39;</span> <span class="st">&#39;{print $2,$3}&#39;</span> /home/<span class="va">$USER</span>/centrifuge/library/eupath/library/<span class="dt">\</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>prelim_map.txt <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;|&#39;</span> <span class="st">&#39;{print $1,$3}&#39;</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39; &#39;</span> <span class="st">&#39;{print $1&quot;\t&quot;$2}&#39;</span> <span class="dt">\</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> /home/<span class="va">$USER</span>/centrifuge/seqid2taxid.map</span></code></pre></div>
+<p>• Concatenate the reference genome fasta files that were downloaded with the centrifuge-download commands. We are using
+a for loop to do this; otherwise, we would have to type every file name on the command-line that we want to concatenatee.
+g., cat fasta_1.fna fasta_2.fna …. &gt; &gt; all_fasta_files.fna . For practice, we will concatenate the fungi reference genome
+fasta files and the human fasta file.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> /home/<span class="va">$USER</span>/centrifuge/library/<span class="pp">*</span>/<span class="pp">*</span>.fna<span class="kw">;</span> <span class="cf">do</span> <span class="fu">cat</span> <span class="va">$i</span> <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> fungi_Hum.fna<span class="kw">;</span><span class="cf">done</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Centrifuge doesn&#39;t like the header format of some sequences. Reformat the headers:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s/|kraken[^|]*|/ /&#39;</span> fungi_Hum.fna <span class="op">&gt;</span> fungi_HumanFixed.fna</span></code></pre></div>
+</div>
+<div id="database-building" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Database building<a href="#database-building" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Build the Centrifuge indexes using the centrifuge-build command. This has been done for you already. It took 14
+hrs and ~ 410 GBs of RAM using 30 threads to build this database index on logrus. And, this was just using the
+“Complete Genome” Refseq genomes for archea, bacteria, viruses, fungi, human, and EuPathDB. I attempted
+to build a Centrifuge index using “All” RefSeq genomes for archea, bacteria, viruses, fungi, human plus the
+EuPAthDB but ran out of memory on logrus. I tried re-bulding this index on a higher memory server and Centrifuge
+was using 890 GBs of RAM before I killed the program. So, unless you have high-capacity compute you
+may not be able to build the indexes on your system. But, the Centrifuge developers have provided various premade
+indexes that you can download here, <a href="ftp://ftp.ccb.jhu.edu/pub/infphilo/centrifuge/data/p+h+v.tar.gz" class="uri">ftp://ftp.ccb.jhu.edu/pub/infphilo/centrifuge/data/p+h+v.tar.gz</a>,
+with wget.</p>
+<p>• Do this exercise for this tutorial. Build the Centrifuge database indexes with the centrifuge-build command. This is to
+practice building an index.
+4</p>
+<p>• command flags:</p>
+<p>-p The number of processes/threads to use for creating the index.</p>
+<p>–conversion-table The seqid2taxid.map file that you created with the centrifuge-download commands.</p>
+<p>–taxonomy-tree The nodes.dmp file that was downloaded with the first centrifuge-download command.</p>
+<p>–name-table The nodes.dmp file that was downloaded with the first centrifuge-download command.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Each run will use about 24 GB of RAM.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It took 39 minutes to run during testing.</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">centrifuge-build</span> <span class="at">-p</span> 4 <span class="at">--conversion-table</span> /home/<span class="va">$USER</span>/centrifuge/seqid2taxid.map <span class="at">--taxonomy-tree</span> <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/taxonomy/nodes.dmp <span class="at">--name-table</span> <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/taxonomy/names.dmp <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/library/fungi_HumanFixed.fna <span class="dt">\</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/fungi_Human_indeces</span></code></pre></div>
+</div>
+<div id="classification" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Classification<a href="#classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this portion of the tutorial we will use the pre-built indexes that contain complete RefSeq genomes for archea,
+bacteria, viruses and fungi. The human chromosome level reference genome was included and we also added
+the EuPathDB database as well. Each file will use about 36 GB of RAM, so not every one can run
+samples at the same time.</p>
+<p>• Classify reads with Centrifuge.</p>
+<p>• command flags:</p>
+<p>-x Path to the indexes</p>
+<p>– Index location
+/home/metag/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2</p>
+<p>-1 Read 1 fastq file</p>
+<p>-2 Read 2 fastq file</p>
+<p>-t Print wall-clock time taken by search phase. This is optional.</p>
+<p>-p Number of alignment threads to launch</p>
+<p>–met-file Send metrics to file at <path></p>
+<p>–met-stderr Send metrics to stderr</p>
+<p>-S Output file name</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a directory to store your results:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/<span class="va">$USER</span>/centrifuge/centrifuge_results</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Centrifuge. It will take 10 - 20 minutes per sample to run.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">centrifuge</span> <span class="at">-x</span> /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>-1 /home/condasw/data/Metagenomics/centrifuge/ERR2271042_1.fastq <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>-2 /home/condasw/data/Metagenomics/centrifuge/ERR2271042_2.fastq <span class="at">-t</span> <span class="dt">\</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>-p 4 <span class="at">--met-file</span> /home/<span class="va">$USER</span>/centrifuge/centrifuge_results/ERR2271042_meta.txt <span class="at">--met-stderr</span> <span class="dt">\</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>-S /home/<span class="va">$USER</span>/centrifuge/centrifuge_results/ERR2271042_cent.out</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># If you have many samples to analyze, use a for loop to run centrifuge on each sample sequentially.</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a for loop to store the names of the fastq files in a variable (like a list)</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># named fastq using the basename command</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="va">fastq</span><span class="op">=</span><span class="kw">`</span><span class="cf">for</span> i <span class="kw">in</span> /home/condasw/data/Metagenomics/centrifuge/<span class="pp">*</span>_1.fastq<span class="kw">;</span> <span class="cf">do</span> <span class="fu">basename</span> <span class="at">-s</span> _1.fastq <span class="va">$i</span><span class="kw">;</span><span class="cf">done</span><span class="kw">`</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># You can view the contents of the fastq variable with the echo command</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$fastq</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a second for loop to read through the variable list and run centrifuge on each file in the list</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># sequentially.</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$fastq</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">centrifuge</span> <span class="at">-x</span> /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 <span class="dt">\</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>-1 /home/condasw/data/Metagenomics/centrifuge/<span class="va">${j}</span>_1.fastq <span class="dt">\</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>-2 /home/condasw/data/Metagenomics/centrifuge/<span class="va">${j}</span>_2.fastq <span class="at">-t</span> <span class="at">-p</span> 4 <span class="dt">\</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>--met-file /home/<span class="va">$USER</span>/centrifuge/centrifuge_results/<span class="va">${j}</span>_meta.txt <span class="at">--met-stderr</span> <span class="dt">\</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>-S /home/<span class="va">$USER</span>/centrifuge/centrifuge_results/<span class="va">${j}</span>_cent.out<span class="kw">;</span> <span class="cf">done</span></span></code></pre></div>
+</div>
+<div id="convert-output-to-kraken-style-reports" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> Convert output to Kraken-style reports<a href="#convert-output-to-kraken-style-reports" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>• Create a Kraken style report from the Centrifuge output using the centrifuge-kreport command. This command used about
+17 GB of memory and took about 1 minute per file to complete during testing.</p>
+<p>• command flags:</p>
+<p>-x Path to the indexes.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a directory to store your output files:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /home/<span class="va">$USER</span>/centrifuge/centrifuge_krn_results</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">centrifuge-kreport</span> <span class="at">-x</span> /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/centrifuge_results/ERR2271042_cent.out <span class="dt">\</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> /home/<span class="va">$USER</span>/centrifuge/centrifuge_krn_results/ERR2271042_cent.out.krn</span></code></pre></div>
+<p>• Use a for loop if you have many samples to analyze.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a for loop to store the names of the fastq files in a variable (like a list)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># named output using the basename command</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="va">output</span><span class="op">=</span><span class="kw">`</span><span class="cf">for</span> i <span class="kw">in</span> /home/metag/centrifuge/centrifuge_results/<span class="pp">*</span>_cent.out<span class="kw">;</span> <span class="cf">do</span> <span class="fu">basename</span> <span class="at">-s</span> _cent.out <span class="va">$i</span><span class="kw">;</span><span class="cf">done</span><span class="kw">`</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># You can view the contents of the fastq variable with the echo command</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$output</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a second for loop to read through the variable list and run centrifuge on each file in the list</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># sequentially.</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$output</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">centrifuge-kreport</span> <span class="dt">\</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>-x /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 <span class="dt">\</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/centrifuge_results/<span class="va">${j}</span>_cent.out <span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge/centrifuge_krn_results/<span class="va">${j}</span>.krn<span class="kw">;</span> <span class="cf">done</span></span></code></pre></div>
+</div>
+<div id="parse-metadata" class="section level2 hasAnchor" number="1.9">
+<h2><span class="header-section-number">1.9</span> Parse Metadata<a href="#parse-metadata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>• Use awk to extract columns 2, 10, and 18 from the metadata file located at /home/metag/centrifuge/data/
+PRJEB23207_metadata.txt . Then, pipe the output to grep and exclude samples that were sequenced with the “Ion
+Torrent PGM” platform</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the /home/condasw/data/Metagenomics/centrifuge/PRJEB23207_metadata.txt to your working directory</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /home/condasw/data/Metagenomics/centrifuge/PRJEB23207_metadata.txt <span class="dt">\</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>/home/<span class="va">$USER</span>/centrifuge</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use awk and grep to parse the metadata file</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># -F is the field separator flag. In this case the metadata file is tab-separated &#39;\t&#39;.</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># -i case-insensitive, -v exclude the search string, i.e., exclude lines that contain &quot;ion&quot;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">&#39;\t&#39;</span> <span class="st">&#39;{print $2,$10,$18}&#39;</span> PRJEB23207_metadata.txt <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-i</span> <span class="at">-v</span> <span class="st">&quot;ion&quot;</span></span></code></pre></div>
+</div>
+<div id="visualize-the-kraken-reports-with-pavian" class="section level2 hasAnchor" number="1.10">
+<h2><span class="header-section-number">1.10</span> Visualize the Kraken Reports with Pavian<a href="#visualize-the-kraken-reports-with-pavian" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>• First, download all *.krn files to your computer using secure copy (scp) with unix, linux, or MobaXterm terminals.</p>
+<p>• This assumes that you have installed R on your computer.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run R by opening a terminal</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Or click on your R application from R-studio or R-console.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Install Pavian if you haven&#39;t done so:</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">(</span><span class="ex">!require</span><span class="er">(</span><span class="ex">remotes</span><span class="kw">))</span> <span class="kw">{</span> <span class="ex">install.packages</span><span class="er">(</span><span class="st">&quot;remotes&quot;</span><span class="kw">)</span> <span class="kw">}</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">remotes::install_github</span><span class="er">(</span><span class="st">&quot;fbreitwieser/pavian&quot;</span><span class="kw">)</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Start Pavian in your browser from R</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">pavian::runApp</span><span class="er">(</span><span class="va">port</span><span class="op">=</span>5000<span class="kw">)</span></span></code></pre></div>
+<p>• A web browser should pop up. If not, Pavian can be accessed by entering this url into your browser. <a href="http://127.0.0.1:5000" class="uri">http://127.0.0.1:5000</a></p>
+<p>• Drag the .krn files to the “Browse” bar under the “Upload files” tab.</p>
+<p>• Click on the “Results Overview” tab on the left side of the screen.</p>
+<p>• Click on the “Sample” tab on the left side of the screen. You will notice an interactive Sankey chart that displays different
+classified taxa. You can click and drag nodes to reorder the nodes if you want. You can select different samples by clicking
+on the down arrow next to the “Select sample” header. Select sample ERR2270960 or ERR2270961 since we know that
+these two samples are likely infected with STEC.</p>
+<p>• From the “Sample” page, click on the “Table” tab. You should see an interactive, filterable and searchable table that
+summarizes the results of Centrifuge. For example, type “Escherichia coli” into the “Search:” box. A histogram will appear
+that displays the numbers of reads across all samples that were classified as “Escherichia coli”. Sort the table by the most
+abundant taxa by clicking on the up arrow next to “TaxonReads”.</p>
+<p>• Can you can you identify the strain(s) of STEC that samples ERR2270960 and ERR2270961 likely contain?</p>
+</div>
+<div id="references" class="section level2 hasAnchor" number="1.11">
+<h2><span class="header-section-number">1.11</span> References<a href="#references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Gigliucci F, von Meijenfeldt FAB, Knijn A, Michelacci V, Scavia G, Minelli F, Dutilh BE, Ahmad HM, Raangs GC, Friedrich
+AW, Rossen JWA, Morabito S. Metagenomic Characterization of the Human Intestinal Microbiota in Fecal Samples from STECInfected
+Patients. Front Cell Infect Microbiol. 2018 Feb 6;8:25. doi: 10.3389/fcimb.2018.00025. eCollection 2018. PubMed
+PMID: 29468143; PubMed Central PMCID: PMC5808120.
+Kim D, Song L, Breitwieser FP, Salzberg SL. Centrifuge: rapid and sensitive classification of metagenomic sequences. Genome
+Res. 2016 Dec;26(12):1721-1729. Epub 2016 Oct 17. PubMed PMID: 27852649; PubMed Central PMCID: PMC5131823.
+Lu J, Salzberg SL. Removing contaminants from databases of draft genomes. PLoS Comput Biol. 2018 Jun 25;14(6):e1006277.
+doi: 10.1371/journal.pcbi.1006277. eCollection 2018 Jun. PubMed PMID: 29939994; PubMed Central PMCID: PMC6034898.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/%s",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
