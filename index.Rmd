@@ -533,21 +533,6 @@ diversity estimates
 + Very high sequence duplication levels
 + Abundance of overrepresented sequences
 + In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
- 
-
-## QIIME 2
-
-Importing data
-Demultiplexing
-Running Quality Control
-Creating a feature table
-Building a phylogenetic tree
-Calculating core diversity metrics
-Testing alpha diversity group significance and correlation
-Performing beta diversity ordination
-Testing beta diversity group significance
-Assigning taxonomies
-Performing differential abundance analysis with ANCOM and/or  gneiss
 
 ## Taxonomy: Expectation vs Reality
 
