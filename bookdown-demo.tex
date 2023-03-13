@@ -4,10 +4,6 @@
 %
 \documentclass[
 ]{book}
-\title{Metagenomics Workshop NCGR}
-\author{}
-\date{\vspace{-2.5em}}
-
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -37,13 +33,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Metagenomics Workshop NCGR},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -124,7 +113,6 @@
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{plainnat}
-<<<<<<< HEAD
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
@@ -136,8 +124,6 @@
 \title{Metagenomics Workshop NCGR}
 \author{}
 \date{\vspace{-2.5em}}
-=======
->>>>>>> 8541b1d4835e55a208fc697e039920f047a05298
 
 \begin{document}
 \maketitle
@@ -1512,21 +1498,6 @@ OTU table is a matrix that gives the number of reads per sample per OTU
   In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
 \end{itemize}
 
-\hypertarget{qiime-2}{%
-\section{QIIME 2}\label{qiime-2}}
-
-Importing data
-Demultiplexing
-Running Quality Control
-Creating a feature table
-Building a phylogenetic tree
-Calculating core diversity metrics
-Testing alpha diversity group significance and correlation
-Performing beta diversity ordination
-Testing beta diversity group significance
-Assigning taxonomies
-Performing differential abundance analysis with ANCOM and/or gneiss
-
 \hypertarget{taxonomy-expectation-vs-reality}{%
 \section{Taxonomy: Expectation vs Reality}\label{taxonomy-expectation-vs-reality}}
 
@@ -1844,9 +1815,9 @@ Tab-delimited text
 Lines start with one of the following types:
 
 \begin{longtable}[]{@{}lll@{}}
-\toprule
+\toprule()
 Type & Description & Explanation \\
-\midrule
+\midrule()
 \endhead
 \textbf{H} & Header & \\
 \textbf{S} & Segment & A continuous sequence or subsequence \\
@@ -1856,7 +1827,7 @@ Type & Description & Explanation \\
 \textbf{P} & Path & An ordered \& oriented list of linked segments \\
 \textbf{W} & Walk & An ordered \& oriented list of segments w/o overlaps \\
 \textbf{\#} & Comment & \\
-\bottomrule
+\bottomrule()
 \end{longtable}
 
 Optional Fields \url{TAG:TYPE:VALUE}\\
@@ -2839,11 +2810,14 @@ Make vertices small enough (\textless=1024bp) for indexing (\textless1min):
   \end{enumerate}
 \end{enumerate}
 
-\hypertarget{qiime2}{%
-\chapter{QIIME2}\label{qiime2}}
+\textless\textless\textless\textless\textless\textless\textless{} HEAD:QIIME2.Rmd
+\# QIIME2
 
 \hypertarget{hands-on-command-line-tutorial}{%
 \section{Hands On Command Line Tutorial}\label{hands-on-command-line-tutorial}}
+
+=======
+\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater{} 8541b1d4835e55a208fc697e039920f047a05298:9-QIIME2.Rmd
 
 \hypertarget{qiime2}{%
 \chapter{QIIME2}\label{qiime2}}
@@ -4469,7 +4443,8 @@ metatranscriptomics and may be more suited for this dataset.
 \section{References}\label{references-1}}
 
 {[}1{]} Tamames J, Puente-Sánchez F. SqueezeMeta, A Highly Portable, Fully Automatic Metagenomic Analysis Pipeline. Front
-Microbiol. 2019;9:3349. Published 2019 Jan 24. \url{doi:10.3389/fmicb.2018.03349} Format:
+Microbiol. 2019;9:3349. Published 2019 Jan 24. \url{doi:10.3389/fmicb.2018.03349}
+
 {[}2{]} Microbiota and Metatranscriptome Changes Accompanying the Onset of Gingivitis Emily M. Nowicki, Raghav Shroff, Jacqueline
 A. Singleton, Diane E. Renaud, Debra Wallace, Julie Drury, Jolene Zirnheld, Brock Colleti, Andrew D. Ellington,
 Richard J. Lamont, David A. Scott, Marvin Whiteley mBio. 2018 Mar-Apr; 9(2): e00575-18. Published online 2018 Apr 17.
