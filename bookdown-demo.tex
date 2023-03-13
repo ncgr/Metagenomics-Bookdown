@@ -1240,12 +1240,116 @@ After one --step or two-step PCR, products are cleaned up using AMpure beads
 \caption{Amplicon Workflow}
 \end{figure}
 
+\begin{verbatim}
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+\end{verbatim}
+
+\hypertarget{filter-out-red-alder-sequencing-reads}{%
+\chapter{Filter out Red Alder Sequencing Reads}\label{filter-out-red-alder-sequencing-reads}}
+
+In order to focus on sequencing reads from the microbes in the nodule, we will filter out reads that align to the red alder genome as follows:
+
+1 Align the fastq-formatted reads to the red alder genome using minimap2.
+2 Extract reads that do not align to red alder and sort them using samtools.
+3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
+4 Compress the fastq file using gzip.
+
+\begin{itemize}
+\tightlist
+\item
+  Activate the environment that contains minimap2 and samtools
+\end{itemize}
+
+\begin{verbatim}
+conda activate seqtools
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Make a directory and go into it
+\end{itemize}
+
+\begin{verbatim}
+mkdir ~/microbe_fastq
+cd ~/microbe_fastq
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Link to the merged minion reads
+\end{itemize}
+
+\begin{verbatim}
+ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Run Minimap2 to align the MinION reads to the red alder genome
+
+  \begin{itemize}
+  \tightlist
+  \item
+    he -x map-ont parameter (allows \textasciitilde10\% error + divergence)
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+minimap2 -x map-ont -L -t 8 -a \
+/home/cjb/minion/2019/indexes/red_alder_genome/consensus.fasta \
+3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Convert the unmapped reads in the alignment file (sam) to a fastq file
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The -f4 includes only reads with the 4 flag (unmapped)
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Compress the new fastq file
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (note that it will automatically add the extension .gz)
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+gzip 3469-3.microbe.fq
+\end{verbatim}
+
+\hypertarget{now-run-these-steps-with-4956-3-minit3}{%
+\subsection*{Now run these steps with 4956-3 (minit3)}\label{now-run-these-steps-with-4956-3-minit3}}
+\addcontentsline{toc}{subsection}{Now run these steps with 4956-3 (minit3)}
+
+Reads are here:
+
+/home/cjb/minion/2022/data/minit3/data/aldernodule4956-3/4956-3/20220701\_2154\_MC-113286\_FAS37509\_f3119554/fastq\_pass/all.fastq
+
 \hypertarget{data-processing}{%
-\section*{Data Processing}\label{data-processing}}
-\addcontentsline{toc}{section}{Data Processing}
+\chapter{Data Processing}\label{data-processing}}
 
 \hypertarget{fastqc}{%
-\subsection{FastQC}\label{fastqc}}
+\section{FastQC}\label{fastqc}}
 
 \begin{figure}
 \centering
@@ -1266,7 +1370,7 @@ After one --step or two-step PCR, products are cleaned up using AMpure beads
 \end{enumerate}
 
 \hypertarget{dereplication}{%
-\subsection{Dereplication}\label{dereplication}}
+\section{Dereplication}\label{dereplication}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1278,7 +1382,7 @@ After one --step or two-step PCR, products are cleaned up using AMpure beads
 \end{enumerate}
 
 \hypertarget{chimera-detection-and-removal-of-non-bacterial-sequences}{%
-\subsection{Chimera detection and removal of non-bacterial sequences}\label{chimera-detection-and-removal-of-non-bacterial-sequences}}
+\section{Chimera detection and removal of non-bacterial sequences}\label{chimera-detection-and-removal-of-non-bacterial-sequences}}
 
 Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together
 
@@ -1291,7 +1395,7 @@ Chimeras as artifact sequences formed by two or more biological sequences incorr
 Incomplete extensions during PCR allow subsequent PCR cycles to use a partially extended strand to bind to the template of a different, but similar, sequence. This partially extended strand then acts as a primer to extend and form a chimeric sequence.
 
 \hypertarget{clustering}{%
-\subsection{Clustering}\label{clustering}}
+\section{Clustering}\label{clustering}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1310,7 +1414,7 @@ Some level of sequence divergence should be allowed -- 95\% (genus-level, partia
 practice and the resulting cluster of nearly identical tags (assumedly identical genomes) is referred to as an OTU (Operational Taxonomic Unit)
 
 \hypertarget{create-otu-tables}{%
-\subsection{Create OTU tables}\label{create-otu-tables}}
+\section{Create OTU tables}\label{create-otu-tables}}
 
 OTU table is a matrix that gives the number of reads per sample per OTU
 
@@ -1321,7 +1425,7 @@ OTU table is a matrix that gives the number of reads per sample per OTU
 \end{figure}
 
 \hypertarget{bin-otus-into-taxonomy-assign-taxonomy}{%
-\subsection{Bin OTUs into Taxonomy (assign taxonomy)}\label{bin-otus-into-taxonomy-assign-taxonomy}}
+\section{Bin OTUs into Taxonomy (assign taxonomy)}\label{bin-otus-into-taxonomy-assign-taxonomy}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1356,7 +1460,7 @@ OTU table is a matrix that gives the number of reads per sample per OTU
 \end{figure}
 
 \hypertarget{assess-population-diversity-alpha-diversity}{%
-\subsection{\texorpdfstring{Assess Population Diversity: \textbf{alpha diversity}}{Assess Population Diversity: alpha diversity}}\label{assess-population-diversity-alpha-diversity}}
+\section{\texorpdfstring{Assess Population Diversity: \textbf{alpha diversity}}{Assess Population Diversity: alpha diversity}}\label{assess-population-diversity-alpha-diversity}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1389,7 +1493,7 @@ OTU table is a matrix that gives the number of reads per sample per OTU
 \end{figure}
 
 \hypertarget{assess-beta-diversity}{%
-\subsection{Assess Beta Diversity}\label{assess-beta-diversity}}
+\section{Assess Beta Diversity}\label{assess-beta-diversity}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1421,7 +1525,7 @@ OTU table is a matrix that gives the number of reads per sample per OTU
 \end{itemize}
 
 \hypertarget{measuring-population-diversity-alpha-and-beta-diversity}{%
-\subsection{\texorpdfstring{Measuring Population Diversity: \textbf{alpha and beta diversity}}{Measuring Population Diversity: alpha and beta diversity}}\label{measuring-population-diversity-alpha-and-beta-diversity}}
+\section{\texorpdfstring{Measuring Population Diversity: \textbf{alpha and beta diversity}}{Measuring Population Diversity: alpha and beta diversity}}\label{measuring-population-diversity-alpha-and-beta-diversity}}
 
 \begin{figure}
 \centering
@@ -1548,111 +1652,6 @@ OTU table is a matrix that gives the number of reads per sample per OTU
 \item
   Phyla differences?
 \end{enumerate}
-
-\begin{verbatim}
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-\end{verbatim}
-
-\hypertarget{filter-out-red-alder-sequencing-reads}{%
-\chapter{Filter out Red Alder Sequencing Reads}\label{filter-out-red-alder-sequencing-reads}}
-
-In order to focus on sequencing reads from the microbes in the nodule, we will filter out reads that align to the red alder genome as follows:
-
-1 Align the fastq-formatted reads to the red alder genome using minimap2.
-2 Extract reads that do not align to red alder and sort them using samtools.
-3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
-4 Compress the fastq file using gzip.
-
-\begin{itemize}
-\tightlist
-\item
-  Activate the environment that contains minimap2 and samtools
-\end{itemize}
-
-\begin{verbatim}
-conda activate seqtools
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Make a directory and go into it
-\end{itemize}
-
-\begin{verbatim}
-mkdir ~/microbe_fastq
-cd ~/microbe_fastq
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Link to the merged minion reads
-\end{itemize}
-
-\begin{verbatim}
-ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Run Minimap2 to align the MinION reads to the red alder genome
-
-  \begin{itemize}
-  \tightlist
-  \item
-    he -x map-ont parameter (allows \textasciitilde10\% error + divergence)
-  \end{itemize}
-\end{itemize}
-
-\begin{verbatim}
-minimap2 -x map-ont -L -t 8 -a \
-/home/cjb/minion/2019/indexes/red_alder_genome/consensus.fasta \
-3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Convert the unmapped reads in the alignment file (sam) to a fastq file
-
-  \begin{itemize}
-  \tightlist
-  \item
-    The -f4 includes only reads with the 4 flag (unmapped)
-  \end{itemize}
-\end{itemize}
-
-\begin{verbatim}
-samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
-\end{verbatim}
-
-\begin{itemize}
-\tightlist
-\item
-  Compress the new fastq file
-
-  \begin{itemize}
-  \tightlist
-  \item
-    (note that it will automatically add the extension .gz)
-  \end{itemize}
-\end{itemize}
-
-\begin{verbatim}
-gzip 3469-3.microbe.fq
-\end{verbatim}
-
-\hypertarget{now-run-these-steps-with-4956-3-minit3}{%
-\subsection*{Now run these steps with 4956-3 (minit3)}\label{now-run-these-steps-with-4956-3-minit3}}
-\addcontentsline{toc}{subsection}{Now run these steps with 4956-3 (minit3)}
-
-Reads are here:
-
-/home/cjb/minion/2022/data/minit3/data/aldernodule4956-3/4956-3/20220701\_2154\_MC-113286\_FAS37509\_f3119554/fastq\_pass/all.fastq
 
 \hypertarget{pycoqc}{%
 \chapter{PycoQC}\label{pycoqc}}

@@ -433,132 +433,14 @@ After one –step or two-step PCR, products are cleaned up using AMpure beads
 
 ![Amplicon Workflow](./Figures/Planets.png){width=80%}
 
-## Data Processing{-}
 
-### FastQC
-
-![FastQC](./Figures/Planets.png){width=80%}
-
-1. Many tools/options to filter and trim data
-2. Trimming does not always improve things as valuable information
-can be lost!
-3. Removal of adapters is critical for downstream analysis
-
-### Dereplication
-
-1. In this process all the quality-filtered sequences are collapsed into a set of unique reads, which are then clustered into OTUs
-2. Dereplication step significantly reduces computation time by eliminating redundant sequences
-
-### Chimera detection and removal of non-bacterial sequences
-
-Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together
- 
-![Chimera](./Figures/Planets.png){width=80%}
-
-Incomplete extensions during PCR allow subsequent PCR cycles to use a partially extended strand to bind to the template of a different, but similar, sequence. This partially extended strand then acts as a primer to extend and form a chimeric sequence.
-
-### Clustering
-
-1. Analysis of 16S rRNA relies on clustering of related sequences at a particular level of identity and counting the representatives of each cluster
-
-![Clustering](./Figures/Planets.png){width=80%}
-
-Some level of sequence divergence should be allowed – 95% (genus-level, partial 16S gene), 97% (species-level) or 99% typical similarity cutoffs used in
-practice and the resulting cluster of nearly identical tags (assumedly identical genomes) is referred to as an OTU (Operational Taxonomic Unit)
-
-### Create OTU tables
-
-OTU table is a matrix that gives the number of reads per sample per OTU
-
-![OTUs](./Figures/Planets.png){width=80%}
-
-### Bin OTUs into Taxonomy (assign taxonomy)
-
-1. Accuracy of assigning taxonomy depends on the
-reference database chosen
-+ Ribosomal Database Project
-+ GreenGenes
-+ SILVA
-2. Accuracy depends on the completeness of databases
-
-![Database](./Figures/Planets.png){width=80%}
-
-### Assess Population Diversity: **alpha diversity**
-
-1. Assessment of diversity involves two aspects
-+ Species richness (# of species present in a sample)
-+ Species evenness (distribution of relative abundance of species)
-
-2. Total community diversity of a single sample/environment is given by alpha-diversity and represented using rarefaction curves
-
-3. Quantitative methods such as Shannon or Simpson indices measure evenness of the alpha- diversity
- 
-![Human Mol. Genet., 2013](./Figures/Planets.png){width=80%}
-
-### Assess Beta Diversity
-
-1. Beta-diversity measures community structure differences (taxon composition and relative abundance) between two or more samples
-+ For example, beta-diversity indices can compare similarities and differences in microbial communities in healthy and diseases states
-2. Many qualitative (presence/absence taxa) and
-quantitative(taxon abundance) measures of community
-distance are available using several tools
-+ LIBHUFF, TreeClimber, DPCoA, UniFrac (QIIME)
- 
-### Measuring Population Diversity: **alpha and beta diversity**
-
-![PLoS Computational Biol.,2012](./Figures/Planets.png){width=80%}
-
-## Diversity Measurements with 16s rRNA sequencing
-
-1. Overall Benefits
-+ Cost effective
-+ Data analysis can be performed by established pipelines
-+ Large body of archived data is available for reference
-
-2. Overall Limitations
-+ Sequences only a single region of the genome
-+ Classifications often lack accuracy at the
-species level
-+ Copy number per genome can vary. While they
-tend to be taxon specific, variation among
-strains is possible
-+ Relative abundance measurements are
-unreliable because of amplification biases
-+ Diversity of the gene tends to overinflate
-diversity estimates
-
-3. FastQC for 16S rRNA dataset
-+ Extremely biased per base sequence content
-+ Extremely narrow distribution of GC content
-+ Very high sequence duplication levels
-+ Abundance of overrepresented sequences
-+ In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
-
-## Taxonomy: Expectation vs Reality
-
-![Expectation vs. Reality](./Figures/Planets.png){width=80%}
-
-## Beta Diversity - UniFrac
-
-1. Measures how different two samples’ component  sequences are
-
-![Unifrac](./Figures/Planets.png){width=80%}
-
-2. Weighted Unifrac: takes abundance of each sequence  into account
-
-## Results from Paper
-
-1. Main phyla: Firmicutes, Bacteroidetes, Proteobacteria,  Actinobacteria, Fusobacteria with differences bw samples
-2. Sputum (patient) samples had highest diversity followed  by oropharynx samples followed by nasal
-3. Healthy controls (N and O) more diverse than samples  from TB patients
-4. Between-group comparisons?
-5. Phyla differences?
 
 ```
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
+
 
 <!--chapter:end:index.Rmd-->
 
@@ -625,6 +507,129 @@ Reads are here:
 
 <!--chapter:end:01-FilteringRedAlder.Rmd-->
 
+# Data Processing
+
+## FastQC
+
+![FastQC](./Figures/Planets.png){width=80%}
+
+1. Many tools/options to filter and trim data
+2. Trimming does not always improve things as valuable information
+can be lost!
+3. Removal of adapters is critical for downstream analysis
+
+## Dereplication
+
+1. In this process all the quality-filtered sequences are collapsed into a set of unique reads, which are then clustered into OTUs
+2. Dereplication step significantly reduces computation time by eliminating redundant sequences
+
+## Chimera detection and removal of non-bacterial sequences
+
+Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together
+ 
+![Chimera](./Figures/Planets.png){width=80%}
+
+Incomplete extensions during PCR allow subsequent PCR cycles to use a partially extended strand to bind to the template of a different, but similar, sequence. This partially extended strand then acts as a primer to extend and form a chimeric sequence.
+
+## Clustering
+
+1. Analysis of 16S rRNA relies on clustering of related sequences at a particular level of identity and counting the representatives of each cluster
+
+![Clustering](./Figures/Planets.png){width=80%}
+
+Some level of sequence divergence should be allowed – 95% (genus-level, partial 16S gene), 97% (species-level) or 99% typical similarity cutoffs used in
+practice and the resulting cluster of nearly identical tags (assumedly identical genomes) is referred to as an OTU (Operational Taxonomic Unit)
+
+## Create OTU tables
+
+OTU table is a matrix that gives the number of reads per sample per OTU
+
+![OTUs](./Figures/Planets.png){width=80%}
+
+## Bin OTUs into Taxonomy (assign taxonomy)
+
+1. Accuracy of assigning taxonomy depends on the
+reference database chosen
++ Ribosomal Database Project
++ GreenGenes
++ SILVA
+2. Accuracy depends on the completeness of databases
+
+![Database](./Figures/Planets.png){width=80%}
+
+## Assess Population Diversity: **alpha diversity**
+
+1. Assessment of diversity involves two aspects
++ Species richness (# of species present in a sample)
++ Species evenness (distribution of relative abundance of species)
+
+2. Total community diversity of a single sample/environment is given by alpha-diversity and represented using rarefaction curves
+
+3. Quantitative methods such as Shannon or Simpson indices measure evenness of the alpha- diversity
+ 
+![Human Mol. Genet., 2013](./Figures/Planets.png){width=80%}
+
+## Assess Beta Diversity
+
+1. Beta-diversity measures community structure differences (taxon composition and relative abundance) between two or more samples
++ For example, beta-diversity indices can compare similarities and differences in microbial communities in healthy and diseases states
+2. Many qualitative (presence/absence taxa) and
+quantitative(taxon abundance) measures of community
+distance are available using several tools
++ LIBHUFF, TreeClimber, DPCoA, UniFrac (QIIME)
+ 
+## Measuring Population Diversity: **alpha and beta diversity**
+
+![PLoS Computational Biol.,2012](./Figures/Planets.png){width=80%}
+
+## Diversity Measurements with 16s rRNA sequencing
+
+1. Overall Benefits
++ Cost effective
++ Data analysis can be performed by established pipelines
++ Large body of archived data is available for reference
+
+2. Overall Limitations
++ Sequences only a single region of the genome
++ Classifications often lack accuracy at the
+species level
++ Copy number per genome can vary. While they
+tend to be taxon specific, variation among
+strains is possible
++ Relative abundance measurements are
+unreliable because of amplification biases
++ Diversity of the gene tends to overinflate
+diversity estimates
+
+3. FastQC for 16S rRNA dataset
++ Extremely biased per base sequence content
++ Extremely narrow distribution of GC content
++ Very high sequence duplication levels
++ Abundance of overrepresented sequences
++ In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
+
+## Taxonomy: Expectation vs Reality
+
+![Expectation vs. Reality](./Figures/Planets.png){width=80%}
+
+## Beta Diversity - UniFrac
+
+1. Measures how different two samples’ component  sequences are
+
+![Unifrac](./Figures/Planets.png){width=80%}
+
+2. Weighted Unifrac: takes abundance of each sequence  into account
+
+## Results from Paper
+
+1. Main phyla: Firmicutes, Bacteroidetes, Proteobacteria,  Actinobacteria, Fusobacteria with differences bw samples
+2. Sputum (patient) samples had highest diversity followed  by oropharynx samples followed by nasal
+3. Healthy controls (N and O) more diverse than samples  from TB patients
+4. Between-group comparisons?
+5. Phyla differences?
+
+<!--chapter:end:02-DataProcessing.Rmd-->
+
 # PycoQC
 
 
@@ -633,7 +638,7 @@ Reads are here:
  
 
 
-<!--chapter:end:02-PycoQC.Rmd-->
+<!--chapter:end:03-PycoQC.Rmd-->
 
 # Incremental Graphs with *minigraph*
 
@@ -1317,7 +1322,7 @@ vg mod -X 256 yprp.minigraph.vg -t 20 > yprp.minigraph.mod.vg
     c. don’t do augment; run-time too long!
 
 
-<!--chapter:end:03-KrakenUniq.Rmd-->
+<!--chapter:end:04-KrakenUniq.Rmd-->
 
 <<<<<<< HEAD:QIIME2.Rmd
 # QIIME2
@@ -2070,7 +2075,7 @@ qiime feature-table summarize \
 ```
 
 
-<!--chapter:end:04-QIIME2.Rmd-->
+<!--chapter:end:05-QIIME2.Rmd-->
 
 # Centrifuge
 
@@ -2447,7 +2452,7 @@ Res. 2016 Dec;26(12):1721-1729. Epub 2016 Oct 17. PubMed PMID: 27852649; PubMed 
 Lu J, Salzberg SL. Removing contaminants from databases of draft genomes. PLoS Comput Biol. 2018 Jun 25;14(6):e1006277.
 doi: 10.1371/journal.pcbi.1006277. eCollection 2018 Jun. PubMed PMID: 29939994; PubMed Central PMCID: PMC6034898.
 
-<!--chapter:end:05-Centrifuge.Rmd-->
+<!--chapter:end:06-Centrifuge.Rmd-->
 
 
 # Metatranscriptomics Analysis with SqueezeMeta
@@ -2775,5 +2780,5 @@ A. Singleton, Diane E. Renaud, Debra Wallace, Julie Drury, Jolene Zirnheld, Broc
 Richard J. Lamont, David A. Scott, Marvin Whiteley mBio. 2018 Mar-Apr; 9(2): e00575-18. Published online 2018 Apr 17.
 doi: 10.1128/mBio.00575-18 PMCID: PMC5904416.
 
-<!--chapter:end:06-SqueezeMeta.Rmd-->
+<!--chapter:end:07-SqueezeMeta.Rmd-->
 
