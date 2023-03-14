@@ -1,5 +1,11 @@
 # Filter out Red Alder Sequencing Reads
 
+![https://www.britannica.com/plant/alder#/media/1/13564/254209
+](Figures/AlderTree.png){width=40%}
+![https://www.britannica.com/plant/alder#/media/1/13564/254209
+](Figures/AlderNodule.png){width=40%}
+
+
 In order to focus on sequencing reads from the microbes in the nodule, we will filter out reads that align to the red alder genome as follows:
 
 1 Align the fastq-formatted reads to the red alder genome using minimap2.
@@ -7,7 +13,9 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
 4 Compress the fastq file using gzip.
 
-+ Activate the environment that contains minimap2 and samtools
+## Activate the environment that contains minimap2
+
+![](Figures/minimap2.png){width=80%}
 
 ```
 conda activate minimap2
@@ -35,6 +43,14 @@ minimap2 -x map-ont -L -t 8 -a \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
+## Activate the environment that contains samtools
+
+![](Figures/samtools.png){width=80%}
+
+```
+conda activate samtools
+```
+
 + Convert the unmapped reads in the alignment file (sam) to a fastq file
     + The -f4 includes only reads with the 4 flag (unmapped)
 
@@ -49,7 +65,7 @@ samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
 gzip 3469-3.microbe.fq
 ```
 
-### Now run these steps with 4956-3 (minit3){-}
+### Now run these steps with 4956-3{-}
 
 Reads are here: 
 
