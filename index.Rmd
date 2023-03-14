@@ -452,7 +452,7 @@ After one –step or two-step PCR, products are cleaned up using AMpure beads
 
 #### Overview of generic amplicon workflow
 
-![Amplicon Workflow](./Figures/Planets.png){width=80%}
+![Amplicon Workflow](./Figures/NCGRwkflo.png){width=80%}
 
 
 
