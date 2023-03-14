@@ -1246,7 +1246,7 @@ After one --step or two-step PCR, products are cleaned up using AMpure beads
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/Planets.png}
+\includegraphics[width=0.8\textwidth,height=\textheight]{./Figures/NCGRwkflo.png}
 \caption{Amplicon Workflow}
 \end{figure}
 
@@ -1273,7 +1273,7 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 \end{itemize}
 
 \begin{verbatim}
-conda activate seqtools
+conda activate minimap2
 \end{verbatim}
 
 \begin{itemize}
@@ -1294,7 +1294,7 @@ cd ~/microbe_fastq
 \end{itemize}
 
 \begin{verbatim}
-ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
+ln -s /home/cjb/minion/2022/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
 \end{verbatim}
 
 \begin{itemize}
@@ -1311,7 +1311,7 @@ ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2
 
 \begin{verbatim}
 minimap2 -x map-ont -L -t 8 -a \
-/home/cjb/minion/2019/indexes/red_alder_genome/consensus.fasta \
+/home/cjb/indexes/red_alder_genome/consensus.fasta \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 \end{verbatim}
 
@@ -1353,7 +1353,9 @@ gzip 3469-3.microbe.fq
 
 Reads are here:
 
-/home/cjb/minion/2022/data/minit3/data/aldernodule4956-3/4956-3/20220701\_2154\_MC-113286\_FAS37509\_f3119554/fastq\_pass/all.fastq
+\begin{verbatim}
+/home/cjb/minion/2022/data/Aldernodule4956-3/4956-3/20220701_2154_MC-113286_FAS37509_f3119554/fastq_pass/all.fastq
+\end{verbatim}
 
 \hypertarget{data-processing}{%
 \chapter{Data Processing}\label{data-processing}}
@@ -1665,6 +1667,209 @@ OTU table is a matrix that gives the number of reads per sample per OTU
 
 \hypertarget{pycoqc}{%
 \chapter{PycoQC}\label{pycoqc}}
+
+\hypertarget{quality-control}{%
+\subsection*{Quality Control}\label{quality-control}}
+\addcontentsline{toc}{subsection}{Quality Control}
+
+\begin{itemize}
+\tightlist
+\item
+  ``PycoQC computes metrics and generates interactive QC plots for Oxford Nanopore technologies sequencing data'' (\url{https://a-slide.github.io/pycoQC/} )
+\end{itemize}
+
+\includegraphics[width=0.25\textwidth,height=\textheight]{Figures/Pyco2.png}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What do we need in order to run a Quality Control Check?
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Sequencing Summary File
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Automatically produced by the MinIon basecaller.
+  \end{itemize}
+\item
+  PycoQC package + dependencies
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Already downloaded for you in Logrus.
+  \end{itemize}
+\item
+  Line of code to produce .html file.
+\item
+  Line of code to secure copy file to your computer.
+\end{itemize}
+
+\hypertarget{sequencing-summary-file}{%
+\section{Sequencing Summary File}\label{sequencing-summary-file}}
+
+Where is it?
+
+\begin{verbatim}
+/home/cjb/minion/2022/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/sequencing_summary_FAS21661_9ac87089.txt
+\end{verbatim}
+
+\hypertarget{pycoqc-package-code}{%
+\section{PycoQC package \& code}\label{pycoqc-package-code}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Where is it? How to activate it?
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Log in to Logrus
+\item
+  Stay in your home directory (check with pwd)
+\item
+  Type the following:
+\end{itemize}
+
+\begin{verbatim}
+source activate seqtools
+pycoQC
+pycoQC –f inputfilename.txt –o outputfilename.html
+\end{verbatim}
+
+\hypertarget{secure-copy}{%
+\section{Secure Copy}\label{secure-copy}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What terminal to copy from? What is the code?
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Open new Terminal window (Not Logrus, but keep Logrus terminal window open)\\
+\item
+  Type:
+\end{itemize}
+
+\begin{verbatim}
+scp username@logrus.training.ncgr.org:/home/username/outputfile.html ~/Desktop/
+\end{verbatim}
+
+\hypertarget{open-your-url}{%
+\section{Open your URL}\label{open-your-url}}
+
+Find your file on your desktop.
+
+Double-click to open, or right-click to select browser
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{Figures/PycoQC.png}
+\caption{\url{https://a-slide.github.io/pycoQC/}}
+\end{figure}
+
+\hypertarget{normalization}{%
+\subsection{Normalization}\label{normalization}}
+
+With normalization we are trying to get the correct relative gene expression abundances between cells.
+
+Gene expression between cells is based on count data.
+
+What does a count in a count matrix represent?
+
+\begin{itemize}
+\tightlist
+\item
+  mRNA Capture
+\item
+  Reverse transcription of mRNA
+\item
+  sequencing of a molecule of mRNA
+\end{itemize}
+
+The most common normalization protocol is:
+
+\begin{itemize}
+\tightlist
+\item
+  count depth scaling
+\item
+  aka CPM or counts per million
+\item
+  it assumes that all cells in the dataset initially contain an equal number of mRNA molecules
+\item
+  it assumes that count depth differences arise from sampling
+\end{itemize}
+
+Normalize complete
+
+\begin{itemize}
+\tightlist
+\item
+  But wait!
+\item
+  We still have unwanted variability in the data.
+\item
+  What kind of unwanted variability?
+\item
+  What is the solution? Data Correction.
+\end{itemize}
+
+\hypertarget{data-correction-and-integration}{%
+\subsection{Data correction and integration}\label{data-correction-and-integration}}
+
+Biological Covariates
+
+\begin{itemize}
+\tightlist
+\item
+  Cell-Cycle effects
+\item
+  Batch
+\item
+  Dropout
+\end{itemize}
+
+Which Covariates to Consider?
+
+\begin{itemize}
+\tightlist
+\item
+  Depends on downstream analysis
+\item
+  Correct for biological and technical to be considered separately
+\item
+  Corrections are used for different purposes
+\item
+  Each approach to correction presents unique challenges
+\end{itemize}
+
+What are the Correction methods?
+
+\begin{itemize}
+\tightlist
+\item
+  Regressing out biological effects
+\item
+  Regressing out technical effects
+\item
+  Batch effects and data integration
+\item
+  Expression recovery
+\end{itemize}
 
 \hypertarget{incremental-graphs-with-minigraph}{%
 \chapter{\texorpdfstring{Incremental Graphs with \emph{minigraph}}{Incremental Graphs with minigraph}}\label{incremental-graphs-with-minigraph}}
@@ -2919,8 +3124,8 @@ following exercise will help you use fastq-dump for your own projects too.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{quality-control}{%
-\section{Quality Control}\label{quality-control}}
+\hypertarget{quality-control-1}{%
+\section{Quality Control}\label{quality-control-1}}
 
 \begin{Shaded}
 \begin{Highlighting}[]

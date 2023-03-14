@@ -452,7 +452,7 @@ After one –step or two-step PCR, products are cleaned up using AMpure beads
 
 #### Overview of generic amplicon workflow
 
-![Amplicon Workflow](./Figures/Planets.png){width=80%}
+![Amplicon Workflow](./Figures/NCGRwkflo.png){width=80%}
 
 
 
@@ -477,7 +477,7 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 + Activate the environment that contains minimap2 and samtools
 
 ```
-conda activate seqtools
+conda activate minimap2
 ```
 
 + Make a directory and go into it
@@ -490,7 +490,7 @@ cd ~/microbe_fastq
 + Link to the merged minion reads
 
 ```
-ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
+ln -s /home/cjb/minion/2022/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
 ```
 
 + Run Minimap2 to align the MinION reads to the red alder genome
@@ -498,7 +498,7 @@ ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2
 
 ```
 minimap2 -x map-ont -L -t 8 -a \
-/home/cjb/minion/2019/indexes/red_alder_genome/consensus.fasta \
+/home/cjb/indexes/red_alder_genome/consensus.fasta \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
@@ -520,8 +520,9 @@ gzip 3469-3.microbe.fq
 
 Reads are here: 
 
-/home/cjb/minion/2022/data/minit3/data/aldernodule4956-3/4956-3/20220701_2154_MC-113286_FAS37509_f3119554/fastq_pass/all.fastq
-
+```
+/home/cjb/minion/2022/data/Aldernodule4956-3/4956-3/20220701_2154_MC-113286_FAS37509_f3119554/fastq_pass/all.fastq
+```
 
 
 
@@ -651,12 +652,116 @@ diversity estimates
 
 <!--chapter:end:02-DataProcessing.Rmd-->
 
+
 # PycoQC
 
+### Quality Control{-}
 
++ “PycoQC computes metrics and generates interactive QC plots for Oxford Nanopore technologies sequencing data” (https://a-slide.github.io/pycoQC/ )
 
+![](Figures/Pyco2.png){width=25%}
 
+1. What do we need in order to run a Quality Control Check?
++ Sequencing Summary File 
+    + Automatically produced by the MinIon basecaller.
++ PycoQC package + dependencies 
+    + Already downloaded for you in Logrus.
++ Line of code to produce .html file.
++ Line of code to secure copy file to your computer.
+
+## Sequencing Summary File
  
+Where is it?
+
+```
+/home/cjb/minion/2022/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/sequencing_summary_FAS21661_9ac87089.txt
+```
+
+## PycoQC package & code
+
+1. Where is it? How to activate it?
++ Log in to Logrus
++ Stay in your home directory (check with pwd)
++ Type the following: 
+		
+```
+source activate seqtools
+pycoQC
+pycoQC –f inputfilename.txt –o outputfilename.html
+```
+
+## Secure Copy 
+
+1. What terminal to copy from? What is the code?
+
++ Open new Terminal window (Not Logrus, but keep Logrus terminal window open)	
++ Type:
+
+```
+scp username@logrus.training.ncgr.org:/home/username/outputfile.html ~/Desktop/
+```
+
+## Open your URL
+
+Find your file on your desktop.
+
+Double-click to open, or right-click to select browser
+
+
+![https://a-slide.github.io/pycoQC/](Figures/PycoQC.png){width=100%}
+
+
+### Normalization
+
+With normalization we are trying to get the correct relative gene expression abundances between cells. 
+
+Gene expression between cells is based on count data.
+
+What does a count in a count matrix represent?
+
+-	mRNA Capture
+-	Reverse transcription of mRNA
+-	sequencing of a molecule of mRNA
+
+The most common normalization protocol is:
+
+-	count depth scaling
+-	aka CPM or counts per million
+-	it assumes that all cells in the dataset initially contain an equal number of mRNA molecules
+-	it assumes that count depth differences arise from sampling
+
+Normalize complete 
+
+-	But wait!
+-	We still have unwanted variability in the data.
+-	What kind of unwanted variability?
+-	What is the solution? Data Correction. 
+
+### Data correction and integration
+
+Biological Covariates
+
+-	Cell-Cycle effects
+-	Batch
+-	Dropout
+
+Which Covariates to Consider?
+
+-	Depends on downstream analysis
+-	Correct for biological and technical to be considered separately
+-	Corrections are used for different purposes
+-	Each approach to correction presents unique challenges
+
+What are the Correction methods?
+
+-	Regressing out biological effects
+-	Regressing out technical effects
+-	Batch effects and data integration
+-	Expression recovery
+
+
+
+
 
 
 <!--chapter:end:03-PycoQC.Rmd-->

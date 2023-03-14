@@ -10,7 +10,7 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 + Activate the environment that contains minimap2 and samtools
 
 ```
-conda activate seqtools
+conda activate minimap2
 ```
 
 + Make a directory and go into it
@@ -23,7 +23,7 @@ cd ~/microbe_fastq
 + Link to the merged minion reads
 
 ```
-ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
+ln -s /home/cjb/minion/2022/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/fastq_pass/all.fastq 3469-3.all.fastq
 ```
 
 + Run Minimap2 to align the MinION reads to the red alder genome
@@ -31,7 +31,7 @@ ln -s /home/cjb/minion/2022/data/minit4/data/AlderNodule3469-3/3469-3/20220701_2
 
 ```
 minimap2 -x map-ont -L -t 8 -a \
-/home/cjb/minion/2019/indexes/red_alder_genome/consensus.fasta \
+/home/cjb/indexes/red_alder_genome/consensus.fasta \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
@@ -53,8 +53,9 @@ gzip 3469-3.microbe.fq
 
 Reads are here: 
 
-/home/cjb/minion/2022/data/minit3/data/aldernodule4956-3/4956-3/20220701_2154_MC-113286_FAS37509_f3119554/fastq_pass/all.fastq
-
+```
+/home/cjb/minion/2022/data/Aldernodule4956-3/4956-3/20220701_2154_MC-113286_FAS37509_f3119554/fastq_pass/all.fastq
+```
 
 
 
