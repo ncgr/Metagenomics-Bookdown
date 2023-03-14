@@ -1259,6 +1259,9 @@ knitr::write_bib(c(
 \hypertarget{filter-out-red-alder-sequencing-reads}{%
 \chapter{Filter out Red Alder Sequencing Reads}\label{filter-out-red-alder-sequencing-reads}}
 
+\includegraphics[width=0.4\textwidth,height=\textheight]{Figures/AlderTree.png}
+\includegraphics[width=0.4\textwidth,height=\textheight]{Figures/AlderNodule.png}
+
 In order to focus on sequencing reads from the microbes in the nodule, we will filter out reads that align to the red alder genome as follows:
 
 1 Align the fastq-formatted reads to the red alder genome using minimap2.
@@ -1266,11 +1269,10 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
 4 Compress the fastq file using gzip.
 
-\begin{itemize}
-\tightlist
-\item
-  Activate the environment that contains minimap2 and samtools
-\end{itemize}
+\hypertarget{activate-the-environment-that-contains-minimap2}{%
+\section{Activate the environment that contains minimap2}\label{activate-the-environment-that-contains-minimap2}}
+
+\includegraphics[width=0.8\textwidth,height=\textheight]{Figures/minimap2.png}
 
 \begin{verbatim}
 conda activate minimap2
@@ -1315,6 +1317,15 @@ minimap2 -x map-ont -L -t 8 -a \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 \end{verbatim}
 
+\hypertarget{activate-the-environment-that-contains-samtools}{%
+\section{Activate the environment that contains samtools}\label{activate-the-environment-that-contains-samtools}}
+
+\includegraphics[width=0.8\textwidth,height=\textheight]{Figures/samtools.png}
+
+\begin{verbatim}
+conda activate samtools
+\end{verbatim}
+
 \begin{itemize}
 \tightlist
 \item
@@ -1347,9 +1358,9 @@ samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
 gzip 3469-3.microbe.fq
 \end{verbatim}
 
-\hypertarget{now-run-these-steps-with-4956-3-minit3}{%
-\subsection*{Now run these steps with 4956-3 (minit3)}\label{now-run-these-steps-with-4956-3-minit3}}
-\addcontentsline{toc}{subsection}{Now run these steps with 4956-3 (minit3)}
+\hypertarget{now-run-these-steps-with-4956-3}{%
+\subsection*{Now run these steps with 4956-3}\label{now-run-these-steps-with-4956-3}}
+\addcontentsline{toc}{subsection}{Now run these steps with 4956-3}
 
 Reads are here:
 
@@ -1871,1158 +1882,162 @@ What are the Correction methods?
   Expression recovery
 \end{itemize}
 
-\hypertarget{incremental-graphs-with-minigraph}{%
-\chapter{\texorpdfstring{Incremental Graphs with \emph{minigraph}}{Incremental Graphs with minigraph}}\label{incremental-graphs-with-minigraph}}
+\hypertarget{krakenuniq}{%
+\chapter{KrakenUniq}\label{krakenuniq}}
 
-\hypertarget{minigraph-functions}{%
-\section{Minigraph Functions}\label{minigraph-functions}}
+``confident and fast metagenomics classification using unique k-mer counts''
 
-Constructs graphs
+Default kmer = 31
 
-Maps sequences to graphs
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{./Figures/KrakenUniq.png}
+\caption{KrakenUniq Overview}
+\end{figure}
 
-\url{https://github.com/lh3/minigraph}
+\url{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1568-0}
 
-\hypertarget{minigraph-overview}{%
-\section{Minigraph Overview}\label{minigraph-overview}}
+\url{https://github.com/fbreitwieser/krakenuniq}
 
-Finds approximate positions of diverged sequences and adds them into the graph
+\url{https://gitlab.umiacs.umd.edu/derek/krakenuniq/-/blob/master/MANUAL.md}
 
-1-to-1 orthogonal regions
+\hypertarget{krakencentrifuge-family}{%
+\section{Kraken/Centrifuge Family}\label{krakencentrifuge-family}}
 
-\hypertarget{minimizers-and-minimap2}{%
-\section{Minimizers and Minimap2}\label{minimizers-and-minimap2}}
+\textbf{Kraken 1} is obsolete.
 
-Minigraph is built off of ideas and code from Minimap2.
+\textbf{Centrifuge} was written to improve Kraken's memory issues. It is completely new code with a different classification index. Its databases are also much smaller. Centrifuge can assign a sequence to multiple taxa. We'll use centrifuge later in the course.
 
-\hypertarget{minimizers}{%
-\subsection*{Minimizers}\label{minimizers}}
-\addcontentsline{toc}{subsection}{Minimizers}
+\textbf{KrakenUniq} is based on Kraken 1. Adds an efficient algorithm to assess coverage of unique kmers, running at the same speed and with only slightly more memory than Kraken 1. KrakenUniq distinguishes low abundance organisms from false positives.
 
-From the minimap2 usage:
-``A minimizer is the smallest k-mer in a window of w consecutive k-mers.''
+\textbf{Kraken 2} uses ``probabilistic data structures'' to reduce memory and increase speed at the expense of lower accuracy that leads to false positives during the classifications (``a few dozen out of millions'').
 
-Essentially a minimizer tags a sequence window with the kmer that is first alphabetically.
+\textbf{KrakenUniq} was updated in May 2022 (v0.7+) that helped to deal with the large databases on computers without enough RAM to load them into memory. Databases can be read in chunks that fit in RAM.
 
-A nice tutorial:\\
-+ \url{https://homolog.us/blogs/bioinfo/2017/10/25/intro-minimizer/}
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{./Figures/krakenFix.png}
+\caption{Kraken preload}
+\end{figure}
 
-\hypertarget{minimap2}{%
-\subsection*{Minimap2}\label{minimap2}}
-\addcontentsline{toc}{subsection}{Minimap2}
+KrakenUniq gives you k-mer coverage information, reporting the number and percentage k-mers hit by reads. This helps to differentiate between false positives and good classifications.
 
-Minimap2 is a fast sequence aligner.
-It can align short or long reads or assemblies against a reference using the seed-chain-align approach that many aligners employ. It finds exact matches (anchors) between query minimizers (seeds) and indexed reference minimizers. It links colinear anchors together (chains). For nt-level alignment it fills in regions between anchors within chains and between chains (align).
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{./Figures/align.png}
+\caption{Alignment}
+\end{figure}
 
-\url{https://github.com/lh3/minimap2}\strut \\
-\url{https://academic.oup.com/bioinformatics/article/34/18/3094/4994778}
+\url{https://www.biorxiv.org/content/10.1101/2022.06.01.494344v1.full.pdf}
 
-\hypertarget{pipeline}{%
-\section{Pipeline}\label{pipeline}}
+\url{http://ccb.jhu.edu/software/choosing-a-metagenomics-classifier/\#}:\textasciitilde:text=However\%2C\%20while\%20Kraken\%20provides\%20only,1\%20databases\%2C\%20not\%20Kraken\%202.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Prepare the input
-\item
-  Build graphs
-\end{enumerate}
+\url{https://github.com/fbreitwieser/krakenuniq/blob/master/MANUAL.md}
 
-\begin{itemize}
-\tightlist
-\item
-  Build a single genome graph and incrementally add more sequences
-\item
-  Or build a graph for all sequences at once
-\end{itemize}
+\hypertarget{krakenuniq-databases}{%
+\section{KrakenUniq databases}\label{krakenuniq-databases}}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  View with Bandage
-\end{enumerate}
+KrakenUniq requires Kraken1 not Kraken2 databases
 
-\hypertarget{yeast-assemblies}{%
-\section{Yeast Assemblies}\label{yeast-assemblies}}
+We won't build a database since it can take several days, but let's look at the documentation:\\
+\url{https://github.com/fbreitwieser/krakenuniq\#database-building}
 
-\emph{12 Mb}\\
-\emph{16 chromosomes}
+You can also get prebuilt databases:\\
+\url{https://benlangmead.github.io/aws-indexes/k2}
 
-Yeast Population Reference Panel (YPRP) \url{https://yjx1217.github.io/Yeast_PacBio_2016/data/}
+We will use a bacterial databases located here:\\
+/home/cjb/indexes/krakenuniq/db\_052422
 
-12 Yeast PacBio Assemblies (Chromosome level)
-
-\begin{quote}
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textasciitilde100-200x PacBio sequencing reads
-\item
-  HGAP + Quiver polishing\\
-\item
-  \textasciitilde200-500x Illumina (Pilon correction)\\
-\item
-  Manual curation\\
-\item
-  Annotation
-\end{enumerate}
-\end{quote}
-
-\begin{quote}
-Make sure your chromosome names are unique across all samples and that they contain the sample name. We're using \textless strain name\textgreater.\textless chromosome\textgreater{} (\textgreater S288C.chrVIII)
-\end{quote}
-
-\hypertarget{prepare-the-input}{%
-\section{Prepare the Input}\label{prepare-the-input}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Make sure you're working in a \textbf{screen}
-\item
-  Make Directory
-\end{enumerate}
+Link to it.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mkdir} \AttributeTok{{-}{-}parents}\NormalTok{ \textasciitilde{}/pangenomics/minigraph}
+\FunctionTok{ln} \AttributeTok{{-}s}\NormalTok{ /home/cjb/indexes/krakenuniq/db\_052422/ .}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Navigate to the Directory
-\end{enumerate}
+The taxa it contains are here:\\
+/home/cjb/indexes/krakenuniq/db\_052422/library/bacteria/library\_headers.orig
+
+Take a look at the file.
+How many sequences are there?
+
+How many genera?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\BuiltInTok{cd}\NormalTok{ \textasciitilde{}/pangenomics/minigraph}
+\FunctionTok{awk} \StringTok{\textquotesingle{}\{print $2\}\textquotesingle{}}\NormalTok{ /home/cjb/indexes/krakenuniq/db\_052422/library/bacteria/library\_headers.orig }\KeywordTok{|} \FunctionTok{sort} \AttributeTok{{-}u}\KeywordTok{|} \FunctionTok{wc} \AttributeTok{{-}l}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Link to data
-\end{enumerate}
+And how many of each genera?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ln} \AttributeTok{{-}s}\NormalTok{ /home/pangenomics/data/yprp/assemblies/}\PreprocessorTok{*}\NormalTok{.fa .}
+\FunctionTok{awk} \StringTok{\textquotesingle{}\{print $2\}\textquotesingle{}}\NormalTok{ /home/cjb/indexes/krakenuniq/db\_052422/library/bacteria/library\_headers.orig }\KeywordTok{|} \FunctionTok{sort} \KeywordTok{|} \FunctionTok{uniq} \AttributeTok{{-}c} \KeywordTok{|} \FunctionTok{less}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{graphical-fragment-assembly-gfa-format}{%
-\section{Graphical Fragment Assembly (GFA) format}\label{graphical-fragment-assembly-gfa-format}}
+\hypertarget{run-krakenuniq}{%
+\section{Run KrakenUniq}\label{run-krakenuniq}}
 
-Tab-delimited text
-
-Lines start with one of the following types:
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule()
-Type & Description & Explanation \\
-\midrule()
-\endhead
-\textbf{H} & Header & \\
-\textbf{S} & Segment & A continuous sequence or subsequence \\
-\textbf{L} & Link & Segment overlaps (basepairs \& orientations) \\
-\textbf{J} & Jump & Jumps link sequences across gaps \\
-\textbf{C} & Containment & Segment contained in another segment \\
-\textbf{P} & Path & An ordered \& oriented list of linked segments \\
-\textbf{W} & Walk & An ordered \& oriented list of segments w/o overlaps \\
-\textbf{\#} & Comment & \\
-\bottomrule()
-\end{longtable}
-
-Optional Fields \url{TAG:TYPE:VALUE}\\
-\url{http://gfa-spec.github.io/GFA-spec/GFA1.html}
-
-Let's go to the specification to look at optional fields and an example:\\
-\url{http://gfa-spec.github.io/GFA-spec/GFA1.html}
-
-\hypertarget{reference-graphical-fragment-assembly-rgfa}{%
-\section{\texorpdfstring{\emph{reference} Graphical Fragment Assembly (rGFA)}{reference Graphical Fragment Assembly (rGFA)}}\label{reference-graphical-fragment-assembly-rgfa}}
-
-\url{https://github.com/lh3/gfatools/blob/master/doc/rGFA.md}
-
-\begin{itemize}
-\tightlist
-\item
-  Strict subset of GFA
-\item
-  Tags that trace origin
-\item
-  Stable coordinates
-\end{itemize}
-
-\hypertarget{build-graphs}{%
-\section{Build Graphs}\label{build-graphs}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  The first sequence in the graph is used as a ``reference'':
-\end{enumerate}
+Make a working directory and go into it.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ reference.fa }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ ref.minigraph.gfa}
+\FunctionTok{mkdir}\NormalTok{ \textasciitilde{}/krakenuniq}
+\BuiltInTok{cd}\NormalTok{ \textasciitilde{}/krakenuniq}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{-xggs}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    build a graph using a simple (ggs) algorithm
-  \end{itemize}
-\item
-  \textbf{-t 20}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    use 20 threads
-  \end{itemize}
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Incrementally add strains to graph:
-\end{enumerate}
+Activate the KrakenUniq environment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ ref.minigraph.gfa strain\_1.fa }\OperatorTok{\textgreater{}}\NormalTok{ strain\_1.minigraph.gfa}
-
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ strain\_1.gfa strain\_2.fa }\OperatorTok{\textgreater{}}\NormalTok{ strain\_2.minigrpah.gfa}
-\ExtensionTok{...}
-
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ string\_N{-}1.gfa strain\_N.fa }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa}
+\BuiltInTok{source}\NormalTok{ activate krakenuniq}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Or build a graph for all strains at once:
-\end{enumerate}
+Run Kraken on sample 3469-3.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ ref.minigraph.gfa strain\_}\PreprocessorTok{*}\NormalTok{.fa }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa}
+\BuiltInTok{time}\NormalTok{ krakenuniq }\DataTypeTok{\textbackslash{}}
+    \AttributeTok{{-}{-}db}\NormalTok{ /home/cjb/indexes/krakenuniq/db\_052422 }\DataTypeTok{\textbackslash{}}
+    \AttributeTok{{-}{-}threads}\NormalTok{ 32 }\DataTypeTok{\textbackslash{}}
+    \AttributeTok{{-}{-}report{-}file}\NormalTok{ 3469{-}3.report }\DataTypeTok{\textbackslash{}}
+    \AttributeTok{{-}{-}unclassified{-}out}\NormalTok{ 3469{-}3.unclassified.fna }\DataTypeTok{\textbackslash{}}
+    \AttributeTok{{-}{-}classified{-}out}\NormalTok{ 3469{-}3.classified.fna }\DataTypeTok{\textbackslash{}}
+\NormalTok{    \textasciitilde{}/microbe\_fastq/3469{-}3.microbe.fq.gz }\DataTypeTok{\textbackslash{}}
+    \OperatorTok{\textgreater{}}\NormalTok{ 3469{-}3.krakenuniqoutput}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{reference-graph}{%
-\section{Reference Graph}\label{reference-graph}}
+Make sure you got the following files:
+3469-3.classified.fna
+3469-3.krakenuniqoutput
+3469-3.report
+3469-3.unclassified.fna
 
-Activate the environment
+This command will also bring up the input file as well (3469-3.microbe.fq.gz)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\BuiltInTok{source}\NormalTok{ activate pangenomics}
+\FunctionTok{ls}\NormalTok{ 3469}\PreprocessorTok{*}
 \end{Highlighting}
 \end{Shaded}
 
-Now that you know how to build a minigraph, try to create a graph for the reference (S288C) and answer the following questions.
+Use the less command to look at each of them.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Make the reference graph
-\end{enumerate}
+Now run it on the other samples.
 
-\begin{Shaded}
-\begin{Highlighting}[]
+\hypertarget{pavian}{%
+\section{Pavian}\label{pavian}}
 
-\end{Highlighting}
-\end{Shaded}
+Copy the reports to your computer.
+Let's open them in Pavian.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  How many lines in the gfa file?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  What type of lines are they?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{reference-graph-commands}{%
-\subsection*{Reference Graph Commands}\label{reference-graph-commands}}
-\addcontentsline{toc}{subsection}{Reference Graph Commands}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Make the reference graph
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ S288C.genome.fa }\OperatorTok{\textgreater{}}\NormalTok{ ref.minigraph.gfa}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  How many lines in the gfa file?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{wc} \AttributeTok{{-}l}\NormalTok{ ref.minigraph.gfa}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  What type of lines are they?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 1 ref.minigraph.gfa }\KeywordTok{|} \FunctionTok{sort} \KeywordTok{|} \FunctionTok{uniq} \AttributeTok{{-}c}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{reference-graph-bandage-visualization}{%
-\subsection*{Reference Graph Bandage Visualization}\label{reference-graph-bandage-visualization}}
-\addcontentsline{toc}{subsection}{Reference Graph Bandage Visualization}
-
-Download your gfa file onto your computer and upload it into Bandage.
-
-\hypertarget{yprp-graphs}{%
-\section{YPRP Graphs}\label{yprp-graphs}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Add in the rest of the lines
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  we'll do this alphabetically
-\item
-  capture the stderr
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ ref.minigraph.gfa }\VariableTok{$(}\FunctionTok{ls}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{fa }\KeywordTok{|} \FunctionTok{grep} \AttributeTok{{-}v}\NormalTok{ S288C}\VariableTok{)} \OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa }\DecValTok{2}\OperatorTok{\textgreater{}}\NormalTok{yprp.minigraph.err}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Note:} We can simply use the reference fasta instead of a gfa
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xggs}\NormalTok{ /home/pangenomics/data/yprp/assemblies/S288C.genome.fa }\VariableTok{$(}\FunctionTok{ls}\NormalTok{ yprp/assemblies/}\PreprocessorTok{*}\NormalTok{fa }\KeywordTok{|} \FunctionTok{grep} \AttributeTok{{-}v}\NormalTok{ S288C}\VariableTok{)} \OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.gfa }\DecValTok{2}\OperatorTok{\textgreater{}}\NormalTok{yprp.minigraph.err}
-\end{Highlighting}
-\end{Shaded}
-
-Try to answer the following questions:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  How many lines are in the gfa file?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  What type of lines are they?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  How many yeast assemblies have inversions compared to S288C (hint: look in the stderr)?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{yprp-commands}{%
-\subsection*{YPRP Commands}\label{yprp-commands}}
-\addcontentsline{toc}{subsection}{YPRP Commands}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  How many lines are in the gfa file?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{wc} \AttributeTok{{-}l}\NormalTok{ yprp.minigraph.gfa}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  What type of lines are they?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 1 yprp.minigraph.gfa }\KeywordTok{|} \FunctionTok{sort} \KeywordTok{|} \FunctionTok{uniq} \AttributeTok{{-}c}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  How many yeast assemblies have inversions compared to S288C (hint: look in the stderr)?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep}\NormalTok{ inv yprp.minigraph.err}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{yprp-graph-statistics}{%
-\subsection*{YPRP Graph Statistics}\label{yprp-graph-statistics}}
-\addcontentsline{toc}{subsection}{YPRP Graph Statistics}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\BuiltInTok{export} \VariableTok{PATH}\OperatorTok{=}\VariableTok{$PATH}\NormalTok{:/home/vesw/gfatools/}
-\ExtensionTok{gfatools}\NormalTok{ stat yprp.minigraph.gfa}
-\end{Highlighting}
-\end{Shaded}
-
-Number of segments: 2729
-
-Number of links: 3864
-
-Number of arcs: 7728
-
-Max rank: 11
-
-Total segment length: 13243550
-
-Average segment length: 4852.895
-
-Sum of rank-0 segment lengths: 12157149
-
-Max degree: 7
-
-Average degree: 1.416
-
-\hypertarget{yprp-graph-in-bandage}{%
-\subsection*{YPRP Graph in Bandage}\label{yprp-graph-in-bandage}}
-\addcontentsline{toc}{subsection}{YPRP Graph in Bandage}
-
-Take a look at the YPRP graph in Bandage. Your might be rendered differently.
-
-\hypertarget{structures-in-the-graph}{%
-\section{Structures in the graph}\label{structures-in-the-graph}}
-
-\hypertarget{insertions-and-diverged-regions}{%
-\subsection*{Insertions and Diverged Regions}\label{insertions-and-diverged-regions}}
-\addcontentsline{toc}{subsection}{Insertions and Diverged Regions}
-
-Zoom in on segment s1054.
-
-Trace the S288C path (hint: the S288C segments are numbered sequentially).
-
-Identify insertions and regions that have diverged.
-
-\hypertarget{group-exercise}{%
-\subsection*{Group Exercise}\label{group-exercise}}
-\addcontentsline{toc}{subsection}{Group Exercise}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Find a simple and a complex region
-\item
-  Discuss it in your group
-\item
-  Share it with everyone
-\item
-  Keep track of the segments
-\end{enumerate}
-
-\hypertarget{inversions}{%
-\subsection*{Inversions}\label{inversions}}
-\addcontentsline{toc}{subsection}{Inversions}
-
-Here are some examples of inversions.
-
-Let's find them in bandage.
-
-s1289 LN:i:24089 SN:Z:S288C.chrXIV SO:i:567595
-
-s1672 LN:i:257 SN:Z:DBVPG6044.chrV SO:i:446168
-
-Click on the links (black) to see the direction that paths can travel.
-
-Do a web-blast in Bandage to see what they might code for.
-
-\hypertarget{inversions-in-the-gfa}{%
-\subsection*{Inversions in the GFA}\label{inversions-in-the-gfa}}
-\addcontentsline{toc}{subsection}{Inversions in the GFA}
-
-I found the inversions by searching the graph GFA file for pairs of segments that have two links between them.
-
-\begin{Shaded}
-\begin{Highlighting}[]
- \FunctionTok{grep} \StringTok{\textquotesingle{}\^{}L\textquotesingle{}}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|} \FunctionTok{awk} \StringTok{\textquotesingle{}\{print $2 "\textbackslash{}t" $4\}\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort}\KeywordTok{|}\FunctionTok{uniq} \AttributeTok{{-}c}\KeywordTok{|}\FunctionTok{awk} \StringTok{\textquotesingle{}$1\textgreater{}=2\{print\}\textquotesingle{}}
-\end{Highlighting}
-\end{Shaded}
-
-2 s1288 s1289\\
-2 s1289 s1290\\
-2 s1671 s1672\\
-2 s1672 s1673
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Pull out s1289, its adjacent segments and the links connecting them
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{gfatools}\NormalTok{ view }\AttributeTok{{-}l}\NormalTok{ s1289 }\AttributeTok{{-}r}\NormalTok{ 1 yprp.minigraph.gfa}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{quote}
-\textbf{-l \href{mailto:STR/@FILE}{\nolinkurl{STR/@FILE}}}. segment list to subset {[} {]}\\
-\textbf{-r INT}. subset radius (effective with -l) {[}0{]}
-\end{quote}
-
-Showing just the links here:\\
-L s1288 + s1289 + 0M SR:i:0 L1:i:4105 L2:i:24089\\
-L s1288 + s1289 - 0M SR:i:5 L1:i:4105 L2:i:24089\\
-L s1289 + s1290 + 0M SR:i:0 L1:i:24089 L2:i:1511\\
-L s1289 - s1290 + 0M SR:i:5 L1:i:24089 L2:i:1511
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\item
-  Now do the same for s1672
-\item
-  Try extending the surrounding region by increasing the -r parameter
-\end{enumerate}
-
-\hypertarget{minigraph-blog}{%
-\section{Minigraph Blog}\label{minigraph-blog}}
-
-Heng Li
-\url{http://lh3.github.io/2021/01/11/minigraph-as-a-multi-assembly-sv-caller}
-
-\hypertarget{bonus-questions}{%
-\section{Bonus Questions}\label{bonus-questions}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  What is the longest segment in the graph?
-  {[}Hint: Parse out the number from the 4th field of the segment line{]}
-\item
-  What is the shortest segment in the graph?
-\item
-  What cigar strings exist for the overlaps in the links? {[}Hint:
-  Field 6 of the link line{]}
-\item
-  How many segments are attributed to each genome? {[}Hint: Parse out field 5 of the segment line{]}
-\end{enumerate}
-
-\hypertarget{commands-for-bonus-questions}{%
-\subsection*{Commands for Bonus Questions}\label{commands-for-bonus-questions}}
-\addcontentsline{toc}{subsection}{Commands for Bonus Questions}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  What is the longest segment in the graph?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 4}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/.\textbackslash{}+://\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort} \AttributeTok{{-}n} \KeywordTok{|} \FunctionTok{tail} \AttributeTok{{-}1}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  What is the shortest segment in the graph?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 4}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/.\textbackslash{}+://\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort} \AttributeTok{{-}n} \KeywordTok{|} \FunctionTok{head} \AttributeTok{{-}1}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  What cigar strings exist for the overlaps in the links? {[}Hint: Field 6 of the link line{]}
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep} \StringTok{"\^{}L"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 6}\KeywordTok{|}\FunctionTok{sort} \AttributeTok{{-}u}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  How many segments are attributed to each genome?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ yprp.minigraph.gfa }\KeywordTok{|}\FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 5}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/SN:Z://\textquotesingle{}}\KeywordTok{|}\FunctionTok{sed} \StringTok{\textquotesingle{}s/\textbackslash{}..\textbackslash{}+//\textquotesingle{}}\KeywordTok{|}\FunctionTok{sort}\KeywordTok{|}\FunctionTok{uniq} \AttributeTok{{-}c}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Note:} There are lots of ways to do this.
-
-\hypertarget{graph-to-fasta}{%
-\section{Graph to Fasta}\label{graph-to-fasta}}
-
-We can convert the gfa graph file to a fasta file the represents the sequence of the pangenome.
-
-\begin{quote}
-Fasta format:\\
-\textgreater header\\
-ACGCGCTAGCGCGAC\\
-ACGGCGTAGGGGCAG\\
-ACGGCT
-\end{quote}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{gfatools}\NormalTok{ gfa2fa }\AttributeTok{{-}s}\NormalTok{ yprp.minigraph.gfa }\OperatorTok{\textgreater{}}\NormalTok{ minigraph.stable.fa}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{fasta-questions}{%
-\subsection*{FASTA questions}\label{fasta-questions}}
-\addcontentsline{toc}{subsection}{FASTA questions}
-
-Answer the following questions:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  How many sequences?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Take a look at the headers
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{fasta-commands}{%
-\subsection*{FASTA Commands}\label{fasta-commands}}
-\addcontentsline{toc}{subsection}{FASTA Commands}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  How many sequences?
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep} \AttributeTok{{-}c} \StringTok{\textquotesingle{}\textgreater{}\textquotesingle{}}\NormalTok{ minigraph.stable.fa}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Take a look at the headers
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep} \StringTok{\textquotesingle{}\textgreater{}\textquotesingle{}}\NormalTok{ minigraph.stable.fa}\KeywordTok{|}\FunctionTok{less}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{gaf-format}{%
-\section{GAF format}\label{gaf-format}}
-
-``The only visual difference between GAF and PAF is that the 6th column in GAF may encode a graph path like \textgreater MT\_human:0-4001\textless MT\_orang:3426-3927 instead of a contig/chromosome name.''
-
-\url{https://github.com/lh3/minigraph}
-
-Let's look at PAF format
-\url{https://lh3.github.io/minimap2/minimap2.html}
-
-\hypertarget{read-mapping}{%
-\section{Read Mapping}\label{read-mapping}}
-
-Align reads from SK1 to the minigraph
-
-21,906,518 paired Illumina reads\\
-Read length = 151 nts
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}x}\NormalTok{ sr yprp.minigraph.gfa /home/pangenomics/data/yprp/reads/SK1.illumina.fastq.gz }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ SK1.mapped.gaf}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{quote}
-\textbf{-x sr} map short reads (sr)
-\end{quote}
-
-\hypertarget{read-mapping-stats}{%
-\section{Read Mapping Stats}\label{read-mapping-stats}}
-
-Ideally we would convert from GAF to GAM using vg convert the calculate stats with vg stats but it doesn't work.
-
-Count the number of primary alignments
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{grep} \AttributeTok{{-}c} \StringTok{"tp:A:P"}\NormalTok{ SK1.mapped.gaf}
-\end{Highlighting}
-\end{Shaded}
-
-18092858 primary alignments
-
-Calculate the percent of reads that had alignments
-
-18092858/21906518 = 82.59\% of reads aligned
-
-\hypertarget{structural-variant-calling}{%
-\section{Structural Variant Calling}\label{structural-variant-calling}}
-
-Call structural variants with gfatools (doesn't work with VG graphs):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{gfatools}\NormalTok{ bubble yprp.minigraph.gfa }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.structural.bed}
-\end{Highlighting}
-\end{Shaded}
-
-\url{https://github.com/lh3/minigraph}
-
-\hypertarget{structural-variant-stats}{%
-\subsection*{Structural Variant Stats}\label{structural-variant-stats}}
-\addcontentsline{toc}{subsection}{Structural Variant Stats}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Total number of variants:
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{wc} \AttributeTok{{-}l}\NormalTok{ yprp.minigraph.structural.bed}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Indels (the shortest path is 0)
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{awk} \StringTok{\textquotesingle{}$7==0\{print\}\textquotesingle{}}
-\ExtensionTok{yprp.minigraph.structural.bed}\KeywordTok{|}\FunctionTok{wc} \AttributeTok{{-}l}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Inversions
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{awk} \StringTok{\textquotesingle{}$6==1\{print\}\textquotesingle{}}\NormalTok{ yprp.minigraph.structural.bed }\KeywordTok{|} \FunctionTok{cut} \AttributeTok{{-}f}\NormalTok{ 1{-}12}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{cup1}{%
-\section{CUP1}\label{cup1}}
-
-\hypertarget{visualize-the-cup1-region}{%
-\subsection*{Visualize the CUP1 region}\label{visualize-the-cup1-region}}
-\addcontentsline{toc}{subsection}{Visualize the CUP1 region}
-
-10 working copies + 1 pseudogene in S288C
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Find the region in the graph based on its S288C coordinates\\
-  S288C.chrVIII:213045-233214
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{gfatools}\NormalTok{ view }\AttributeTok{{-}R}\NormalTok{ S288C.chrVIII:213045{-}233214 yprp.minigraph.gfa }\OperatorTok{\textgreater{}}\NormalTok{ cup1.gfa}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Create a .csv to bring in the segment names\\
-  Note that you need a header
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
- \FunctionTok{cat} \OperatorTok{\textless{}(}\BuiltInTok{echo} \StringTok{"Segment,Name"}\OperatorTok{)} \OperatorTok{\textless{}(}\FunctionTok{grep} \StringTok{"\^{}S"}\NormalTok{ cup1.gfa }\KeywordTok{|} \FunctionTok{awk} \StringTok{\textquotesingle{}\{print $2 "," $5\}\textquotesingle{}}\OperatorTok{)} \OperatorTok{\textgreater{}}\NormalTok{ cup1.csv}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Load the graph and the .csv file into Bandage
-\end{enumerate}
-
-This compares S288C and SK1.
-
-If you have blast installed on your computer, you can blast the two gene sequences to their positions. CUP1 is the smaller one. Gene sequences are in: /home/pangenomics/data/yprp/genes/
-
-\hypertarget{cup1-paths-in-y12}{%
-\subsection*{CUP1 Paths in Y12}\label{cup1-paths-in-y12}}
-\addcontentsline{toc}{subsection}{CUP1 Paths in Y12}
-
-Let's find the Y12 paths through the graph for all bubbles in the CUP1 graph file.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{minigraph} \AttributeTok{{-}xasm} \AttributeTok{{-}l100} \AttributeTok{{-}{-}call}\NormalTok{ cup1.gfa /home/pangenomics/data/yprp/assemblies/Y12.genome.fa }\OperatorTok{\textgreater{}}\NormalTok{ Y12.call.bed}
-\end{Highlighting}
-\end{Shaded}
-
-Output
-S288C.chrVIII 213609 233593 \textgreater s720 \textgreater s722 \textgreater s2512\textgreater s2052\textgreater s2513\textgreater s2054\textgreater s2514\textgreater s2056\textgreater s2515\textgreater s2058:11410:+:Y12.chrVIII:206778:21819
-
-alignment path through the bubble:path length:mapping strand:the contig name:approximate contig start:approximate contig end
-
-\hypertarget{cup1-paths-in-all-yeast-genomes}{%
-\subsection*{CUP1 Paths in all yeast genomes}\label{cup1-paths-in-all-yeast-genomes}}
-\addcontentsline{toc}{subsection}{CUP1 Paths in all yeast genomes}
-
-Let's do all the samples:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ /home/pangenomics/data/yprp/assemblies/}\PreprocessorTok{*}\NormalTok{.fa}\KeywordTok{;} \ControlFlowTok{do}
-   \VariableTok{bn}\OperatorTok{=}\KeywordTok{\textasciigrave{}}\FunctionTok{basename} \VariableTok{$i}\NormalTok{ .fa}\KeywordTok{\textasciigrave{}}
-   \ExtensionTok{minigraph} \AttributeTok{{-}xasm} \AttributeTok{{-}l100} \AttributeTok{{-}{-}call}\NormalTok{ cup1.gfa }\VariableTok{$i} \OperatorTok{\textgreater{}} \VariableTok{$bn}\NormalTok{.call.bed}
-\ControlFlowTok{done}
-\end{Highlighting}
-\end{Shaded}
-
-Compare to the Bandage Graph
-
-\hypertarget{minigraph-pros-and-cons}{%
-\section{Minigraph Pros and Cons}\label{minigraph-pros-and-cons}}
-
-\textbf{Pros}
-
-Captures length variation\\
-Efficient\\
-Easy to add new genomes
-
-\textbf{Cons}
-
-Lack of base level alignment + sample input order dependency =\\
-+ suboptimal mappings\\
-+ suboptimal local graphs\\
-Needs collinear chains so it doesn't work well with many short segments such as rare SNPs.
-
-\url{https://github.com/lh3/minigraph\#limitations}
-
-``Please do not overinterpret complex subgraphs. If you are interested in a particular subgraph, it is recommended to extract the input contig subsequences involved in the subgraph with the --call option and manually curated the results.''
-
-\hypertarget{blog-battle}{%
-\section{Blog Battle}\label{blog-battle}}
-
-\textbf{Heng Li (Minigraph)}
-
-\url{https://lh3.github.io/2019/07/08/on-a-refere} nce-pan-genome-model
-
-\textbf{Erik Garrison (VG)}
-
-\url{https://ekg.github.io/2019/07/09/Untangling} -graphical-pangenomics
-
-\textbf{Heng Li (Minigraph)}
-
-\begin{itemize}
-\tightlist
-\item
-  \url{https://lh3.github.io/2019/07/12/on-a-refere} nce-pan-genome-model-part-ii
-\end{itemize}
-
-\hypertarget{exercises}{%
-\section{Exercises}\label{exercises}}
-
-\hypertarget{start-with-another-reference}{%
-\subsection*{Start with another reference}\label{start-with-another-reference}}
-\addcontentsline{toc}{subsection}{Start with another reference}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  What reference did you choose?
-\item
-  What order are the other samples in?
-\item
-  How does the graph compare?
-\item
-  How does read mapping compare?
-\item
-  How do structural variant calls compare?
-\item
-  How does the cup1 region compare?
-\item
-  Any other interesting differences?
-\end{enumerate}
-
-\hypertarget{another-yeast-dataset}{%
-\subsection*{Another Yeast Dataset}\label{another-yeast-dataset}}
-\addcontentsline{toc}{subsection}{Another Yeast Dataset}
-
-A subset of yeast genomes from: \url{https://www.nature.com/articles/s41586-018-0030-5.pdf}
-
-Data are in: /home/pangenomics/data/1011yeast/assemblies/*fa.gz
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  How many sequences in each assembly? Min? Max?
-\item
-  Make and characterize a minigraph
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
-  Choose 13 lines to match the number of genomes we ran earlier\\
-\item
-  Try all 127 assemblies\\
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  How do these graphs compare to our previous yeast graph?
-\item
-  Pick a region from one of the graphs and make and characterize a subgraph.
-\end{enumerate}
-
-\hypertarget{human-gfa}{%
-\subsection*{Human GFA}\label{human-gfa}}
-\addcontentsline{toc}{subsection}{Human GFA}
-
-\textbf{lipoprotein(a) - LPA}
-
-See if you can pull out and visualize the LPA region pictured below from two human GFA files from different versions of the human reference (GRCh38.p13 and CHM13). BLAST the LPA gene against the graphs in Bandage.
-
-GFA files are in /home/pangenomics/data/1011yeast/assemblies/. The LPA gene sequence is in /home/pangenomics/data/human/genes/
-
-Approximate Positions:
-
-\begin{itemize}
-\item
-  GRCh38.p13 chr6 160000000-161000000 complement
-\item
-  CHM13 chr6 161200000-162200000
-\end{itemize}
-
-Your results should look something like this.
-
-\hypertarget{convert-to-vg-and-call-variants}{%
-\subsection*{Convert to VG and call variants}\label{convert-to-vg-and-call-variants}}
-\addcontentsline{toc}{subsection}{Convert to VG and call variants}
-
-Convert minigraph to vg (\textless1min):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{vg}\NormalTok{ convert }\AttributeTok{{-}g}\NormalTok{ yprp.minigraph.gfa }\AttributeTok{{-}v} \AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.vg}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{quote}
-\textbf{-g} input GFA graph
-\textbf{-v} output VG graph
-\textbf{-t 20} use 20 threads
-\end{quote}
-
-Make vertices small enough (\textless=1024bp) for indexing (\textless1min):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{vg}\NormalTok{ mod }\AttributeTok{{-}X}\NormalTok{ 256 yprp.minigraph.vg }\AttributeTok{{-}t}\NormalTok{ 20 }\OperatorTok{\textgreater{}}\NormalTok{ yprp.minigraph.mod.vg}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{quote}
-\textbf{-X} max node size
-\textbf{-t 20} use 20 threads
-\end{quote}
-
-\emph{NOTE:} Converting to VG isn't required if not calling variants, i.e.~you can index and map directly on GFA.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Use vg to index the VG graph (2min)
-\item
-  Use vg to map SK1 reads to minigraph GFA (17min)
-\item
-  Use vg to call variants on read mapping GAM
-
-  \begin{enumerate}
-  \def\labelenumii{\alph{enumii}.}
-  \tightlist
-  \item
-    pack (20min)
-  \item
-    call (\textless1min)
-  \item
-    don't do augment; run-time too long!
-  \end{enumerate}
-\end{enumerate}
+Information on installing and some things you can do in Pavian is in the Centrifuge chapter.
 
 \textless\textless\textless\textless\textless\textless\textless{} HEAD:QIIME2.Rmd
 \# QIIME2

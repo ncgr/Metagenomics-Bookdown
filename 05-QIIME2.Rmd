@@ -1,10 +1,8 @@
-<<<<<<< HEAD:QIIME2.Rmd
 # QIIME2
 
 ## Hands On Command Line Tutorial
 
 =======
->>>>>>> 8541b1d4835e55a208fc697e039920f047a05298:9-QIIME2.Rmd
 
 # QIIME2
 Command Line Tutorial
