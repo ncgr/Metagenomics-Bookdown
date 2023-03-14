@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.26)  13 MAR 2023 20:54
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.3.13)  13 MAR 2023 21:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1053,31 +1053,30 @@ Overfull \hbox (12.25502pt too wide) in paragraph at lines 2016--2021
 []\TU/lmr/m/n/10 Make sure you got the following files: 3469-3.classified.fna 3469-3.krakenuniqoutput
  []
 
-
-Overfull \hbox (5.32pt too wide) in paragraph at lines 2048--2050
-\TU/lmr/m/n/10 ======= »»»> 8541b1d4835e55a208fc697e039920f047a05298:9-QIIME2.Rmd 
- []
-
 [58]
 Chapter 6.
+[59
 
-Underfull \hbox (badness 10000) in paragraph at lines 2085--2087
+] [60
+
+]
+Chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2084--2086
 []$[][][][][] [] [] [] [][][][][][][][][][][][][][][][][] [] [][][][][][][][][][][][][] [] [][][] [] [][][][][][][][] [] [][] [] [][][][] [] [][][][] [][] [][][][] [][] [] [][]
  []
 
-[59
-
-]
+[61]
 File: ./QIIMEpics/lyx.qiime.png Graphic file (type bmp)
 <./QIIMEpics/lyx.qiime.png>
-[60]
+[62]
 
-LaTeX Warning: File `/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png' not found on input line 2155.
+LaTeX Warning: File `/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png' not found on input line 2154.
 
 ! Unable to load picture or PDF file '/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png'.
 <to be read again> 
                    }
-l.2155 ...-Bookdown/QIIMEpics/lyx.qiime.table.png}
+l.2154 ...-Bookdown/QIIMEpics/lyx.qiime.table.png}
                                                    
 Here is how much of TeX's memory you used:
  17970 strings out of 478683
@@ -1088,4 +1087,4 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  86i,6n,121p,376b,613s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on bookdown-demo.pdf (60 pages).
+Output written on bookdown-demo.pdf (62 pages).

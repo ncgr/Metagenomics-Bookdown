@@ -1,10 +1,4 @@
 # QIIME2
-
-## Hands On Command Line Tutorial
-
-=======
-
-# QIIME2
 Command Line Tutorial
 
 ## Logging on to the server
