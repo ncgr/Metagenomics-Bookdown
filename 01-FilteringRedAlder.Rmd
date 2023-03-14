@@ -2,8 +2,7 @@
 
 ![https://www.britannica.com/plant/alder#/media/1/13564/254209
 ](Figures/AlderTree.png){width=40%}
-![https://www.britannica.com/plant/alder#/media/1/13564/254209
-](Figures/AlderNodule.png){width=40%}
+![](Figures/AlderNodule.png){width=40%}
 
 
 In order to focus on sequencing reads from the microbes in the nodule, we will filter out reads that align to the red alder genome as follows:

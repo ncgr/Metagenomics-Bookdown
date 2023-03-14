@@ -2,7 +2,7 @@
 
 ## FastQC
 
-![FastQC](./Figures/Planets.png){width=80%}
+![FastQC](./Figures/FastQC.png){width=80%}
 
 1. Many tools/options to filter and trim data
 2. Trimming does not always improve things as valuable information
@@ -18,7 +18,7 @@ can be lost!
 
 Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together
  
-![Chimera](./Figures/Planets.png){width=80%}
+![Chimera](./Figures/Chimera.png){width=80%}
 
 Incomplete extensions during PCR allow subsequent PCR cycles to use a partially extended strand to bind to the template of a different, but similar, sequence. This partially extended strand then acts as a primer to extend and form a chimeric sequence.
 
@@ -26,7 +26,7 @@ Incomplete extensions during PCR allow subsequent PCR cycles to use a partially 
 
 1. Analysis of 16S rRNA relies on clustering of related sequences at a particular level of identity and counting the representatives of each cluster
 
-![Clustering](./Figures/Planets.png){width=80%}
+![Clustering](./Figures/Cluster.png){width=80%}
 
 Some level of sequence divergence should be allowed – 95% (genus-level, partial 16S gene), 97% (species-level) or 99% typical similarity cutoffs used in
 practice and the resulting cluster of nearly identical tags (assumedly identical genomes) is referred to as an OTU (Operational Taxonomic Unit)
@@ -35,7 +35,7 @@ practice and the resulting cluster of nearly identical tags (assumedly identical
 
 OTU table is a matrix that gives the number of reads per sample per OTU
 
-![OTUs](./Figures/Planets.png){width=80%}
+![OTUs](./Figures/OTU.png){width=80%}
 
 ## Bin OTUs into Taxonomy (assign taxonomy)
 
@@ -46,7 +46,7 @@ reference database chosen
 + SILVA
 2. Accuracy depends on the completeness of databases
 
-![Database](./Figures/Planets.png){width=80%}
+![Database](./Figures/OTU2.png){width=80%}
 
 ## Assess Population Diversity: **alpha diversity**
 
@@ -58,7 +58,7 @@ reference database chosen
 
 3. Quantitative methods such as Shannon or Simpson indices measure evenness of the alpha- diversity
  
-![Human Mol. Genet., 2013](./Figures/Planets.png){width=80%}
+![Human Mol. Genet., 2013](./Figures/Diversity.png){width=50%}
 
 ## Assess Beta Diversity
 
@@ -71,7 +71,7 @@ distance are available using several tools
  
 ## Measuring Population Diversity: **alpha and beta diversity**
 
-![PLoS Computational Biol.,2012](./Figures/Planets.png){width=80%}
+![PLoS Computational Biol.,2012](./Figures/Diversity2.png){width=100%}
 
 ## Diversity Measurements with 16s rRNA sequencing
 
@@ -101,13 +101,13 @@ diversity estimates
 
 ## Taxonomy: Expectation vs Reality
 
-![Expectation vs. Reality](./Figures/Planets.png){width=80%}
+![Expectation vs. Reality](./Figures/16sbenefits.png){width=80%}
 
 ## Beta Diversity - UniFrac
 
 1. Measures how different two samples’ component  sequences are
 
-![Unifrac](./Figures/Planets.png){width=80%}
+![Unifrac](./Figures/UniFrac.png){width=40%}
 
 2. Weighted Unifrac: takes abundance of each sequence  into account
 
