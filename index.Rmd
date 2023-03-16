@@ -20,18 +20,16 @@ github-repo: rstudio/bookdown-demo
 
 1. Earth declares its independence about 4600 MYA
 
+![WoudloperDerivative work: Hardwigg, Public domain, via Wikimedia Commons](./Figures/EarthHistory.png){width=100%}
 
-
-![https://www.amnh.org](./Figures/4billionyrs.png){width=100%}
-![NASA/JPL-Caltech/Lizbeth B. De La Torre](./Figures/Planets.png){width=100%}
 
 2. First photosynthetic bacteria 3.4 billion years ago (BYA)
 + Used sunlight for energy to create biomass
 + Anaerobic (anoxic photosynthesis)
 
-![3.4 billion year old Stromatolite fossil](./Figures/Stromatolite.png){width=100%}
+![Muséum de Toulouse, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](./Figures/Stromatolite.png){width=60%}
 
-![Modern Stromatolites https://en.wikipedia.org/wiki/Stromatolite](./Figures/Stromatolites_in_sharkbay.png){width=100%}
+![Modern Stromatolites. Photo taken in March 2005 by Paul Harrison (Reading, UK) using a Sony CyberShot DSC-H1 digital camera.](./Figures/Stromatolites_in_sharkbay.png){width=60%}
 
 3. 2.7 BYA first oxygen producers emerge
 + Oxygen as waste product during respiration
@@ -43,10 +41,6 @@ github-repo: rstudio/bookdown-demo
 8. 10 MYA the branch of life currently called homo emerges
 9. 400 years ago humans observe the first microbe under
 a simple scope
-
-![History of life on earth](./Figures/natgeo.png){width=80%}
-
-https://education.nationalgeographic.org/resource/age-earth/#undefined
 
 
 #### THERE WOULD BE NO LIFE WITHOUT MICROBES{-}
@@ -101,24 +95,23 @@ https://sites.google.com/site/aristotlethebiologist/aristotle-s-biology/great-ch
 
 https://upload.wikimedia.org/wikipedia/commons/e/e9/Die_Leiter_des_Auf-_und_Abstiegs.jpg
 
-2. 2000 yrs later
+### 2000 yrs later{-}
 
-+ Edward Hitchcock
+2. Edward Hitchcock
     + 1840
-+ 
 
 ![Tree of Life](./Figures/Hitchcock.png){width=80%}
 
 https://upload.wikimedia.org/wikipedia/commons/8/8f/Edward_Hitchcock_Paleontological_Chart.jpg
 
-+ Ernst Haeckel
+3. Ernst Haeckel
     + 1879
 
 ![Another Tree of Life](./Figures/Haeckel.png){width=80%}
 
 https://upload.wikimedia.org/wikipedia/commons/d/de/Tree_of_life_by_Haeckel.jpg
 
-+ Charles Darwin 
+4. Charles Darwin 
     + 1837
     + The idea that species could have evolved from an ancestor
     + This could have happened through transmutations
@@ -130,7 +123,7 @@ https://upload.wikimedia.org/wikipedia/commons/d/de/Tree_of_life_by_Haeckel.jpg
 
 ## What happened when we found out about microbes?
 
-![Microbes](./Figures/Microbes.png){width=80%}
+![Microbes](./Figures/Microbes.png){width=40%}
 
 https://hms.harvard.edu/news/diet-gut-microbes-immunity
 
@@ -150,38 +143,49 @@ https://hms.harvard.edu/news/diet-gut-microbes-immunity
 + First time bringing microbes to the lab
 + Cultivation of microbes
 
-![Robert Koch](./Figures/Planets.png){width=80%}
+![Robert Koch](./Figures/koch1.png){width=80%}
+![Weiss, R. A. (2005). Robert Koch: the grandfather of cloning?. Cell, 123(4), 539-542.](./Figures/koch2.png){width=80%}
+
 
 3. Discovery of DNA structure
 + Rosiland Franklin
     + 1951
 
-![Rosiland Franklin](./Figures/Planets.png){width=80%}
+![https://en.wikipedia.org/wiki/Rosalind_Franklin#/media/File:Rosalind_Franklin_(1920-1958).jpg](./Figures/Rosalind1.png){width=80%}
+
+![— J. D. Bernal, 1958. Franklin's X-ray diagram of the B form of sodium thymonucleate (DNA) fibres, published in Nature on 25 April 1953, shows “in striking manner the features characteristic of helical structures”](./Figures/Rosalind2.png){width=80%}
+
+
+
 
 + Frederick Sanger
     + 1975
     
-![Frederick Sanger](./Figures/Planets.png){width=80%}
+![https://www.britannica.com/science/DNA-sequencing#/media/1/422006/40224](./Figures/Sanger1.png){width=80%}
 
 + Carl Woese
     + 1977
+    + Archaea
+    + Phylogenetic tree based on Woese et al. rRNA analysis. The vertical line at bottom represents the last universal common ancestor (LUCA).
 
-![Carl Woese](./Figures/Planets.png){width=80%}
+![Maulucioni, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons](./Figures/Woese1.png){width=80%}
 
 #### DNA Structure{-}
 
-![DNA Structure](./Figures/Planets.png){width=80%}
+![https://www.genome.gov/genetics-glossary/Deoxyribonucleic-Acid](./Figures/DNA.png){width=80%}
+
+https://youtu.be/L9NriBoubWE
 
 
 ## Tree of Life
 
-![Tree of Life](./Figures/Planets.png){width=80%}
+![Ivica Letunic: Iletunic. Retraced by Mariana Ruiz Villarreal: LadyofHats, Public domain, via Wikimedia Commons](./Figures/TreeofLife06.png){width=80%}
 
 “Visible organisms represent the smallest sliver of life’s diversity. Bacteria are the true lords of the world. They have been on this planet for billions of years and have irrevocably changed it, while diversifying into endless forms most wonderful and most beautiful.” (The Atlantic)
 
 Life just got weird!
 
-![Comparing Trees of Life](./Figures/Planets.png){width=80%}
+![Hug, L. A., Baker, B. J., Anantharaman, K., Brown, C. T., Probst, A. J., Castelle, C. J., ... & Banfield, J. F. (2016). A new view of the tree of life. Nature microbiology, 1(5), 1-6.](./Figures/TreeofLife16.png){width=100%}
 
 ## What Makes Microbes so Special?
 
@@ -195,7 +199,7 @@ Life just got weird!
 
 1. Validates the importance of microbes and sums up life on Earth with boundaries.
 
-![Grand Prismatic Spring](./Figures/Planets.png){width=80%}
+![Carsten Steger, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](./Figures/GrandPrismatic.png){width=80%}
 
 2. Microbes are constantly trying to evolve and get deeper and deeper into the hot springs
 
@@ -205,13 +209,15 @@ Life just got weird!
 
 1. Cultivation based cell counts are orders of magnitude lower than direct microscopic observation
 
-![Plate Count Anomaly](./Figures/Planets.png){width=80%}
+![Parks, D. H., Rinke, C., Chuvochina, M., Chaumeil, P. A., Woodcroft, B. J., Evans, P. N., ... & Tyson, G. W. (2017). Recovery of nearly 8,000 metagenome-assembled genomes substantially expands the tree of life. Nature microbiology, 2(11), 1533-1542.](./Figures/PlateCount.png){width=80%}
 
 2. As microbiologists, we are able to cultivate only a small minority of naturally occurring microbes
 
 3. Our nucleic acid derived understanding of microbial diversity has rapidly outpaced our ability to culture new microbes
 
 ### Total number of genomes at NCBI
+
+**Most Prokaryotes:**
 
 1. Haploid genome
 2. Single circular chromosome, plasmids
@@ -220,7 +226,7 @@ Life just got weird!
 5. No nucleus
 6. Easy interspecies gene transfer
 
-![Plate Count Anomaly](./Figures/Planets.png){width=80%}
+![Plate Count Anomaly](./Figures/Genomes1.png){width=80%}
 
 https://www.ncbi.nlm.nih.gov/genome/browse/#!/overview/
 
@@ -282,11 +288,14 @@ cultivable
 + Amplicon sequencing and DNA sequencing
 
 
-![Diversity of the Microbiome, Trends in Genetics ](./Figures/Planets.png){width=80%}
+![Morgan, X. C., Segata, N., & Huttenhower, C. (2013). Biodiversity and functional genomics in the human microbiome. Trends in genetics, 29(1), 51-58. ](./Figures/MapofMicrobiome.png){width=100%}
 
-![Cell 2019 Western](./Figures/Planets.png){width=80%}
+   
+### Biodiversity and functional genomics in the human microbiome      
+      
 
-![Cell 2019 Western](./Figures/Planets.png){width=80%}
+![Pasolli, E., Asnicar, F., Manara, S., Zolfo, M., Karcher, N., Armanini, F., ... & Segata, N. (2019). Extensive unexplored human microbiome diversity revealed by over 150,000 genomes from metagenomes spanning age, geography, and lifestyle. Cell, 176(3), 649-662.](./Figures/Metagenome.png){width=80%}
+![Pasolli, E., Asnicar, F., Manara, S., Zolfo, M., Karcher, N., Armanini, F., ... & Segata, N. (2019). Extensive unexplored human microbiome diversity revealed by over 150,000 genomes from metagenomes spanning age, geography, and lifestyle. Cell, 176(3), 649-662.](./Figures/Metagenome2.png){width=80%}
 
 1. Recovered over 150,000 microbial genomes from ~10,000 metagenomes
 
@@ -311,11 +320,11 @@ microbiome
 
 ## Structural and Functional Approaches to study microbiomes
 
-![International Journal of Genomics, 2018](./Figures/Planets.png){width=80%}
+![Alves, L. D. F., Westmann, C. A., Lovate, G. L., de Siqueira, G. M. V., Borelli, T. C., & Guazzaroni, M. E. (2018). Metagenomic approaches for understanding new concepts in microbial science. International journal of genomics, 2018.](./Figures/StructureFunction.png){width=80%}
 
 ### 16S rRNA as an evolutionary chronometer
 
-![Kjellerberg et al, Microbial Ecology, 2007](./Figures/Planets.png){width=80%}
+![Case, R. J., Boucher, Y., Dahllöf, I., Holmström, C., Doolittle, W. F., & Kjelleberg, S. (2007). Use of 16S rRNA and rpoB genes as molecular markers for microbial ecology studies. Applied and environmental microbiology, 73(1), 278-288.](./Figures/16s.png){width=80%}
 
 1. Ubiquitous – present in all known life (excluding viruses)
 2. Functionally constant wrt translation and secondary structure
@@ -325,19 +334,19 @@ microbiome
 
 ### 16S rRNA vs rpoB (RNA polymerase β subunit gene)
 
-![2Kjellerberg et al, Microbial Ecology, 2007](./Figures/Planets.png){width=80%}
+![Case, R. J., Boucher, Y., Dahllöf, I., Holmström, C., Doolittle, W. F., & Kjelleberg, S. (2007). Use of 16S rRNA and rpoB genes as molecular markers for microbial ecology studies. Applied and environmental microbiology, 73(1), 278-288.](./Figures/RpoB.png){width=100%}
 
 #### 16S rRNA hypervariable regions
 
-![Microbiome.com](./Figures/Planets.png){width=80%}
+![Yang, B., Wang, Y., & Qian, P. Y. (2016). Sensitivity and correlation of hypervariable regions in 16S rRNA genes in phylogenetic analysis. BMC bioinformatics, 17(1), 1-8.](./Figures/Hypervariable1.png){width=80%}
 
-![BMC Bioinf, 2016](./Figures/Planets.png){width=80%}
+![Yang, B., Wang, Y., & Qian, P. Y. (2016). Sensitivity and correlation of hypervariable regions in 16S rRNA genes in phylogenetic analysis. BMC bioinformatics, 17(1), 1-8.](./Figures/Hypervariable2.png){width=80%}
 
 Illustration of different hypervariable regions of 16S rRNA
 
 ## Basic Workflow for 16S Gene Based Sequencing
 
-![J. Investigative Dermatol, 2016](./Figures/Planets.png){width=80%}
+![Jo, J. H., Kennedy, E. A., & Kong, H. H. (2016). Research techniques made simple: bacterial 16S ribosomal RNA gene sequencing in cutaneous research. Journal of Investigative Dermatology, 136(3), e23-e27.](./Figures/Workflow.png){width=80%}
 
 ## Addressing the ‘fine print’ while generating 16S rRNA gene amplicon libraries
 
@@ -359,7 +368,7 @@ J. Microbiol Methods (2018), App. Environ. Microbiol. (2014), Microbiome (2015)
 1. Experimental Design: How many samples can be included in the sequencing run?
 + By using barcoded primers, numerous samples can be sequenced simultaneously (multiplexing)
 
-![V4 Region](./Figures/Planets.png){width=80%}
+![V4 Region](./Figures/Barcode.png){width=80%}
 
 ### Samples
 
@@ -367,9 +376,11 @@ J. Microbiol Methods (2018), App. Environ. Microbiol. (2014), Microbiome (2015)
 
 Comparison of multiplexing capacity by sequencing system
 
-![Illumina.com](./Figures/Planets.png){width=80%}
+![https://www.illumina.com/content/dam/illumina-marketing/documents/products/whitepapers/index-hopping-white-paper-770-2017-004.pdf](./Figures/Multiplex1.png){width=80%}
 
 2. It is critical to have a ‘library prep manifest’ to document the position of each sample with its associated barcode along with additional metadata information
+
+https://www.youtube.com/watch?v=3SEz-i517Oo&t=5s
 
 ### Include Controls
 
@@ -386,16 +397,19 @@ Comparison of multiplexing capacity by sequencing system
 
 Effect of bead beating was larger than sampling time over 5 months
 
-![Bead beating](./Figures/Planets.png){width=80%}
+The effect of bead beating on the observed microbial community composition:
+
+![Albertsen, M., Karst, S. M., Ziegler, A. S., Kirkegaard, R. H., & Nielsen, P. H. (2015). Back to basics–the influence of DNA extraction and primer choice on phylogenetic analysis of activated sludge communities. PloS one, 10(7), e0132783.](./Figures/Beads.png){width=80%}
 
 A. Percentage read abundance of the 11 most abundant phyla as a result of bead beating intensity 
+
 B. PCA of samples with different bead beating intensities vs. samples taken at different dates
 
 ### Selection of primers and region of 16S gene influence microbial profile
 
 V2, V4, V6-V7 regions produced consistent results
 
-![Plos](./Figures/Planets.png){width=80%}
+![Barb, J. J., Oler, A. J., Kim, H. S., Chalmers, N., Wallen, G. R., Cashion, A., ... & Ames, N. J. (2016). Development of an analysis pipeline characterizing multiple hypervariable regions of 16S rRNA using mock samples. PLoS One, 11(2), e0148047.](./Figures/Plos1.png){width=80%}
 
 1. V2, V3 and V6 contain maximum nucleotide heterogeneity
 2. V6 is the shortest hypervariable region
@@ -410,13 +424,13 @@ speciation among Staph and Strep pathogens as well as Clostridium and Neisseria 
 Haemophilus sp
 7. V6 best target for probe based PCR assays to identify CDC select agents (bio-terrorism agents)
 
-![HHS](./Figures/Planets.png){width=80%}
+![Chakravorty, S., Helb, D., Burday, M., Connell, N., & Alland, D. (2007). A detailed analysis of 16S ribosomal RNA gene segments for the diagnosis of pathogenic bacteria. Journal of microbiological methods, 69(2), 330-339.](./Figures/MicrobialMeth.png){width=80%}
 
 ### Purification of Amplicons
 
 After one –step or two-step PCR, products are cleaned up using AMpure beads
 
-![Ampure](./Figures/Planets.png){width=80%}
+![https://research.fredhutch.org/content/dam/stripe/hahn/methods/mol_biol/Agencourt%20AMPure%20XP.pdf](./Figures/Ampure.png){width=80%}
 
 1. Gel Electrophoresis and quantification of cleaned amplicon products
 + Qubit
@@ -424,138 +438,177 @@ After one –step or two-step PCR, products are cleaned up using AMpure beads
 3. Gel extraction of pooled product
 4. Final clean up (Qiagen kit) and QC
 
-![16S Summary](./Figures/Planets.png){width=80%}
+![16S Library Prep](./Figures/LibSum.png){width=80%}
 
 [Amplicon Sequencing Library Prep - PacBio](https://www.pacb.com/wp-content/uploads/Multiplexed-Amplicon-Library-Preparation-Using-SMRTbell-Express-Template-Prep-Kit-2.0-–-Customer-Training.pdf)
 
 
 #### Overview of generic amplicon workflow
 
-![Amplicon Workflow](./Figures/Planets.png){width=80%}
+![Amplicon Workflow](./Figures/NCGRwkflo.png){width=80%}
 
-## Data Processing{-}
+## Oxford Nanopore Sequencing
 
-### FastQC
+![Wang, Y., Zhao, Y., Bollas, A., Wang, Y., & Au, K. F. (2021). Nanopore sequencing technology, bioinformatics and applications. Nature biotechnology, 39(11), 1348-1365.](./Figures/Nanopore1.png){width=80%}
 
-![FastQC](./Figures/Planets.png){width=80%}
+### How does it work?
 
-1. Many tools/options to filter and trim data
-2. Trimming does not always improve things as valuable information
-can be lost!
-3. Removal of adapters is critical for downstream analysis
+1. Proetin pore
+    + nanoscale
+    + biosensor
+    + motor protein ratchets DNA/RNA through
+    
+2. Ionic current
+    + constant voltage
+    + in electrolytic solution
+    + disrupted by nucleotide sequence
+    + changes in current correspond to sequence
 
-### Dereplication
+Watch the video below and answer questions:
 
-1. In this process all the quality-filtered sequences are collapsed into a set of unique reads, which are then clustered into OTUs
-2. Dereplication step significantly reduces computation time by eliminating redundant sequences
+https://www.youtube.com/watch?v=RcP85JHLmnI
 
-### Chimera detection and removal of non-bacterial sequences
+1. How does the DNA bind to the pore?
+2. Does something help guide the DNA to the pore?
+3. What is the signal produced by the DNA?
 
-Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together
- 
-![Chimera](./Figures/Planets.png){width=80%}
+https://www.youtube.com/watch?v=E9-Rm5AoZGw
 
-Incomplete extensions during PCR allow subsequent PCR cycles to use a partially extended strand to bind to the template of a different, but similar, sequence. This partially extended strand then acts as a primer to extend and form a chimeric sequence.
+Applications for ONT sequencing:
 
-### Clustering
 
-1. Analysis of 16S rRNA relies on clustering of related sequences at a particular level of identity and counting the representatives of each cluster
+![Wang, Y., Zhao, Y., Bollas, A., Wang, Y., & Au, K. F. (2021). Nanopore sequencing technology, bioinformatics and applications. Nature biotechnology, 39(11), 1348-1365.](./Figures/Nanopore2.png){width=100%}
 
-![Clustering](./Figures/Planets.png){width=80%}
 
-Some level of sequence divergence should be allowed – 95% (genus-level, partial 16S gene), 97% (species-level) or 99% typical similarity cutoffs used in
-practice and the resulting cluster of nearly identical tags (assumedly identical genomes) is referred to as an OTU (Operational Taxonomic Unit)
+## Metagenomics and Metatranscriptomics 
 
-### Create OTU tables
+**Metagenomics:** Untargeted sequencing of all microbial genomes present in a sample.
 
-OTU table is a matrix that gives the number of reads per sample per OTU
+### Shotgun Metagenomics
 
-![OTUs](./Figures/Planets.png){width=80%}
++ Study design and experimental protocol
++ Computational pre-processing
++ Sequence analysis
++ Post-processing
++ Validation
 
-### Bin OTUs into Taxonomy (assign taxonomy)
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/MetaWorkflow.png){width=100%}
 
-1. Accuracy of assigning taxonomy depends on the
-reference database chosen
-+ Ribosomal Database Project
-+ GreenGenes
-+ SILVA
-2. Accuracy depends on the completeness of databases
+### Sample collection and DNA extraction
 
-![Database](./Figures/Planets.png){width=80%}
+1. Sample collection and preservation methods can affect quality and accuracy of metagenomic data
+    + Collect sufficient biomass
+    + Minimize contamination
+    + Enrichment methods where applicable
+2. DNA extraction methods can affect the composition of downstream sequence data
++ Method must be effective for diverse microbial taxa
+    + Mechanical lysis (bead beating) method is considered superior,
+however, data will be biased for easy-to-lyse microbes
+    + Bead beating will result in short DNA fragments and lead to DNA loss during library prep methods.
 
-### Assess Population Diversity: **alpha diversity**
+### Sources of contamination
+1. Kit or lab reagents
+2. Low biomass samples are vulnerable to contamination as there is less ‘real’ signal to compete with low levels of contamination
+    + Use ultraclean kits
+    + Include blank sequencing controls
+3. Cross- over from previous sequencing runs
+4. PhiX control DNA
+5. Human/ host DNA
 
-1. Assessment of diversity involves two aspects
-+ Species richness (# of species present in a sample)
-+ Species evenness (distribution of relative abundance of species)
+### Coverage and Sequencing considerations
 
-2. Total community diversity of a single sample/environment is given by alpha-diversity and represented using rarefaction curves
+1. No published guidelines for ‘correct’ amount of coverage for a given environment
 
-3. Quantitative methods such as Shannon or Simpson indices measure evenness of the alpha- diversity
- 
-![Human Mol. Genet., 2013](./Figures/Planets.png){width=80%}
++ Choose a system that maximizes output in order to recover sequences from as many low-abundance members of the microbiome as possible
 
-### Assess Beta Diversity
++ HiSeq 2500 or 4000, NextSeq and NovaSeq produce high volume data (120Gb- 1.5 Tb per run) – suited for metagenomics study
 
-1. Beta-diversity measures community structure differences (taxon composition and relative abundance) between two or more samples
-+ For example, beta-diversity indices can compare similarities and differences in microbial communities in healthy and diseases states
-2. Many qualitative (presence/absence taxa) and
-quantitative(taxon abundance) measures of community
-distance are available using several tools
-+ LIBHUFF, TreeClimber, DPCoA, UniFrac (QIIME)
- 
-### Measuring Population Diversity: **alpha and beta diversity**
++ Multiplexing prudently will enable desired per-sample sequencing depth
 
-![PLoS Computational Biol.,2012](./Figures/Planets.png){width=80%}
+### Illumina Sequencers and Yield
 
-## Diversity Measurements with 16s rRNA sequencing
+https://www.illumina.com/systems/sequencing-platforms.html
 
-1. Overall Benefits
-+ Cost effective
-+ Data analysis can be performed by established pipelines
-+ Large body of archived data is available for reference
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/Illumiinaseq.png){width=100%}
 
-2. Overall Limitations
-+ Sequences only a single region of the genome
-+ Classifications often lack accuracy at the
-species level
-+ Copy number per genome can vary. While they
-tend to be taxon specific, variation among
-strains is possible
-+ Relative abundance measurements are
-unreliable because of amplification biases
-+ Diversity of the gene tends to overinflate
-diversity estimates
 
-3. FastQC for 16S rRNA dataset
-+ Extremely biased per base sequence content
-+ Extremely narrow distribution of GC content
-+ Very high sequence duplication levels
-+ Abundance of overrepresented sequences
-+ In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
+### Generalized workflow of metagenomic next-generation sequencing for diagnostic clinical use
 
-## Taxonomy: Expectation vs Reality
 
-![Expectation vs. Reality](./Figures/Planets.png){width=80%}
+![Gu, W., Miller, S., & Chiu, C. Y. (2019). Clinical metagenomic next-generation sequencing for pathogen detection. Annual Review of Pathology: Mechanisms of Disease, 14, 319-338.](./Figures/WetDry.png){width=100%}
 
-## Beta Diversity - UniFrac
 
-1. Measures how different two samples’ component  sequences are
+### Generic Analysis Workflow
 
-![Unifrac](./Figures/Planets.png){width=80%}
+![Oulas, A., Pavloudi, C., Polymenakou, P., Pavlopoulos, G. A., Papanikolaou, N., Kotoulas, G., ... & Iliopoulos, L. (2015). Metagenomics: tools and insights for analyzing next-generation sequencing data derived from biodiversity studies. Bioinformatics and biology insights, 9, BBI-S12462.](./Figures/GenericWkflw.png){width=100%}
 
-2. Weighted Unifrac: takes abundance of each sequence  into account
+### Strengths and weaknesses of assembly-based and read-based metagenomics analysis
 
-## Results from Paper
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/AssemblyvsRead.png){width=100%}
 
-1. Main phyla: Firmicutes, Bacteroidetes, Proteobacteria,  Actinobacteria, Fusobacteria with differences bw samples
-2. Sputum (patient) samples had highest diversity followed  by oropharynx samples followed by nasal
-3. Healthy controls (N and O) more diverse than samples  from TB patients
-4. Between-group comparisons?
-5. Phyla differences?
+### Tools and web servers related to gut microbiome studies.
+
+![Malla, M. A., Dubey, A., Kumar, A., Yadav, S., Hashem, A., & Abd_Allah, E. F. (2019). Exploring the human microbiome: the potential future role of next-generation sequencing in disease diagnosis and treatment. Frontiers in Immunology, 9, 2868.](./Figures/Toolsandweb.png){width=100%}
+
+### Benefits and limitations of whole genome metagenomics
+
+**Benefits**
+
++ Integrative meta-omics
++ Strain-level profiling
++ Longitudinal study design
++ Capability of sequencing large regions or entire genome
++ Identification of organisms in addition to bacteria, archaea
++ Increased prediction of genes and functional pathways
+
+**Limitations**
+
++ Expensive
++ Compute intensive 
++ Incomplete databases
++ Biases in functional profiling
++ Unvalidated data in the public space
++ Live or dead dilemma
+
+![Malla, M. A., Dubey, A., Kumar, A., Yadav, S., Hashem, A., & Abd_Allah, E. F. (2019). Exploring the human microbiome: the potential future role of next-generation sequencing in disease diagnosis and treatment. Frontiers in Immunology, 9, 2868.](./Figures/Frag.png){width=60%}
+
+“What are they doing?” - Metatranscriptomics
+
+![Bikel, S., Valdez-Lara, A., Cornejo-Granados, F., Rico, K., Canizales-Quinteros, S., Soberón, X., ... & Ochoa-Leyva, A. (2015). Combining metagenomics, metatranscriptomics and viromics to explore novel microbial interactions: towards a systems-level understanding of human microbiome. Computational and structural biotechnology journal, 13, 390-401.](./Figures/HumanMicrobiome.png){width=100%}
+
+![NCGR](./Figures/NCGRMeta.png){width=100%}
+
+### Benefits of Metatranscriptomics
+
+
+![NCGR](./Figures/BenefitsMeta.png){width=100%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
+
