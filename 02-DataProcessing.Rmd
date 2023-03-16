@@ -14,6 +14,12 @@ can be lost!
 1. In this process all the quality-filtered sequences are collapsed into a set of unique reads, which are then clustered into OTUs
 2. Dereplication step significantly reduces computation time by eliminating redundant sequences
 
+What's an OTU?
+
+https://www.youtube.com/watch?v=azI9taClDhQ
+
+
+
 ## Chimera detection and removal of non-bacterial sequences
 
 Chimeras as artifact sequences formed by two or more biological sequences incorrectly joined together

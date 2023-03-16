@@ -1314,10 +1314,229 @@ Applications for ONT sequencing:
 \caption{Wang, Y., Zhao, Y., Bollas, A., Wang, Y., \& Au, K. F. (2021). Nanopore sequencing technology, bioinformatics and applications. Nature biotechnology, 39(11), 1348-1365.}
 \end{figure}
 
+\hypertarget{metagenomics-and-metatranscriptomics}{%
+\section{Metagenomics and Metatranscriptomics}\label{metagenomics-and-metatranscriptomics}}
+
+\textbf{Metagenomics:} Untargeted sequencing of all microbial genomes present in a sample.
+
+\hypertarget{shotgun-metagenomics}{%
+\subsection{Shotgun Metagenomics}\label{shotgun-metagenomics}}
+
+\begin{itemize}
+\tightlist
+\item
+  Study design and experimental protocol
+\item
+  Computational pre-processing
+\item
+  Sequence analysis
+\item
+  Post-processing
+\item
+  Validation
+\end{itemize}
+
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Nanopore2.png}
-\caption{Wang, Y., Zhao, Y., Bollas, A., Wang, Y., \& Au, K. F. (2021). Nanopore sequencing technology, bioinformatics and applications. Nature biotechnology, 39(11), 1348-1365.}
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/MetaWorkflow.png}
+\caption{Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., \& Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.}
+\end{figure}
+
+\hypertarget{sample-collection-and-dna-extraction}{%
+\subsection{Sample collection and DNA extraction}\label{sample-collection-and-dna-extraction}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sample collection and preservation methods can affect quality and accuracy of metagenomic data
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Collect sufficient biomass
+  \item
+    Minimize contamination
+  \item
+    Enrichment methods where applicable
+  \end{itemize}
+\item
+  DNA extraction methods can affect the composition of downstream sequence data
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Method must be effective for diverse microbial taxa
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Mechanical lysis (bead beating) method is considered superior,
+    however, data will be biased for easy-to-lyse microbes
+  \item
+    Bead beating will result in short DNA fragments and lead to DNA loss during library prep methods.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{sources-of-contamination}{%
+\subsection{Sources of contamination}\label{sources-of-contamination}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Kit or lab reagents
+\item
+  Low biomass samples are vulnerable to contamination as there is less `real' signal to compete with low levels of contamination
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Use ultraclean kits
+  \item
+    Include blank sequencing controls
+  \end{itemize}
+\item
+  Cross- over from previous sequencing runs
+\item
+  PhiX control DNA
+\item
+  Human/ host DNA
+\end{enumerate}
+
+\hypertarget{coverage-and-sequencing-considerations}{%
+\subsection{Coverage and Sequencing considerations}\label{coverage-and-sequencing-considerations}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  No published guidelines for `correct' amount of coverage for a given environment
+\end{enumerate}
+
+\begin{itemize}
+\item
+  Choose a system that maximizes output in order to recover sequences from as many low-abundance members of the microbiome as possible
+\item
+  HiSeq 2500 or 4000, NextSeq and NovaSeq produce high volume data (120Gb- 1.5 Tb per run) -- suited for metagenomics study
+\item
+  Multiplexing prudently will enable desired per-sample sequencing depth
+\end{itemize}
+
+\hypertarget{illumina-sequencers-and-yield}{%
+\subsection{Illumina Sequencers and Yield}\label{illumina-sequencers-and-yield}}
+
+\url{https://www.illumina.com/systems/sequencing-platforms.html}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Illumiinaseq.png}
+\caption{Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., \& Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.}
+\end{figure}
+
+\hypertarget{generalized-workflow-of-metagenomic-next-generation-sequencing-for-diagnostic-clinical-use}{%
+\subsection{Generalized workflow of metagenomic next-generation sequencing for diagnostic clinical use}\label{generalized-workflow-of-metagenomic-next-generation-sequencing-for-diagnostic-clinical-use}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/WetDry.png}
+\caption{Gu, W., Miller, S., \& Chiu, C. Y. (2019). Clinical metagenomic next-generation sequencing for pathogen detection. Annual Review of Pathology: Mechanisms of Disease, 14, 319-338.}
+\end{figure}
+
+\hypertarget{generic-analysis-workflow}{%
+\subsection{Generic Analysis Workflow}\label{generic-analysis-workflow}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/GenericWkflw.png}
+\caption{Oulas, A., Pavloudi, C., Polymenakou, P., Pavlopoulos, G. A., Papanikolaou, N., Kotoulas, G., \ldots{} \& Iliopoulos, L. (2015). Metagenomics: tools and insights for analyzing next-generation sequencing data derived from biodiversity studies. Bioinformatics and biology insights, 9, BBI-S12462.}
+\end{figure}
+
+\hypertarget{strengths-and-weaknesses-of-assembly-based-and-read-based-metagenomics-analysis}{%
+\subsection{Strengths and weaknesses of assembly-based and read-based metagenomics analysis}\label{strengths-and-weaknesses-of-assembly-based-and-read-based-metagenomics-analysis}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/AssemblyvsRead.png}
+\caption{Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., \& Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.}
+\end{figure}
+
+\hypertarget{tools-and-web-servers-related-to-gut-microbiome-studies.}{%
+\subsection{Tools and web servers related to gut microbiome studies.}\label{tools-and-web-servers-related-to-gut-microbiome-studies.}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/Toolsandweb.png}
+\caption{Malla, M. A., Dubey, A., Kumar, A., Yadav, S., Hashem, A., \& Abd\_Allah, E. F. (2019). Exploring the human microbiome: the potential future role of next-generation sequencing in disease diagnosis and treatment. Frontiers in Immunology, 9, 2868.}
+\end{figure}
+
+\hypertarget{benefits-and-limitations-of-whole-genome-metagenomics}{%
+\subsection{Benefits and limitations of whole genome metagenomics}\label{benefits-and-limitations-of-whole-genome-metagenomics}}
+
+\textbf{Benefits}
+
+\begin{itemize}
+\tightlist
+\item
+  Integrative meta-omics
+\item
+  Strain-level profiling
+\item
+  Longitudinal study design
+\item
+  Capability of sequencing large regions or entire genome
+\item
+  Identification of organisms in addition to bacteria, archaea
+\item
+  Increased prediction of genes and functional pathways
+\end{itemize}
+
+\textbf{Limitations}
+
+\begin{itemize}
+\tightlist
+\item
+  Expensive
+\item
+  Compute intensive
+\item
+  Incomplete databases
+\item
+  Biases in functional profiling
+\item
+  Unvalidated data in the public space
+\item
+  Live or dead dilemma
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{./Figures/Frag.png}
+\caption{Malla, M. A., Dubey, A., Kumar, A., Yadav, S., Hashem, A., \& Abd\_Allah, E. F. (2019). Exploring the human microbiome: the potential future role of next-generation sequencing in disease diagnosis and treatment. Frontiers in Immunology, 9, 2868.}
+\end{figure}
+
+``What are they doing?'' - Metatranscriptomics
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/HumanMicrobiome.png}
+\caption{Bikel, S., Valdez-Lara, A., Cornejo-Granados, F., Rico, K., Canizales-Quinteros, S., Soberón, X., \ldots{} \& Ochoa-Leyva, A. (2015). Combining metagenomics, metatranscriptomics and viromics to explore novel microbial interactions: towards a systems-level understanding of human microbiome. Computational and structural biotechnology journal, 13, 390-401.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/NCGRMeta.png}
+\caption{NCGR}
+\end{figure}
+
+\hypertarget{benefits-of-metatranscriptomics}{%
+\subsection{Benefits of Metatranscriptomics}\label{benefits-of-metatranscriptomics}}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/BenefitsMeta.png}
+\caption{NCGR}
 \end{figure}
 
 \begin{verbatim}
@@ -1473,6 +1692,10 @@ Reads are here:
 \item
   Dereplication step significantly reduces computation time by eliminating redundant sequences
 \end{enumerate}
+
+What's an OTU?
+
+\url{https://www.youtube.com/watch?v=azI9taClDhQ}
 
 \hypertarget{chimera-detection-and-removal-of-non-bacterial-sequences}{%
 \section{Chimera detection and removal of non-bacterial sequences}\label{chimera-detection-and-removal-of-non-bacterial-sequences}}

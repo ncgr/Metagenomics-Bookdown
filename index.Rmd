@@ -476,9 +476,130 @@ https://www.youtube.com/watch?v=E9-Rm5AoZGw
 
 Applications for ONT sequencing:
 
-![Wang, Y., Zhao, Y., Bollas, A., Wang, Y., & Au, K. F. (2021). Nanopore sequencing technology, bioinformatics and applications. Nature biotechnology, 39(11), 1348-1365.](./Figures/Nanopore2.png){width=100%}
 
 ![Wang, Y., Zhao, Y., Bollas, A., Wang, Y., & Au, K. F. (2021). Nanopore sequencing technology, bioinformatics and applications. Nature biotechnology, 39(11), 1348-1365.](./Figures/Nanopore2.png){width=100%}
+
+
+## Metagenomics and Metatranscriptomics 
+
+**Metagenomics:** Untargeted sequencing of all microbial genomes present in a sample.
+
+### Shotgun Metagenomics
+
++ Study design and experimental protocol
++ Computational pre-processing
++ Sequence analysis
++ Post-processing
++ Validation
+
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/MetaWorkflow.png){width=100%}
+
+### Sample collection and DNA extraction
+
+1. Sample collection and preservation methods can affect quality and accuracy of metagenomic data
+    + Collect sufficient biomass
+    + Minimize contamination
+    + Enrichment methods where applicable
+2. DNA extraction methods can affect the composition of downstream sequence data
++ Method must be effective for diverse microbial taxa
+    + Mechanical lysis (bead beating) method is considered superior,
+however, data will be biased for easy-to-lyse microbes
+    + Bead beating will result in short DNA fragments and lead to DNA loss during library prep methods.
+
+### Sources of contamination
+1. Kit or lab reagents
+2. Low biomass samples are vulnerable to contamination as there is less ‘real’ signal to compete with low levels of contamination
+    + Use ultraclean kits
+    + Include blank sequencing controls
+3. Cross- over from previous sequencing runs
+4. PhiX control DNA
+5. Human/ host DNA
+
+### Coverage and Sequencing considerations
+
+1. No published guidelines for ‘correct’ amount of coverage for a given environment
+
++ Choose a system that maximizes output in order to recover sequences from as many low-abundance members of the microbiome as possible
+
++ HiSeq 2500 or 4000, NextSeq and NovaSeq produce high volume data (120Gb- 1.5 Tb per run) – suited for metagenomics study
+
++ Multiplexing prudently will enable desired per-sample sequencing depth
+
+### Illumina Sequencers and Yield
+
+https://www.illumina.com/systems/sequencing-platforms.html
+
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/Illumiinaseq.png){width=100%}
+
+
+### Generalized workflow of metagenomic next-generation sequencing for diagnostic clinical use
+
+
+![Gu, W., Miller, S., & Chiu, C. Y. (2019). Clinical metagenomic next-generation sequencing for pathogen detection. Annual Review of Pathology: Mechanisms of Disease, 14, 319-338.](./Figures/WetDry.png){width=100%}
+
+
+### Generic Analysis Workflow
+
+![Oulas, A., Pavloudi, C., Polymenakou, P., Pavlopoulos, G. A., Papanikolaou, N., Kotoulas, G., ... & Iliopoulos, L. (2015). Metagenomics: tools and insights for analyzing next-generation sequencing data derived from biodiversity studies. Bioinformatics and biology insights, 9, BBI-S12462.](./Figures/GenericWkflw.png){width=100%}
+
+### Strengths and weaknesses of assembly-based and read-based metagenomics analysis
+
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/AssemblyvsRead.png){width=100%}
+
+### Tools and web servers related to gut microbiome studies.
+
+![Malla, M. A., Dubey, A., Kumar, A., Yadav, S., Hashem, A., & Abd_Allah, E. F. (2019). Exploring the human microbiome: the potential future role of next-generation sequencing in disease diagnosis and treatment. Frontiers in Immunology, 9, 2868.](./Figures/Toolsandweb.png){width=100%}
+
+### Benefits and limitations of whole genome metagenomics
+
+**Benefits**
+
++ Integrative meta-omics
++ Strain-level profiling
++ Longitudinal study design
++ Capability of sequencing large regions or entire genome
++ Identification of organisms in addition to bacteria, archaea
++ Increased prediction of genes and functional pathways
+
+**Limitations**
+
++ Expensive
++ Compute intensive 
++ Incomplete databases
++ Biases in functional profiling
++ Unvalidated data in the public space
++ Live or dead dilemma
+
+![Malla, M. A., Dubey, A., Kumar, A., Yadav, S., Hashem, A., & Abd_Allah, E. F. (2019). Exploring the human microbiome: the potential future role of next-generation sequencing in disease diagnosis and treatment. Frontiers in Immunology, 9, 2868.](./Figures/Frag.png){width=60%}
+
+“What are they doing?” - Metatranscriptomics
+
+![Bikel, S., Valdez-Lara, A., Cornejo-Granados, F., Rico, K., Canizales-Quinteros, S., Soberón, X., ... & Ochoa-Leyva, A. (2015). Combining metagenomics, metatranscriptomics and viromics to explore novel microbial interactions: towards a systems-level understanding of human microbiome. Computational and structural biotechnology journal, 13, 390-401.](./Figures/HumanMicrobiome.png){width=100%}
+
+![NCGR](./Figures/NCGRMeta.png){width=100%}
+
+### Benefits of Metatranscriptomics
+
+
+![NCGR](./Figures/BenefitsMeta.png){width=100%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
