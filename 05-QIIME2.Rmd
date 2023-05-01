@@ -1,3 +1,4 @@
+
 # QIIME2
 Command Line Tutorial
 
@@ -69,7 +70,7 @@ SRR1369714 SRR1369717 SRR1369716 SRR1369715 SRR1369711 SRR1369712
 
 # After running this step, you will have 60 files in your input_data folder
 # To check, cd into folder that has fastq files, type this command
-ls -l | wc -l
+ls| wc -l
 # Optional exercise:
 # Count the number of sequences in the two fastq files pertaining to one sample and sum them.
 conda deactivate
@@ -80,10 +81,10 @@ conda deactivate
 # Filter poor quality reads
 source activate fastp
 
-for file in *.fastq; do fastp -i ${file} -o ${file}.filtered; done
+for file in *.gz; do fastp -i ${file} -o ${file}.filtered; done
 conda deactivate
 ```
-![data_table](/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png){width=100%}
+![data_table](./QIIMEpics/lyx.qiime.table.png){width=100%}
 Data was collected from 30 Individuals.
 
 • 6 TB Patients - Nasal
@@ -246,7 +247,7 @@ qiime vsearch dereplicate-sequences \
 
 
 ## Generating a feature table
-The final products of all denoising and clustering methods/workflows are a FeatureTable[Frequency] (feature table) artifact and a FeatureData[Sequence] (representative sequences) artifact. These are two of the most important artifacts in an amplicon sequencing workflow, and are used for many downstream analyses, as discussed below. Indeed, feature tables are crucial to any QIIME 2 analysis, as the central record of all observations per sample. 
+The final products of all denoising and clustering methods/workflows are a FeatureTable[Frequency] (feature table) artifact and a FeatureData[Sequence] (representative sequences) artifact. These are two of the most important artifacts in an amplicon sequencing workflow, and are used for many downstream analyses, as discussed below. Indeed, feature tables are crucial to any QIIME2 analysis, as the central record of all observations per sample. 
 
 ![workflow](./QIIMEpics/derep-denoise.png){width=100%}
 The feature-table summarize command will give you information on how many sequences are associated with each sample and with each feature, histograms of those distributions, and some related summary statistics. The feature-table and tabulate-seqs commands will provide a mapping of feature IDs to sequences, and provide links to easily BLAST each sequence against the NCBI nt database.
@@ -346,9 +347,6 @@ III. Open-reference OTU clustering
 In open-reference OTU clustering, sequence reads are clustered against a reference sequence collection and any reads which do not hit the reference sequence collection are subsequently clustered de novo.
 
 ```{bash, eval=FALSE}
-
-# EXAMPLE- DO NOT RUN THE ABOVE COMMAND TO COMPLETION
-
 qiime vsearch cluster-features-open-reference \
 --i-table table.qza \
 --i-sequences rep-seqs.qza \
@@ -358,7 +356,14 @@ qiime vsearch cluster-features-open-reference \
 --o-clustered-sequences rep-seqs-or-99.qza \
 --o-new-reference-sequences new-ref-seqs-or-99.qza
 ```
-STEP 7: Building a phylogenetic tree
+
+Combine reference-clustered features with de-novo clustered features
+```{bash, eval=FALSE}
+qiime feature-table merge-seqs --i-data rep-seqs-or-99.qza \
+new-ref-seqs-or-99.qza --o-merged-data all-or-seqs-99.qza
+```
+
+## Building a phylogenetic tree
 
 Evolution is the core concept of biology. There is only so much you can learn from microbes while ignoring evolution. Evolution-aware analyses of a dataset needs a phylogenetic tree of its sequences. These trees can be built de-novo or they can be reference based. Phylogeny-based analyses in QIIME2 generally need a rooted tree. 
 
@@ -369,7 +374,7 @@ Evolution is the core concept of biology. There is only so much you can learn fr
 # Carry out a multiple sequence alignment using Mafft
 
 qiime alignment mafft \
---i-sequences rep-seqs-or-99.qza \
+--i-sequences all-or-seqs-99.qza \
 --o-alignment aligned-rep-seqs.qza
 
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 4 MINUTES TO RUN TO COMPLETION
@@ -400,7 +405,7 @@ qiime phylogeny midpoint-root \
 
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 SECONDS TO RUN TO COMPLETION
 ```
-STEP 8: Alpha rarefaction
+## Alpha rarefaction
 
 What is rarefaction?
 
@@ -424,15 +429,14 @@ qiime diversity alpha-rarefaction \
 --p-max-depth 1000 \
 --m-metadata-file mappingFile.txt \
 --o-visualization alpha-rarefaction.qzv
-
-# Why specify a maximum depth of 1000?
 ```
+Why specify a maximum depth of 1000?
 
 Look at the following example and decide what sampling-depth you would use:
 
 https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdocs.qiime2.org%2F2020.11%2Fdata%2Ftutorials%2Fmoving-pictures%2Falpha-rarefaction.qzv
 
-STEP 9: Calculating and exploring diversity metrics
+## Calculating and exploring diversity metrics
 
 Species diversity is a valuable tool for describing the ecological complexity of a single sample (alpha diversity) or between samples (beta diversity).
 
@@ -469,9 +473,6 @@ Beta diversity metrics
 • weighted UniFrac distance (a quantitative measure of community dissimilarity- analogous to Bray-Curtis- that incorporates phylogenetic relationships between the features; Lozupone, Hamady, Kelley, & Knight, 2007); implementation based on Striped UniFrac (McDonald et al., 2018) method.
 
 ```{bash, eval=FALSE}
-
-# Generate diversity metrics
-
 qiime diversity core-metrics-phylogenetic \
 --i-phylogeny rooted-tree.qza \
 --i-table table-or-99.qza \
@@ -562,7 +563,7 @@ wget "https://data.qiime2.org/2020.6/common/gg-13-8-99-nb-classifier.qza"
 
 qiime feature-classifier classify-sklearn \
 --i-classifier gg-13-8-99-nb-classifier.qza \
---i-reads rep-seqs-or-99.qza \
+--i-reads all-or-seqs-99.qza \
 --o-classification taxonomy.qza
 
 #THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 MINUTES TO RUN TO COMPLETION
@@ -583,7 +584,7 @@ qiime taxa barplot \
 
 ```
 
-## Visualizing
+## Diversity Visualization
 
 ```{bash, eval=FALSE}
 # Copy the visualization files
@@ -595,7 +596,7 @@ scp -P 44111 <USERNAME>@gateway.training.ncgr.org:/home/<USERNAME>/QIIME2_1000_A
 Open your browser and go to the following site:
 https://view.qiime2.org/
 
-STEP 12: Differential Abundance - ANCOM - Analysis of Composition of Microbes (Optional)
+## Differential Abundance - ANCOM - Analysis of Composition of Microbes (Optional)
 
 • Identifies taxa that are present in different abundances across sample groups
 
@@ -608,7 +609,7 @@ STEP 12: Differential Abundance - ANCOM - Analysis of Composition of Microbes (O
 # are changing in abundance across body sites)
 
 qiime feature-table filter-samples \
---i-table table.qza \
+--i-table table-or-99.qza \
 --m-metadata-file mappingFile.txt \
 --p-where "BodySite='Nasal'" \
 --o-filtered-table nasal-table.qza
@@ -643,11 +644,9 @@ qiime composition ancom \
 --o-visualization ancom-Treatment-nasal.qzv
 ```
 
-EXERCISE: Preparing your raw sequence data and importing -[https://docs.qiime2.org/2020.11/tutorials/importing/#]
+EXERCISE: Preparing your raw sequence data and importing. This material closely follows the tutorial available at https://docs.qiime2.org/2021.2/tutorials/atacama-soils/
 
-When using Earth Microbiome Project (EMP) protocol, you should have access to forward reads, reverse reads (if applicable),
-
-and a barcode list, i.e.:
+When using Earth Microbiome Project (EMP) protocol, you should have access to forward reads, reverse reads (if applicable), and a barcode list, i.e.:
 
 1. forward.fastq.gz
 2. reverse.fastq.gz
@@ -659,6 +658,12 @@ source activate qiime2
 mkdir emp_example
 
 cd emp_example
+
+wget https://data.qiime2.org/2021.2/tutorials/atacama-soils/10p/forward.fastq.gz
+
+wget https://data.qiime2.org/2021.2/tutorials/atacama-soils/10p/reverse.fastq.gz
+
+wget https://data.qiime2.org/2021.2/tutorials/atacama-soils/10p/barcodes.fastq.gz
 
 qiime tools import \
 --type EMPPairedEndSequences \
@@ -694,11 +699,9 @@ qiime demux summarize \
 
 ## Denoising
 
-https://docs.qiime2.org/2021.2/tutorials/atacama-soils/
-
 ```{bash, eval=FALSE}
-qiime dada2 denoise-paired \   
---i-demultiplexed-seqs demux.qza \   
+qiime dada2 denoise-paired \
+--i-demultiplexed-seqs demux.qza \
 --p-trim-left-f 13 \
 --p-trim-left-r 13 \
 --p-trunc-len-f 150 \
@@ -707,6 +710,7 @@ qiime dada2 denoise-paired \
 --o-representative-sequences rep-seqs.qza \
 --o-denoising-stats denoising-stats.qza
 ```
+The above step takes ~ 10 minutes.
 
 ## Chimeric feature filtering
 https://docs.qiime2.org/2021.2/tutorials/chimera/

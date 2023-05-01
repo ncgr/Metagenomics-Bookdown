@@ -2416,7 +2416,7 @@ following exercise will help you use fastq-dump for your own projects too.
 
 \CommentTok{\# After running this step, you will have 60 files in your input\_data folder}
 \CommentTok{\# To check, cd into folder that has fastq files, type this command}
-\FunctionTok{ls} \AttributeTok{{-}l} \KeywordTok{|} \FunctionTok{wc} \AttributeTok{{-}l}
+\FunctionTok{ls}\KeywordTok{|} \FunctionTok{wc} \AttributeTok{{-}l}
 \CommentTok{\# Optional exercise:}
 \CommentTok{\# Count the number of sequences in the two fastq files pertaining to one sample and sum them.}
 \ExtensionTok{conda}\NormalTok{ deactivate}
@@ -2431,12 +2431,12 @@ following exercise will help you use fastq-dump for your own projects too.
 \CommentTok{\# Filter poor quality reads}
 \BuiltInTok{source}\NormalTok{ activate fastp}
 
-\ControlFlowTok{for}\NormalTok{ file }\KeywordTok{in} \PreprocessorTok{*}\NormalTok{.fastq}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{fastp} \AttributeTok{{-}i} \VariableTok{$\{file\}} \AttributeTok{{-}o} \VariableTok{$\{file\}}\NormalTok{.filtered}\KeywordTok{;} \ControlFlowTok{done}
+\ControlFlowTok{for}\NormalTok{ file }\KeywordTok{in} \PreprocessorTok{*}\NormalTok{.gz}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{fastp} \AttributeTok{{-}i} \VariableTok{$\{file\}} \AttributeTok{{-}o} \VariableTok{$\{file\}}\NormalTok{.filtered}\KeywordTok{;} \ControlFlowTok{done}
 \ExtensionTok{conda}\NormalTok{ deactivate}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=1\textwidth,height=\textheight]{/Users/elavelle/Desktop/Metagenomics-Bookdown/QIIMEpics/lyx.qiime.table.png}
+\includegraphics[width=1\textwidth,height=\textheight]{./QIIMEpics/lyx.qiime.table.png}
 Data was collected from 30 Individuals.
 
 • 6 TB Patients - Nasal
@@ -2612,7 +2612,7 @@ From \url{https://docs.qiime2.org/2021.2/tutorials/overview/\#derep-denoise}
 \hypertarget{generating-a-feature-table}{%
 \section{Generating a feature table}\label{generating-a-feature-table}}
 
-The final products of all denoising and clustering methods/workflows are a FeatureTable{[}Frequency{]} (feature table) artifact and a FeatureData{[}Sequence{]} (representative sequences) artifact. These are two of the most important artifacts in an amplicon sequencing workflow, and are used for many downstream analyses, as discussed below. Indeed, feature tables are crucial to any QIIME 2 analysis, as the central record of all observations per sample.
+The final products of all denoising and clustering methods/workflows are a FeatureTable{[}Frequency{]} (feature table) artifact and a FeatureData{[}Sequence{]} (representative sequences) artifact. These are two of the most important artifacts in an amplicon sequencing workflow, and are used for many downstream analyses, as discussed below. Indeed, feature tables are crucial to any QIIME2 analysis, as the central record of all observations per sample.
 
 \includegraphics[width=1\textwidth,height=\textheight]{./QIIMEpics/derep-denoise.png}
 The feature-table summarize command will give you information on how many sequences are associated with each sample and with each feature, histograms of those distributions, and some related summary statistics. The feature-table and tabulate-seqs commands will provide a mapping of feature IDs to sequences, and provide links to easily BLAST each sequence against the NCBI nt database.
@@ -2744,9 +2744,6 @@ In open-reference OTU clustering, sequence reads are clustered against a referen
 
 \begin{Shaded}
 \begin{Highlighting}[]
-
-\CommentTok{\# EXAMPLE{-} DO NOT RUN THE ABOVE COMMAND TO COMPLETION}
-
 \ExtensionTok{qiime}\NormalTok{ vsearch cluster{-}features{-}open{-}reference }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}i{-}sequences rep{-}seqs.qza }\DataTypeTok{\textbackslash{}}
@@ -2758,7 +2755,17 @@ In open-reference OTU clustering, sequence reads are clustered against a referen
 \end{Highlighting}
 \end{Shaded}
 
-STEP 7: Building a phylogenetic tree
+Combine reference-clustered features with de-novo clustered features
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{qiime}\NormalTok{ feature{-}table merge{-}seqs }\AttributeTok{{-}{-}i{-}data}\NormalTok{ rep{-}seqs{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{new{-}ref{-}seqs{-}or{-}99.qza }\AttributeTok{{-}{-}o{-}merged{-}data}\NormalTok{ all{-}or{-}seqs{-}99.qza}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{building-a-phylogenetic-tree}{%
+\section{Building a phylogenetic tree}\label{building-a-phylogenetic-tree}}
 
 Evolution is the core concept of biology. There is only so much you can learn from microbes while ignoring evolution. Evolution-aware analyses of a dataset needs a phylogenetic tree of its sequences. These trees can be built de-novo or they can be reference based. Phylogeny-based analyses in QIIME2 generally need a rooted tree.
 
@@ -2774,7 +2781,7 @@ Evolution is the core concept of biology. There is only so much you can learn fr
 \CommentTok{\# Carry out a multiple sequence alignment using Mafft}
 
 \ExtensionTok{qiime}\NormalTok{ alignment mafft }\DataTypeTok{\textbackslash{}}
-\NormalTok{{-}{-}i{-}sequences rep{-}seqs{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}sequences all{-}or{-}seqs{-}99.qza }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}o{-}alignment aligned{-}rep{-}seqs.qza}
 
 \CommentTok{\# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 4 MINUTES TO RUN TO COMPLETION}
@@ -2807,7 +2814,8 @@ Evolution is the core concept of biology. There is only so much you can learn fr
 \end{Highlighting}
 \end{Shaded}
 
-STEP 8: Alpha rarefaction
+\hypertarget{alpha-rarefaction}{%
+\section{Alpha rarefaction}\label{alpha-rarefaction}}
 
 What is rarefaction?
 
@@ -2832,16 +2840,17 @@ Species richness is the number of species present in a system. However, the deep
 \NormalTok{{-}{-}p{-}max{-}depth 1000 }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}o{-}visualization alpha{-}rarefaction.qzv}
-
-\CommentTok{\# Why specify a maximum depth of 1000?}
 \end{Highlighting}
 \end{Shaded}
+
+Why specify a maximum depth of 1000?
 
 Look at the following example and decide what sampling-depth you would use:
 
 \url{https://view.qiime2.org/visualization/?type=html\&src=https\%3A\%2F\%2Fdocs.qiime2.org\%2F2020.11\%2Fdata\%2Ftutorials\%2Fmoving-pictures\%2Falpha-rarefaction.qzv}
 
-STEP 9: Calculating and exploring diversity metrics
+\hypertarget{calculating-and-exploring-diversity-metrics}{%
+\section{Calculating and exploring diversity metrics}\label{calculating-and-exploring-diversity-metrics}}
 
 Species diversity is a valuable tool for describing the ecological complexity of a single sample (alpha diversity) or between samples (beta diversity).
 
@@ -2883,9 +2892,6 @@ Beta diversity metrics
 
 \begin{Shaded}
 \begin{Highlighting}[]
-
-\CommentTok{\# Generate diversity metrics}
-
 \ExtensionTok{qiime}\NormalTok{ diversity core{-}metrics{-}phylogenetic }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}i{-}phylogeny rooted{-}tree.qza }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}i{-}table table{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
@@ -2982,7 +2988,7 @@ For many experiments, investigators aim to identify the organisms that are prese
 
 \ExtensionTok{qiime}\NormalTok{ feature{-}classifier classify{-}sklearn }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}i{-}classifier gg{-}13{-}8{-}99{-}nb{-}classifier.qza }\DataTypeTok{\textbackslash{}}
-\NormalTok{{-}{-}i{-}reads rep{-}seqs{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}reads all{-}or{-}seqs{-}99.qza }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}o{-}classification taxonomy.qza}
 
 \CommentTok{\#THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 MINUTES TO RUN TO COMPLETION}
@@ -3003,8 +3009,8 @@ For many experiments, investigators aim to identify the organisms that are prese
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{visualizing}{%
-\section{Visualizing}\label{visualizing}}
+\hypertarget{diversity-visualization}{%
+\section{Diversity Visualization}\label{diversity-visualization}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3018,7 +3024,8 @@ For many experiments, investigators aim to identify the organisms that are prese
 Open your browser and go to the following site:
 \url{https://view.qiime2.org/}
 
-STEP 12: Differential Abundance - ANCOM - Analysis of Composition of Microbes (Optional)
+\hypertarget{differential-abundance---ancom---analysis-of-composition-of-microbes-optional}{%
+\section{Differential Abundance - ANCOM - Analysis of Composition of Microbes (Optional)}\label{differential-abundance---ancom---analysis-of-composition-of-microbes-optional}}
 
 • Identifies taxa that are present in different abundances across sample groups
 
@@ -3032,7 +3039,7 @@ STEP 12: Differential Abundance - ANCOM - Analysis of Composition of Microbes (O
 \CommentTok{\# are changing in abundance across body sites)}
 
 \ExtensionTok{qiime}\NormalTok{ feature{-}table filter{-}samples }\DataTypeTok{\textbackslash{}}
-\NormalTok{{-}{-}i{-}table table.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}table table{-}or{-}99.qza }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}m{-}metadata{-}file mappingFile.txt }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}p{-}where }\StringTok{"BodySite=\textquotesingle{}Nasal\textquotesingle{}"} \DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}o{-}filtered{-}table nasal{-}table.qza}
@@ -3068,11 +3075,9 @@ STEP 12: Differential Abundance - ANCOM - Analysis of Composition of Microbes (O
 \end{Highlighting}
 \end{Shaded}
 
-EXERCISE: Preparing your raw sequence data and importing -{[}\url{https://docs.qiime2.org/2020.11/tutorials/importing/\#}{]}
+EXERCISE: Preparing your raw sequence data and importing. This material closely follows the tutorial available at \url{https://docs.qiime2.org/2021.2/tutorials/atacama-soils/}
 
-When using Earth Microbiome Project (EMP) protocol, you should have access to forward reads, reverse reads (if applicable),
-
-and a barcode list, i.e.:
+When using Earth Microbiome Project (EMP) protocol, you should have access to forward reads, reverse reads (if applicable), and a barcode list, i.e.:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3092,6 +3097,12 @@ and a barcode list, i.e.:
 \FunctionTok{mkdir}\NormalTok{ emp\_example}
 
 \BuiltInTok{cd}\NormalTok{ emp\_example}
+
+\FunctionTok{wget}\NormalTok{ https://data.qiime2.org/2021.2/tutorials/atacama{-}soils/10p/forward.fastq.gz}
+
+\FunctionTok{wget}\NormalTok{ https://data.qiime2.org/2021.2/tutorials/atacama{-}soils/10p/reverse.fastq.gz}
+
+\FunctionTok{wget}\NormalTok{ https://data.qiime2.org/2021.2/tutorials/atacama{-}soils/10p/barcodes.fastq.gz}
 
 \ExtensionTok{qiime}\NormalTok{ tools import }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}type EMPPairedEndSequences }\DataTypeTok{\textbackslash{}}
@@ -3132,13 +3143,11 @@ Note: Our TB data was is already demultiplexed.
 \hypertarget{denoising}{%
 \section{Denoising}\label{denoising}}
 
-\url{https://docs.qiime2.org/2021.2/tutorials/atacama-soils/}
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\ExtensionTok{qiime}\NormalTok{ dada2 denoise{-}paired }\DataTypeTok{\textbackslash{} }  
-\ExtensionTok{{-}{-}i{-}demultiplexed{-}seqs}\NormalTok{ demux.qza }\DataTypeTok{\textbackslash{} }  
-\ExtensionTok{{-}{-}p{-}trim{-}left{-}f}\NormalTok{ 13 }\DataTypeTok{\textbackslash{}}
+\ExtensionTok{qiime}\NormalTok{ dada2 denoise{-}paired }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}i{-}demultiplexed{-}seqs demux.qza }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}p{-}trim{-}left{-}f 13 }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}p{-}trim{-}left{-}r 13 }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}p{-}trunc{-}len{-}f 150 }\DataTypeTok{\textbackslash{}}
 \NormalTok{{-}{-}p{-}trunc{-}len{-}r 150 }\DataTypeTok{\textbackslash{}}
@@ -3147,6 +3156,8 @@ Note: Our TB data was is already demultiplexed.
 \NormalTok{{-}{-}o{-}denoising{-}stats denoising{-}stats.qza}
 \end{Highlighting}
 \end{Shaded}
+
+The above step takes \textasciitilde{} 10 minutes.
 
 \hypertarget{chimeric-feature-filtering}{%
 \section{Chimeric feature filtering}\label{chimeric-feature-filtering}}
@@ -3184,13 +3195,371 @@ Note: Our TB data was is already demultiplexed.
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{metatranscriptomics-analysis-with-squeezemeta}{%
+\chapter{Metatranscriptomics Analysis with SqueezeMeta}\label{metatranscriptomics-analysis-with-squeezemeta}}
+
+\hypertarget{what-is-squeezemeta}{%
+\section{What is SqueezeMeta?}\label{what-is-squeezemeta}}
+
+SqueezeMeta is a fully automatic pipeline for metagenomics/metatranscriptomics. It includes multi-metagenome support that enables co-assembly of related metagenomes and retrieval of individual genomes{[}1{]}.
+
+\hypertarget{squeezemeta-workflow}{%
+\section{SqueezeMeta Workflow}\label{squeezemeta-workflow}}
+
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/SqueezeMeta_workflow.png}
+Figure 1: Workflow of the three modes of operation of SqueezeMeta: sequential, co-assembly and merged. Starting from metagenomic samples, green, blue and red arrows indicate main steps in sequential, merged and co-assembly modes. All modes create two of the three main results tables: open reading frame (ORF) and contig tables. Co-assembly and merged modes also apply binning and, therefore, they also create the bin table.
+
+\hypertarget{tutorial-introduction}{%
+\section{Tutorial Introduction}\label{tutorial-introduction}}
+
+Over half of adults experience gingivitis, a mild yet treatable form of periodontal disease caused by the overgrowth
+of oral microbes. Left untreated, gingivitis can progress to a more severe and irreversible disease, most
+commonly chronic periodontitis. While periodontal diseases are associated with a shift in the oral microbiota
+composition, it remains unclear how this shift impacts microbiota function early in disease progression. Metatranscriptome
+sequencing analysis indicates that during the early stages of transition to gingivitis, a number of
+virulence-related transcripts were significantly differentially expressed in individual and across pooled patient
+samples{[}2{]}.
+
+In this tutorial we will analyze metatranscriptomic data from this study to identify gene function that may be associated
+with disease progressions. The publication for this data is located here \url{https://www.ncbi.nlm.nih.gov/pmc/articles/18.pdf}
+
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/gingivitis.png}
+Figure 2: Study design and visualization of the progression from health to periodontal disease. On the left, the covered or uncovered teeth depict the study design utilized, in which an acrylic stent (shown in blue) was worn to cover either the entire top or bottom set of teeth during brushing throughout the course of the experiment, 2 weeks. The images on the right illustrate the clinical symptoms associated with gingivitis that were scored by trained dental professionals in this study. An modified gingival index (MGI) score of 0 represents a healthy tooth with no indication of inflammation (shown by increasing redness at the gum) or plaque (tan color on tooth). Healthy periodontia progress through various degrees of gingivitis as depicted by the MGI 1, MGI 2, and MGI 3 panels and can eventually progress to the destructive gum disease, chronic periodontitis, shown on the far right.
+
+Many of the steps have been completed beforehand. However, instructions and code are provided so that you
+can build the database and format the metadata that we will use with SqueezeMeta.
+
+\hypertarget{conda-environment}{%
+\section{Conda Environment}\label{conda-environment}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Do not do for this tutorial}
+
+\ExtensionTok{conda}\NormalTok{ create }\AttributeTok{{-}n}\NormalTok{ squeezemeta }\AttributeTok{{-}c}\NormalTok{ bioconda }\AttributeTok{{-}c}\NormalTok{ fpusan squeezemeta sra{-}tools}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{retrieve-databases}{%
+\section{Retrieve Databases}\label{retrieve-databases}}
+
+SqueezeMeta provides a couple scripts that will allow you to download the NCBI taxonomy tree and RefSeq
+reference genomes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make a new directory and enter it.}
+
+\FunctionTok{mkdir}\NormalTok{ squeezemeta}
+\BuiltInTok{cd}\NormalTok{ squeezemeta}
+
+\CommentTok{\# Download from source and format the latest version of the annotation databases for use with SqueezeMeta. Do not do this step for this tutorial (It took \textasciitilde{}14 hours).}
+
+\ExtensionTok{make\_databases.pl}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/database}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-download-1}{%
+\section{Data Download}\label{data-download-1}}
+
+• This was done already but we will practice downloading data from SRA. Download the metadata from SRA
+
+• Copy the following link into a web browser \url{https://www.ncbi.nlm.nih.gov/bioproject/PRJNA387475}
+
+• Select the RNA Seq data with the following SRA IDs and send to the Run selector.
+
+-- SRR5787581
+-- SRR5787582
+-- SRR5787583
+-- SRR5787584
+-- SRR5787585
+-- SRR5787586
+
+• Export the metadata to your computer and copy to logrus.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{\# Download from source and format the latest version of the annotation databases for use with SqueezeMeta. Do not do this step for this tutorial (It took \textasciitilde{}14 hours).}
+
+\CommentTok{\# Parse the metadata to extract the SRR IDs and sample names. This will be need to create sample\_file.txt}
+\FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{},\textquotesingle{}} \StringTok{\textquotesingle{}\{if ($0 !\textasciitilde{}"\^{}Run") print $1,$27\}\textquotesingle{}}\NormalTok{ SraRunTable.txt }\KeywordTok{|} \FunctionTok{sort} \AttributeTok{{-}t\_} \AttributeTok{{-}k2} \AttributeTok{{-}k1} \OperatorTok{\textgreater{}}\NormalTok{ sample\_groups.txt}
+
+\CommentTok{\# Create the sample\_file.txt file from the sample\_groups.txt file}
+\FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{} \textquotesingle{}} \StringTok{\textquotesingle{}\{print $2"\textbackslash{}t"$1"\_pass.fastq.gz""\textbackslash{}t""pair1"\}\textquotesingle{}} \DataTypeTok{\textbackslash{}}
+\NormalTok{sample\_groups.txt }\OperatorTok{\textgreater{}}\NormalTok{ sample\_file.txt}
+
+\CommentTok{\# Create a file with just the SRR accession IDs}
+\FunctionTok{awk} \StringTok{\textquotesingle{}\{print $1\}\textquotesingle{}}\NormalTok{ sample\_groups.txt }\OperatorTok{\textgreater{}}\NormalTok{ sra\_ids.txt}
+\end{Highlighting}
+\end{Shaded}
+
+• Use the SRA ids for this study to download the raw fastq files from SRA using perfetch and fastq-dump from sra-tools.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Make a directory to store the fastq files}
+\FunctionTok{mkdir} \AttributeTok{{-}p}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq}
+
+\CommentTok{\# Move into fastq directory}
+\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq}
+
+\CommentTok{\# Download SRA data with prefetch}
+\ExtensionTok{prefetch} \AttributeTok{{-}O}\NormalTok{ . }\AttributeTok{{-}p}\NormalTok{ SRR5787581}
+
+\CommentTok{\# Convert SRA data to fastq format using fastq{-}dump from sra{-}tools}
+\ExtensionTok{fastq{-}dump} \AttributeTok{{-}{-}outdir}\NormalTok{ . }\AttributeTok{{-}{-}gzip} \AttributeTok{{-}{-}skip{-}technical} \AttributeTok{{-}{-}readids} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}read{-}filter pass }\AttributeTok{{-}{-}dumpbase} \AttributeTok{{-}{-}split{-}e} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}clip /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq/SRR5787581}
+
+\CommentTok{\# Use a for loop to download many fastq from SRA.}
+\CommentTok{\# Create a variable called ids to store the SRA ids that contained}
+\CommentTok{\# in the sra\_ids.txt file that we created previously}
+\VariableTok{ids}\OperatorTok{=}\VariableTok{$(}\OperatorTok{\textless{}}\NormalTok{sra\_ids.txt}\VariableTok{)}
+
+\CommentTok{\# Download SRA data with prefetch using a for loop}
+\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$ids}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{prefetch} \AttributeTok{{-}O}\NormalTok{ . }\AttributeTok{{-}p} \VariableTok{$j}\KeywordTok{;} \ControlFlowTok{done}
+
+\CommentTok{\# Convert SRA data to fastq format using a for loop}
+\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$ids}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{fastq{-}dump} \AttributeTok{{-}{-}outdir}\NormalTok{ . }\AttributeTok{{-}{-}gzip} \AttributeTok{{-}{-}skip{-}technical} \DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}readids }\AttributeTok{{-}{-}read{-}filter}\NormalTok{ pass }\AttributeTok{{-}{-}dumpbase} \AttributeTok{{-}{-}split{-}e} \AttributeTok{{-}{-}clip} \DataTypeTok{\textbackslash{}}
+\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq/}\VariableTok{$j}\KeywordTok{;} \ControlFlowTok{done}
+
+\CommentTok{\# Deactivate fastqdump environment}
+\ExtensionTok{conda}\NormalTok{ deactivate}
+\end{Highlighting}
+\end{Shaded}
+
+• Run SqueezeMeta. The top command runs SqueezeMeta using an assembly based method for metatranscriptomics. Unfortunately,
+the assembly based method my not be appropriate for this dataset. After assembly, less than 50\% of the
+reads aligned to the assembly. The bottom command uses the sqm\_read.pl script to perform a read based method for
+metatranscriptomics and may be more suited for this dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Activate squeezemeta environment}
+\BuiltInTok{source}\NormalTok{ activate squeezemeta}
+
+\CommentTok{\# Create a symbolic link to fastq files}
+\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq}
+\FunctionTok{ln} \AttributeTok{{-}s}\NormalTok{ /home/condasw/data/Metagenomics/SqueezeMeta/fastq/}\PreprocessorTok{*}\NormalTok{gz ./}
+
+\CommentTok{\# This is an assembly based method of metatranscriptomics (Finished running in \textasciitilde{}4.25 hours)}
+\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta}
+\ExtensionTok{SqueezeMeta.pl} \AttributeTok{{-}m}\NormalTok{ coassembly }\AttributeTok{{-}p}\NormalTok{ gingivitis\_assembly\_based }\AttributeTok{{-}s}\NormalTok{ sample\_file.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}f /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq }\AttributeTok{{-}a}\NormalTok{ megahit }\AttributeTok{{-}map}\NormalTok{ minimap2{-}sr}
+
+\CommentTok{\# This is read based method of metatranscriptomics (Finished running in \textasciitilde{}48 hours)}
+\ExtensionTok{sqm\_reads.pl} \AttributeTok{{-}p}\NormalTok{ gingivitis\_read\_based }\AttributeTok{{-}s}\NormalTok{ sample\_file.txt }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}f /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq }\DataTypeTok{\textbackslash{}}
+\NormalTok{{-}{-}memory 0.1 }\AttributeTok{{-}{-}num{-}cpu{-}threads}\NormalTok{ 12 }\AttributeTok{{-}{-}euk}
+
+\CommentTok{\# Softlink to pre{-}run output directory}
+\FunctionTok{ln} \AttributeTok{{-}s}\NormalTok{ /home/elavelle/squeezemeta/gingivitis\_2 /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/}
+
+\CommentTok{\# Launch R}
+\ExtensionTok{R}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{analysis-of-squeezemeta}{%
+\section{Analysis of SqueezeMeta}\label{analysis-of-squeezemeta}}
+
+• Load SQMtools library and analyze SqueezeMeta data.
+• SQMtools manuals \url{https://github.com/jtamames/SqueezeMeta/blob/master/SQMtools_0.5.0.pdf}
+• SQMtools and R tutorial \url{https://github.com/jtamames/SqueezeMeta/wiki/Using-R-to-analyze-your-SQM-results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load SQMtools library}
+\FunctionTok{library}\NormalTok{(}\StringTok{\textquotesingle{}SQMtools\textquotesingle{}}\NormalTok{)}
+\CommentTok{\# set working directory to directory containing gingivitis\_2 folder}
+\CommentTok{\# replace \textless{}username\textgreater{} with your username}
+\FunctionTok{setwd}\NormalTok{(}\StringTok{\textquotesingle{}/home/$USER/squeezemeta/\textquotesingle{}}\NormalTok{)}
+\CommentTok{\# Load SqueezeMeta data into R}
+\NormalTok{gingivitis }\OtherTok{=} \FunctionTok{loadSQM}\NormalTok{(}\StringTok{\textquotesingle{}gingivitis\_2\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth,height=\textheight]{./Figures/R_structure.jpg}
+\caption{R\_structure}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Access Matrix of genera and their abundances}
+\NormalTok{genus\_tax }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{taxa}\SpecialCharTok{$}\NormalTok{genus}\SpecialCharTok{$}\NormalTok{abund}
+
+\CommentTok{\# Look at the first 6 genera for all 6 samples}
+\NormalTok{genus\_tax[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
+
+\CommentTok{\# Access Matrix of KEGG ids and their abundances}
+\NormalTok{KEGG\_table }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund}
+
+\CommentTok{\# Look at the first 6 KEGG ids for all 6 samples}
+\NormalTok{KEGG\_table[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
+
+\CommentTok{\# What Genera are there?}
+\CommentTok{\# Plot the top 15 (N) taxonomies at the genus level}
+\CommentTok{\# Replace percent with abund to see raw abundance instead of percentages}
+\CommentTok{\# Save plots to file with ggplot2}
+\FunctionTok{library}\NormalTok{(}\StringTok{\textquotesingle{}ggplot2\textquotesingle{}}\NormalTok{)}
+\FunctionTok{pdf}\NormalTok{(}\StringTok{\textquotesingle{}genus\_abund.pdf\textquotesingle{}}\NormalTok{, }\AttributeTok{width=}\DecValTok{10}\NormalTok{, }\AttributeTok{height=}\DecValTok{8}\NormalTok{)}
+\FunctionTok{plotTaxonomy}\NormalTok{(gingivitis, }\AttributeTok{rank=}\StringTok{\textquotesingle{}genus\textquotesingle{}}\NormalTok{, }\AttributeTok{count=}\StringTok{\textquotesingle{}percent\textquotesingle{}}\NormalTok{, }\AttributeTok{N =} \DecValTok{15}\NormalTok{)}
+\FunctionTok{dev.off}\NormalTok{()}
+
+\CommentTok{\# Now, we know something about the microbial diversity in the samples,}
+\CommentTok{\# but what are they doing? We should check the functional}
+\CommentTok{\# profile(KEGG, COG and PFAM annotations) of the samples:}
+\FunctionTok{pdf}\NormalTok{(}\StringTok{\textquotesingle{}KEGG\_tpm.pdf\textquotesingle{}}\NormalTok{, }\AttributeTok{width=}\DecValTok{14}\NormalTok{, }\AttributeTok{height=}\DecValTok{12}\NormalTok{)}
+\FunctionTok{plotFunctions}\NormalTok{(gingivitis, }\AttributeTok{fun\_level =}\StringTok{"KEGG"}\NormalTok{, }\AttributeTok{count =}\StringTok{"tpm"}\NormalTok{, }\AttributeTok{N =} \DecValTok{20}\NormalTok{)}
+\FunctionTok{dev.off}\NormalTok{()}
+
+\CommentTok{\# Which functions are more abundant in the project? We use the DESeq2 package to}
+\CommentTok{\# analyze which functions are significantly more abundant in}
+\CommentTok{\# Load DESeq2 package}
+\FunctionTok{library}\NormalTok{(}\StringTok{\textquotesingle{}DESeq2\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Create the required matrix with the raw abundances, colData (metadata file)}
+\NormalTok{metadata }\OtherTok{=} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}MGI0\textquotesingle{}}\NormalTok{,}\DecValTok{3}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}MGI2\textquotesingle{}}\NormalTok{,}\DecValTok{3}\NormalTok{)))}
+\FunctionTok{rownames}\NormalTok{(metadata) }\OtherTok{=} \FunctionTok{colnames}\NormalTok{(gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund)}
+\FunctionTok{colnames}\NormalTok{(metadata)}\OtherTok{=}\StringTok{\textquotesingle{}condition\textquotesingle{}}
+
+\CommentTok{\# Verify sample order}
+\FunctionTok{all}\NormalTok{(}\FunctionTok{rownames}\NormalTok{(metadata)}\SpecialCharTok{==}\FunctionTok{colnames}\NormalTok{(gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund))}
+
+\CommentTok{\# Convert your data to the format required by DESeq2}
+\NormalTok{dds }\OtherTok{=} \FunctionTok{DESeqDataSetFromMatrix}\NormalTok{(}\AttributeTok{countData =}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund, }\AttributeTok{colData =}\NormalTok{ metadata,}
+\AttributeTok{design =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ condition)}
+
+\CommentTok{\# Remove low abundant KEGGs:}
+\NormalTok{keep }\OtherTok{=} \FunctionTok{rowSums}\NormalTok{(}\FunctionTok{counts}\NormalTok{(dds)) }\SpecialCharTok{\textgreater{}=} \DecValTok{10}
+\NormalTok{dds }\OtherTok{=}\NormalTok{ dds[keep,]}
+
+\CommentTok{\# Choose factor levels}
+\NormalTok{dds}\SpecialCharTok{$}\NormalTok{condition}\OtherTok{=}\FunctionTok{factor}\NormalTok{(dds}\SpecialCharTok{$}\NormalTok{condition, }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MGI2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MGI0\textquotesingle{}}\NormalTok{))}
+
+\CommentTok{\# Run DESeq2}
+\NormalTok{dds2}\OtherTok{=}\FunctionTok{DESeq}\NormalTok{(dds)}
+\NormalTok{results}\OtherTok{=}\FunctionTok{results}\NormalTok{(dds2, }\AttributeTok{name=}\StringTok{\textquotesingle{}condition\_MGI0\_vs\_MGI2\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Make and save MA plot}
+\DecValTok{6}
+\FunctionTok{pdf}\NormalTok{(}\StringTok{"MA\_plot.pdf"}\NormalTok{)}
+\FunctionTok{plotMA}\NormalTok{(results, }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{dev.off}\NormalTok{()}
+
+\CommentTok{\# Transform data}
+\NormalTok{rld }\OtherTok{\textless{}{-}} \FunctionTok{rlogTransformation}\NormalTok{(dds2)}
+
+\CommentTok{\# Create Heatmap based on KEGG expression}
+\NormalTok{sampleDists }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(}\FunctionTok{dist}\NormalTok{(}\FunctionTok{t}\NormalTok{(}\FunctionTok{assay}\NormalTok{(rld))))}
+\FunctionTok{library}\NormalTok{(gplots)}
+\FunctionTok{pdf}\NormalTok{(}\StringTok{"KEGG{-}heatmap{-}samples.pdf"}\NormalTok{, }\AttributeTok{w=}\DecValTok{50}\NormalTok{, }\AttributeTok{h=}\DecValTok{50}\NormalTok{, }\AttributeTok{pointsize=}\DecValTok{50}\NormalTok{)}
+\FunctionTok{heatmap.2}\NormalTok{(}\FunctionTok{as.matrix}\NormalTok{(sampleDists), }\AttributeTok{key=}\NormalTok{F, }\AttributeTok{trace=}\StringTok{"none"}\NormalTok{,}
+\AttributeTok{col=}\FunctionTok{colorpanel}\NormalTok{(}\DecValTok{100}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"white"}\NormalTok{),}
+\AttributeTok{margin=}\FunctionTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{30}\NormalTok{), }\AttributeTok{main=}\StringTok{"Sample Distance Matrix"}\NormalTok{)}
+\FunctionTok{dev.off}\NormalTok{()}
+
+\CommentTok{\# Principal components analysis}
+\CommentTok{\# Can do with built{-}in DESeq2 function:}
+\FunctionTok{pdf}\NormalTok{(}\StringTok{"KEGG\_pca.pdf"}\NormalTok{)}
+\FunctionTok{plotPCA}\NormalTok{(rld, }\AttributeTok{intgroup=}\FunctionTok{c}\NormalTok{(}\StringTok{"condition"}\NormalTok{))}
+\FunctionTok{dev.off}\NormalTok{()}
+
+\CommentTok{\# Get differential expression results for MGI0 vs MGI2}
+\NormalTok{MGI2\_from\_MGI0 }\OtherTok{\textless{}{-}} \FunctionTok{results}\NormalTok{(dds2, }\AttributeTok{contrast=}\FunctionTok{c}\NormalTok{(}\StringTok{"condition"}\NormalTok{, }\StringTok{"MGI0"}\NormalTok{, }\StringTok{"MGI2"}\NormalTok{))}
+
+\CommentTok{\# Order by adjusted p{-}value}
+\NormalTok{MGI2\_from\_MGI0 }\OtherTok{\textless{}{-}}\NormalTok{ MGI2\_from\_MGI0[}\FunctionTok{order}\NormalTok{(MGI2\_from\_MGI0}\SpecialCharTok{$}\NormalTok{padj), ]}
+
+\CommentTok{\# Merge with normalized count data}
+\NormalTok{resdata }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(MGI2\_from\_MGI0), }\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{counts}\NormalTok{(dds2, }\AttributeTok{normalized=}\ConstantTok{TRUE}\NormalTok{)),}
+\AttributeTok{by=}\StringTok{"row.names"}\NormalTok{, }\AttributeTok{sort=}\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(resdata)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"KEGG"}
+\FunctionTok{head}\NormalTok{(resdata, }\AttributeTok{n =} \DecValTok{15}\NormalTok{)}
+
+\CommentTok{\# Write results}
+\FunctionTok{write.csv}\NormalTok{(resdata, }\AttributeTok{file=}\StringTok{"MGI2\_from\_MGI0\_DE.csv"}\NormalTok{)}
+
+\CommentTok{\# Now we can subset the SqueezeMeta results and create heatmaps for the most significant KEGGs}
+\NormalTok{top15\_sigs }\OtherTok{=} \FunctionTok{subsetFun}\NormalTok{(gingivitis, }\AttributeTok{fun =} \StringTok{\textquotesingle{}K09942|K01775|K11607|K15022|K02647|K05524|K00176|K01267| \textbackslash{}}
+\StringTok{|K03469|K07095|K08987|K11604|K17472|K11645|K16950\textquotesingle{}}\NormalTok{, }\AttributeTok{fixed =}\NormalTok{ F)}
+\FunctionTok{pdf}\NormalTok{(}\StringTok{"top\_15\_sig.pdf"}\NormalTok{)}
+\FunctionTok{plotFunctions}\NormalTok{(top15\_sigs, }\AttributeTok{fun\_level =} \StringTok{"KEGG"}\NormalTok{, }\AttributeTok{count =} \StringTok{\textquotesingle{}tpm\textquotesingle{}}\NormalTok{)}
+\FunctionTok{dev.off}\NormalTok{()}
+
+\CommentTok{\# Now subset data for all significant pathways with padj \textless{}= 0.05}
+\CommentTok{\# First we will look at the DE results spreadsheet MGI0\_VS\_MGI2\_DE.CSV and select KEGGs with padj}
+\NormalTok{all\_sigs }\OtherTok{=} \FunctionTok{subsetFun}\NormalTok{(gingivitis, }\AttributeTok{fun =} \StringTok{\textquotesingle{}K09942|K01775|K11607|K15022|K02647|K05524|K00176|K01267|\textbackslash{}}
+\StringTok{|K03469|K07095|K08987|K11604|K17472|K11645|K16950|K16191|K06889|K15539|K19002|K00876|K02119|\textbackslash{}}
+\StringTok{|K02120|K16327|K06079|K08999|K04758|K11066|K08279|K09946|K02392|K11910|K03409|K07658|K01761|\textbackslash{}}
+\StringTok{|K02794|K01364|K01923|K00278|K01284|K01489|K09797|K21556|K15582|K12410|K13789|K14982|K15125|\textbackslash{}}
+\StringTok{|K06298|K03856|K00266|K03551|K09607|K04026|K03558|K20777|K02389|K01443|K03152|K11748|K02388|\textbackslash{}}
+\StringTok{|K03426|K03584|K05515|K12527|K00226|K01783|K07444|K11995|K11720|K11617|K01006|K02039|K16066|\textbackslash{}}
+\StringTok{|K00552|K16149|K03555|K17722|K01486|K07775|K07305|K03413|K03548|K09762|K03324|K07636|K00830|\textbackslash{}}
+\StringTok{|K02666|K03273|K02970|K03817|K12994|K12264|K07106|K22431|K00412|K06948|K00812|K01961|K07729|\textbackslash{}}
+\StringTok{|K00978|K03332|K03151|K06861|K13098|K02406|K06890|K01791|K13888|K00848|K02919|K00030|K01919|\textbackslash{}}
+\StringTok{|K02409|K22212|K22432|K02656|K08364|K01182|K09775|K15789|K18987|K22293|K07346|K11708|K00265|\textbackslash{}}
+\StringTok{|K05807|K04756|K03655|K03648|K01807|K16511|K00337|K13677|K00549|K02837|K02784|K07035|K07078|\textbackslash{}}
+\StringTok{|K07258|K02824|K02556|K01627|K06188|K02836|K03831|K10119|K09474|K02518|K03292|K03308|K00826|\textbackslash{}}
+\StringTok{|K06209|K02897|K02668|K21472|K12132|K06485|K07665|K03594|K00013|K03191|K01950|K01739|K01926|\textbackslash{}}
+\StringTok{|K03718|K07343|K02395|K19286|K19354|K03205|K00570|K07137|K02393|K03585|K16301|K03589|K01887|\textbackslash{}}
+\StringTok{|K03569|K00788|K05837|K19157|K02124|K02217|K07473|K06020|K16012|K02952|K03270|K03694|K20884|\textbackslash{}}
+\StringTok{|K19304|K00748|K06178|K03828|K07791|K01092|K01609|K00794|K01507|K02028|K03086|K07037|K03339|\textbackslash{}}
+\StringTok{|K06950|K07031|K09153|K13012|K00558|K02431|K03595|K02340|K08218|K07098|K01819|K18133|K06131|\textbackslash{}}
+\StringTok{|K07216|K07273|K01420|K07816|K00602|K00158|K19158|K01924|K04082|K05601|K11145|K02123|K02529|\textbackslash{}}
+\StringTok{|K01095|K11068|K06871|K02025|K02117|K11473|K03969|K14059|K01243|K01358|K20114|K07016|K09794|\textbackslash{}}
+\StringTok{|K12960|K03289|K01653|K03790|K04764|K03841|K03089|K10530|K02563|K01754|K02343|K02110|K09791|\textbackslash{}}
+\StringTok{|K06042|K03110|K13634|K01858|K04486|K00101|K01682|K03601\textquotesingle{}}\NormalTok{, }\AttributeTok{fixed =}\NormalTok{ F)}
+
+\CommentTok{\# To calculate the log{-}fold change of a KEGG, you can provide a list of vectors.}
+\CommentTok{\# Create vectors with sample names by condition (cond):}
+\NormalTok{MGI0.samples }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples[}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}MGI0\textquotesingle{}}\NormalTok{, gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples)]}
+\DecValTok{7}
+\NormalTok{MGI2.samples }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples[}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}MGI2\textquotesingle{}}\NormalTok{, gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples)]}
+\NormalTok{cond }\OtherTok{=} \FunctionTok{list}\NormalTok{(MGI0.samples, MGI2.samples)}
+
+\CommentTok{\# Choose colors, one per condition}
+\NormalTok{colors }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}\#006682\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\#c26e00\textquotesingle{}}\NormalTok{) }\DocumentationTok{\#\#006682 = blue , \#c26e00 = orange}
+
+\CommentTok{\# Plot log2 fold changes using copy number abundances in the selected KEGG pathway:}
+\CommentTok{\# beta{-}Lactam resistance Ko01501}
+\CommentTok{\# The hue of the color depends on the value of the log{-}fold{-}change calculated using}
+\CommentTok{\# copy numbers: the darkest orange implies a log{-}fold{-}change value \textgreater{}= 1.5}
+\CommentTok{\#(more abundant in MGI2) and the darkest blue a log{-}fold{-}change \textless{}= {-}1.5}
+\CommentTok{\#(more abundant in MGI0 samples). See Figure 3 below:}
+\FunctionTok{exportPathway}\NormalTok{(all\_sigs, }\StringTok{\textquotesingle{}01501\textquotesingle{}}\NormalTok{, }\AttributeTok{output\_suffix =} \StringTok{\textquotesingle{}beta\_lactam\_resis.log2FC\textquotesingle{}}\NormalTok{,}
+\AttributeTok{fold\_change\_colors =}\NormalTok{ colors, }\AttributeTok{fold\_change\_groups =}\NormalTok{ cond, }\AttributeTok{count =}\StringTok{\textquotesingle{}copy\_number\textquotesingle{}}\NormalTok{,}
+\AttributeTok{max\_scale\_value =} \DecValTok{10}\NormalTok{)}
+
+\CommentTok{\# Periodontal Pathogens Produce Quorum Sensing Signal Molecules}
+\FunctionTok{exportPathway}\NormalTok{(all\_sigs, }\StringTok{\textquotesingle{}02024\textquotesingle{}}\NormalTok{, }\AttributeTok{output\_suffix =} \StringTok{\textquotesingle{}Quorum\_sensing.log2FC\textquotesingle{}}\NormalTok{,}
+\AttributeTok{fold\_change\_colors =}\NormalTok{ colors, }\AttributeTok{fold\_change\_groups =}\NormalTok{ cond, }\AttributeTok{count =}\StringTok{\textquotesingle{}copy\_number\textquotesingle{}}\NormalTok{,}
+\AttributeTok{max\_scale\_value =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+{[}1{]} Tamames J, Puente-Sánchez F. SqueezeMeta, A Highly Portable, Fully Automatic Metagenomic Analysis Pipeline. Front
+Microbiol. 2019;9:3349. Published 2019 Jan 24. \url{doi:10.3389/fmicb.2018.03349}
+
+{[}2{]} Microbiota and Metatranscriptome Changes Accompanying the Onset of Gingivitis Emily M. Nowicki, Raghav Shroff, Jacqueline
+A. Singleton, Diane E. Renaud, Debra Wallace, Julie Drury, Jolene Zirnheld, Brock Colleti, Andrew D. Ellington,
+Richard J. Lamont, David A. Scott, Marvin Whiteley mBio. 2018 Mar-Apr; 9(2): e00575-18. Published online 2018 Apr 17.
+doi: 10.1128/mBio.00575-18 PMCID: PMC5904416.
+
 \hypertarget{centrifuge}{%
 \chapter{Centrifuge}\label{centrifuge}}
 
 \hypertarget{what-is-centrifuge}{%
 \section{What is Centrifuge?}\label{what-is-centrifuge}}
 
-very rapid and memory-efficient system for the classification of DNA sequences from microbial
+Centrifuge is very rapid and memory-efficient system for the classification of DNA sequences from microbial
 samples, with better sensitivity than and comparable accuracy to other leading systems. The system uses a
 novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index,
 optimized specifically for the metagenomic classification problem{[}1{]}.
@@ -3225,8 +3594,8 @@ build the full database indexes that we will use for classifying reads with Cent
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{data-download-1}{%
-\section{Data Download}\label{data-download-1}}
+\hypertarget{data-download-2}{%
+\section{Data Download}\label{data-download-2}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3264,6 +3633,7 @@ build the full database indexes that we will use for classifying reads with Cent
 
 Centrifuge provides a few scripts that will allow you to download the NCBI taxonomy tree and RefSeq reference
 genomes.
+
 • To map sequence identifiers to taxonomy IDs, and taxonomy IDs to names and their parents, three taxonomy tree files are
 necessary in addition to the reference fasta files:
 -- taxonomy tree files:
@@ -3282,6 +3652,7 @@ using custom taxonomy or sequence files, please refer to the manual section TODO
 is the link to the manual \url{https://ccb.jhu.edu/software/centrifuge/manual.shtml}
 
 • command flags:
+
 -o
 specifies the folder to which the files are downloaded.
 taxonomy
@@ -3299,11 +3670,15 @@ Argument indicates the database to download. The options are refseq, genbank, co
 on a reduced data set.
 
 • command flags:
+
 -a Only download genomes with the specified assembly level. Default: 'Complete Genome'. Use 'Any' for any assembly
 level.
+
 -m Mask low-complexity regions using dustmasker. This is part of the blast program that was installed in the metagenomics
 environment.
+
 -P Number of threads or processes to use when downloading.
+
 -d What domain to download. One or more of bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate\_
 mammalian, vertebrate\_other (comma separated).
 refseq Tells the program to use the refseq database.
@@ -3591,8 +3966,8 @@ abundant taxa by clicking on the up arrow next to ``TaxonReads''.
 
 • Can you can you identify the strain(s) of STEC that samples ERR2270960 and ERR2270961 likely contain?
 
-\hypertarget{references}{%
-\section{References}\label{references}}
+\hypertarget{references-1}{%
+\section{References}\label{references-1}}
 
 Gigliucci F, von Meijenfeldt FAB, Knijn A, Michelacci V, Scavia G, Minelli F, Dutilh BE, Ahmad HM, Raangs GC, Friedrich
 AW, Rossen JWA, Morabito S. Metagenomic Characterization of the Human Intestinal Microbiota in Fecal Samples from STECInfected
@@ -3604,364 +3979,6 @@ Res. 2016 Dec;26(12):1721-1729. Epub 2016 Oct 17. PubMed PMID: 27852649; PubMed 
 
 Lu J, Salzberg SL. Removing contaminants from databases of draft genomes. PLoS Comput Biol. 2018 Jun 25;14(6):e1006277.
 doi: 10.1371/journal.pcbi.1006277. eCollection 2018 Jun.~PubMed PMID: 29939994; PubMed Central PMCID: PMC6034898.
-
-\hypertarget{metatranscriptomics-analysis-with-squeezemeta}{%
-\chapter{Metatranscriptomics Analysis with SqueezeMeta}\label{metatranscriptomics-analysis-with-squeezemeta}}
-
-\hypertarget{what-is-squeezemeta}{%
-\section{What is SqueezeMeta?}\label{what-is-squeezemeta}}
-
-SqueezeMeta is a fully automatic pipeline for metagenomics/metatranscriptomics. It includes multi-metagenome support that enables co-assembly of related metagenomes and retrieval of individual genomes{[}1{]}.
-
-\hypertarget{squeezemeta-workflow}{%
-\section{SqueezeMeta Workflow}\label{squeezemeta-workflow}}
-
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/SqueezeMeta_workflow.png}
-Figure 1: Workflow of the three modes of operation of SqueezeMeta: sequential, co-assembly and merged. Starting from metagenomic samples, green, blue and red arrows indicate main steps in sequential, merged and co-assembly modes. All modes create two of the three main results tables: open reading frame (ORF) and contig tables. Co-assembly and merged modes also apply binning and, therefore, they also create the bin table.
-
-\hypertarget{tutorial-introduction}{%
-\section{Tutorial Introduction}\label{tutorial-introduction}}
-
-Over half of adults experience gingivitis, a mild yet treatable form of periodontal disease caused by the overgrowth
-of oral microbes. Left untreated, gingivitis can progress to a more severe and irreversible disease, most
-commonly chronic periodontitis. While periodontal diseases are associated with a shift in the oral microbiota
-composition, it remains unclear how this shift impacts microbiota function early in disease progression. Metatranscriptome
-sequencing analysis indicates that during the early stages of transition to gingivitis, a number of
-virulence-related transcripts were significantly differentially expressed in individual and across pooled patient
-samples{[}2{]}.
-
-In this tutorial we will analyze metatranscriptomic data from this study to identify gene function that may be associated
-with disease progressions. The publication for this data is located here \url{https://www.ncbi.nlm.nih.gov/pmc/articles/18.pdf}
-
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/gingivitis.png}
-Figure 2: Study design and visualization of the progression from health to periodontal disease. On the left, the covered or uncovered teeth depict the study design utilized, in which an acrylic stent (shown in blue) was worn to cover either the entire top or bottom set of teeth during brushing throughout the course of the experiment, 2 weeks. The images on the right illustrate the clinical symptoms associated with gingivitis that were scored by trained dental professionals in this study. An modified gingival index (MGI) score of 0 represents a healthy tooth with no indication of inflammation (shown by increasing redness at the gum) or plaque (tan color on tooth). Healthy periodontia progress through various degrees of gingivitis as depicted by the MGI 1, MGI 2, and MGI 3 panels and can eventually progress to the destructive gum disease, chronic periodontitis, shown on the far right.
-
-Many of the steps have been completed beforehand. However, instructions and code are provided so that you
-can build the database and format the metadata that we will use with SqueezeMeta.
-
-\hypertarget{conda-environment}{%
-\section{Conda Environment}\label{conda-environment}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Do not do for this tutorial}
-
-\ExtensionTok{conda}\NormalTok{ create }\AttributeTok{{-}n}\NormalTok{ squeezemeta }\AttributeTok{{-}c}\NormalTok{ bioconda }\AttributeTok{{-}c}\NormalTok{ fpusan squeezemeta sra{-}tools}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{retrieve-databases}{%
-\section{Retrieve Databases}\label{retrieve-databases}}
-
-SqueezeMeta provides a couple scripts that will allow you to download the NCBI taxonomy tree and RefSeq
-reference genomes.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Make a new directory and enter it.}
-
-\FunctionTok{mkdir}\NormalTok{ squeezemeta}
-\BuiltInTok{cd}\NormalTok{ squeezemeta}
-
-\CommentTok{\# Download from source and format the latest version of the annotation databases for use with SqueezeMeta. Do not do this step for this tutorial (It took \textasciitilde{}14 hours).}
-
-\ExtensionTok{make\_databases.pl}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/database}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{data-download-2}{%
-\section{Data Download}\label{data-download-2}}
-
-• This was done already but we will practice downloading data from SRA. Download the metadata from SRA
-
-• Copy the following link into a web browser \url{https://www.ncbi.nlm.nih.gov/bioproject/PRJNA387475}
-
-• Select the RNA Seq data with the following SRA IDs and send to the Run selector.
-
--- SRR5787581
--- SRR5787582
--- SRR5787583
--- SRR5787584
--- SRR5787585
--- SRR5787586
-
-• Export the metadata to your computer and copy to logrus.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\CommentTok{\# Download from source and format the latest version of the annotation databases for use with SqueezeMeta. Do not do this step for this tutorial (It took \textasciitilde{}14 hours).}
-
-\CommentTok{\# Parse the metadata to extract the SRR IDs and sample names. This will be need to create sample\_file.txt}
-\FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{},\textquotesingle{}} \StringTok{\textquotesingle{}\{if ($0 !\textasciitilde{}"\^{}Run") print $1,$27\}\textquotesingle{}}\NormalTok{ SraRunTable.txt }\KeywordTok{|} \FunctionTok{sort} \AttributeTok{{-}t\_} \AttributeTok{{-}k2} \AttributeTok{{-}k1} \OperatorTok{\textgreater{}}\NormalTok{ sample\_groups.txt}
-
-\CommentTok{\# Create the sample\_file.txt file from the sample\_groups.txt file}
-\FunctionTok{awk} \AttributeTok{{-}F}\StringTok{\textquotesingle{} \textquotesingle{}} \StringTok{\textquotesingle{}\{print $2"\textbackslash{}t"$1"\_pass.fastq.gz""\textbackslash{}t""pair1"\}\textquotesingle{}} \DataTypeTok{\textbackslash{}}
-\NormalTok{sample\_groups.txt }\OperatorTok{\textgreater{}}\NormalTok{ sample\_file.txt}
-
-\CommentTok{\# Create a file with just the SRR accession IDs}
-\FunctionTok{awk} \StringTok{\textquotesingle{}\{print $1\}\textquotesingle{}}\NormalTok{ sample\_groups.txt }\OperatorTok{\textgreater{}}\NormalTok{ sra\_ids.txt}
-\end{Highlighting}
-\end{Shaded}
-
-• Use the SRA ids for this study to download the raw fastq files from SRA using perfetch and fastq-dump from sra-tools.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Make a directory to store the fastq files}
-\FunctionTok{mkdir} \AttributeTok{{-}p}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq}
-
-\CommentTok{\# Move into fastq directory}
-\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq}
-
-\CommentTok{\# Download SRA data with prefetch}
-\ExtensionTok{prefetch} \AttributeTok{{-}O}\NormalTok{ . }\AttributeTok{{-}p}\NormalTok{ SRR5787581}
-
-\CommentTok{\# Convert SRA data to fastq format using fastq{-}dump from sra{-}tools}
-\ExtensionTok{fastq{-}dump} \AttributeTok{{-}{-}outdir}\NormalTok{ . }\AttributeTok{{-}{-}gzip} \AttributeTok{{-}{-}skip{-}technical} \AttributeTok{{-}{-}readids} \DataTypeTok{\textbackslash{}}
-\NormalTok{{-}{-}read{-}filter pass }\AttributeTok{{-}{-}dumpbase} \AttributeTok{{-}{-}split{-}e} \DataTypeTok{\textbackslash{}}
-\NormalTok{{-}{-}clip /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq/SRR5787581}
-
-\CommentTok{\# Use a for loop to download many fastq from SRA.}
-\CommentTok{\# Create a variable called ids to store the SRA ids that contained}
-\CommentTok{\# in the sra\_ids.txt file that we created previously}
-\VariableTok{ids}\OperatorTok{=}\VariableTok{$(}\OperatorTok{\textless{}}\NormalTok{sra\_ids.txt}\VariableTok{)}
-
-\CommentTok{\# Download SRA data with prefetch using a for loop}
-\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$ids}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{prefetch} \AttributeTok{{-}O}\NormalTok{ . }\AttributeTok{{-}p} \VariableTok{$j}\KeywordTok{;} \ControlFlowTok{done}
-
-\CommentTok{\# Convert SRA data to fastq format using a for loop}
-\ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \VariableTok{$ids}\KeywordTok{;} \ControlFlowTok{do} \ExtensionTok{fastq{-}dump} \AttributeTok{{-}{-}outdir}\NormalTok{ . }\AttributeTok{{-}{-}gzip} \AttributeTok{{-}{-}skip{-}technical} \DataTypeTok{\textbackslash{}}
-\NormalTok{{-}{-}readids }\AttributeTok{{-}{-}read{-}filter}\NormalTok{ pass }\AttributeTok{{-}{-}dumpbase} \AttributeTok{{-}{-}split{-}e} \AttributeTok{{-}{-}clip} \DataTypeTok{\textbackslash{}}
-\NormalTok{/home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq/}\VariableTok{$j}\KeywordTok{;} \ControlFlowTok{done}
-
-\CommentTok{\# Deactivate fastqdump environment}
-\ExtensionTok{conda}\NormalTok{ deactivate}
-\end{Highlighting}
-\end{Shaded}
-
-• Run SqueezeMeta. The top command runs SqueezeMeta using an assembly based method for metatranscriptomics. Unfortunately,
-the assembly based method my not be appropriate for this dataset. After assembly, less than 50\% of the
-reads aligned to the assembly. The bottom command uses the sqm\_read.pl script to perform a read based method for
-metatranscriptomics and may be more suited for this dataset.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Activate squeezemeta environment}
-\BuiltInTok{source}\NormalTok{ activate squeezemeta}
-
-\CommentTok{\# Create a symbolic link to fastq files}
-\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq}
-\FunctionTok{ln} \AttributeTok{{-}s}\NormalTok{ /home/condasw/data/Metagenomics/SqueezeMeta/fastq/}\PreprocessorTok{*}\NormalTok{gz ./}
-
-\CommentTok{\# This is an assembly based method of metatranscriptomics (Finished running in \textasciitilde{}4.25 hours)}
-\BuiltInTok{cd}\NormalTok{ /home/}\VariableTok{$USER}\NormalTok{/squeezemeta}
-\ExtensionTok{SqueezeMeta.pl} \AttributeTok{{-}m}\NormalTok{ coassembly }\AttributeTok{{-}p}\NormalTok{ gingivitis\_assembly\_based }\AttributeTok{{-}s}\NormalTok{ sample\_file.txt }\DataTypeTok{\textbackslash{}}
-\NormalTok{{-}f /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq }\AttributeTok{{-}a}\NormalTok{ megahit }\AttributeTok{{-}map}\NormalTok{ minimap2{-}sr}
-
-\CommentTok{\# This is read based method of metatranscriptomics (Finished running in \textasciitilde{}48 hours)}
-\ExtensionTok{sqm\_reads.pl} \AttributeTok{{-}p}\NormalTok{ gingivitis\_read\_based }\AttributeTok{{-}s}\NormalTok{ sample\_file.txt }\DataTypeTok{\textbackslash{}}
-\NormalTok{{-}f /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/fastq }\DataTypeTok{\textbackslash{}}
-\NormalTok{{-}{-}memory 0.1 }\AttributeTok{{-}{-}num{-}cpu{-}threads}\NormalTok{ 12 }\AttributeTok{{-}{-}euk}
-
-\CommentTok{\# Softlink to pre{-}run output directory}
-\FunctionTok{ln} \AttributeTok{{-}s}\NormalTok{ /home/elavelle/squeezemeta/gingivitis\_2 /home/}\VariableTok{$USER}\NormalTok{/squeezemeta/}
-
-\CommentTok{\# Launch R}
-\ExtensionTok{R}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{analysis-of-squeezemeta}{%
-\section{Analysis of SqueezeMeta}\label{analysis-of-squeezemeta}}
-
-• Load SQMtools library and analyze SqueezeMeta data.
-• SQMtools manuals \url{https://github.com/jtamames/SqueezeMeta/blob/master/SQMtools_0.5.0.pdf}
-• SQMtools and R tutorial \url{https://github.com/jtamames/SqueezeMeta/wiki/Using-R-to-analyze-your-SQM-results}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Load SQMtools library}
-\FunctionTok{library}\NormalTok{(}\StringTok{\textquotesingle{}SQMtools\textquotesingle{}}\NormalTok{)}
-\CommentTok{\# set working directory to directory containing gingivitis\_2 folder}
-\CommentTok{\# replace \textless{}username\textgreater{} with your username}
-\FunctionTok{setwd}\NormalTok{(}\StringTok{\textquotesingle{}/home/$USER/squeezemeta/\textquotesingle{}}\NormalTok{)}
-\CommentTok{\# Load SqueezeMeta data into R}
-\NormalTok{gingivitis }\OtherTok{=} \FunctionTok{loadSQM}\NormalTok{(}\StringTok{\textquotesingle{}gingivitis\_2\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth,height=\textheight]{./Figures/R_structure.jpg}
-\caption{R\_structure}
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Access Matrix of genera and their abundances}
-\NormalTok{genus\_tax }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{taxa}\SpecialCharTok{$}\NormalTok{genus}\SpecialCharTok{$}\NormalTok{abund}
-
-\CommentTok{\# Look at the first 6 genera for all 6 samples}
-\NormalTok{genus\_tax[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
-
-\CommentTok{\# Access Matrix of KEGG ids and their abundances}
-\NormalTok{KEGG\_table }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund}
-
-\CommentTok{\# Look at the first 6 KEGG ids for all 6 samples}
-\NormalTok{KEGG\_table[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
-
-\CommentTok{\# What Genera are there?}
-\CommentTok{\# Plot the top 15 (N) taxonomies at the genus level}
-\CommentTok{\# Replace percent with abund to see raw abundance instead of percentages}
-\CommentTok{\# Save plots to file with ggplot2}
-\FunctionTok{library}\NormalTok{(}\StringTok{\textquotesingle{}ggplot2\textquotesingle{}}\NormalTok{)}
-\FunctionTok{pdf}\NormalTok{(}\StringTok{\textquotesingle{}genus\_abund.pdf\textquotesingle{}}\NormalTok{, }\AttributeTok{width=}\DecValTok{10}\NormalTok{, }\AttributeTok{height=}\DecValTok{8}\NormalTok{)}
-\FunctionTok{plotTaxonomy}\NormalTok{(gingivitis, }\AttributeTok{rank=}\StringTok{\textquotesingle{}genus\textquotesingle{}}\NormalTok{, }\AttributeTok{count=}\StringTok{\textquotesingle{}percent\textquotesingle{}}\NormalTok{, }\AttributeTok{N =} \DecValTok{15}\NormalTok{)}
-\FunctionTok{dev.off}\NormalTok{()}
-
-\CommentTok{\# Now, we know something about the microbial diversity in the samples,}
-\CommentTok{\# but what are they doing? We should check the functional}
-\CommentTok{\# profile(KEGG, COG and PFAM annotations) of the samples:}
-\FunctionTok{pdf}\NormalTok{(}\StringTok{\textquotesingle{}KEGG\_tpm.pdf\textquotesingle{}}\NormalTok{, }\AttributeTok{width=}\DecValTok{14}\NormalTok{, }\AttributeTok{height=}\DecValTok{12}\NormalTok{)}
-\FunctionTok{plotFunctions}\NormalTok{(gingivitis, }\AttributeTok{fun\_level =}\StringTok{"KEGG"}\NormalTok{, }\AttributeTok{count =}\StringTok{"tpm"}\NormalTok{, }\AttributeTok{N =} \DecValTok{20}\NormalTok{)}
-\FunctionTok{dev.off}\NormalTok{()}
-
-\CommentTok{\# Which functions are more abundant in the project? We use the DESeq2 package to}
-\CommentTok{\# analyze which functions are significantly more abundant in}
-\CommentTok{\# Load DESeq2 package}
-\FunctionTok{library}\NormalTok{(}\StringTok{\textquotesingle{}DESeq2\textquotesingle{}}\NormalTok{)}
-
-\CommentTok{\# Create the required matrix with the raw abundances, colData (metadata file)}
-\NormalTok{metadata }\OtherTok{=} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}MGI0\textquotesingle{}}\NormalTok{,}\DecValTok{3}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}MGI2\textquotesingle{}}\NormalTok{,}\DecValTok{3}\NormalTok{)))}
-\FunctionTok{rownames}\NormalTok{(metadata) }\OtherTok{=} \FunctionTok{colnames}\NormalTok{(gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund)}
-\FunctionTok{colnames}\NormalTok{(metadata)}\OtherTok{=}\StringTok{\textquotesingle{}condition\textquotesingle{}}
-
-\CommentTok{\# Verify sample order}
-\FunctionTok{all}\NormalTok{(}\FunctionTok{rownames}\NormalTok{(metadata)}\SpecialCharTok{==}\FunctionTok{colnames}\NormalTok{(gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund))}
-
-\CommentTok{\# Convert your data to the format required by DESeq2}
-\NormalTok{dds }\OtherTok{=} \FunctionTok{DESeqDataSetFromMatrix}\NormalTok{(}\AttributeTok{countData =}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{functions}\SpecialCharTok{$}\NormalTok{KEGG}\SpecialCharTok{$}\NormalTok{abund, }\AttributeTok{colData =}\NormalTok{ metadata,}
-\AttributeTok{design =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ condition)}
-
-\CommentTok{\# Remove low abundant KEGGs:}
-\NormalTok{keep }\OtherTok{=} \FunctionTok{rowSums}\NormalTok{(}\FunctionTok{counts}\NormalTok{(dds)) }\SpecialCharTok{\textgreater{}=} \DecValTok{10}
-\NormalTok{dds }\OtherTok{=}\NormalTok{ dds[keep,]}
-
-\CommentTok{\# Choose factor levels}
-\NormalTok{dds}\SpecialCharTok{$}\NormalTok{condition}\OtherTok{=}\FunctionTok{factor}\NormalTok{(dds}\SpecialCharTok{$}\NormalTok{condition, }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}MGI2\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}MGI0\textquotesingle{}}\NormalTok{))}
-
-\CommentTok{\# Run DESeq2}
-\NormalTok{dds2}\OtherTok{=}\FunctionTok{DESeq}\NormalTok{(dds)}
-\NormalTok{results}\OtherTok{=}\FunctionTok{results}\NormalTok{(dds2, }\AttributeTok{name=}\StringTok{\textquotesingle{}condition\_MGI0\_vs\_MGI2\textquotesingle{}}\NormalTok{)}
-
-\CommentTok{\# Make and save MA plot}
-\DecValTok{6}
-\FunctionTok{pdf}\NormalTok{(}\StringTok{"MA\_plot.pdf"}\NormalTok{)}
-\FunctionTok{plotMA}\NormalTok{(results, }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
-\FunctionTok{dev.off}\NormalTok{()}
-
-\CommentTok{\# Transform data}
-\NormalTok{rld }\OtherTok{\textless{}{-}} \FunctionTok{rlogTransformation}\NormalTok{(dds2)}
-
-\CommentTok{\# Create Heatmap based on KEGG expression}
-\NormalTok{sampleDists }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(}\FunctionTok{dist}\NormalTok{(}\FunctionTok{t}\NormalTok{(}\FunctionTok{assay}\NormalTok{(rld))))}
-\FunctionTok{library}\NormalTok{(gplots)}
-\FunctionTok{pdf}\NormalTok{(}\StringTok{"KEGG{-}heatmap{-}samples.pdf"}\NormalTok{, }\AttributeTok{w=}\DecValTok{50}\NormalTok{, }\AttributeTok{h=}\DecValTok{50}\NormalTok{, }\AttributeTok{pointsize=}\DecValTok{50}\NormalTok{)}
-\FunctionTok{heatmap.2}\NormalTok{(}\FunctionTok{as.matrix}\NormalTok{(sampleDists), }\AttributeTok{key=}\NormalTok{F, }\AttributeTok{trace=}\StringTok{"none"}\NormalTok{,}
-\AttributeTok{col=}\FunctionTok{colorpanel}\NormalTok{(}\DecValTok{100}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"white"}\NormalTok{),}
-\AttributeTok{margin=}\FunctionTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{30}\NormalTok{), }\AttributeTok{main=}\StringTok{"Sample Distance Matrix"}\NormalTok{)}
-\FunctionTok{dev.off}\NormalTok{()}
-
-\CommentTok{\# Principal components analysis}
-\CommentTok{\# Can do with built{-}in DESeq2 function:}
-\FunctionTok{pdf}\NormalTok{(}\StringTok{"KEGG\_pca.pdf"}\NormalTok{)}
-\FunctionTok{plotPCA}\NormalTok{(rld, }\AttributeTok{intgroup=}\FunctionTok{c}\NormalTok{(}\StringTok{"condition"}\NormalTok{))}
-\FunctionTok{dev.off}\NormalTok{()}
-
-\CommentTok{\# Get differential expression results for MGI0 vs MGI2}
-\NormalTok{MGI2\_from\_MGI0 }\OtherTok{\textless{}{-}} \FunctionTok{results}\NormalTok{(dds2, }\AttributeTok{contrast=}\FunctionTok{c}\NormalTok{(}\StringTok{"condition"}\NormalTok{, }\StringTok{"MGI0"}\NormalTok{, }\StringTok{"MGI2"}\NormalTok{))}
-
-\CommentTok{\# Order by adjusted p{-}value}
-\NormalTok{MGI2\_from\_MGI0 }\OtherTok{\textless{}{-}}\NormalTok{ MGI2\_from\_MGI0[}\FunctionTok{order}\NormalTok{(MGI2\_from\_MGI0}\SpecialCharTok{$}\NormalTok{padj), ]}
-
-\CommentTok{\# Merge with normalized count data}
-\NormalTok{resdata }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(}\FunctionTok{as.data.frame}\NormalTok{(MGI2\_from\_MGI0), }\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{counts}\NormalTok{(dds2, }\AttributeTok{normalized=}\ConstantTok{TRUE}\NormalTok{)),}
-\AttributeTok{by=}\StringTok{"row.names"}\NormalTok{, }\AttributeTok{sort=}\ConstantTok{FALSE}\NormalTok{)}
-\FunctionTok{names}\NormalTok{(resdata)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"KEGG"}
-\FunctionTok{head}\NormalTok{(resdata, }\AttributeTok{n =} \DecValTok{15}\NormalTok{)}
-
-\CommentTok{\# Write results}
-\FunctionTok{write.csv}\NormalTok{(resdata, }\AttributeTok{file=}\StringTok{"MGI2\_from\_MGI0\_DE.csv"}\NormalTok{)}
-
-\CommentTok{\# Now we can subset the SqueezeMeta results and create heatmaps for the most significant KEGGs}
-\NormalTok{top15\_sigs }\OtherTok{=} \FunctionTok{subsetFun}\NormalTok{(gingivitis, }\AttributeTok{fun =} \StringTok{\textquotesingle{}K09942|K01775|K11607|K15022|K02647|K05524|K00176|K01267| \textbackslash{}}
-\StringTok{|K03469|K07095|K08987|K11604|K17472|K11645|K16950\textquotesingle{}}\NormalTok{, }\AttributeTok{fixed =}\NormalTok{ F)}
-\FunctionTok{pdf}\NormalTok{(}\StringTok{"top\_15\_sig.pdf"}\NormalTok{)}
-\FunctionTok{plotFunctions}\NormalTok{(top15\_sigs, }\AttributeTok{fun\_level =} \StringTok{"KEGG"}\NormalTok{, }\AttributeTok{count =} \StringTok{\textquotesingle{}tpm\textquotesingle{}}\NormalTok{)}
-\FunctionTok{dev.off}\NormalTok{()}
-
-\CommentTok{\# Now subset data for all significant pathways with padj \textless{}= 0.05}
-\CommentTok{\# First we will look at the DE results spreadsheet MGI0\_VS\_MGI2\_DE.CSV and select KEGGs with padj}
-\NormalTok{all\_sigs }\OtherTok{=} \FunctionTok{subsetFun}\NormalTok{(gingivitis, }\AttributeTok{fun =} \StringTok{\textquotesingle{}K09942|K01775|K11607|K15022|K02647|K05524|K00176|K01267|\textbackslash{}}
-\StringTok{|K03469|K07095|K08987|K11604|K17472|K11645|K16950|K16191|K06889|K15539|K19002|K00876|K02119|\textbackslash{}}
-\StringTok{|K02120|K16327|K06079|K08999|K04758|K11066|K08279|K09946|K02392|K11910|K03409|K07658|K01761|\textbackslash{}}
-\StringTok{|K02794|K01364|K01923|K00278|K01284|K01489|K09797|K21556|K15582|K12410|K13789|K14982|K15125|\textbackslash{}}
-\StringTok{|K06298|K03856|K00266|K03551|K09607|K04026|K03558|K20777|K02389|K01443|K03152|K11748|K02388|\textbackslash{}}
-\StringTok{|K03426|K03584|K05515|K12527|K00226|K01783|K07444|K11995|K11720|K11617|K01006|K02039|K16066|\textbackslash{}}
-\StringTok{|K00552|K16149|K03555|K17722|K01486|K07775|K07305|K03413|K03548|K09762|K03324|K07636|K00830|\textbackslash{}}
-\StringTok{|K02666|K03273|K02970|K03817|K12994|K12264|K07106|K22431|K00412|K06948|K00812|K01961|K07729|\textbackslash{}}
-\StringTok{|K00978|K03332|K03151|K06861|K13098|K02406|K06890|K01791|K13888|K00848|K02919|K00030|K01919|\textbackslash{}}
-\StringTok{|K02409|K22212|K22432|K02656|K08364|K01182|K09775|K15789|K18987|K22293|K07346|K11708|K00265|\textbackslash{}}
-\StringTok{|K05807|K04756|K03655|K03648|K01807|K16511|K00337|K13677|K00549|K02837|K02784|K07035|K07078|\textbackslash{}}
-\StringTok{|K07258|K02824|K02556|K01627|K06188|K02836|K03831|K10119|K09474|K02518|K03292|K03308|K00826|\textbackslash{}}
-\StringTok{|K06209|K02897|K02668|K21472|K12132|K06485|K07665|K03594|K00013|K03191|K01950|K01739|K01926|\textbackslash{}}
-\StringTok{|K03718|K07343|K02395|K19286|K19354|K03205|K00570|K07137|K02393|K03585|K16301|K03589|K01887|\textbackslash{}}
-\StringTok{|K03569|K00788|K05837|K19157|K02124|K02217|K07473|K06020|K16012|K02952|K03270|K03694|K20884|\textbackslash{}}
-\StringTok{|K19304|K00748|K06178|K03828|K07791|K01092|K01609|K00794|K01507|K02028|K03086|K07037|K03339|\textbackslash{}}
-\StringTok{|K06950|K07031|K09153|K13012|K00558|K02431|K03595|K02340|K08218|K07098|K01819|K18133|K06131|\textbackslash{}}
-\StringTok{|K07216|K07273|K01420|K07816|K00602|K00158|K19158|K01924|K04082|K05601|K11145|K02123|K02529|\textbackslash{}}
-\StringTok{|K01095|K11068|K06871|K02025|K02117|K11473|K03969|K14059|K01243|K01358|K20114|K07016|K09794|\textbackslash{}}
-\StringTok{|K12960|K03289|K01653|K03790|K04764|K03841|K03089|K10530|K02563|K01754|K02343|K02110|K09791|\textbackslash{}}
-\StringTok{|K06042|K03110|K13634|K01858|K04486|K00101|K01682|K03601\textquotesingle{}}\NormalTok{, }\AttributeTok{fixed =}\NormalTok{ F)}
-
-\CommentTok{\# To calculate the log{-}fold change of a KEGG, you can provide a list of vectors.}
-\CommentTok{\# Create vectors with sample names by condition (cond):}
-\NormalTok{MGI0.samples }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples[}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}MGI0\textquotesingle{}}\NormalTok{, gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples)]}
-\DecValTok{7}
-\NormalTok{MGI2.samples }\OtherTok{=}\NormalTok{ gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples[}\FunctionTok{grep}\NormalTok{(}\StringTok{\textquotesingle{}MGI2\textquotesingle{}}\NormalTok{, gingivitis}\SpecialCharTok{$}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{samples)]}
-\NormalTok{cond }\OtherTok{=} \FunctionTok{list}\NormalTok{(MGI0.samples, MGI2.samples)}
-
-\CommentTok{\# Choose colors, one per condition}
-\NormalTok{colors }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}\#006682\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\#c26e00\textquotesingle{}}\NormalTok{) }\DocumentationTok{\#\#006682 = blue , \#c26e00 = orange}
-
-\CommentTok{\# Plot log2 fold changes using copy number abundances in the selected KEGG pathway:}
-\CommentTok{\# beta{-}Lactam resistance Ko01501}
-\CommentTok{\# The hue of the color depends on the value of the log{-}fold{-}change calculated using}
-\CommentTok{\# copy numbers: the darkest orange implies a log{-}fold{-}change value \textgreater{}= 1.5}
-\CommentTok{\#(more abundant in MGI2) and the darkest blue a log{-}fold{-}change \textless{}= {-}1.5}
-\CommentTok{\#(more abundant in MGI0 samples). See Figure 3 below:}
-\FunctionTok{exportPathway}\NormalTok{(all\_sigs, }\StringTok{\textquotesingle{}01501\textquotesingle{}}\NormalTok{, }\AttributeTok{output\_suffix =} \StringTok{\textquotesingle{}beta\_lactam\_resis.log2FC\textquotesingle{}}\NormalTok{,}
-\AttributeTok{fold\_change\_colors =}\NormalTok{ colors, }\AttributeTok{fold\_change\_groups =}\NormalTok{ cond, }\AttributeTok{count =}\StringTok{\textquotesingle{}copy\_number\textquotesingle{}}\NormalTok{,}
-\AttributeTok{max\_scale\_value =} \DecValTok{10}\NormalTok{)}
-
-\CommentTok{\# Periodontal Pathogens Produce Quorum Sensing Signal Molecules}
-\FunctionTok{exportPathway}\NormalTok{(all\_sigs, }\StringTok{\textquotesingle{}02024\textquotesingle{}}\NormalTok{, }\AttributeTok{output\_suffix =} \StringTok{\textquotesingle{}Quorum\_sensing.log2FC\textquotesingle{}}\NormalTok{,}
-\AttributeTok{fold\_change\_colors =}\NormalTok{ colors, }\AttributeTok{fold\_change\_groups =}\NormalTok{ cond, }\AttributeTok{count =}\StringTok{\textquotesingle{}copy\_number\textquotesingle{}}\NormalTok{,}
-\AttributeTok{max\_scale\_value =} \DecValTok{10}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{references-1}{%
-\section{References}\label{references-1}}
-
-{[}1{]} Tamames J, Puente-Sánchez F. SqueezeMeta, A Highly Portable, Fully Automatic Metagenomic Analysis Pipeline. Front
-Microbiol. 2019;9:3349. Published 2019 Jan 24. \url{doi:10.3389/fmicb.2018.03349}
-
-{[}2{]} Microbiota and Metatranscriptome Changes Accompanying the Onset of Gingivitis Emily M. Nowicki, Raghav Shroff, Jacqueline
-A. Singleton, Diane E. Renaud, Debra Wallace, Julie Drury, Jolene Zirnheld, Brock Colleti, Andrew D. Ellington,
-Richard J. Lamont, David A. Scott, Marvin Whiteley mBio. 2018 Mar-Apr; 9(2): e00575-18. Published online 2018 Apr 17.
-doi: 10.1128/mBio.00575-18 PMCID: PMC5904416.
 
   \bibliography{book.bib,packages.bib}
 

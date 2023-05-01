@@ -2,7 +2,7 @@
 
 ## What is Centrifuge?
 
-very rapid and memory-efficient system for the classification of DNA sequences from microbial
+Centrifuge is very rapid and memory-efficient system for the classification of DNA sequences from microbial
 samples, with better sensitivity than and comparable accuracy to other leading systems. The system uses a
 novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index,
 optimized specifically for the metagenomic classification problem[1].
@@ -68,6 +68,7 @@ $j; done
 
 Centrifuge provides a few scripts that will allow you to download the NCBI taxonomy tree and RefSeq reference
 genomes.
+
 • To map sequence identifiers to taxonomy IDs, and taxonomy IDs to names and their parents, three taxonomy tree files are
 necessary in addition to the reference fasta files:
 – taxonomy tree files:
@@ -83,6 +84,7 @@ using custom taxonomy or sequence files, please refer to the manual section TODO
 is the link to the manual https://ccb.jhu.edu/software/centrifuge/manual.shtml
 
 • command flags:
+
 -o
 specifies the folder to which the files are downloaded.
 taxonomy
@@ -98,11 +100,15 @@ centrifuge-download -o /home/$USER/centrifuge/taxonomy taxonomy
 on a reduced data set.
 
 • command flags:
+
 -a Only download genomes with the specified assembly level. Default: ’Complete Genome’. Use ’Any’ for any assembly
 level.
+
 -m Mask low-complexity regions using dustmasker. This is part of the blast program that was installed in the metagenomics
 environment.
+
 -P Number of threads or processes to use when downloading.
+
 -d What domain to download. One or more of bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate_
 mammalian, vertebrate_other (comma separated).
 refseq Tells the program to use the refseq database.
