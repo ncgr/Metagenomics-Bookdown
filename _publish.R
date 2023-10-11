@@ -4,7 +4,7 @@ unlink('_book', recursive = TRUE)
 
 x = readLines('index.Rmd')
 i = 1
-s = paste0('title: "Pangenomics Workshop NCGR (', c('Bootstrap', 'Tufte'), ' Style)"')
+s = paste0('title: "Metagenomics Workshop NCGR (', c('Bootstrap', 'Tufte'), ' Style)"')
 for (fmt in c('html_book', 'tufte_html_book')) {
   unlink('_book', recursive = TRUE)
   file.copy('index.Rmd', '_index.Rmd')
