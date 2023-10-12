@@ -4,7 +4,7 @@ title: "Metagenomics Workshop NCGR"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
+url: http://gateway.training.ncgr.org/metagenomics-workshop/
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
   This is a minimal example of using the bookdown package to write a book.
@@ -14,10 +14,11 @@ link-citations: yes
 github-repo: rstudio/bookdown-demo
 ---
 
+# Getting Started
 
-# Installs
+## Installs
 
-Make sure the following softward is installed on your local computer before the workshop. Please contact Ethan Price at inbre\@ncgr.org if you have questions.
+Make sure the following software is installed on your local computer before the workshop. Please contact Ethan Price at inbre\@ncgr.org if you have questions.
 
 1. [Zoom](https://zoom.us/download)
 
@@ -44,7 +45,7 @@ Install the correct version for your OS. Don't plan to use the web version, as t
 Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #6 and #7 to be complete
 
 
-# Connecting
+## Connecting
 
 1. Open your terminal.
 

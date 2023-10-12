@@ -1,4 +1,3 @@
-
 # Community Profiling and Metagenomics
 
 ## Microbes were the first life forms on this planet
@@ -567,28 +566,6 @@ https://www.illumina.com/systems/sequencing-platforms.html
 
 
 ![NCGR](./Figures/BenefitsMeta.png){width=100%}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ```
