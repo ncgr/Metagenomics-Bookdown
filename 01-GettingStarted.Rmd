@@ -1,1 +1,44 @@
 # Getting Started
+
+# Installs
+
+Make sure the following softward is installed on your local computer before the workshop. Please contact Ethan Price at inbre\@ncgr.org if you have questions.
+
+1. [Zoom](https://zoom.us/download)
+
+Install the correct version for your OS. Don't plan to use the web version, as this does not have enough features. 
+
+2. [Integrated Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/download)
+
+3. [MobaXterm](https://mobaxterm.mobatek.net/download.html) (Windows Users Only. Mac or Linux users will use their native terminal)
+
+* Download the "Home" "Installer" edition.  Be careful not to install the portable or professional editions.  
+
+* Before installing, extract the installer zip folder to any location on your computer.  
+
+* Now run the installer and follow the prompts.
+
+4. [Filezilla](https://filezilla-project.org/)
+
+5. [R](https://cran.rstudio.com/) (Latest Version for your OS)
+
+6. [RStudio](https://rstudio.com/products/rstudio/download/#download)
+
+7. [Pavian](https://github.com/fbreitwieser/pavian)
+
+Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #6 and #7 to be complete
+
+
+# Connecting
+
+1. Open your terminal.
+
+2. Type the following on your command line, substituting in your username for <username>.
+
+```
+ssh -p2310 <username>@inbre.ncgr.org
+```
+
+3. Enter your password.
+
+If you have trouble connecting, please contact Ethan Price at inbre\@ncgr.org.
