@@ -45,7 +45,7 @@ Install the correct version for your OS. Don't plan to use the web version, as t
 Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #6 and #7 to be complete
 
 
-## Connecting
+## Connecting to the linux server
 
 1. Open your terminal.
 
@@ -58,3 +58,92 @@ ssh -p2310 <username>@inbre.ncgr.org
 3. Enter your password.
 
 If you have trouble connecting, please contact Ethan Price at inbre\@ncgr.org.
+
+
+## Agenda
+
+Zoom link:
+
+Sessions are from 9-12 and 1-4 mountain time (M-F).
+
+_____
+
+**Monday**
+
+<span style="color: lightgray;">MORNING</span>\
+
+Introductions\
+<span style="color: forestgreen;">Linux</span> (Adam)
+
+<span style="color: lightgray;">AFTERNOON</span>\
+
+<span style="color: forestgreen;">Linux</span>(cont.) (Adam)
+
+
+_____
+
+**Tuesday**
+
+<span style="color: lightgray;">MORNING</span>\
+
+Community Profiling Overview (Adam)
+
+Nanopore Metagenomics (Adam)\
+<span style="color: forestgreen;">Filtering host DNA</span> (Adam)
+
+<span style="color: lightgray;">AFTERNOON</span>\
+
+Red alder nodule communities (Callum)
+
+Overview of Data Processing (Adam)
+
+Nanopore Metagenomics (cont)\
+<span style="color: forestgreen;">Read QC</span> (Adam)
+
+_____
+
+**Wednesday**
+
+<span style="color: lightgray;">MORNING</span>\
+
+Nanopore Metagenomics (cont)\
+<span style="color: forestgreen;">Community Profiling</span> (Joann)\
+<span style="color: forestgreen;">Metagenome Assembly</span> (Joann)
+
+<span style="color: lightgray;">AFTERNOON</span>\
+
+Illumina Metagenomics\
+<span style="color: forestgreen;">Community Profiling</span> (Evan)\
+
+_____
+
+**Thursday**
+
+<span style="color: lightgray;">MORNING</span>\
+
+Illumina Metagenomics (cont)\
+<span style="color: forestgreen;">Community Profiling</span> (Evan)\
+
+<span style="color: lightgray;">AFTERNOON</span>\
+
+Community Profiling Overview (cont) (Adam)
+
+_____
+
+**Friday**
+
+<span style="color: lightgray;">MORNING</span>\
+
+Illumina Metatranscriptomics\
+<span style="color: forestgreen;">Metatranscriptomics</span> (Evan)\
+
+<span style="color: lightgray;">AFTERNOON</span>\
+
+Illumina Shotgun Metagenomics\
+<span style="color: forestgreen;">Metatranscriptomics</span> (Evan)\
+
+Survey and Wrap-up (Evan)
+
+_____
+
+<span style="color: forestgreen;">Green</span> text indicates hands-on sessions. Please note that the timing might shift slightly.
