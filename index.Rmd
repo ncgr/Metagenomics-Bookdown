@@ -62,7 +62,7 @@ If you have trouble connecting, please contact Ethan Price at inbre\@ncgr.org.
 
 ## Agenda
 
-Zoom link:
+Zoom link: https://us06web.zoom.us/j/88310612275?pwd=RaVLwn7LGNynfygZqdLXwWak1CWkBf.1
 
 Sessions are from 9-12 and 1-4 mountain time (M-F).
 
@@ -89,7 +89,7 @@ _____
 Whole Genome (Shotgun) Metagenomics Overview (Adam)\
 
 Nanopore Whole Genome (Shotgun) Metagenomics (Adam)\
-<span style="color: forestgreen;">Filtering host DNA (minimap2)</span> (Adam)
+<span style="color: forestgreen;">Filtering host DNA (minimap2 and samtools)</span> (Adam)
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
