@@ -77,7 +77,7 @@ Introductions\
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
-<span style="color: forestgreen;">Linux</span>(cont.) (Adam)
+<span style="color: forestgreen;">Linux</span> (cont) (Adam)
 
 
 _____
@@ -86,19 +86,19 @@ _____
 
 <span style="color: lightgray;">MORNING</span>\
 
-Community Profiling Overview (Adam)
+Whole Genome (Shotgun) Metagenomics Overview (Adam)\
 
-Nanopore Metagenomics (Adam)\
-<span style="color: forestgreen;">Filtering host DNA</span> (Adam)
+Nanopore Whole Genome (Shotgun) Metagenomics (Adam)\
+<span style="color: forestgreen;">Filtering host DNA (minimap2)</span> (Adam)
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
-Red alder nodule communities (Callum)
+Red alder nodule communities (Callum)\
 
-Overview of Data Processing (Adam)
+Overview of Data Processing (Adam)\
 
-Nanopore Metagenomics (cont)\
-<span style="color: forestgreen;">Read QC</span> (Adam)
+Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
+<span style="color: forestgreen;">Read QC (PycoQC)</span> (Adam)\
 
 _____
 
@@ -106,14 +106,14 @@ _____
 
 <span style="color: lightgray;">MORNING</span>\
 
-Nanopore Metagenomics (cont)\
-<span style="color: forestgreen;">Community Profiling</span> (Joann)\
-<span style="color: forestgreen;">Metagenome Assembly</span> (Joann)
+Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
+<span style="color: forestgreen;">Community Profiling (KrakenUniq)</span> (Joann)\
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
-Illumina Metagenomics\
-<span style="color: forestgreen;">Community Profiling</span> (Evan)\
+<span style="color: forestgreen;">Metagenome Assembly (Flye)</span> (Joann)\
+
+16S Metagenomics Overview (Adam)\
 
 _____
 
@@ -121,12 +121,16 @@ _____
 
 <span style="color: lightgray;">MORNING</span>\
 
-Illumina Metagenomics (cont)\
-<span style="color: forestgreen;">Community Profiling</span> (Evan)\
+Illumina 16S Metagenomics\
+<span style="color: forestgreen;">Community Profiling (QIIME2)</span> (Evan)\
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
-Community Profiling Overview (cont) (Adam)
+Illumina 16S Metagenomics (cont)\
+<span style="color: forestgreen;">Community Profiling (QIIME2) (cont)</span> (Evan)\
+
+Illumina Whole Genome (Shotgun) Metagenomics (Centrifuge)\
+<span style="color: forestgreen;">Metatranscriptomics</span> (Evan)\
 
 _____
 
@@ -134,13 +138,12 @@ _____
 
 <span style="color: lightgray;">MORNING</span>\
 
-Illumina Metatranscriptomics\
+Illumina Metatranscriptomics (SqueezeMeta)\
 <span style="color: forestgreen;">Metatranscriptomics</span> (Evan)\
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
-Illumina Shotgun Metagenomics\
-<span style="color: forestgreen;">Metatranscriptomics</span> (Evan)\
+Catch-up and questions (Evan and Adam)
 
 Survey and Wrap-up (Evan)
 
