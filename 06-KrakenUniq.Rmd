@@ -54,28 +54,28 @@ You can also get prebuilt databases:
 https://benlangmead.github.io/aws-indexes/k2
 
 We will use a bacterial databases located here:  
-/home/cjb/indexes/krakenuniq/db_052422
+/home/data/metagenomics-2310/krakenuniq
 
 
 Link to it.
 ```{bash, eval=FALSE}
-ln -s /home/cjb/indexes/krakenuniq/db_052422/ .
+ln -s /home/data/metagenomics-2310/krakenuniq/ .
 ```
 
-The taxa it contains are here:  
-/home/cjb/indexes/krakenuniq/db_052422/library/bacteria/library_headers.orig
+The taxa it contains are here: 
+/home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
 
 Take a look at the file.
 How many sequences are there?
 
 How many genera?
 ```{bash, eval=FALSE}
-awk '{print $2}' /home/cjb/indexes/krakenuniq/db_052422/library/bacteria/library_headers.orig | sort -u| wc -l
+awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
 ```
 
 And how many of each genera?
 ```{bash, eval=FALSE}
-awk '{print $2}' /home/cjb/indexes/krakenuniq/db_052422/library/bacteria/library_headers.orig | sort | uniq -c | less
+awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort | uniq -c | less
 ```
 
 ## Run KrakenUniq
@@ -94,7 +94,7 @@ source activate krakenuniq
 Run Kraken on sample 3469-3.
 ```{bash, eval=FALSE}
 time krakenuniq \
-	--db /home/cjb/indexes/krakenuniq/db_052422 \
+	--db /home/data/metagenomics-2310/krakenuniq \
 	--threads 32 \
 	--report-file 3469-3.report \
 	--unclassified-out 3469-3.unclassified.fna \
