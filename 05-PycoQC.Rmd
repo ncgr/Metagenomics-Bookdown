@@ -1,4 +1,4 @@
-# PycoQC
+# Nanopore Read QC
 
 ### Quality Control{-}
 
@@ -19,7 +19,7 @@
 Where is it?
 
 ```
-/home/cjb/minion/2022/data/AlderNodule3469-3/3469-3/20220701_2144_MC-113445_FAS21661_134c02ac/sequencing_summary_FAS21661_9ac87089.txt
+/home/data/metagenomics-2310/red-alder-reads/sequencing_summary_FAS21661_9ac87089.txt
 ```
 
 ## PycoQC package & code
@@ -30,7 +30,7 @@ Where is it?
 + Type the following: 
 		
 ```
-source activate seqtools
+source activate pycoQC
 pycoQC
 pycoQC –f inputfilename.txt –o outputfilename.html
 ```
@@ -39,11 +39,11 @@ pycoQC –f inputfilename.txt –o outputfilename.html
 
 1. What terminal to copy from? What is the code?
 
-+ Open new Terminal window (Not Logrus, but keep Logrus terminal window open)	
++ Open new Terminal window but don't connect to the linux server	
 + Type:
 
 ```
-scp username@logrus.training.ncgr.org:/home/username/outputfile.html ~/Desktop/
+scp -P 2310 <username>@inbre.ncgr.org:/home/<username>/outputfile.html ~/Desktop/
 ```
 
 ## Open your URL
