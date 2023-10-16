@@ -104,7 +104,7 @@ Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
 Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
 <span style="color: forestgreen;">Community Profiling (KrakenUniq) (cont)</span> (Joann)\
 
-<span style="color: forestgreen;">Metagenome Assembly (metaFlye)</span> (Joann)\
+<span style="color: forestgreen;">Metagenome Assembly (metaFlye and Centrifuge)</span> (Joann)\
 
 _____
 
