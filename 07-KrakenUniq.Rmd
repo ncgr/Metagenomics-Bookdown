@@ -1,4 +1,5 @@
-# KrakenUniq
+# Nanopore WGS Community Profiling (KrakenUniq)\
+
 
 "confident and fast metagenomics classification using unique k-mer counts"
 

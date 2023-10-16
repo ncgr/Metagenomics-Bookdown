@@ -1,6 +1,6 @@
 <!—Comments here-->
 
-# Metagenome Assembly
+# Nanopore WGS Assembly (metaflye)\
 
 Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. We'll use the metagenomics module of the Flye assembler.
 

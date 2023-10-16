@@ -1,4 +1,4 @@
-# Community Profiling with QIIME2
+# Illumina 16S Community Profiling (QIIME2)
 
 Command Line Tutorial
 
