@@ -39,7 +39,7 @@ ln -s /home/data/metagenomics-2310/red-alder-reads/3469-3.all.fastq .
 
 ```
 minimap2 -x map-ont -L -t 8 -a \
-/home/cjb/indexes/red_alder_genome/consensus.fasta \
+/home/data/metagenomics-2310/red-alder-reads/red-alder-genome.fasta \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
