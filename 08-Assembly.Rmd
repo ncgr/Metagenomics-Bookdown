@@ -1,35 +1,17 @@
 <!—Comments here-->
 
-
 # Metagenome Assembly
 
+Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. We'll use the metagenomics module of the Flye assembler.
 
-We’ll do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules.
-
-Flye or metaflye
-Assemble the Root Nodule Metagenomes with Flye 
-Assemble the Root Nodule Metagenome using the Flye assembly program. 
-2 
 # Make a directory to store the Red Alder reference genome
 mkdir -p /home/username/minion/fasta
+
 # Copy or create a soft link to the Red Alder genome
-ln -s  /home/jsena/minion/fasta/red_alder_genome.fasta \
+ln -s /home/data/metagenomics-2310/red-alder-reads/red-alder-genome.fasta \
 /home/username/minion/fasta
-# Make a directory to store your results. Something like.
-mkdir -p /home/username/minion/minimap2
-# Run Minimap2.
-minimap2 -x map-ont -L -t 8 \
--a /home/username/minion/fasta/red_alder_genome.fasta \
-/home/username/minion/fastq/B15_1_N.fastq | \
-samtools view -f 4 -@ 8 -O BAM \
--T /home/username/minion/fasta/red_alder_genome.fasta \
--o /home/username/minion/minimap2/B15_unmap_sort.bam
-# Export bedtools to your path
-export PATH=/sw7/compbio/bedtool/bedtools2-2.29.2/bin:$PATH
-# Convert bam to fastq with bamtofastq
-bedtools bamtofastq \
--i /home/username/minion/minimap2/B15_unmap_sort.bam \
--fq /home/username/minion/fastq/B15_unmap_sort.fastq
+
+
 # export the metaflye environment to you path
 export PATH=/sw7/compbio/flye/Flye/bin:$PATH
 # Make a directory to store your output files. Something like.
