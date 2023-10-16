@@ -427,7 +427,7 @@ ls
 **s**ecure **c**o**p**y "scp" command
 
 + a secure way to copy files to/from a server while you're working on an outside network
-    + like from your home or starbucks to logrus and vice versa
+    + like from your home or starbucks to the linux server and vice versa
 
 #### Syntax: scp [options] sourcepath destinationpath{-}
 
