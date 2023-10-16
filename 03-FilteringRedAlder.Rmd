@@ -1,4 +1,4 @@
-# Filter out Red Alder Sequencing Reads
+# Filter Host Reads
 
 ![https://www.britannica.com/plant/alder#/media/1/13564/254209
 ](Figures/AlderTree.png){width=40%}
