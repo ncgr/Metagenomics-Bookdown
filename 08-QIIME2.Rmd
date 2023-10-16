@@ -1,5 +1,5 @@
+# Community Profiling with QIIME2
 
-# QIIME2
 Command Line Tutorial
 
 ## Logging on to the server

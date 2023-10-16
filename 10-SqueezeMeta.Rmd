@@ -1,4 +1,3 @@
-
 # Metatranscriptomics Analysis with SqueezeMeta
 
 ## What is SqueezeMeta?
