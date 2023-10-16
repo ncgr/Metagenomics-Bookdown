@@ -558,7 +558,7 @@ qiime emperor plot \
 
 # Download the files to examine in the Qiime viewer
 
-scp -P 44111 -r <username>@gateway.training.ncgr.org:~/QIIME2_Analysis/core-metrics-results Desktop/
+scp -P 2310 <username>@inbre.ncgr.org:~/QIIME2_Analysis/core-metrics-results ~/Desktop/
 
 ```
 
