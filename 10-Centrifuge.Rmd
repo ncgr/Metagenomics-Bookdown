@@ -30,7 +30,7 @@ build the full database indexes that we will use for classifying reads with Cent
 # Remember to start a screen
 # Activate the fastqdump environment
 
-source activate fastqdump
+source activate sra-tools
 ```
 
 ## Data Download
@@ -43,25 +43,6 @@ mkdir -p /home/$USER/centrifuge/taxonomy
 # Copy the reads into your fastq directory
 cp /home/elavelle/centrifuge/fastq/*.fastq /home/$USER/centrifuge/fastq
 
-# Detach screen while this takes place
-# This is an example for downloading a single fastq file from SRA:
-prefetch -O . -p ERR2271237
-fastq-dump --split-files --outdir . --gzip --skip-technical \
---readids --read-filter pass --dumpbase --split-e --clip \
-/home/$USER/ERR2271237
-conda deactivate
-# Do NOT do for this tutorial.
-# Use a for loop to download many files sequentially. First, write all of the SRA accession numbers
-# that you want to download into a file, e.g., PRJEB23207_accessions.txt
-# Use a for loop to store the SRA accession numbers from the PRJEB23207_accessions.txt file
-# into a variable named accessions
-accessions=`for i in PRJEB23207_accessions.txt; do cat $i;done`
-# Use a for loop to run prefetch fastq-dump for each SRA
-# accession number in the accessions variable
-for j in $accessions; do prefetch -O . -p $j; done
-for j in $accessions; do fastq-dump --outdir . --gzip --skip-technical \
---readids --read-filter pass --dumpbase --split-e --clip \
-$j; done
 ```
 
 ## Retrieve RefSeq and EuPathDB Data
@@ -121,6 +102,7 @@ centrifuge-download -o library -a "Complete Genome" -m -P 4 -d "fungi" refseq > 
 • Do not do: This database was pre-built for you to use in the tutorial. Download complete archaea, bacteria, viral and fungal
 genomes from RefSeq with the centrifuge–download commands. This is what you should do to build a more comprehensive
 RefSeq database containing only complete genomes.
+
 • At the time of download, there were 289 Archea, 13,287 bacterial, 8,583 viral, and 10 fungal genomes.
 
 ```{bash, eval=FALSE}
@@ -136,7 +118,7 @@ centrifuge-download -o library -a "Complete Genome" -m -P 30 -d "archaea,bacteri
 
 -c Only download genomes in the specified refseq category. Default: any.
 
->> Appends the human seqid2taxid. map to the previously generated fungi seqid2taxid.map file.
+Appends the human seqid2taxid. map to the previously generated fungi seqid2taxid.map file.
 
 ```{bash, eval=FALSE}
 # Took ~14 minutes during testing
@@ -157,7 +139,10 @@ mkdir -p /home/$USER/centrifuge/library/eupath
 cd /home/$USER/centrifuge/library/eupath
 
 # This wget command will download EuPathDB data from the following link.
-wget https://ccb.jhu.edu/data/eupathDB/dl/eupathDB.tar.gz
+wget http://ccb.jhu.edu/data/eupathDB/dl/eupathDB.tar.gz
+
+# This may take a long time. Perhaps copy instead:
+cp /home/elavelle/centrifuge/library/eupath/eupathDB.tar.gz ./
 
 # Uncompress the eupathDB.tar.gz file into the eupath directory. You should see
 # a directory named library
@@ -193,7 +178,7 @@ Build the Centrifuge indexes using the centrifuge-build command. This has been d
 hrs and ~ 410 GBs of RAM using 30 threads to build this database index on logrus. And, this was just using the
 “Complete Genome” Refseq genomes for archea, bacteria, viruses, fungi, human, and EuPathDB. I attempted
 to build a Centrifuge index using “All” RefSeq genomes for archea, bacteria, viruses, fungi, human plus the
-EuPAthDB but ran out of memory on logrus. I tried re-bulding this index on a higher memory server and Centrifuge
+EuPAthDB but ran out of memory on a high memory server and Centrifuge
 was using 890 GBs of RAM before I killed the program. So, unless you have high-capacity compute you
 may not be able to build the indexes on your system. But, the Centrifuge developers have provided various premade
 indexes that you can download here, ftp://ftp.ccb.jhu.edu/pub/infphilo/centrifuge/data/p+h+v.tar.gz,
@@ -201,7 +186,6 @@ with wget.
 
 • Do this exercise for this tutorial. Build the Centrifuge database indexes with the centrifuge-build command. This is to
 practice building an index.
-4
 
 • command flags:
 
@@ -257,23 +241,23 @@ samples at the same time.
 # Make a directory to store your results:
 mkdir -p /home/$USER/centrifuge/centrifuge_results
 # Run Centrifuge. It will take 10 - 20 minutes per sample to run.
-centrifuge -x /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
--1 /home/condasw/data/Metagenomics/centrifuge/ERR2271042_1.fastq \
--2 /home/condasw/data/Metagenomics/centrifuge/ERR2271042_2.fastq -t \
+centrifuge -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+-1 /data/centrifuge/ERR2271042_1.fastq \
+-2 /data/centrifuge/ERR2271042_2.fastq -t \
 -p 4 --met-file /home/$USER/centrifuge/centrifuge_results/ERR2271042_meta.txt --met-stderr \
 -S /home/$USER/centrifuge/centrifuge_results/ERR2271042_cent.out
 
 # If you have many samples to analyze, use a for loop to run centrifuge on each sample sequentially.
 # Use a for loop to store the names of the fastq files in a variable (like a list)
 # named fastq using the basename command
-fastq=`for i in /home/condasw/data/Metagenomics/centrifuge/*_1.fastq; do basename -s _1.fastq $i;done`
+fastq=`for i in data/centrifuge/*_1.fastq; do basename -s _1.fastq $i;done`
 # You can view the contents of the fastq variable with the echo command
 echo $fastq
 # Use a second for loop to read through the variable list and run centrifuge on each file in the list
 # sequentially.
-for j in $fastq; do centrifuge -x /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
--1 /home/condasw/data/Metagenomics/centrifuge/${j}_1.fastq \
--2 /home/condasw/data/Metagenomics/centrifuge/${j}_2.fastq -t -p 4 \
+for j in $fastq; do centrifuge -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+-1 /data/centrifuge/${j}_1.fastq \
+-2 /data/centrifuge/${j}_2.fastq -t -p 4 \
 --met-file /home/$USER/centrifuge/centrifuge_results/${j}_meta.txt --met-stderr \
 -S /home/$USER/centrifuge/centrifuge_results/${j}_cent.out; done
 ```
@@ -291,7 +275,7 @@ for j in $fastq; do centrifuge -x /home/condasw/db/centrifuge/complete_genomes/A
 # Make a directory to store your output files:
 mkdir -p /home/$USER/centrifuge/centrifuge_krn_results
 
-centrifuge-kreport -x /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+centrifuge-kreport -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
 /home/$USER/centrifuge/centrifuge_results/ERR2271042_cent.out \
 > /home/$USER/centrifuge/centrifuge_krn_results/ERR2271042_cent.out.krn
 ```
@@ -307,7 +291,7 @@ echo $output
 # Use a second for loop to read through the variable list and run centrifuge on each file in the list
 # sequentially.
 for j in $output; do centrifuge-kreport \
--x /home/condasw/db/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+-x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
 /home/$USER/centrifuge/centrifuge_results/${j}_cent.out > \
 /home/$USER/centrifuge/centrifuge_krn_results/${j}.krn; done
 ```
@@ -319,8 +303,8 @@ PRJEB23207_metadata.txt . Then, pipe the output to grep and exclude samples that
 Torrent PGM” platform
 
 ```{bash, eval=FALSE}
-# Copy the /home/condasw/data/Metagenomics/centrifuge/PRJEB23207_metadata.txt to your working directory
-cp /home/condasw/data/Metagenomics/centrifuge/PRJEB23207_metadata.txt \
+# Copy the /data/centrifuge/PRJEB23207_metadata.txt to your working directory
+cp /data/centrifuge/PRJEB23207_metadata.txt \
 /home/$USER/centrifuge
 # Use awk and grep to parse the metadata file
 # -F is the field separator flag. In this case the metadata file is tab-separated '\t'.
