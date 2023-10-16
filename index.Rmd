@@ -47,9 +47,12 @@ Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwi
 
 ## Agenda
 
-Zoom link:
+Zoom link: https://us06web.zoom.us/j/88310612275?pwd=RaVLwn7LGNynfygZqdLXwWak1CWkBf.1
 
-Sessions are from 9-12 and 1-4 mountain time (M-F).
+Sessions are from 9-12 and 1-4 mountain time (M-F). Please let us know (inbre@ncgr.org or during the workshop) if you have to miss part of a day.
+
+Zoom recordings:
+Please do not share these (see the Wrap Up chapter for more information).
 
 _____
 
@@ -74,7 +77,7 @@ _____
 Whole Genome (Shotgun) Metagenomics Overview (Adam)\
 
 Nanopore Whole Genome (Shotgun) Metagenomics (Adam)\
-<span style="color: forestgreen;">Filtering host DNA (minimap2)</span> (Adam)
+<span style="color: forestgreen;">Filtering host DNA (minimap2 and samtools)</span> (Adam)
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
