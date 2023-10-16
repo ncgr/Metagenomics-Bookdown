@@ -7,7 +7,7 @@ Command Line Tutorial
 Make it a practice to start a screen before you begin analysis.
 
 ```{bash, eval=FALSE}
-ssh -p 44111 <USERNAME>@gateway.training.ncgr.org
+ssh -p2310 <USERNAME>@inbre.ncgr.org
 
 screen -S QIIME2
 ```
@@ -43,7 +43,7 @@ assessing changes in bacterial and fungal communities.
 
 Data was downloaded from the National Center for Biotechnology Information (NCBI) based on the SRA accession
 numbers reported in the manuscript - PRJNA242354.
-A program called fastq-dump version 2.10.0 was used to download the data directly from NCBI SRA database. Tbe
+A program called fastq-dump version 2.10.0 was used to download the data directly from NCBI SRA database. The
 following exercise will help you use fastq-dump for your own projects too.
 
 ```{bash, eval=FALSE}
@@ -54,7 +54,8 @@ source activate fastqdump
 
 mkdir input_data
 cd input_data
-fastq-dump --gzip --outdir ./ \
+# download takes about 5 minutes
+/opt/sratoolkit.3.0.7-centos_linux64/bin/fasterq-dump --outdir ./ \
 SRR1204628 SRR1204630 SRR1204627 SRR1204629 SRR1204626 SRR1204623 \
 SRR1204625 SRR1204624 SRR1204622 SRR1204631 SRR1204638 SRR1204642 \
 SRR1204633 SRR1204632 SRR1204634 SRR1204639 SRR1204646 SRR1204647 \
@@ -72,8 +73,7 @@ SRR1369714 SRR1369717 SRR1369716 SRR1369715 SRR1369711 SRR1369712
 # To check, cd into folder that has fastq files, type this command
 ls| wc -l
 # Optional exercise:
-# Count the number of sequences in the two fastq files pertaining to one sample and sum them.
-conda deactivate
+# Count the number of sequences in one of the fastq files.
 ```
 
 ## Quality Control
@@ -302,7 +302,7 @@ Advantage: No reference is required.
 Disadvantage: Run time can be very expensive depending on the volume of data (parallel processing not possible)
 
 ```{bash, eval=FALSE}
-# EXAMPLE- DO NOT RUN THE ABOVE COMMAND TO COMPLETION.
+# EXAMPLE- DO NOT RUN THE BELOW COMMAND TO COMPLETION.
 
 qiime vsearch cluster-features-de-novo \
 --i-table table.qza \
@@ -330,7 +330,7 @@ Disadvantage: Inability to detect novel diversity with respect to your reference
 
 ```{bash, eval=FALSE}
 
-# EXAMPLE- DO NOT RUN THE ABOVE COMMAND TO COMPLETION
+# EXAMPLE- DO NOT RUN THE BELOW COMMAND TO COMPLETION
 
 qiime vsearch cluster-features-closed-reference \
 --i-table table.qza \
@@ -355,6 +355,10 @@ qiime vsearch cluster-features-open-reference \
 --o-clustered-table table-or-99.qza \
 --o-clustered-sequences rep-seqs-or-99.qza \
 --o-new-reference-sequences new-ref-seqs-or-99.qza
+
+# The above command will take too long, copy output:
+cp /home/elavelle/QIIME
+
 ```
 
 Combine reference-clustered features with de-novo clustered features
@@ -371,13 +375,15 @@ Evolution is the core concept of biology. There is only so much you can learn fr
 
 ```{bash, eval=FALSE}
 
-# Carry out a multiple sequence alignment using Mafft
+# Carry out a multiple sequence alignment using Mafft, takes too long to run for now.
 
 qiime alignment mafft \
 --i-sequences all-or-seqs-99.qza \
 --o-alignment aligned-rep-seqs.qza
 
-# THE ABOVE STEP SHOULD APPROXIMATELY TAKE 4 MINUTES TO RUN TO COMPLETION
+# Copy the output instead:
+
+cp /home/elavelle/QIIME2_Analysis/aligned-rep-seqs.qza ./
 
 # Mask (or filter) the alignment to remove positions that are highly variable. 
 # These positions are generally considered to add noise to a
@@ -396,6 +402,9 @@ qiime phylogeny fasttree \
 --o-tree unrooted-tree.qza
 
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 9 MINUTES TO RUN TO COMPLETION
+# Again, copy instead:
+
+cp /home/elavelle/QIIME2_Analysis/unrooted-tree.qza ./
 
 # root the tree using the longest root
 
@@ -421,7 +430,7 @@ Species richness is the number of species present in a system. However, the deep
 
 # EXAMPLE- DO NOT RUN THE ABOVE COMMAND TO COMPLETION
 
-cp /home/elavelle/mappingFile.txt ./
+cp /home/elavelle/QIIME2_Analysis/mappingFile.txt ./
 
 qiime diversity alpha-rarefaction \
 --i-table table-or-99.qza \
@@ -559,14 +568,15 @@ For many experiments, investigators aim to identify the organisms that are prese
 
 ```{bash, eval=FALSE}
 
-wget "https://data.qiime2.org/2020.6/common/gg-13-8-99-nb-classifier.qza"
+wget "https://data.qiime2.org/classifiers/greengenes/gg_2022_10_backbone_full_length.nb.qza"
 
 qiime feature-classifier classify-sklearn \
---i-classifier gg-13-8-99-nb-classifier.qza \
+--i-classifier gg_2022_10_backbone_full_length.nb.qza \
 --i-reads all-or-seqs-99.qza \
 --o-classification taxonomy.qza
 
-#THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 MINUTES TO RUN TO COMPLETION
+# This takes too long, copy instead:
+cp /home/elavelle/QIIME2_Analysis/taxonomy.qza ./
 
 qiime metadata tabulate \
 --m-input-file taxonomy.qza \
@@ -589,7 +599,7 @@ qiime taxa barplot \
 ```{bash, eval=FALSE}
 # Copy the visualization files
 
-scp -P 44111 <USERNAME>@gateway.training.ncgr.org:/home/<USERNAME>/QIIME2_1000_Analysis\
+scp -P2310 <USERNAME>@inbre.ncgr.org:/home/<USERNAME>/QIIME2_Analysis\
 /core-metrics-results/*.qzv ./
 ```
 
@@ -614,6 +624,9 @@ qiime feature-table filter-samples \
 --p-where "BodySite='Nasal'" \
 --o-filtered-table nasal-table.qza
 
+# Takes too long, copy:
+
+cp /home/elavelle/QIIME2_Analysis/nasal-table.qza ./
 =================================================
 
 # You should run the following command/plugin on your own dataset where you collapse 
@@ -642,6 +655,9 @@ qiime composition ancom \
 --m-metadata-file mappingFile.txt \
 --m-metadata-column Treatment \
 --o-visualization ancom-Treatment-nasal.qzv
+
+# Takes too long, copy instead:
+cp /home/elavelle/QIIME2_Analysis/ancom-Treatment-nasal.qzv ./
 ```
 
 EXERCISE: Preparing your raw sequence data and importing. This material closely follows the tutorial available at https://docs.qiime2.org/2021.2/tutorials/atacama-soils/
