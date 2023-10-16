@@ -12,12 +12,12 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
 4 Compress the fastq file using gzip.
 
-## Activate the environment that contains minimap2
+## Activate the environment that contains minimap2 and samtools
 
 ![](Figures/minimap2.png){width=80%}
 
 ```
-conda activate minimap2
+conda activate filter-reads
 ```
 
 + Make a directory and go into it
@@ -42,13 +42,10 @@ minimap2 -x map-ont -L -t 8 -a \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
-## Activate the environment that contains samtools
+## Now we will use samtools, with is available in the same environment
 
 ![](Figures/samtools.png){width=80%}
 
-```
-conda activate samtools
-```
 
 + Convert the unmapped reads in the alignment file (sam) to a fastq file
     + The -f4 includes only reads with the 4 flag (unmapped)
