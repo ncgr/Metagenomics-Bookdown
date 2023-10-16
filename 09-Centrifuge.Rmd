@@ -1,4 +1,4 @@
-# Centrifuge
+# Illumina Whole Genome (Shotgun) Metagenomics with Centrifuge
 
 ## What is Centrifuge?
 
