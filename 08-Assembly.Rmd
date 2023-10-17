@@ -15,11 +15,6 @@ mkdir ~/nodule-assembly
 cd ~/nodule-assembly
 ```
 
-Create a soft link to the Red Alder genome.
-
-```
-ln -s /home/data/metagenomics-2310/red-alder-reads/red-alder-genome.fasta .
-```
 
 Activate the environment.
 
@@ -27,11 +22,14 @@ Activate the environment.
 conda activate flye
 ```
 
-Assemble the metagenome with metaFlye. Don't forget the dot. That tells the program to put the output in the current directory.
+Assemble the metagenome with metaFlye. Don't forget the dot at the end. That tells the program to put the output in the current directory.
 
 ```
-flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq -i 1 --meta -t 8 -g 45m -o .
+flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq.gz -i 1 --meta -t 8 -g 45m -o .
 ```
+
+
+# Assembly Quality
 
 Assess the Quality of the Root Nodule Metagenome Assemblies with CheckM. It is in the same environment (flye).
 
@@ -63,4 +61,4 @@ Deactivate the environment.
 conda deactivate flye
 ```
 
-Note: You can classify the nanopore microbial reads or the assembly contigs using Centrifuge (community analysis). Note that we have already classified the reads with krakenuniq and the assemblies with checkM. You will learn how to use centrifuge when we work on Illumina whole genome (shotgun) data so we won't do it here.
+Note: We classified the reads with krakenuniq and the assemblies with checkM. But you can also classify the nanopore microbial reads or the assembly contigs using Centrifuge. You will learn how to use centrifuge when we work on Illumina whole genome (shotgun) data so we won't do it here.
