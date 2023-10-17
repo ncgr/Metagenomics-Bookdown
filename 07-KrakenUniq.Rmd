@@ -1,5 +1,6 @@
 # Nanopore WGS Community Profiling (KrakenUniq)\
 
+KrakenUniq
 
 "confident and fast metagenomics classification using unique k-mer counts"
 
@@ -19,19 +20,19 @@ https://gitlab.umiacs.umd.edu/derek/krakenuniq/-/blob/master/MANUAL.md
 
 **Kraken 1** is obsolete.
 
-**Centrifuge** was written to improve Kraken's memory issues. It is completely new code with a different classification index. Its databases are also much smaller. Centrifuge can assign a sequence to multiple taxa. We'll use centrifuge later in the course.
+**Centrifuge** was written to improve Kraken's memory issues. It is completely new code with a different classification index. Its databases are also much smaller. Centrifuge can assign a sequence to multiple taxa. We'll use centrifuge later in the workshop.
 
-**KrakenUniq** is based on Kraken 1. Adds an efficient algorithm to assess coverage of unique kmers, running at the same speed and with only slightly more memory than Kraken 1. KrakenUniq distinguishes low abundance organisms from false positives.
+**KrakenUniq** is based on Kraken 1. It adds an efficient algorithm to assess coverage of unique kmers, running at the same speed and with only slightly more memory than Kraken 1. KrakenUniq distinguishes low abundance organisms from false positives.
 
 **Kraken 2** uses "probabilistic data structures" to reduce memory and increase speed at the expense of lower accuracy that leads to false positives during the classifications ("a few dozen out of millions").
 
-**KrakenUniq** was updated in May 2022 (v0.7+) that helped to deal with the large databases on computers without enough RAM to load them into memory. Databases can be read in chunks that fit in RAM.
+**KrakenUniq** was updated in May 2022 (v0.7+) to help to deal with the large databases on computers without enough RAM to load them into memory. Databases can be read in chunks that fit in RAM.
 
 
 ![Kraken preload](./Figures/krakenFix.png){width=50%}
 
 
-KrakenUniq gives you k-mer coverage information, reporting the number and percentage k-mers hit by reads. This helps to differentiate between false positives and good classifications.
+KrakenUniq gives you k-mer coverage information, reporting the number and percentage k-mers in an organism that were hit by reads. This helps to differentiate between false positives and good classifications.
 
 ![Alignment](./Figures/align.png){width=50%}
 
@@ -57,43 +58,63 @@ https://benlangmead.github.io/aws-indexes/k2
 We will use a bacterial databases located here:  
 /home/data/metagenomics-2310/krakenuniq
 
-
-Link to it.
-```{bash, eval=FALSE}
-ln -s /home/data/metagenomics-2310/krakenuniq/ .
-```
-
-The taxa it contains are here: 
-/home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
-
-Take a look at the file.
-How many sequences are there?
-
-How many genera?
-```{bash, eval=FALSE}
-awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
-```
-
-And how many of each genera?
-```{bash, eval=FALSE}
-awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort | uniq -c | less
-```
-
-## Run KrakenUniq
-
 Make a working directory and go into it.
 ```{bash, eval=FALSE}
 mkdir ~/krakenuniq
 cd ~/krakenuniq
 ```
 
-Activate the KrakenUniq environment.
+Link to the KrakenUniq database.
 ```{bash, eval=FALSE}
+ln -s /home/data/metagenomics-2310/krakenuniq/ .
+```
+
+The taxa it contains are here:
+/home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+
+Take a look at the file using head.
+
+<details>
+  <summary>Click for Answer</summary>
+```
+head /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+```
+</details>\
+
+How many sequences are there?
+<details>
+  <summary>Click for Answer</summary>
+```
+wc -l /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+```
+</details>\
+
+How many genera (field 2)?
+<details>
+  <summary>Click for Answer</summary>
+```{bash, eval=FALSE}
+awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
+```
+</details>\
+
+And how many of each genera?
+<details>
+  <summary>Click for Answer</summary>
+```{bash, eval=FALSE}
+awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort | uniq -c | less
+```
+</details>\
+
+
+## Run KrakenUniq
+
+Activate the KrakenUniq environment.
+```
 source activate krakenuniq
 ```
 
 Run Kraken on sample 3469-3.
-```{bash, eval=FALSE}
+```
 time krakenuniq \
 	--db /home/data/metagenomics-2310/krakenuniq \
 	--threads 32 \
@@ -126,3 +147,6 @@ Copy the reports to your computer.
 Let's open them in Pavian.
 
 Information on installing and some things you can do in Pavian is in the Centrifuge chapter.
+
+Now run the other sample: 4956-3.microbe.fastq.gz
+
