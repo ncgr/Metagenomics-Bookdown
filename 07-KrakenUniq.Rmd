@@ -59,13 +59,13 @@ We will use a bacterial databases located here:
 /home/data/metagenomics-2310/krakenuniq
 
 Make a working directory and go into it.
-```{bash, eval=FALSE}
+```
 mkdir ~/krakenuniq
 cd ~/krakenuniq
 ```
 
 Link to the KrakenUniq database.
-```{bash, eval=FALSE}
+```
 ln -s /home/data/metagenomics-2310/krakenuniq/ .
 ```
 
@@ -92,7 +92,7 @@ wc -l /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.o
 How many genera (field 2)?
 <details>
   <summary>Click for Answer</summary>
-```{bash, eval=FALSE}
+```
 awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
 ```
 </details>\
@@ -100,7 +100,7 @@ awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/librar
 And how many of each genera?
 <details>
   <summary>Click for Answer</summary>
-```{bash, eval=FALSE}
+```
 awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort | uniq -c | less
 ```
 </details>\
@@ -119,34 +119,105 @@ time krakenuniq \
 	--db /home/data/metagenomics-2310/krakenuniq \
 	--threads 32 \
 	--report-file 3469-3.report \
-	--unclassified-out 3469-3.unclassified.fna \
-	--classified-out 3469-3.classified.fna \
+	--unclassified-out 3469-3.unclassified.fq \
+	--classified-out 3469-3.classified.fq \
 	~/microbe_fastq/3469-3.microbe.fq.gz \
 	> 3469-3.krakenuniqoutput
 ```
 
 
-Make sure you got the following files:
-3469-3.classified.fna
-3469-3.krakenuniqoutput
-3469-3.report
+Make sure you got the following files:\
+3469-3.classified.fna\
+3469-3.krakenuniqoutput\
+3469-3.report\
 3469-3.unclassified.fna
 
-This command will also bring up the input file as well (3469-3.microbe.fq.gz)
-```{bash, eval=FALSE}
+This command should show you all of them.
+
+```
 ls 3469*
 ```
 
 Use the less command to look at each of them.
 
-Now run it on the other samples.
+
+Take a closer look at the report and make sure that you understand each column (see below).
+
+<!--Have the students explain some of these using actual data in the file.-->
+
+____________
+
+**%**\
+percent reads belonging to that taxa (including its decsendants)\
+
+**reads**\
+reads belonging to that taxa (including its descendants)\
+
+<!--The reads makes the most sense biologically, not the taxreads. It looks like the other columns are based off of reads and not taxreads.-->
+
+**taxreads**\
+reads assigned to this taxonomic level (and not to its descendants)
+
+**kmers**\
+number of unique kmers
+
+**dup**\
+average kmer count
+
+**cov**\
+coverage of the kmers of the database clade\
+
+__________
+
+How many classified and unclassified reads are there?\
+Note: there are many ways to do this and you should get the same numbers no matter which file you look at.
+
+
+What percentage of the reads are from the Frankia genus?
+
+<details>
+  <summary>Click for Answer</summary>
+```
+# You can just look at the file
+
+less 3469-3.report
+
+# or
+
+grep Frankia 3469-3.report |grep genus
+## 51.04	1262819	420785	1309307	45.3	0.008317	1854	genus	                Frankia
+
+## 51.04% of the reads are from Frankia.
+```
+</details>\
+
+
+What is the next most frequent genus? What percentage of the reads belong to this genus?
+
+<details>
+  <summary>Click for Answer</summary>
+```
+# You can just look at the file or
+
+grep genus 3469-3.report|sort -g
+```
+
+<!--Have the students figure out what the -g is (general numerical sort). It allows you to sort the regular and scientific notation together.-->
+
+Now run it on the other sample (4956-3) and compare it to 3469-3.
 
 ## Pavian
 
 Copy the reports to your computer.
+
 Let's open them in Pavian.
 
-Information on installing and some things you can do in Pavian is in the Centrifuge chapter.
+If you haven't installed Pavian, visit the installs section above.
 
-Now run the other sample: 4956-3.microbe.fastq.gz
+Once you have Pavian installed, in your local R, type:\
+pavian::runApp(port=5000)
+
+More information on things you can do in Pavian is in the Centrifuge chapter.
+
+### Now run the other sample: 4956-3.microbe.fastq.gz{-}
 

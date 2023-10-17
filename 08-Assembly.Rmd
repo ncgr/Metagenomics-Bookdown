@@ -1,4 +1,4 @@
-<!—The pdf from the summer workshop has instructions on classifying reads and assembly contigs with Centrifuge. We won't do it here since they will learn Centrifuge with the Illumina data and we have already done the reads with krakenuniq.-->
+<!--The pdf from the summer workshop has instructions on classifying reads and assembly contigs with Centrifuge. We won't do it here since they will learn Centrifuge with the Illumina data and we have already done the reads with krakenuniq.-->
 
 # Nanopore WGS Assembly (metaflye)\
 
