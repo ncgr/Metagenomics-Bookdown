@@ -1,6 +1,6 @@
 <!—The pdf from the summer workshop has instructions on classifying reads and assembly contigs with Centrifuge. We won't do it here since they will learn Centrifuge with the Illumina data and we have already done the reads with krakenuniq.-->
 
-# Nanopore WGS Assembly (metaflye and Centrifuge)\
+# Nanopore WGS Assembly (metaflye)\
 
 ## Assembly
 
@@ -56,7 +56,6 @@ less ~/nodule-assembly/checkm/storage/bin_stats.analyze.tsv
 
 Download the marker_plot to your computer using scp, moba-xterm, or filezilla.
 
-Taxonomic Classification of Assembled Metagenome Contigs Using Centrifuge
 
 Deactivate the environment.
 
