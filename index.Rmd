@@ -42,7 +42,7 @@ Install the correct version for your OS. Don't plan to use the web version, as t
 
 7. [Pavian](https://github.com/fbreitwieser/pavian)
 
-Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #6 and #7 to be complete
+Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #5 and #6 to be complete
 
 
 ## Agenda
