@@ -211,10 +211,12 @@ Now run it on the other sample (4956-3) and compare it to 3469-3.
 Copy the reports to your computer.
 
 Let's open them in Pavian.
+<!--We haven't produced bam files for the alignment viewer. We do have sam files of reads aligned to the red alder genome but these aren't what is needed.-->
+
 
 If you haven't installed Pavian, visit the installs section above.
 
-Once you have Pavian installed, in your local R, type:\
+Once you have Pavian installed, in your local Rstudio, type:\
 pavian::runApp(port=5000)
 
 More information on things you can do in Pavian is in the Centrifuge chapter.
