@@ -64,11 +64,6 @@ mkdir ~/krakenuniq
 cd ~/krakenuniq
 ```
 
-Link to the KrakenUniq database.
-```
-ln -s /home/data/metagenomics-2310/krakenuniq/ .
-```
-
 The taxa it contains are here:
 /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
 
@@ -81,11 +76,21 @@ head /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.or
 ```
 </details>\
 
+<!--Point out that the first sequences are Rhizobium, which is a nitrogen fixer.-->
+
 How many sequences are there?
 <details>
   <summary>Click for Answer</summary>
 ```
 wc -l /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+```
+</details>\
+
+How many sequences are Frankia?
+<details>
+  <summary>Click for Answer</summary>
+```
+grep -c Frankia /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
 ```
 </details>\
 
@@ -108,9 +113,15 @@ awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/librar
 
 ## Run KrakenUniq
 
+Make sure you are in a screen. You can open a new screen or re-enter a screen you already have.
+
+```
+screen -S krakenuniq
+```
+
 Activate the KrakenUniq environment.
 ```
-source activate krakenuniq
+conda activate krakenuniq
 ```
 
 Run Kraken on sample 3469-3.
@@ -132,10 +143,10 @@ Make sure you got the following files:\
 3469-3.report\
 3469-3.unclassified.fna
 
-This command should show you all of them.
+This command should show you all of them and give you their sizes so you can make sure none of them are empty.
 
 ```
-ls 3469*
+ls -l 3469*
 ```
 
 Use the less command to look at each of them.
@@ -202,9 +213,13 @@ What is the next most frequent genus? What percentage of the reads belong to thi
 grep genus 3469-3.report|sort -g
 ```
 
-<!--Have the students figure out what the -g is (general numerical sort). It allows you to sort the regular and scientific notation together.-->
+<!--Have the students figure out what the -g is (general numerical sort) using the man command. It allows you to sort the regular and scientific notation together.-->
 
 Now run it on the other sample (4956-3) and compare it to 3469-3.
+
+<!--I put the students in groups for this.-->
+
+
 
 ## Pavian
 
@@ -221,5 +236,10 @@ pavian::runApp(port=5000)
 
 More information on things you can do in Pavian is in the Centrifuge chapter.
 
-### Now run the other sample: 4956-3.microbe.fastq.gz{-}
 
+
+Deactivate the environment
+
+```
+conda deactivate
+```
