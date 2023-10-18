@@ -43,7 +43,7 @@ flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq.gz -i 1 --meta -t 8 -g 45m -o 
 
 CheckM allows you to assess completeness and contamination of MAGs (Metagenome-assembled genomes). It is in the same environment (flye).
 
-CheckM puts each of your sequences in a phylogenetic tree and then looks for single-copy genes that should be in each sequence. The percentage of expected genes it finds is a measure of completeness. The number or multi-copy genes it finds are a measure of contamination.
+CheckM puts each of your sequences in a phylogenetic tree (if needed) and then looks for single-copy genes that should be in each sequence. The percentage of expected genes it finds is a measure of completeness. The number or multi-copy genes it finds are a measure of contamination.
 
 CheckM \
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4484387/pdf/1043.pdf \
@@ -64,6 +64,8 @@ CheckM at the genus level
 ```
 checkm taxonomy_wf genus Frankia ~/nodule-assembly ./checkm -x fasta -t 8 -f ./3469-3_tax_results.txt
 ```
+
+Note: We can also used the lineage_wf if we don't give it the workflow. It will place sequences on a tree and calculate their lineages.
 
 Plot the genome completeness, contamination and strain heterogeneity stats.
 
