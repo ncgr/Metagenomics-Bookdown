@@ -8,6 +8,13 @@ Metagenomic assemblies can help you recover genes and pathways present in a comm
 
 Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. We'll use the metagenomics module of the Flye assembler.
 
+Make sure you are in a screen.
+
+```
+screen -S assembly
+```
+
+
 Create a directory called nodule-assembly in your home directory. Then go into it.
 
 ```
