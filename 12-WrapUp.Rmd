@@ -33,12 +33,13 @@ Additional details from https://nminbre.nmsu.edu/cite-us/cite-us.html:
 </p>
 
 <p style="margin-left: 25px;">
-<span style="color: tan;">NIH requires the following format for citing INBRE support, to be used for presentations, publications, and other acknowledgements:</span>
+<span style="color: tan;">**NIH requires the following format for citing INBRE support, to be used for presentations, publications, and other acknowledgements:**</span>
 </p>
 
 <p style="margin-left: 25px;">
-<span style="color: tan;">Research reported in this publication was supported by an Institutional Development Award (IDeA) from the National Institute of General Medical Sciences of the National Institutes of Health under grant number P20GM103451.</span>
+<span style="color: tan;">*Research reported in this publication was supported by an Institutional Development Award (IDeA) from the National Institute of General Medical Sciences of the National Institutes of Health under grant number P20GM103451.*</span>
 </p>
+
 
 <p style="margin-left: 25px;">
 <span style="color: tan;">Additionally, in order to share your publications in our annual reporting, and to comply with NIH guidelines for open access, please include a PMCID with your publication.  Instructions: [Include PMCID in Citations](https://publicaccess.nih.gov/include-pmcid-citations.htm)</span>
