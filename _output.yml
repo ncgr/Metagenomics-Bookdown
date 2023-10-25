@@ -6,7 +6,7 @@ bookdown::gitbook:
         <li><a href="./">NCGR Metagenomics</a></li>
       after: |
         <li><a href="http://www.ncgr.ort" target="blank">&#169; National Center for Genome Resources</a></li>
-        <li><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">&#169; License: CC BY-NC-ND 4.0 DEED</a></li>
+        <li><a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">Licensed under CC BY-NC-ND 4.0 DEED</a></li>
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit: https://github.com/ncgr/Metagenomics-Bookdown/edit/main/%s
 #    download: ["pdf", "epub"]
