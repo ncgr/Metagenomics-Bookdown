@@ -26,6 +26,9 @@ For those of you who requested continued access to our server, we will extend yo
 
 Please note, if you use our servers to do analysis that you publish, you need to acknowledge the National Center for Genome Resources (NCGR) and the INBRE grant in your acknowledgements. Instructions for the latter can be found here: https://nminbre.nmsu.edu/cite-us/cite-us.html. This is really important for our annual reports so thank you in advance!
 
+Additionally, in order to share your publications in our annual reporting, and to comply with NIH guidelines for open access, please include a PMCID with your publication.  Instructions: [Include PMCID in Citations](https://publicaccess.nih.gov/include-pmcid-citations.htm).
+
+
 Additional details from https://nminbre.nmsu.edu/cite-us/cite-us.html:
 
 <p style="margin-left: 25px;">
@@ -40,10 +43,6 @@ Additional details from https://nminbre.nmsu.edu/cite-us/cite-us.html:
 <span style="color: tan;">*Research reported in this publication was supported by an Institutional Development Award (IDeA) from the National Institute of General Medical Sciences of the National Institutes of Health under grant number P20GM103451.*</span>
 </p>
 
-
-<p style="margin-left: 25px;">
-<span style="color: tan;">Additionally, in order to share your publications in our annual reporting, and to comply with NIH guidelines for open access, please include a PMCID with your publication.  Instructions: [Include PMCID in Citations](https://publicaccess.nih.gov/include-pmcid-citations.htm)</span>
-</p>
 
 ## Bookdown document
 You can share these with other individuals in your lab or fellow students/colleagues but please let us know who is using it so we can account for them on our annual reports (thank you!) (you can email Ethan: eprice\@ncgr.org and cc inbre\@ncgr.org).
