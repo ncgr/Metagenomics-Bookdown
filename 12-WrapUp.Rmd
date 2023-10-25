@@ -21,7 +21,7 @@ https://docs.google.com/forms/d/e/1FAIpQLSfGZwX2BL_ZyGgmvh4v41Q_886y-OiTESTbpvzo
 If you have bioinformatics or technical questions, please email inbre\@ncgr.org, which will send emails to everyone on the inbre team. If you have questions on passwords/password resets, payments, receipts, etc, please email Ethan Price at eprice\@ncgr.org and cc inbre\@ncgr.org. Occasionally, we change servers or change how to log in so if you are having issues, please contact us.
 
 
-## Server access and INBRE acknowledgements
+## Server access and required acknowledgements
 
 For those of you who requested continued access to our server, we will extend your account for 1 year. If you need it longer, please email us and we'll be happy to work with you. We ask that you don't run really large jobs while we are running workshops to avoid slowing things down. So, if you have a really large job to run, please check in with us so we can let you know when workshops will be happening.
 
