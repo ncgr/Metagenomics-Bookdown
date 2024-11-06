@@ -59,7 +59,7 @@ We will use a bacterial databases located here:
 /home/data/metagenomics-2310/krakenuniq
 
 Make a working directory and go into it.
-```
+```{bash,eval=FALSE}
 mkdir ~/krakenuniq
 cd ~/krakenuniq
 ```
@@ -71,7 +71,7 @@ Take a look at the file using head.
 
 <details>
   <summary>Click for Answer</summary>
-```
+```{bash,eval=FALSE}
 head /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
 ```
 </details>\
@@ -81,7 +81,7 @@ head /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.or
 How many sequences are there?
 <details>
   <summary>Click for Answer</summary>
-```
+```{bash,eval=FALSE}
 wc -l /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
 ```
 </details>\
@@ -89,7 +89,7 @@ wc -l /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.o
 How many sequences are Frankia?
 <details>
   <summary>Click for Answer</summary>
-```
+```{bash,eval=FALSE}
 grep -c Frankia /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
 ```
 </details>\
@@ -97,7 +97,7 @@ grep -c Frankia /home/data/metagenomics-2310/krakenuniq/library/bacteria/library
 How many genera (field 2)?
 <details>
   <summary>Click for Answer</summary>
-```
+```{bash,eval=FALSE}
 awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
 ```
 </details>\
@@ -105,14 +105,14 @@ awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/librar
 And how many of each genera?
 <details>
   <summary>Click for Answer</summary>
-```
+```{bash,eval=FALSE}
 awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort | uniq -c | less
 ```
 </details>\
 
 ## Link to the krakenuniq database
 
-```
+```{bash,eval=FALSE}
 ln -s /home/data/metagenomics-2310/krakenuniq/ .
 ```
 
@@ -120,17 +120,17 @@ ln -s /home/data/metagenomics-2310/krakenuniq/ .
 
 Make sure you are in a screen. You can open a new screen or re-enter a screen you already have.
 
-```
+```{bash,eval=FALSE}
 screen -S krakenuniq
 ```
 
 Activate the KrakenUniq environment.
-```
+```{bash,eval=FALSE}
 conda activate krakenuniq
 ```
 
 Run Kraken on sample 3469-3.
-```
+```{bash,eval=FALSE}
 time krakenuniq \
 	--db /home/data/metagenomics-2310/krakenuniq \
 	--threads 32 \
@@ -150,7 +150,7 @@ Make sure you got the following files:\
 
 This command should show you all of them and give you their sizes so you can make sure none of them are empty.
 
-```
+```{bash,eval=FALSE}
 ls -l 3469*
 ```
 
@@ -193,7 +193,7 @@ What percentage of the reads are from the Frankia genus?
 
 <details>
   <summary>Click for Answer</summary>
-```
+```{bash,eval=FALSE}
 # You can just look at the file
 
 less 3469-3.report
@@ -212,7 +212,7 @@ What is the next most frequent genus? What percentage of the reads belong to thi
 
 <details>
   <summary>Click for Answer</summary>
-```
+```{bash,eval=FALSE}
 # You can just look at the file or
 
 grep genus 3469-3.report|sort -g
@@ -245,6 +245,6 @@ More information on things you can do in Pavian is in the Centrifuge chapter.
 
 Deactivate the environment
 
-```
+```{bash,eval=FALSE}
 conda deactivate
 ```
