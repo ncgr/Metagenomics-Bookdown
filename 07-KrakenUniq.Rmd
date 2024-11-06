@@ -110,6 +110,11 @@ awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/librar
 ```
 </details>\
 
+## Link to the krakenuniq database
+
+```
+ln -s /home/data/metagenomics-2310/krakenuniq/ .
+```
 
 ## Run KrakenUniq
 
