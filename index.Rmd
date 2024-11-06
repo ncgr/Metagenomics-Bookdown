@@ -47,7 +47,7 @@ Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwi
 
 ## Agenda
 
-Zoom link: https://us06web.zoom.us/j/88310612275?pwd=RaVLwn7LGNynfygZqdLXwWak1CWkBf.1
+Zoom link: https://us06web.zoom.us/j/6272683319?omn=86300438354
 
 Sessions are from 9-12 and 1-4 mountain time (M-F). Please let us know (inbre@ncgr.org or during the workshop) if you have to miss part of a day.
 
@@ -113,15 +113,15 @@ _____
 <span style="color: lightgray;">MORNING</span>\
 
 Illumina 16S Metagenomics\
-<span style="color: forestgreen;">Community Profiling (QIIME2)</span> (Evan)\
+<span style="color: forestgreen;">Community Profiling (QIIME2)</span> (Adam)\
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
 Illumina 16S Metagenomics (cont)\
-<span style="color: forestgreen;">Community Profiling (QIIME2) (cont)</span> (Evan)\
+<span style="color: forestgreen;">Community Profiling (QIIME2) (cont)</span> (Adam)\
 
 Illumina Whole Genome (Shotgun) Metagenomics (Centrifuge)\
-<span style="color: forestgreen;">Metatranscriptomics</span> (Evan)\
+<span style="color: forestgreen;">Metatranscriptomics</span> (Joann)\
 
 _____
 
@@ -130,13 +130,13 @@ _____
 <span style="color: lightgray;">MORNING</span>\
 
 Illumina Metatranscriptomics (SqueezeMeta)\
-<span style="color: forestgreen;">Metatranscriptomics</span> (Evan)\
+<span style="color: forestgreen;">Metatranscriptomics</span> (Joann)\
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
-Catch-up and questions (Evan and Adam)
+Catch-up and questions (Joann and Adam)
 
-Survey and Wrap-up (Evan)
+Survey and Wrap-up (Joann)
 
 _____
 
