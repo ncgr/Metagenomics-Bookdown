@@ -42,7 +42,7 @@ Install the correct version for your OS. Don't plan to use the web version, as t
 
 7. [Pavian](https://github.com/fbreitwieser/pavian)
 
-Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #6 and #7 to be complete
+Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #5 and #6 to be complete
 
 
 ## Agenda
@@ -74,7 +74,7 @@ _____
 
 <span style="color: lightgray;">MORNING</span>\
 
-Whole Genome (Shotgun) Metagenomics Overview (Adam)\
+Community Profiling Part 1 (Adam)\
 
 Nanopore Whole Genome (Shotgun) Metagenomics (Adam)\
 <span style="color: forestgreen;">Filtering host DNA (minimap2 and samtools)</span> (Adam)
@@ -94,14 +94,17 @@ _____
 
 <span style="color: lightgray;">MORNING</span>\
 
+Community Profiling Part 2 (Adam)\
+
 Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
 <span style="color: forestgreen;">Community Profiling (KrakenUniq)</span> (Joann)\
 
 <span style="color: lightgray;">AFTERNOON</span>\
 
-<span style="color: forestgreen;">Metagenome Assembly (Flye)</span> (Joann)\
+Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
+<span style="color: forestgreen;">Community Profiling (KrakenUniq) (cont)</span> (Joann)\
 
-16S Metagenomics Overview (Adam)\
+<span style="color: forestgreen;">Metagenome Assembly (metaFlye and Centrifuge)</span> (Joann)\
 
 _____
 

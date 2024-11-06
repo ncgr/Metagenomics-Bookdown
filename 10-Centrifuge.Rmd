@@ -1,4 +1,4 @@
-# Illumina Whole Genome (Shotgun) Metagenomics with Centrifuge
+# Illumina WGS Community Profiling (Centrifuge)
 
 ## What is Centrifuge?
 

@@ -11,7 +11,7 @@
 + Used sunlight for energy to create biomass
 + Anaerobic (anoxic photosynthesis)
 
-![Muséum de Toulouse, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](./Figures/Stromatolite.png){width=60%}
+![Muséum de Toulouse, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](./Figures/Stromatolite.jpg){width=60%}
 
 ![Modern Stromatolites. Photo taken in March 2005 by Paul Harrison (Reading, UK) using a Sony CyberShot DSC-H1 digital camera.](./Figures/Stromatolites_in_sharkbay.png){width=60%}
 

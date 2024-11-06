@@ -12,7 +12,10 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 3 Create a fastq file with only the unaligned reads using samtools bam2fastq.
 4 Compress the fastq file using gzip.
 
-## Activate the environment that contains minimap2 and samtools
+## Setup
+
+
+Activate the environment that contains minimap2 and samtools
 
 ![](Figures/minimap2.png){width=80%}
 
@@ -20,22 +23,23 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 conda activate filter-reads
 ```
 
-+ Make a directory and go into it
+Make a directory and go into it
 
 ```
 mkdir ~/microbe_fastq
 cd ~/microbe_fastq
 ```
 
-+ Link to the merged minion reads
+Link to the merged minion reads
 
 ```
 ln -s /home/data/metagenomics-2310/red-alder-reads/3469-3.all.fastq .
 ```
 
+## Alignment
 
-+ Run Minimap2 to align the MinION reads to the red alder genome
-    + he -x map-ont parameter (allows ~10% error + divergence)
+Run Minimap2 to align the MinION reads to the red alder genome
+    + The -x map-ont parameter (allows ~10% error + divergence)
 
 ```
 minimap2 -x map-ont -L -t 8 -a \
@@ -43,19 +47,21 @@ minimap2 -x map-ont -L -t 8 -a \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
-## Now we will use samtools, with is available in the same environment
+## Get microbial reads
+
+Now we will use samtools, which is available in the same environment, to pull out reads that didn't align to red alder.
 
 ![](Figures/samtools.png){width=80%}
 
 
-+ Convert the unmapped reads in the alignment file (sam) to a fastq file
+Convert the unmapped reads in the alignment file (sam) to a fastq file
     + The -f4 includes only reads with the 4 flag (unmapped)
 
 ```
 samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
 ```
 
-+ Compress the new fastq file 
+Compress the new fastq file 
     + (note that it will automatically add the extension .gz)
 
 ```
