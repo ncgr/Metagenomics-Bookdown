@@ -276,7 +276,8 @@ for j in $fastq; do centrifuge -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_
 # Make a directory to store your output files:
 mkdir -p /home/$USER/centrifuge/centrifuge_krn_results
 
-centrifuge-kreport -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+centrifuge-kreport \
+-x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
 /home/$USER/centrifuge/centrifuge_results/ERR2271042_cent.out \
 > /home/$USER/centrifuge/centrifuge_krn_results/ERR2271042_cent.out.krn
 ```
