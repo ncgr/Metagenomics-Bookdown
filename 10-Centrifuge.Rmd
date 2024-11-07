@@ -305,8 +305,8 @@ PRJEB23207_metadata.txt . Then, pipe the output to grep and exclude samples that
 Torrent PGM” platform
 
 ```{bash, eval=FALSE}
-# Copy the /data/centrifuge/PRJEB23207_metadata.txt to your working directory
-cp /data/centrifuge/PRJEB23207_metadata.txt \
+# Copy the /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt to your working directory
+cp /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt \
 /home/$USER/centrifuge
 # Use awk and grep to parse the metadata file
 # -F is the field separator flag. In this case the metadata file is tab-separated '\t'.
