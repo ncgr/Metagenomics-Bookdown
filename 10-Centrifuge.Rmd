@@ -41,7 +41,7 @@ mkdir -p /home/$USER/centrifuge/fastq
 mkdir -p /home/$USER/centrifuge/taxonomy
 
 # Copy the reads into your fastq directory
-cp /home/elavelle/centrifuge/fastq/*.fastq /home/$USER/centrifuge/fastq
+cp /home/data/metagenomics-2310/centrifuge/*fastq /home/$USER/centrifuge/fastq
 
 ```
 
@@ -175,7 +175,7 @@ sed 's/|kraken[^|]*|/ /' fungi_Hum.fna > fungi_HumanFixed.fna
 ## Database building
 
 Build the Centrifuge indexes using the centrifuge-build command. This has been done for you already. It took 14
-hrs and ~ 410 GBs of RAM using 30 threads to build this database index on logrus. And, this was just using the
+hrs and ~ 410 GBs of RAM using 30 threads to build this database index on the server. And, this was just using the
 “Complete Genome” Refseq genomes for archea, bacteria, viruses, fungi, human, and EuPathDB. I attempted
 to build a Centrifuge index using “All” RefSeq genomes for archea, bacteria, viruses, fungi, human plus the
 EuPAthDB but ran out of memory on a high memory server and Centrifuge
