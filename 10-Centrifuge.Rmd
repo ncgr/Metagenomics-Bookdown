@@ -73,7 +73,7 @@ Argument indicates the database to download. The options are refseq, genbank, co
 
 ```{bash, eval=FALSE}
 # Takes ~20 seconds
-source activate centrifuge
+conda activate centrifuge
 centrifuge-download -o /home/$USER/centrifuge/taxonomy taxonomy
 ```
 
