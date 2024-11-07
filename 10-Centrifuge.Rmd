@@ -293,7 +293,7 @@ echo $output
 # Use a second for loop to read through the variable list and run centrifuge on each file in the list
 # sequentially.
 for j in $output; do centrifuge-kreport \
--x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+-x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
 /home/$USER/centrifuge/centrifuge_results/${j}_cent.out > \
 /home/$USER/centrifuge/centrifuge_krn_results/${j}.krn; done
 ```
