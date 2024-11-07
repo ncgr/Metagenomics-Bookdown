@@ -48,7 +48,8 @@ cd squeezemeta
 # Let's start a screen:
 screen -S squeezemeta
 
-# Download from source and format the latest version of the annotation databases for use with SqueezeMeta. Do not do this step for this tutorial (It took ~14 hours).
+# Download from source and format the latest version of the annotation databases for use with SqueezeMeta.
+#Do not do this step for this tutorial (It took ~14 hours).
 
 make_databases.pl /home/$USER/squeezemeta/database
 ```
