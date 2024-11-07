@@ -28,9 +28,9 @@ build the full database indexes that we will use for classifying reads with Cent
 
 ```{bash, eval=FALSE}
 # Remember to start a screen
-# Activate the fastqdump environment
+# Activate the sra-tools environment
 
-source activate sra-tools
+conda activate sra-tools
 ```
 
 ## Data Download
