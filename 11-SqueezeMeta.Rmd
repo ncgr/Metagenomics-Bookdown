@@ -49,7 +49,7 @@ cd squeezemeta
 screen -S squeezemeta
 
 # Download from source and format the latest version of the annotation databases for use with SqueezeMeta.
-#Do not do this step for this tutorial (It took ~14 hours).
+# Do not do this step for this tutorial (It took ~14 hours).
 
 make_databases.pl /home/$USER/squeezemeta/database
 ```
@@ -69,14 +69,15 @@ make_databases.pl /home/$USER/squeezemeta/database
 – SRR5787585
 – SRR5787586
 
-• Export the metadata to your computer and copy to logrus.
+• Export the metadata to your computer and copy to the server.
+Or copy it from here: /home/data/metagenomics-2310/squeezemeta/SraRunTable.txt
 
 ```{bash, eval=FALSE}
 # Copy accessions list:
-cp /home/elavelle/squeezemeta/sra_ids.txt ./
+cp /home/data/metagenomics-2310/squeezemeta/sra_ids.txt .
 
 # Activate sra-tools environment:
-source activate sra-tools
+conda activate sra-tools
 
 # Run while creating metadata:
 while read line; do fasterq-dump -e 3 -O ./fastq/ ${line}; done < sra_ids.txt
