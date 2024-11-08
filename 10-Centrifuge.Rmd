@@ -1,3 +1,5 @@
+<!--We should probably update the databases that we pre-prepare for the studnets in 2025-->
+
 # Illumina WGS Community Profiling (Centrifuge)
 
 ## What is Centrifuge?
@@ -14,15 +16,14 @@ Microbiota in Fecal Samples from STEC-Infected Patients” [2]: https://www.fron
 All data used in this tutorial was retrieved from SRA with fastq-dump. SRAccession: PRJEB23207
 
 In this study, whole genome metagenomic sequencing was used to investigate possible changes in the composition
-of the intestinal microbiota in samples from patients with Shiga toxin-producing E. Coli (STEC) infection (N
-= 2) compared to Crohn’s Patients (N =4), healthy (N = 2) and healed controls (N = 3). Faeces samples,
+of the intestinal microbiota in samples from patients with Shiga toxin-producing E. Coli (STEC) infection (N = 2) compared to Crohn’s Patients (N =4), healthy (N = 2) and healed controls (N = 3). Feces samples,
 collected during an outbreak, from STEC infected patients showed a lower intestinal abundance of beneficial
 microorganisms in comparison to controls where those microorganisms predominated. These differences were
 observed with bioinformatic approaches and seemed to be related with the STEC infection. So, using the
 metagenomics data from this study can you identify the STEC positive samples? Can you identify the specific
 strain of STEC?
-Many of the steps have been done for you. However, I have provided instructions and code so that you can
-build the full database indexes that we will use for classifying reads with Centrifuge.
+
+Many of the steps have been done for you to save time. However, you will create some smaller databases as practice and we have also provided instructions and code so that you will know how to build large database indices if you need them for your own research.
 
 ## Environment
 
@@ -30,182 +31,250 @@ build the full database indexes that we will use for classifying reads with Cent
 # Remember to start a screen
 # Activate the sra-tools environment
 
+# Run this first; it makes sure your conda is pointing to the right path
+# If there is a system reboot, you will have to run it again
+
+echo "export PATH="/opt/anaconda3/bin:$PATH" > ~/.bashrc && source ~/.bashrc
+
 conda activate sra-tools
 ```
 
-## Data Download
+## Practice Database
+
+We will create a database that has only fungi and human genomes so that you learn how to create Centrifuge databases. For the Centrifuge analysis, we will use a much bigger database that we have created for you due to time constraints and space considerations. In the "Full Database" section we have the commands we used. If you need these for your own research, you can run them at a later time to ensure you have the most updated database and that you have the taxa you want included.
+
+### RefSeq and EuPathDB Data
+
+First create a centrifuge directory and another directory inside that called taxonomy.
 
 ```{bash, eval=FALSE}
 # Create a directory to store results
-mkdir -p /home/$USER/centrifuge/fastq
-mkdir -p /home/$USER/centrifuge/taxonomy
+# The -p directory creates parent directories (in this case "centrifuge") as needed
 
-# Copy the reads into your fastq directory
-cp /home/data/metagenomics-2310/centrifuge/*fastq /home/$USER/centrifuge/fastq
-
+mkdir -p ~/centrifuge/taxonomy
 ```
 
-## Retrieve RefSeq and EuPathDB Data
 
-Centrifuge provides a few scripts that will allow you to download the NCBI taxonomy tree and RefSeq reference
-genomes.
+Centrifuge provides a few scripts that will allow you to download the NCBI taxonomy tree and RefSeq reference genomes. In addition to the reference fasta files, we need the taxonomy tree files:
 
-• To map sequence identifiers to taxonomy IDs, and taxonomy IDs to names and their parents, three taxonomy tree files are
-necessary in addition to the reference fasta files:
-– taxonomy tree files:
+* nodes.dmp:   Links taxonomy IDs to their parents
 
-* nodes.dmp from the NCBI taxonomy dump. Links taxonomy IDs to their parents names.
+* names.dmp:   Links taxonomy IDs to their scientific name
 
-* names.dmp from the NCBI taxonomy dump. Links taxonomy IDs to their scientific name.
+* seqid2taxid.map: Links sequence IDs to taxonomy IDs
 
-* seqid2taxid.map is a tab-separated file that maps sequence IDs to taxonomy IDs.
+If you are using custom taxonomy or sequence files for the database, please refer to the manual (https://ccb.jhu.edu/software/centrifuge/manual.shtml)
 
-• When using the provided scripts to download the genomes, these files are automatically downloaded or generated. When
-using custom taxonomy or sequence files, please refer to the manual section TODO to learn more about their format. Here
-is the link to the manual https://ccb.jhu.edu/software/centrifuge/manual.shtml
+Let's download the taxonomy files. This gets the nodes.dmp and the names.dmp files.
 
-• command flags:
-
--o
-specifies the folder to which the files are downloaded.
-taxonomy
-Argument indicates the database to download. The options are refseq, genbank, contaminants or taxonomy.
+**Parameters**  
+-o &nbsp; &nbsp; specifies the folder to which the files are downloaded  
+taxonomy &nbsp; &nbsp; database to download = refseq, genbank, contaminants or taxonomy
 
 ```{bash, eval=FALSE}
+
 # Takes ~20 seconds
+
+conda deactivate # deactivate sra-tools environments
 conda activate centrifuge
-centrifuge-download -o /home/$USER/centrifuge/taxonomy taxonomy
+
+centrifuge-download -o ~/centrifuge/taxonomy taxonomy
 ```
 
-• Download complete fungal genomes from RefSeq with the centrifuge–download commands. Do this exercise for this tutorial
-on a reduced data set.
+Now lets download complete **fungal** genomes from RefSeq. It will also make the seqid2taxid.map file.
 
-• command flags:
-
--a Only download genomes with the specified assembly level. Default: ’Complete Genome’. Use ’Any’ for any assembly
-level.
-
--m Mask low-complexity regions using dustmasker. This is part of the blast program that was installed in the metagenomics
-environment.
-
--P Number of threads or processes to use when downloading.
-
--d What domain to download. One or more of bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate_
-mammalian, vertebrate_other (comma separated).
-refseq Tells the program to use the refseq database.
+**Parameters**  
+-a &nbsp; &nbsp; Only download genomes with the specified assembly level. Default: ’Complete Genome’. If you want any assembly level, use 'Any'  
+-m &nbsp; &nbsp; Mask low-complexity regions using dustmasker. This is part of the blast program that was installed in the metagenomics environment  
+-P &nbsp; &nbsp; Number of threads or processes to use when downloading  
+-d &nbsp; &nbsp; What domain to download. One or more of bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate_mammalian, vertebrate_other (comma separated). 
+refseq &nbsp; &nbsp; Tells the program to use the refseq database.
+-o &nbsp; &nbsp; Output directory
 
 ```{bash, eval=FALSE}
 # Takes about 1 minute
 centrifuge-download -o library -a "Complete Genome" -m -P 4 -d "fungi" refseq > seqid2taxid.map
 ```
 
-• Do not do: This database was pre-built for you to use in the tutorial. Download complete archaea, bacteria, viral and fungal
-genomes from RefSeq with the centrifuge–download commands. This is what you should do to build a more comprehensive
-RefSeq database containing only complete genomes.
 
-• At the time of download, there were 289 Archea, 13,287 bacterial, 8,583 viral, and 10 fungal genomes.
+Download the **human** genome from RefSeq chromosome. This is our host since we have human samples. It will also create the seqid2taxid.map which we will append to the seqid2taxid.map file that we just made with fungal genomes.
 
-```{bash, eval=FALSE}
-centrifuge-download -o library -a "Complete Genome" -m -P 30 -d "archaea,bacteria,viral,fungi" refseq \
-> seqid2taxid.map
-```
+**Additional parameters**  
 
-• Download the RefSeq chromosome level human genome reference with centrifuge-download commands.
+-t &nbsp; &nbsp; Only download the specified taxonomy IDs, comma separated. Default: any. 9606 is the taxonomy id for Human.
 
-• Command flags are the same as the previous step:
+-c &nbsp; &nbsp; Only download genomes in the specified RefSeq category. Default: any.
 
--t Only download the specified taxonomy IDs, comma separated. Default: any. 9606 is the taxonomy id for Human.
-
--c Only download genomes in the specified refseq category. Default: any.
-
-Appends the human seqid2taxid. map to the previously generated fungi seqid2taxid.map file.
 
 ```{bash, eval=FALSE}
 # Took ~14 minutes during testing
+
 centrifuge-download -o library -a "Chromosome" -m -P 4 -d "vertebrate_mammalian" \
 -t 9606 -c "reference genome" refseq >> seqid2taxid.map
 ```
 
-• *Optional. Customize your database by adding EuPathDB release 28 reference genomes. This step was done for you. The
-EuPathDB data comes from this publication.
-– Here is the link to the publication https://doi.org/10.1371/journal.pcbi.1006277 . Here is the webpage for the data
-download https://ccb.jhu.edu/data/eupathDB/
+
+We will add in **Eukaryotic Pathogens**, which can be helpful for medical metagenomic samples. To save time, we will use data we previously downloaded. Instructions for downloading it are in the "Full Database" section. If you use this database for your own research, you might want to download it later on to make sure it is up to date.
+
+Here is the link to the publication https://doi.org/10.1371/journal.pcbi.1006277.
+
+Here is the webpage for the data download https://ccb.jhu.edu/data/eupathDB/
+
+
+First, make a directory to put the eupath data in.
 
 ```{bash, eval=FALSE}
-# Make new directory called eupath in the library directory. Something like this
-mkdir -p /home/$USER/centrifuge/library/eupath
+mkdir -p ~/centrifuge/eupath
+cd ~/centrifuge/eupath
+```
 
-# Move into the /home/$USER/centrifuge/library/eupath directory.
-cd /home/$USER/centrifuge/library/eupath
+Copy our already downloaded file.
+<!-- This was downloaded 11/8/2024 and took approximately 17 minutes-->
 
-# This wget command will download EuPathDB data from the following link.
-wget http://ccb.jhu.edu/data/eupathDB/dl/eupathDB.tar.gz
+```{bash, eval=FALSE}
+cp /home/data/metagenomics-2310/centrifuge/eupath/eupathDB.tar.gz .
+```
 
-# This may take a long time. Perhaps copy instead:
-cp /home/elavelle/centrifuge/library/eupath/eupathDB.tar.gz ./
+This is a compressed tarball file that contains several files. Let's uncompress it and look into the library file it created.
 
-# Uncompress the eupathDB.tar.gz file into the eupath directory. You should see
-# a directory named library
+```{bash, eval=FALSE}
 tar -zxvf eupathDB.tar.gz
 
-# Move the fasta files from the /home/$USER/centrifuge/library/eupath/library directory
-#to /home/$USER/centrifuge/library/eupath/ directory
-mv /home/$USER/centrifuge/library/eupath/library/*.fna \
-/home/$USER/centrifuge/library/eupath/
-
-# Extract and append the contig/scaffold and taxonomy id information from the prelim_map.txt that was
-# downloaded with eupathDB.tar.gz file to the seqid2taxid.map file
-awk -F'\t' '{print $2,$3}' /home/$USER/centrifuge/library/eupath/library/\
-prelim_map.txt | awk -F'|' '{print $1,$3}' | awk -F' ' '{print $1"\t"$2}' \
->> /home/$USER/centrifuge/seqid2taxid.map
+ls library
 ```
 
-• Concatenate the reference genome fasta files that were downloaded with the centrifuge-download commands. We are using
-a for loop to do this; otherwise, we would have to type every file name on the command-line that we want to concatenatee.
-g., cat fasta_1.fna fasta_2.fna .... > > all_fasta_files.fna . For practice, we will concatenate the fungi reference genome
-fasta files and the human fasta file.
+How many genomes are there?
+
+Create a directory in the centrifuge library directory that has our fungal and human data and move the fasta files from this library directory there.
 
 ```{bash, eval=FALSE}
-for i in /home/$USER/centrifuge/library/*/*.fna; do cat $i \
->> fungi_Hum.fna;done
-# Centrifuge doesn't like the header format of some sequences. Reformat the headers:
-sed 's/|kraken[^|]*|/ /' fungi_Hum.fna > fungi_HumanFixed.fna
+mkdir ~/centrifuge/library/eupath
+
+mv ~/centrifuge/eupath/library/*.fna ~/centrifuge/library/eupath/
+
+# Note because we are already in ~/centrifuge/eupath/ we could use relative paths:
+# mv library/*.fna ../library/eupath/
 ```
+
+
+Because we didn't do this through centrifuge-download, we have to create the information for the seqid2taxid.map file. We'll extract it from the prelim_map.txt file that came with the eupath data.
+
+```{bash, eval=FALSE}
+awk -F'\t' '{print $2,$3}' ~/centrifuge/eupath/library/prelim_map.txt | \
+  awk -F'|' '{print $1,$3}' | awk -F' ' '{print $1"\t"$2}' \
+  >> ~/centrifuge/seqid2taxid.map
+```
+
+
+Now we will concatenate all the reference genome fasta files (fungal, human, eukaryotic pathogens) that we downloaded. We'll make sure we are in the library directory first.
+
+```{bash, eval=FALSE}
+cd ~/centrifuge/library/
+
+cat */*.fna > allgenomes.fna
+```
+
+Centrifuge doesn't like the header format of some sequences so let's reformt the headers.
+
+```{bash, eval=FALSE}
+sed 's/|kraken[^|]*|/ /' allgenomes.fna > allgenomes_fixed.fna
+```
+
+
+### Build database indices
+
+
+-p &nbsp; &nbsp The number of processes/threads to use for creating the index.
+
+--conversion-table &nbsp; &nbsp The seqid2taxid.map file that you created with the centrifuge-download commands.
+
+--taxonomy-tree &nbsp; &nbsp The nodes.dmp file that was downloaded with the first centrifuge-download command.
+
+--name-table &nbsp; &nbsp The nodes.dmp file that was downloaded with the first centrifuge-download command.
+
+```{bash, eval=FALSE}
+# Each run will use about 24 GB of RAM.
+# It took 39 minutes to run during testing.
+centrifuge-build -p 4 --conversion-table ~/centrifuge/seqid2taxid.map \
+--taxonomy-tree ~/centrifuge/taxonomy/nodes.dmp \
+--name-table ~/centrifuge/taxonomy/names.dmp \
+~/centrifuge/library/allgenomes_fixed.fna \
+~/centrifuge/allgenomes_indices
+```
+
+
+## Full Database
+
+Due to time and space considerations, do not run this. If you need to update this database or want to create a similar database for your research, these commands should help you do that at a later date. Refer to the "Practice Database" section for more information on each command.
+
+This database will include archaea, bacteria, viral and fungal genomes from RefSeq. At the time of download, there were 289 Archea, 13,287 bacterial, 8,583 viral, and 10 fungal genomes.
+
+```{bash, eval=FALSE}
+# Create a directory to store results
+
+mkdir -p ~/centrifuge_fulldb/fastq
+mkdir -p ~/centrifuge_fulldb/taxonomy
+
+# Download microbial genomes
+
+centrifuge-download -o library -a "Complete Genome" -m -P 30 -d "archaea,bacteria,viral,fungi" refseq > seqid2taxid.map
+
+# Download the host genome (human in our case) and append info to the seqid2taxid.map file
+
+centrifuge-download -o library -a "Chromosome" -m -P 4 -d "vertebrate_mammalian" \
+-t 9606 -c "reference genome" refseq >> seqid2taxid.map
+
+# Get eupath since we have medical metagenomes (wget downloads the data)
+
+mkdir -p ~/centrifuge_fulldb/eupath
+
+cd ~/centrifuge_fulldb/eupath
+
+wget http://ccb.jhu.edu/data/eupathDB/dl/eupathDB.tar.gz
+
+# Extract the eupath data and move fasta files to the centrifuge library directory
+
+tar -zxvf eupathDB.tar.gz
+
+mkdir ~/centrifuge_fulldb/library/eupath
+
+mv ~/centrifuge_fulldb/eupath/library/*.fna ~/centrifuge/library/eupath/
+
+# Add info to the seqid2taxid.map file
+
+awk -F'\t' '{print $2,$3}' ~/centrifuge_fulldb/eupath/library/prelim_map.txt | \
+  awk -F'|' '{print $1,$3}' | awk -F' ' '{print $1"\t"$2}' \
+  >> ~/centrifuge_fulldb/seqid2taxid.map
+
+# Cat the downloaded genomes together
+
+cd ~/centrifuge_fulldb/library/
+
+cat */*.fna > allgenomes.fna
+
+# Reformat the headers
+
+sed 's/|kraken[^|]*|/ /' allgenomes.fna > allgenomes_fixed.fna
+
+# Build the database indices
+
+centrifuge-build -p 4 --conversion-table ~/centrifuge_fulldb/seqid2taxid.map \
+--taxonomy-tree ~/centrifuge_fulldb/taxonomy/nodes.dmp \
+--name-table ~/centrifuge_fulldb/taxonomy/names.dmp \
+~/centrifuge_fulldb/library/allgenomes_fixed.fna \
+~/centrifuge_fulldb/allgenomes_indices
+
+```
+
 
 ## Database building
 
-Build the Centrifuge indexes using the centrifuge-build command. This has been done for you already. It took 14
-hrs and ~ 410 GBs of RAM using 30 threads to build this database index on the server. And, this was just using the
-“Complete Genome” Refseq genomes for archea, bacteria, viruses, fungi, human, and EuPathDB. I attempted
-to build a Centrifuge index using “All” RefSeq genomes for archea, bacteria, viruses, fungi, human plus the
-EuPAthDB but ran out of memory on a high memory server and Centrifuge
+Build the Centrifuge indexes using the centrifuge-build command. This has been done for you already. It took 14 hrs and ~ 410 GBs of RAM using 30 threads to build this database index on the server. And, this was just using the “Complete Genome” Refseq genomes for archea, bacteria, viruses, fungi, human, and EuPathDB. I attempted to build a Centrifuge index using “All” RefSeq genomes for archea, bacteria, viruses, fungi, human plus the EuPAthDB but ran out of memory on a high memory server and Centrifuge
 was using 890 GBs of RAM before I killed the program. So, unless you have high-capacity compute you
 may not be able to build the indexes on your system. But, the Centrifuge developers have provided various premade
 indexes that you can download here, ftp://ftp.ccb.jhu.edu/pub/infphilo/centrifuge/data/p+h+v.tar.gz,
 with wget.
 
-• Do this exercise for this tutorial. Build the Centrifuge database indexes with the centrifuge-build command. This is to
-practice building an index.
-
-• command flags:
-
--p The number of processes/threads to use for creating the index.
-
---conversion-table The seqid2taxid.map file that you created with the centrifuge-download commands.
-
---taxonomy-tree The nodes.dmp file that was downloaded with the first centrifuge-download command.
-
---name-table The nodes.dmp file that was downloaded with the first centrifuge-download command.
-
-```{bash, eval=FALSE}
-# Each run will use about 24 GB of RAM.
-# It took 39 minutes to run during testing.
-centrifuge-build -p 4 --conversion-table /home/$USER/centrifuge/seqid2taxid.map --taxonomy-tree \
-/home/$USER/centrifuge/taxonomy/nodes.dmp --name-table \
-/home/$USER/centrifuge/taxonomy/names.dmp \
-/home/$USER/centrifuge/library/fungi_HumanFixed.fna \
-/home/$USER/centrifuge/fungi_Human_indeces
-```
 
 ## Classification
 
@@ -239,14 +308,14 @@ samples at the same time.
 
 ```{bash, eval=FALSE}
 # Make a directory to store your results:
-mkdir -p /home/$USER/centrifuge/centrifuge_results
+mkdir -p ~/centrifuge/centrifuge_results
 # Run Centrifuge. It will take 10 - 20 minutes per sample to run.
 centrifuge \
 -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
 -1 /home/data/metagenomics-2310/centrifuge/ERR2271042_1.fastq \
 -2 /home/data/metagenomics-2310/centrifuge/ERR2271042_2.fastq -t \
--p 4 --met-file /home/$USER/centrifuge/centrifuge_results/ERR2271042_meta.txt --met-stderr \
--S /home/$USER/centrifuge/centrifuge_results/ERR2271042_cent.out
+-p 4 --met-file ~/centrifuge/centrifuge_results/ERR2271042_meta.txt --met-stderr \
+-S ~/centrifuge/centrifuge_results/ERR2271042_cent.out
 
 # If you have many samples to analyze, use a for loop to run centrifuge on each sample sequentially.
 # Use a for loop to store the names of the fastq files in a variable (like a list)
@@ -259,8 +328,8 @@ echo $fastq
 for j in $fastq; do centrifuge -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
 -1 /data/centrifuge/${j}_1.fastq \
 -2 /data/centrifuge/${j}_2.fastq -t -p 4 \
---met-file /home/$USER/centrifuge/centrifuge_results/${j}_meta.txt --met-stderr \
--S /home/$USER/centrifuge/centrifuge_results/${j}_cent.out; done
+--met-file ~/centrifuge/centrifuge_results/${j}_meta.txt --met-stderr \
+-S ~/centrifuge/centrifuge_results/${j}_cent.out; done
 ```
 
 ## Convert output to Kraken-style reports
@@ -274,12 +343,12 @@ for j in $fastq; do centrifuge -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_
 
 ```{bash, eval=FALSE}
 # Make a directory to store your output files:
-mkdir -p /home/$USER/centrifuge/centrifuge_krn_results
+mkdir -p ~/centrifuge/centrifuge_krn_results
 
 centrifuge-kreport \
 -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
-/home/$USER/centrifuge/centrifuge_results/ERR2271042_cent.out \
-> /home/$USER/centrifuge/centrifuge_krn_results/ERR2271042_cent.out.krn
+~/centrifuge/centrifuge_results/ERR2271042_cent.out \
+> ~/centrifuge/centrifuge_krn_results/ERR2271042_cent.out.krn
 ```
 
 • Use a for loop if you have many samples to analyze.
@@ -294,8 +363,8 @@ echo $output
 # sequentially.
 for j in $output; do centrifuge-kreport \
 -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
-/home/$USER/centrifuge/centrifuge_results/${j}_cent.out > \
-/home/$USER/centrifuge/centrifuge_krn_results/${j}.krn; done
+~/centrifuge/centrifuge_results/${j}_cent.out > \
+~/centrifuge/centrifuge_krn_results/${j}.krn; done
 ```
 
 ## Parse Metadata
@@ -307,7 +376,7 @@ Torrent PGM” platform
 ```{bash, eval=FALSE}
 # Copy the /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt to your working directory
 cp /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt \
-/home/$USER/centrifuge
+~/centrifuge
 # Use awk and grep to parse the metadata file
 # -F is the field separator flag. In this case the metadata file is tab-separated '\t'.
 # -i case-insensitive, -v exclude the search string, i.e., exclude lines that contain "ion"
