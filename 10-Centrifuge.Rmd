@@ -34,7 +34,7 @@ Many of the steps have been done for you to save time. However, you will create 
 # Run this first; it makes sure your conda is pointing to the right path
 # If there is a system reboot, you will have to run it again
 
-echo "export PATH="/opt/anaconda3/bin:$PATH" > ~/.bashrc && source ~/.bashrc
+echo "export PATH="/opt/anaconda3/bin:$PATH"" >> ~/.bashrc && source ~/.bashrc
 
 conda activate sra-tools
 ```
@@ -190,7 +190,7 @@ sed 's/|kraken[^|]*|/ /' allgenomes.fna > allgenomes_fixed.fna
 
 --taxonomy-tree &nbsp; &nbsp The nodes.dmp file that was downloaded with the first centrifuge-download command.
 
---name-table &nbsp; &nbsp The nodes.dmp file that was downloaded with the first centrifuge-download command.
+--name-table &nbsp; &nbsp The names.dmp file that was downloaded with the first centrifuge-download command.
 
 ```{bash, eval=FALSE}
 # Each run will use about 24 GB of RAM.
@@ -212,7 +212,6 @@ This database will include archaea, bacteria, viral and fungal genomes from RefS
 ```{bash, eval=FALSE}
 # Create a directory to store results
 
-mkdir -p ~/centrifuge_fulldb/fastq
 mkdir -p ~/centrifuge_fulldb/taxonomy
 
 # Download microbial genomes
@@ -290,7 +289,7 @@ samples at the same time.
 -x Path to the indexes
 
 – Index location
-/home/metag/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2
+/home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2
 
 -1 Read 1 fastq file
 
