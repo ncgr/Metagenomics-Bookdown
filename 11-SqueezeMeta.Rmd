@@ -62,12 +62,12 @@ make_databases.pl /home/$USER/squeezemeta/database
 
 • Select the RNA Seq data with the following SRA IDs and send to the Run selector.
 
-– SRR5787581
-– SRR5787582
-– SRR5787583
-– SRR5787584
-– SRR5787585
-– SRR5787586
+SRR5787581  
+SRR5787582  
+SRR5787583  
+SRR5787584  
+SRR5787585  
+SRR5787586
 
 • Export the metadata to your computer and copy to the server.
 Or copy it from here: /home/data/metagenomics-2310/squeezemeta/SraRunTable.txt
