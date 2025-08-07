@@ -47,7 +47,7 @@ A program called fastq-dump version 2.10.0 was used to download the data directl
 following exercise will help you use fastq-dump for your own projects too.
 
 ```{bash, eval=FALSE}
-source activate fastqdump
+conda activate fastqdump
 # MAKE SURE YOU ARE IN THE FOLLOWING FOLDER
 /home/$USER/QIIME2_Analysis
 # CREATE A FOLDER FOR DOWNLOADING FASTQ FILES TO ANALYZE
@@ -55,6 +55,7 @@ source activate fastqdump
 mkdir input_data
 cd input_data
 # download takes about 5 minutes
+
 /opt/sratoolkit.3.0.7-centos_linux64/bin/fasterq-dump --outdir ./ \
 SRR1204628 SRR1204630 SRR1204627 SRR1204629 SRR1204626 SRR1204623 \
 SRR1204625 SRR1204624 SRR1204622 SRR1204631 SRR1204638 SRR1204642 \
@@ -79,7 +80,7 @@ ls| wc -l
 ## Quality Control
 ```{bash, eval=FALSE}
 # Filter poor quality reads
-source activate fastp
+conda activate fastp
 
 for file in *.gz; do fastp -i ${file} -o ${file}.filtered; done
 conda deactivate
@@ -191,13 +192,13 @@ P_6_S 	P 	PS 	5	M 	Sputum 	    Patient 6 Sputum
 ```{bash, eval=FALSE}
 # Move out of the input_data directory
 
-cd ../
+cd ..
 
 # Copy metadata file from my workspace to your workspace,
 
 cd /home/$USER/QIIME2_Analysis
 
-cp /home/elavelle/QIIME2_Analysis/mappingFile.txt ./
+cp /home/data/metagenomics-2310/mappingFile.txt .
 
 less mappingFile.txt 
 ```
@@ -212,13 +213,13 @@ cd /home/$USER/QIIME2_Analysis
 
 # Copy the subset file of sequences:
 
-cp /home/metag/data/seqs.1000.fna ./
+cp /home/data/metagenomics-2310/seqs.1000.fna .
 
 conda deactivate
 
-source activate qiime2
+conda activate qiime2
 
-# This command will vary depending input data type and format
+# This command will vary depending on input data type and format
 # Here, we are importing .fasta reads (no quality scores)
 
 qiime tools import \
@@ -275,11 +276,18 @@ Greengenes (16S rRNA) and Silva (16S/18S rRNA) databases have to be imported as 
 
 ```{bash, eval=FALSE}
 
+# EXAMPLE- DO NOT RUN THE BELOW COMMAND
+
 qiime tools import \
 --input-path /home/metag/QIIME2_greengenes/Greengenes_16S_rRNA/\
 gg_13_8_otus/rep_set/99_otus.fasta \
 --output-path 99_otus.qza \
 --type FeatureData[Sequence]
+
+# The above command will take too long, copy output:
+
+cp /home/data/metagenomics-2310/99_otus.qza .
+
 ```
 
 ## Clustering
@@ -357,7 +365,10 @@ qiime vsearch cluster-features-open-reference \
 --o-new-reference-sequences new-ref-seqs-or-99.qza
 
 # The above command will take too long, copy output:
-cp /home/elavelle/QIIME
+
+cp /home/data/metagenomics-2310/table-or-99.qza .
+cp /home/data/metagenomics-2310/rep-seqs-or-99.qza .
+cp /home/data/metagenomics-2310/new-ref-seqs-or-99.qza .
 
 ```
 
@@ -383,7 +394,7 @@ qiime alignment mafft \
 
 # Copy the output instead:
 
-cp /home/elavelle/QIIME2_Analysis/aligned-rep-seqs.qza ./
+cp /home/data/metagenomics-2310/aligned-rep-seqs.qza .
 
 # Mask (or filter) the alignment to remove positions that are highly variable. 
 # These positions are generally considered to add noise to a
@@ -404,7 +415,7 @@ qiime phylogeny fasttree \
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 9 MINUTES TO RUN TO COMPLETION
 # Again, copy instead:
 
-cp /home/elavelle/QIIME2_Analysis/unrooted-tree.qza ./
+cp /home/elavelle/QIIME2_Analysis/unrooted-tree.qza .
 
 # root the tree using the longest root
 
@@ -430,7 +441,7 @@ Species richness is the number of species present in a system. However, the deep
 
 # EXAMPLE- DO NOT RUN THE ABOVE COMMAND TO COMPLETION
 
-cp /home/elavelle/QIIME2_Analysis/mappingFile.txt ./
+cp /home/data/metagenomics-2310/mappingFile.txt .
 
 qiime diversity alpha-rarefaction \
 --i-table table-or-99.qza \
@@ -576,7 +587,7 @@ qiime feature-classifier classify-sklearn \
 --o-classification taxonomy.qza
 
 # This takes too long, copy instead:
-cp /home/elavelle/QIIME2_Analysis/taxonomy.qza ./
+cp /home/data/metagenomics-2310/taxonomy.qza .
 
 qiime metadata tabulate \
 --m-input-file taxonomy.qza \
@@ -600,7 +611,7 @@ qiime taxa barplot \
 # Copy the visualization files
 
 scp -P2310 <USERNAME>@inbre.ncgr.org:/home/<USERNAME>/QIIME2_Analysis\
-/core-metrics-results/*.qzv ./
+/core-metrics-results/*.qzv .
 ```
 
 Open your browser and go to the following site:
@@ -626,7 +637,7 @@ qiime feature-table filter-samples \
 
 # Takes too long, copy:
 
-cp /home/elavelle/QIIME2_Analysis/nasal-table.qza ./
+cp /home/data/metagenomics-2310/nasal-table.qza .
 =================================================
 
 # You should run the following command/plugin on your own dataset where you collapse 
@@ -657,7 +668,7 @@ qiime composition ancom \
 --o-visualization ancom-Treatment-nasal.qzv
 
 # Takes too long, copy instead:
-cp /home/elavelle/QIIME2_Analysis/ancom-Treatment-nasal.qzv ./
+cp /home/data/metagenomics-2310/ancom-Treatment-nasal.qzv .
 ```
 
 EXERCISE: Preparing your raw sequence data and importing. This material closely follows the tutorial available at https://docs.qiime2.org/2021.2/tutorials/atacama-soils/
@@ -669,7 +680,7 @@ When using Earth Microbiome Project (EMP) protocol, you should have access to fo
 3. barcodes.fastq.gz
 
 ```{bash, eval=FALSE}
-source activate qiime2
+conda activate qiime2
 
 mkdir emp_example
 
