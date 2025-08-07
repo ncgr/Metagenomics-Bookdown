@@ -415,7 +415,7 @@ qiime phylogeny fasttree \
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 9 MINUTES TO RUN TO COMPLETION
 # Again, copy instead:
 
-cp /home/elavelle/QIIME2_Analysis/unrooted-tree.qza .
+cp /home/data/metagenomics-2310/unrooted-tree.qza .
 
 # root the tree using the longest root
 
