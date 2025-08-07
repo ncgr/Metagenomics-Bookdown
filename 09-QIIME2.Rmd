@@ -47,7 +47,7 @@ A program called fastq-dump version 2.10.0 was used to download the data directl
 following exercise will help you use fastq-dump for your own projects too.
 
 ```{bash, eval=FALSE}
-conda activate fastqdump
+conda activate sra-tools
 # MAKE SURE YOU ARE IN THE FOLLOWING FOLDER
 /home/$USER/QIIME2_Analysis
 # CREATE A FOLDER FOR DOWNLOADING FASTQ FILES TO ANALYZE
