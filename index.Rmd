@@ -181,7 +181,7 @@ In a Finder window, you would see this:
 + For **Windows**: search for MobaXterm from the start menu.
     + It may be useful to drag the terminal icon to the **desktop** for easier access in the future.
 
-+ For **Mac**: search for "terminal" in the bar located in the Launchpad (rocket icon in the taskbar).
++ For **Mac**: search for "terminal" using the spotlight search (magnifying glass icon in top right of computer screen).
     + It may be useful to drag the terminal icon into the **Dock** for easier access in the future.
 
 ### Log on to Ghostwheel server 
