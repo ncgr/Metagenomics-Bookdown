@@ -47,7 +47,7 @@ A program called fastq-dump version 2.10.0 was used to download the data directl
 following exercise will help you use fastq-dump for your own projects too.
 
 ```{bash, eval=FALSE}
-conda activate fastqdump
+conda activate sra-tools
 # MAKE SURE YOU ARE IN THE FOLLOWING FOLDER
 /home/$USER/QIIME2_Analysis
 # CREATE A FOLDER FOR DOWNLOADING FASTQ FILES TO ANALYZE
@@ -415,7 +415,7 @@ qiime phylogeny fasttree \
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 9 MINUTES TO RUN TO COMPLETION
 # Again, copy instead:
 
-cp /home/elavelle/QIIME2_Analysis/unrooted-tree.qza .
+cp /home/data/metagenomics-2310/unrooted-tree.qza .
 
 # root the tree using the longest root
 

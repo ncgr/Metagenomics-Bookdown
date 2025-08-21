@@ -187,12 +187,12 @@ In a Finder window, you would see this:
 + For **Windows**: search for MobaXterm from the start menu.
     + It may be useful to drag the terminal icon to the **desktop** for easier access in the future.
 
-+ For **Mac**: search for "terminal" in the bar located in the Launchpad (rocket icon in the taskbar).
++ For **Mac**: search for "terminal" using the spotlight search (magnifying glass icon in top right of computer screen).
     + It may be useful to drag the terminal icon into the **Dock** for easier access in the future.
 
 ### Log on to Ghostwheel server 
 
-Enter the following command to log on to logrus:
+Enter the following command to log on to Ghostwheel:
 
 + substitute **your** personal username in for "username"
 
@@ -207,7 +207,7 @@ Notes:
 
 ### Now that I logged on, where am I?
 
-You’re at the command line interface of the logrus analysis server!
+You’re at the command line interface of the Ghostwheel analysis server!
 
 To the left of the command prompt, you should see something like this: 
 
@@ -272,7 +272,8 @@ ls -ltr
 ### Navigation
 
 1) "**c**hange **d**irectory" to the directory you made
-+ where ~ is shorthand for your home directory
++ where ~ is shorthand for your home directory  
++ that is, "~" is equivalent to "/home/agomez"
 
 ```
 cd ~/linuxc
@@ -431,7 +432,7 @@ ls
 ## newfile.txt
 ```
 
-### Files: securely copying files between your laptop and logrus 
+### Files: securely copying files between your laptop and Ghostwheel 
 
 **s**ecure **c**o**p**y "scp" command
 
@@ -449,12 +450,12 @@ touch scp_test.txt
 2) 
 + **Mac** users
     + open a **local** terminal
-    + do **not** connect it to logrus
+    + do **not** connect it to Ghostwheel
 + **Windows** users
     + open a new MobaXterm session (shell)
     
 3) Run the scp command from your **local** terminal window:
-+ to **download** the file **to your computer** from logrus
++ to **download** the file **to your computer** from Ghostwheel
 + the last period means that the destination is your working directory
 
 ```
@@ -463,18 +464,18 @@ scp -P 2310 <username>@inbre.ncgr.org:~/linuxc/scp_test.txt .
 
 Note: When you designate a port with secure copy (scp), you use a capital P.
 
-You will be prompted for your logrus password if not using MobaXterm.
+You will be prompted for your Ghostwheel password if not using MobaXterm.
 
-4) Check to see if the file you copied from logrus is on **your** computer!
+4) Check to see if the file you copied from Ghostwheel is on **your** computer!
 
-5) Now **upload** a file **to logrus** from your computer
+5) Now **upload** a file **to Ghostwheel** from your computer
 + Again, run the scp command from your **local** terminal window:
 
 ```
 scp -P 2310 scp_test.txt <username>@inbre.ncgr.org:~/linuxc
 ```
 
-6) Check to see if the file you copied from your computer is on **logrus**!
+6) Check to see if the file you copied from your computer is on **Ghostwheel**!
 
 ### Files and directories: removing files is deleting files
 
@@ -1112,7 +1113,7 @@ There is also cheat sheet on the weebly site under Supplemental Documents.
 
 4. Piping cat to wc -l on the history text file made during the tutorial, count the number of lines in it.
 
-5. Using scp, download table1.txt to your own machine. Check it’s there, then upload it back to logrus.
+5. Using scp, download table1.txt to your own machine. Check it’s there, then upload it back to Ghostwheel.
 
 ## Linux basics: Part III
 
@@ -1122,9 +1123,9 @@ There is also cheat sheet on the weebly site under Supplemental Documents.
 
 ### Exercise{-}
 
-1) Log on to logrus server
+1) Log on to Ghostwheel server
 
-2) Enter the following command to log on to logrus: 
+2) Enter the following command to log on to Ghostwheel: 
 
 ```
 ssh -p2310 <username>@inbre.ncgr.org
