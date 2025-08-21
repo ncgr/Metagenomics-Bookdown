@@ -266,7 +266,8 @@ ls -ltr
 ### Navigation
 
 1) "**c**hange **d**irectory" to the directory you made
-+ where ~ is shorthand for your home directory
++ where ~ is shorthand for your home directory  
++ that is, "~" is equivalent to "/home/agomez"
 
 ```
 cd ~/linuxc
