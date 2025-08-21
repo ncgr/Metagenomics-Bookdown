@@ -55,8 +55,9 @@ Now we will use samtools, which is available in the same environment, to pull ou
 ![](Figures/samtools.png){width=80%}
 
 
-Convert the unmapped reads in the alignment file (sam) to a fastq file
-    + The -f4 includes only reads with the 4 flag (unmapped)
+Convert the unmapped reads in the alignment file (sam) to a fastq file  
+
++ The -f4 includes only reads with the 4 flag (unmapped)
 
 ```
 samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
