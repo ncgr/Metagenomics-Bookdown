@@ -63,14 +63,15 @@ Convert the unmapped reads in the alignment file (sam) to a fastq file
 samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
 ```
 
-Compress the new fastq file 
-    + (note that it will automatically add the extension .gz)
+Compress the new fastq file  
+
++ (note that it will automatically add the extension .gz)
 
 ```
 gzip 3469-3.microbe.fq
 ```
 
-### Now run these steps with 4956-3{-}
+### Now filter host reads from sample 4956-3{-}
 
 Reads are here: 
 
