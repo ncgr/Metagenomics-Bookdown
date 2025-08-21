@@ -22,27 +22,33 @@ Make sure the following software is installed on your local computer before the 
 
 1. [Zoom](https://zoom.us/download)
 
-Install the correct version for your OS. Don't plan to use the web version, as this does not have enough features. 
+Don't plan to use the web version, as this does not have enough features. 
 
-2. [Integrated Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/download)
+2. [Tabby Terminal](https://tabby.sh/)
 
-3. [MobaXterm](https://mobaxterm.mobatek.net/download.html) (Windows Users Only. Mac or Linux users will use their native terminal)
+<!--2. [Integrated Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/download)-->
+
+<!--3. [MobaXterm](https://mobaxterm.mobatek.net/download.html) (Windows Users Only. Mac or Linux users will use their native terminal)
 
 * Download the "Home" "Installer" edition.  Be careful not to install the portable or professional editions.  
 
 * Before installing, extract the installer zip folder to any location on your computer.  
 
-* Now run the installer and follow the prompts.
+* Now run the installer and follow the prompts.-->
 
-4. [Filezilla](https://filezilla-project.org/)
+3. [Filezilla](https://filezilla-project.org/)
 
-5. [R](https://cran.rstudio.com/) (Latest Version for your OS)
+4. Make sure you can access [Pavian](https://fbreitwieser.shinyapps.io/pavian/)
 
-6. [RStudio](https://rstudio.com/products/rstudio/download/#download)
+Optional: if you prefer to install Pavian on your computer, install R, R studio, and Pavian as outlined below.
 
-7. [Pavian](https://github.com/fbreitwieser/pavian)
+| Opt A. [R](https://cran.rstudio.com/) (Latest Version for your OS)
 
-Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #5 and #6 to be complete
+| Opt B. [RStudio](https://rstudio.com/products/rstudio/download/#download)
+
+| Opt C. [Pavian](https://github.com/fbreitwieser/pavian)
+
+| Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires R and R studio to be complete
 
 
 ## Agenda
