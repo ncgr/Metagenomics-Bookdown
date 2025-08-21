@@ -4,46 +4,169 @@
 
 ## What is Centrifuge?
 
-Centrifuge is very rapid and memory-efficient system for the classification of DNA sequences from microbial
+"Centrifuge is a very rapid and memory-efficient system for the classification of DNA sequences from microbial
 samples, with better sensitivity than and comparable accuracy to other leading systems. The system uses a
 novel indexing scheme based on the Burrows-Wheeler transform (BWT) and the Ferragina-Manzini (FM) index,
-optimized specifically for the metagenomic classification problem[1].
+optimized specifically for the metagenomic classification problem".
 
-## Tutorial
+https://ccb.jhu.edu/software/centrifuge/
 
-For this tutorial we will use data from this publication “Metagenomic Characterization of the Human Intestinal
-Microbiota in Fecal Samples from STEC-Infected Patients” [2]: https://www.frontiersin.org/articles/10.3389/fcimb.2018.00025/
-All data used in this tutorial was retrieved from SRA with fastq-dump. SRAccession: PRJEB23207
+## Data
 
-In this study, whole genome metagenomic sequencing was used to investigate possible changes in the composition
-of the intestinal microbiota in samples from patients with Shiga toxin-producing E. Coli (STEC) infection (N = 2) compared to Crohn’s Patients (N =4), healthy (N = 2) and healed controls (N = 3). Feces samples,
-collected during an outbreak, from STEC infected patients showed a lower intestinal abundance of beneficial
-microorganisms in comparison to controls where those microorganisms predominated. These differences were
-observed with bioinformatic approaches and seemed to be related with the STEC infection. So, using the
-metagenomics data from this study can you identify the STEC positive samples? Can you identify the specific
-strain of STEC?
+We will use data from this publication: “Metagenomic Characterization of the Human Intestinal Microbiota in Fecal Samples from STEC-Infected Patients” (https://www.frontiersin.org/articles/10.3389/fcimb.2018.00025/). Data were retrieved from the NCBI BioProject PRJEB23207.
 
-Many of the steps have been done for you to save time. However, you will create some smaller databases as practice and we have also provided instructions and code so that you will know how to build large database indices if you need them for your own research.
+Illumina whole genome metagenomic sequencing of the intestinal microbiome (feces samples).
 
-## Environment
+**11 samples**  
+Shiga toxin-producing E. Coli (STEC) infection (N = 2). 
+Crohn’s Patients (N = 4)  
+Healthy (N = 2)  
+Healed controls (N = 3) 
+
+Can you identify the STEC positive samples?  
+Can you identify the specific strain of STEC?
+
+
+## Classification
+
+Because of large time and space requirements to build indexes, we will use pre-built indexes that contain complete RefSeq genomes for archea, bacteria, viruses and fungi. The human chromosome level reference genome was included and we also added the Eukaryotic Pathogens Databased (EuPathDB) as well. We'll kick off the Centrifuge classification and while it is running we will teach you how to create a small database and also go over the commands we used to create the big database.
+
+<!--Each file will use about 36 GB of RAM, so not every one can run
+samples at the same time. But inbre01 has 1Tb of memory.-->
+
+Make a directory to store your results
 
 ```{bash, eval=FALSE}
-# Remember to start a screen
-# Activate the sra-tools environment
-
-# Run this first; it makes sure your conda is pointing to the right path
-# If there is a system reboot, you will have to run it again
-
-echo "export PATH="/opt/anaconda3/bin:$PATH"" >> ~/.bashrc && source ~/.bashrc
-
-conda activate sra-tools
+mkdir -p ~/centrifuge/centrifuge_results
 ```
+
+
+### Centrifuge
+
+Now let's run Centrifuge (it will take 10 - 20 minutes per sample to run).  
+
+First, activate the environment.
+
+```{bash, eval=FALSE}
+conda activate centrifuge
+```
+
+**Parameters**
+
+-x &nbsp; &nbsp; Path to the indexes (/home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2)  
+
+-1 &nbsp; &nbsp; Read 1 fastq file  
+
+-2 &nbsp; &nbsp; Read 2 fastq file  
+
+-t &nbsp; &nbsp; Print wall-clock time taken by search phase  
+
+-p &nbsp; &nbsp; Number of alignment threads to launch  
+
+\-\-met-file <path> &nbsp; &nbsp; Send metrics to file at <path>  
+
+\-\-met-stderr &nbsp; &nbsp; Send metrics to stderr  
+
+-S &nbsp; &nbsp; Output file name
+
+
+```{bash, eval=FALSE}
+centrifuge \
+  -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+  -1 /home/data/metagenomics-2310/centrifuge/ERR2271042_1.fastq \
+  -2 /home/data/metagenomics-2310/centrifuge/ERR2271042_2.fastq -t \
+  -p 4 \
+  --met-file ~/centrifuge/centrifuge_results/ERR2271042_meta.txt \
+  --met-stderr -S ~/centrifuge/centrifuge_results/ERR2271042_cent.out
+```
+
+
+You can also run all the samples together using a for loop (>1 hr).
+
+```{bash, eval=FALSE}
+for i in /home/data/metagenomics-2310/centrifuge/*_1.fastq; do
+  bn=`basename $i _1.fastq`
+  centrifuge \
+  -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+  -1 /home/data/metagenomics-2310/centrifuge/${bn}_1.fastq \
+  -2 /home/data/metagenomics-2310/centrifuge/${bn}_2.fastq -t \
+  -p 4 \
+  --met-file ~/centrifuge/centrifuge_results/${bn}_meta.txt \
+  --met-stderr -S ~/centrifuge/centrifuge_results/${bn}_cent.out
+done
+```
+
+
+### Kraken-style reports
+
+Now let's create a Kraken-style report from the Centrifuge output using the centrifuge-kreport command (~1 min).
+
+**Parameters**
+
+-x &nbsp; &nbsp; Path to the indexes
+
+You also feed in the _cent.out file we generated when we ran Centrifuge.
+
+Make a directory to store your results
+
+```{bash, eval=FALSE}
+mkdir -p ~/centrifuge/centrifuge_krn_results
+```
+
+
+Create the report. We will use a for loop to generate the report for all the samples.
+
+```{bash, eval=FALSE}
+for i in ~/centrifuge/centrifuge_results/*_cent.out; do
+  bn=`basename $i _cent.out`
+  centrifuge-kreport \
+  -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+  $i \
+  > ~/centrifuge/centrifuge_krn_results/${bn}_cent.out.krn
+done
+```
+
+
+### Parse Metadata
+
+Use awk to extract columns 2, 10, and 18 from the PRJEB23207 metadata file. Then, pipe the output to grep and exclude samples that were sequenced with the “Ion Torrent PGM” platform
+
+```{bash, eval=FALSE}
+awk -F'\t' '{print $2,$10,$18}' /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt | grep -i -v "ion"
+```
+
+## Visualize the Kraken Reports with Pavian
+
+First, download all *.krn files to your computer.
+
+If you are using RStudio, open it up and type "pavian::runApp(port=5000)" in the console.
+
+Or go to the website: https://fbreitwieser.shinyapps.io/pavian/
+
+Here are some things to try:
+
+• Drag the .krn files to the "Browse" bar under the "Upload files" tab.
+
+• Click on the “Results Overview” tab on the left side of the screen.
+
+• Click on the “Sample” tab on the left side of the screen. You will notice an interactive Sankey chart that displays different classified taxa. You can click and drag nodes to reorder the nodes if you want. You can select different samples by clicking on the down arrow next to the “Select sample” header. Select sample ERR2270960 or ERR2270961 since we know that
+these two samples are likely infected with STEC.
+
+• From the “Sample” page, click on the “Table” tab. You should see an interactive, filterable and searchable table that summarizes the results of Centrifuge. For example, type “Escherichia coli” into the “Search:” box. A histogram will appear that displays the numbers of reads across all samples that were classified as “Escherichia coli”. Sort the table by the most abundant taxa by clicking on the up arrow next to “TaxonReads”.
+
+• Can you can you identify the strain(s) of STEC that samples ERR2270960 and ERR2270961 likely contain?
 
 ## Practice Database
 
-We will create a database that has only fungi and human genomes so that you learn how to create Centrifuge databases. For the Centrifuge analysis, we will use a much bigger database that we have created for you due to time constraints and space considerations. In the "Full Database" section we have the commands we used. If you need these for your own research, you can run them at a later time to ensure you have the most updated database and that you have the taxa you want included.
+We will create a small database that has only fungi and human genomes so that you learn how to create Centrifuge databases. In the "Full Database" section we have the commands we used to create the database we used above but we will not run them. If you need to create an updated database for your own research, you can run them at a later time.
 
-### RefSeq and EuPathDB Data
+Go into the centrifuge directory.
+
+```{bash, eval=FALSE}
+cd ~/centrifuge
+```
+
+### Taxonomy files
 
 First create a centrifuge directory and another directory inside that called taxonomy.
 
@@ -65,58 +188,55 @@ Centrifuge provides a few scripts that will allow you to download the NCBI taxon
 
 If you are using custom taxonomy or sequence files for the database, please refer to the manual (https://ccb.jhu.edu/software/centrifuge/manual.shtml)
 
-Let's download the taxonomy files. This gets the nodes.dmp and the names.dmp files.
+Let's download the taxonomy files (~20 seconds). This gets the nodes.dmp and the names.dmp files.
 
 **Parameters**  
 -o &nbsp; &nbsp; specifies the folder to which the files are downloaded  
-taxonomy &nbsp; &nbsp; database to download = refseq, genbank, contaminants or taxonomy
+taxonomy &nbsp; &nbsp; database to download (refseq, genbank, contaminants or taxonomy)
 
 ```{bash, eval=FALSE}
-
-# Takes ~20 seconds
-
-conda deactivate # deactivate sra-tools environments
-conda activate centrifuge
-
 centrifuge-download -o ~/centrifuge/taxonomy taxonomy
 ```
 
-Now lets download complete **fungal** genomes from RefSeq. It will also make the seqid2taxid.map file.
+
+### Fungal genomes
+
+Now lets download complete **fungal** genomes from RefSeq (~1 min). This will also make the seqid2taxid.map file.
 
 **Parameters**  
--a &nbsp; &nbsp; Only download genomes with the specified assembly level. Default: ’Complete Genome’. If you want any assembly level, use 'Any'  
--m &nbsp; &nbsp; Mask low-complexity regions using dustmasker. This is part of the blast program that was installed in the metagenomics environment  
+-a &nbsp; &nbsp; Only download genomes with the specified assembly level. Default: 'Complete Genome'. If you want any assembly level, use 'Any'  
+-m &nbsp; &nbsp; Mask low-complexity regions using dustmasker.
 -P &nbsp; &nbsp; Number of threads or processes to use when downloading  
--d &nbsp; &nbsp; What domain to download. One or more of bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate_mammalian, vertebrate_other (comma separated). 
-refseq &nbsp; &nbsp; Tells the program to use the refseq database.
+-d &nbsp; &nbsp; What domain to download (bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate_mammalian, vertebrate_other); comma-separated  
+refseq &nbsp; &nbsp; Tells the program to use the refseq database  
 -o &nbsp; &nbsp; Output directory
 
 ```{bash, eval=FALSE}
-# Takes about 1 minute
-centrifuge-download -o library -a "Complete Genome" -m -P 4 -d "fungi" refseq > seqid2taxid.map
+centrifuge-download -o ~/centrifuge/library -a "Complete Genome" -m -P 4 -d "fungi" refseq > ~/centrifuge/seqid2taxid.map
 ```
 
 
-Download the **human** genome from RefSeq chromosome. This is our host since we have human samples. It will also create the seqid2taxid.map which we will append to the seqid2taxid.map file that we just made with fungal genomes.
+### Human genome
+
+Download the RefSeq **human** genome (~14 min). This is our host since we have human samples. It will also create the seqid2taxid.map which we will append to the seqid2taxid.map file that we just made with fungal genomes.
 
 **Additional parameters**  
 
--t &nbsp; &nbsp; Only download the specified taxonomy IDs, comma separated. Default: any. 9606 is the taxonomy id for Human.
-
+-t &nbsp; &nbsp; Only download the specified taxonomy IDs, comma separated. Default: any. 9606 is the taxonomy id for Human  
 -c &nbsp; &nbsp; Only download genomes in the specified RefSeq category. Default: any.
 
 
 ```{bash, eval=FALSE}
-# Took ~14 minutes during testing
-
-centrifuge-download -o library -a "Chromosome" -m -P 4 -d "vertebrate_mammalian" \
--t 9606 -c "reference genome" refseq >> seqid2taxid.map
+centrifuge-download -o ~/centrifuge/library -a "Chromosome" -m -P 4 -d "vertebrate_mammalian" \
+-t 9606 -c "reference genome" refseq >> ~/centrifuge/seqid2taxid.map
 ```
 
 
+## Eukaryotic Pathogens
+
 We will add in **Eukaryotic Pathogens**, which can be helpful for medical metagenomic samples. To save time, we will use data we previously downloaded. Instructions for downloading it are in the "Full Database" section. If you use this database for your own research, you might want to download it later on to make sure it is up to date.
 
-Here is the link to the publication https://doi.org/10.1371/journal.pcbi.1006277.
+Here is the link to the publication: https://doi.org/10.1371/journal.pcbi.1006277
 
 Here is the webpage for the data download https://ccb.jhu.edu/data/eupathDB/
 
@@ -151,9 +271,6 @@ Create a directory in the centrifuge library directory that has our fungal and h
 mkdir ~/centrifuge/library/eupath
 
 mv ~/centrifuge/eupath/library/*.fna ~/centrifuge/library/eupath/
-
-# Note because we are already in ~/centrifuge/eupath/ we could use relative paths:
-# mv library/*.fna ../library/eupath/
 ```
 
 
@@ -174,7 +291,7 @@ cd ~/centrifuge/library/
 cat */*.fna > allgenomes.fna
 ```
 
-Centrifuge doesn't like the header format of some sequences so let's reformt the headers.
+Centrifuge doesn't like the header format of some sequences so let's reformat the headers.
 
 ```{bash, eval=FALSE}
 sed 's/|kraken[^|]*|/ /' allgenomes.fna > allgenomes_fixed.fna
@@ -183,18 +300,16 @@ sed 's/|kraken[^|]*|/ /' allgenomes.fna > allgenomes_fixed.fna
 
 ### Build database indices
 
+Now, let's build the database indices (~39 min).
 
--p &nbsp; &nbsp The number of processes/threads to use for creating the index.
+**Parameters**
 
---conversion-table &nbsp; &nbsp The seqid2taxid.map file that you created with the centrifuge-download commands.
-
---taxonomy-tree &nbsp; &nbsp The nodes.dmp file that was downloaded with the first centrifuge-download command.
-
---name-table &nbsp; &nbsp The names.dmp file that was downloaded with the first centrifuge-download command.
+-p &nbsp; &nbsp The number of processes/threads to use for creating the index  
+--conversion-table &nbsp; &nbsp The seqid2taxid.map file that you created with the centrifuge-download commands  
+--taxonomy-tree &nbsp; &nbsp The nodes.dmp file that was downloaded with the first centrifuge-download command  
+--name-table &nbsp; &nbsp The names.dmp file that was downloaded with the first centrifuge-download command
 
 ```{bash, eval=FALSE}
-# Each run will use about 24 GB of RAM.
-# It took 39 minutes to run during testing.
 centrifuge-build -p 4 --conversion-table ~/centrifuge/seqid2taxid.map \
 --taxonomy-tree ~/centrifuge/taxonomy/nodes.dmp \
 --name-table ~/centrifuge/taxonomy/names.dmp \
@@ -216,11 +331,11 @@ mkdir -p ~/centrifuge_fulldb/taxonomy
 
 # Download microbial genomes
 
-centrifuge-download -o library -a "Complete Genome" -m -P 30 -d "archaea,bacteria,viral,fungi" refseq > seqid2taxid.map
+centrifuge-download -o ~/centrifuge_fulldb/library -a "Complete Genome" -m -P 30 -d "archaea,bacteria,viral,fungi" refseq > seqid2taxid.map
 
 # Download the host genome (human in our case) and append info to the seqid2taxid.map file
 
-centrifuge-download -o library -a "Chromosome" -m -P 4 -d "vertebrate_mammalian" \
+centrifuge-download -o ~/centrifuge_fulldb/library -a "Chromosome" -m -P 4 -d "vertebrate_mammalian" \
 -t 9606 -c "reference genome" refseq >> seqid2taxid.map
 
 # Get eupath since we have medical metagenomes (wget downloads the data)
@@ -255,7 +370,7 @@ cat */*.fna > allgenomes.fna
 
 sed 's/|kraken[^|]*|/ /' allgenomes.fna > allgenomes_fixed.fna
 
-# Build the database indices
+# Build the database indices (~14 hr and ~410 GB of RAM using 30 threads)
 
 centrifuge-build -p 4 --conversion-table ~/centrifuge_fulldb/seqid2taxid.map \
 --taxonomy-tree ~/centrifuge_fulldb/taxonomy/nodes.dmp \
@@ -265,9 +380,10 @@ centrifuge-build -p 4 --conversion-table ~/centrifuge_fulldb/seqid2taxid.map \
 
 ```
 
+NOTE: the Centrifuge developers have provided various premade indexes that you can download here, ftp://ftp.ccb.jhu.edu/pub/infphilo/centrifuge/data/p+h+v.tar.gz
+using wget.
 
-## Database building
-
+<!--
 Build the Centrifuge indexes using the centrifuge-build command. This has been done for you already. It took 14 hrs and ~ 410 GBs of RAM using 30 threads to build this database index on the server. And, this was just using the “Complete Genome” Refseq genomes for archea, bacteria, viruses, fungi, human, and EuPathDB. I attempted to build a Centrifuge index using “All” RefSeq genomes for archea, bacteria, viruses, fungi, human plus the EuPAthDB but ran out of memory on a high memory server and Centrifuge
 was using 890 GBs of RAM before I killed the program. So, unless you have high-capacity compute you
 may not be able to build the indexes on your system. But, the Centrifuge developers have provided various premade
@@ -275,150 +391,6 @@ indexes that you can download here, ftp://ftp.ccb.jhu.edu/pub/infphilo/centrifug
 with wget.
 
 
-## Classification
-
-In this portion of the tutorial we will use the pre-built indexes that contain complete RefSeq genomes for archea,
-bacteria, viruses and fungi. The human chromosome level reference genome was included and we also added
-the EuPathDB database as well. Each file will use about 36 GB of RAM, so not every one can run
-samples at the same time.
-
-• Classify reads with Centrifuge.
-
-• command flags:
-
--x Path to the indexes
-
-– Index location
-/home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2
-
--1 Read 1 fastq file
-
--2 Read 2 fastq file
-
--t Print wall-clock time taken by search phase. This is optional.
-
--p Number of alignment threads to launch
-
---met-file Send metrics to file at <path>
-
---met-stderr Send metrics to stderr
-
--S Output file name
-
-```{bash, eval=FALSE}
-# Make a directory to store your results:
-mkdir -p ~/centrifuge/centrifuge_results
-# Run Centrifuge. It will take 10 - 20 minutes per sample to run.
-centrifuge \
--x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
--1 /home/data/metagenomics-2310/centrifuge/ERR2271042_1.fastq \
--2 /home/data/metagenomics-2310/centrifuge/ERR2271042_2.fastq -t \
--p 4 --met-file ~/centrifuge/centrifuge_results/ERR2271042_meta.txt --met-stderr \
--S ~/centrifuge/centrifuge_results/ERR2271042_cent.out
-
-# If you have many samples to analyze, use a for loop to run centrifuge on each sample sequentially.
-# Use a for loop to store the names of the fastq files in a variable (like a list)
-# named fastq using the basename command
-fastq=`for i in data/centrifuge/*_1.fastq; do basename -s _1.fastq $i;done`
-# You can view the contents of the fastq variable with the echo command
-echo $fastq
-# Use a second for loop to read through the variable list and run centrifuge on each file in the list
-# sequentially.
-for j in $fastq; do centrifuge -x /data/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
--1 /data/centrifuge/${j}_1.fastq \
--2 /data/centrifuge/${j}_2.fastq -t -p 4 \
---met-file ~/centrifuge/centrifuge_results/${j}_meta.txt --met-stderr \
--S ~/centrifuge/centrifuge_results/${j}_cent.out; done
-```
-
-## Convert output to Kraken-style reports
-
-• Create a Kraken style report from the Centrifuge output using the centrifuge-kreport command. This command used about
-17 GB of memory and took about 1 minute per file to complete during testing.
-
-• command flags:
-
--x Path to the indexes.
-
-```{bash, eval=FALSE}
-# Make a directory to store your output files:
-mkdir -p ~/centrifuge/centrifuge_krn_results
-
-centrifuge-kreport \
--x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
-~/centrifuge/centrifuge_results/ERR2271042_cent.out \
-> ~/centrifuge/centrifuge_krn_results/ERR2271042_cent.out.krn
-```
-
-• Use a for loop if you have many samples to analyze.
-
-```{bash, eval=FALSE}
-# Use a for loop to store the names of the fastq files in a variable (like a list)
-# named output using the basename command
-output=`for i in /home/metag/centrifuge/centrifuge_results/*_cent.out; do basename -s _cent.out $i;done`
-# You can view the contents of the fastq variable with the echo command
-echo $output
-# Use a second for loop to read through the variable list and run centrifuge on each file in the list
-# sequentially.
-for j in $output; do centrifuge-kreport \
--x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
-~/centrifuge/centrifuge_results/${j}_cent.out > \
-~/centrifuge/centrifuge_krn_results/${j}.krn; done
-```
-
-## Parse Metadata
-
-• Use awk to extract columns 2, 10, and 18 from the metadata file located at /home/metag/centrifuge/data/
-PRJEB23207_metadata.txt . Then, pipe the output to grep and exclude samples that were sequenced with the “Ion
-Torrent PGM” platform
-
-```{bash, eval=FALSE}
-# Copy the /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt to your working directory
-cp /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt \
-~/centrifuge
-# Use awk and grep to parse the metadata file
-# -F is the field separator flag. In this case the metadata file is tab-separated '\t'.
-# -i case-insensitive, -v exclude the search string, i.e., exclude lines that contain "ion"
-awk -F'\t' '{print $2,$10,$18}' PRJEB23207_metadata.txt | grep -i -v "ion"
-```
-
-## Visualize the Kraken Reports with Pavian
-
-• First, download all *.krn files to your computer using secure copy (scp) with unix, linux, or MobaXterm terminals.
-
-• This assumes that you have installed R on your computer.
-
-
-```{bash, eval=FALSE}
-# Run R by opening a terminal
-R
-# Or click on your R application from R-studio or R-console.
-
-# Install Pavian if you haven't done so:
-if (!require(remotes)) { install.packages("remotes") }
-remotes::install_github("fbreitwieser/pavian")
-
-# Start Pavian in your browser from R
-pavian::runApp(port=5000)
-```
-
-• A web browser should pop up. If not, Pavian can be accessed by entering this url into your browser. http://127.0.0.1:5000
-
-• Drag the .krn files to the "Browse" bar under the "Upload files" tab.
-
-• Click on the “Results Overview” tab on the left side of the screen.
-
-• Click on the “Sample” tab on the left side of the screen. You will notice an interactive Sankey chart that displays different
-classified taxa. You can click and drag nodes to reorder the nodes if you want. You can select different samples by clicking
-on the down arrow next to the “Select sample” header. Select sample ERR2270960 or ERR2270961 since we know that
-these two samples are likely infected with STEC.
-
-• From the “Sample” page, click on the “Table” tab. You should see an interactive, filterable and searchable table that
-summarizes the results of Centrifuge. For example, type “Escherichia coli” into the “Search:” box. A histogram will appear
-that displays the numbers of reads across all samples that were classified as “Escherichia coli”. Sort the table by the most
-abundant taxa by clicking on the up arrow next to “TaxonReads”.
-
-• Can you can you identify the strain(s) of STEC that samples ERR2270960 and ERR2270961 likely contain?
 
 ## References
 
@@ -432,3 +404,4 @@ Res. 2016 Dec;26(12):1721-1729. Epub 2016 Oct 17. PubMed PMID: 27852649; PubMed 
 
 Lu J, Salzberg SL. Removing contaminants from databases of draft genomes. PLoS Comput Biol. 2018 Jun 25;14(6):e1006277.
 doi: 10.1371/journal.pcbi.1006277. eCollection 2018 Jun. PubMed PMID: 29939994; PubMed Central PMCID: PMC6034898.
+-->

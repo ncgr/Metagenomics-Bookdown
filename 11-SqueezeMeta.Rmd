@@ -29,9 +29,7 @@ can build the database and format the metadata that we will use with SqueezeMeta
 ## Conda Environment
 
 ```{bash, eval=FALSE}
-# Do not do for this tutorial
-
-conda create -n squeezemeta -c bioconda -c fpusan squeezemeta sra-tools
+conda activate squeezemeta
 ```
 
 ## Retrieve Databases
@@ -93,9 +91,9 @@ sample_groups.txt > sample_file.txt
 awk '{print $1}' sample_groups.txt > sra_ids.txt
 ```
 
-• Run SqueezeMeta. The top command runs SqueezeMeta using an assembly based method for metatranscriptomics. Unfortunately,
-the assembly based method my not be appropriate for this dataset. After assembly, less than 50% of the
-reads aligned to the assembly. The bottom command uses the sqm_read.pl script to perform a read based method for
+• Run SqueezeMeta. The top command runs SqueezeMeta using an assembly-based method for metatranscriptomics. Unfortunately,
+the assembly-based method my not be appropriate for this dataset. After assembly, less than 50% of the
+reads aligned to the assembly so we are losing a lot (likely the low abundance organisms). The bottom command uses the sqm_read.pl script to perform a read-based method for
 metatranscriptomics and may be more suited for this dataset.
 
 ```{bash, eval=FALSE}

@@ -1,3 +1,5 @@
+<!--The krakenuniq command takes less than 10 minutes. It will be considerably faster if all 32 threads requested can be used, which depends on how many people are running it at the same time.-->
+
 # Nanopore WGS Community Profiling (KrakenUniq)\
 
 KrakenUniq
@@ -100,6 +102,7 @@ How many genera (field 2)?
 ```{bash,eval=FALSE}
 awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
 ```
+Note: this doesn't strictly give us the number of genera as some genera are written as Frankia_* and are counted independently even though they are all part of the Frankia genus.
 </details>\
 
 And how many of each genera?
@@ -131,7 +134,7 @@ conda activate krakenuniq
 
 Run Kraken on sample 3469-3.
 ```{bash,eval=FALSE}
-time krakenuniq \
+krakenuniq \
 	--db /home/data/metagenomics-2310/krakenuniq \
 	--threads 32 \
 	--report-file 3469-3.report \
@@ -143,10 +146,10 @@ time krakenuniq \
 
 
 Make sure you got the following files:\
-3469-3.classified.fna\
+3469-3.classified.fq\
 3469-3.krakenuniqoutput\
 3469-3.report\
-3469-3.unclassified.fna
+3469-3.unclassified.fq
 
 This command should show you all of them and give you their sizes so you can make sure none of them are empty.
 
@@ -230,7 +233,7 @@ Now run it on the other sample (4956-3) and compare it to 3469-3.
 
 Copy the reports to your computer.
 
-Let's open them in Pavian.
+Let's open them in Pavian. You 
 <!--We haven't produced bam files for the alignment viewer. We do have sam files of reads aligned to the red alder genome but these aren't what is needed.-->
 
 
@@ -238,6 +241,8 @@ If you haven't installed Pavian, visit the installs section above.
 
 Once you have Pavian installed, in your local Rstudio, type:\
 pavian::runApp(port=5000)
+
+You can load more than one sample by shift-clicking when you choose files to load.
 
 More information on things you can do in Pavian is in the Centrifuge chapter.
 
