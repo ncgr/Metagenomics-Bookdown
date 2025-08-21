@@ -38,8 +38,9 @@ ln -s /home/data/metagenomics-2310/red-alder-reads/3469-3.all.fastq .
 
 ## Alignment
 
-Run Minimap2 to align the MinION reads to the red alder genome
-    + The -x map-ont parameter (allows ~10% error + divergence)
+Run Minimap2 to align the MinION reads to the red alder genome  
+
++ The -x map-ont parameter (allows ~10% error + divergence)
 
 ```
 minimap2 -x map-ont -L -t 8 -a \
