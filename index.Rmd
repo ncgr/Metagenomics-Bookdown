@@ -22,27 +22,35 @@ Make sure the following software is installed on your local computer before the 
 
 1. [Zoom](https://zoom.us/download)
 
-Install the correct version for your OS. Don't plan to use the web version, as this does not have enough features. 
+Don't plan to use the web version, as this does not have enough features. 
 
-2. [Integrated Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/download)
+2. [Tabby Terminal](https://tabby.sh/)
+Windows: *x64.exe
+Mac: arm64
 
-3. [MobaXterm](https://mobaxterm.mobatek.net/download.html) (Windows Users Only. Mac or Linux users will use their native terminal)
+<!--2. [Integrated Genomics Viewer (IGV)](https://software.broadinstitute.org/software/igv/download)-->
+
+<!--3. [MobaXterm](https://mobaxterm.mobatek.net/download.html) (Windows Users Only. Mac or Linux users will use their native terminal)
 
 * Download the "Home" "Installer" edition.  Be careful not to install the portable or professional editions.  
 
 * Before installing, extract the installer zip folder to any location on your computer.  
 
-* Now run the installer and follow the prompts.
+* Now run the installer and follow the prompts.-->
 
-4. [Filezilla](https://filezilla-project.org/)
+3. [Filezilla](https://filezilla-project.org/)
 
-5. [R](https://cran.rstudio.com/) (Latest Version for your OS)
+4. Make sure you can access [Pavian](https://fbreitwieser.shinyapps.io/pavian/)
 
-6. [RStudio](https://rstudio.com/products/rstudio/download/#download)
+Optional: if you prefer to install Pavian on your computer, install R, R studio, and Pavian as outlined below.
 
-7. [Pavian](https://github.com/fbreitwieser/pavian)
+| Opt A. [R](https://cran.rstudio.com/) (Latest Version for your OS)
 
-Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires installs #5 and #6 to be complete
+| Opt B. [RStudio](https://rstudio.com/products/rstudio/download/#download)
+
+| Opt C. [Pavian](https://github.com/fbreitwieser/pavian)
+
+| Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires R and R studio to be complete
 
 
 ## Agenda
@@ -149,7 +157,7 @@ _____
 
 2. Type the following on your command line, substituting in your username for <username>.
 
-```
+```{bash,eval=FALSE}
 ssh -p2310 <username>@inbre.ncgr.org
 ```
 
@@ -190,7 +198,7 @@ Enter the following command to log on to Ghostwheel:
 
 + substitute **your** personal username in for "username"
 
-```
+```{bash,eval=FALSE}
 ssh -p2310 <username>@inbre.ncgr.org
 ```
 
@@ -215,7 +223,7 @@ Command **output** is shown after the "##" in this document.
 
 print working directory (pwd), mkdir (make directory), and list contents (ls)
 
-```
+```{bash,eval=FALSE}
 pwd
 ```
 
@@ -227,7 +235,7 @@ pwd
 
 Now, create a dir under your home directory for this linux class:
 
-```
+```{bash,eval=FALSE}
 mkdir linuxc
 
 ls
@@ -243,7 +251,7 @@ using the ls command
 
 + **l**ong list:
 
-```
+```{bash,eval=FALSE}
 ls -l
 ```
 
@@ -254,7 +262,7 @@ ls -l
 
 + **l**ong list, by **t**ime, **r**everse order -old to new:
 
-```
+```{bash,eval=FALSE}
 ls -ltr
 ```
     
@@ -269,7 +277,7 @@ ls -ltr
 + where ~ is shorthand for your home directory  
 + that is, "~" is equivalent to "/home/agomez"
 
-```
+```{bash,eval=FALSE}
 cd ~/linuxc
 
 pwd
@@ -283,7 +291,7 @@ pwd
 
 1) Create a file
 
-```
+```{bash,eval=FALSE}
 touch newfile.txt
 
 ls -l
@@ -296,7 +304,7 @@ ls -l
 
 2) Change to your home dir
 
-```
+```{bash,eval=FALSE}
 cd ~ 
 
 pwd
@@ -310,7 +318,7 @@ pwd
 
 lists the commands you have entered
 
-```
+```{bash,eval=FALSE}
 history
 ```
 
@@ -325,13 +333,13 @@ Scroll through recent commands with the up and down arrows.
 
 To perform a command from the list by number:
 
-```
+```{bash,eval=FALSE}
 !17
 ```
 
 To perform the last command you made:
 
-```
+```{bash,eval=FALSE}
 !!
 ```
 
@@ -344,7 +352,7 @@ To send output to a file instead of standard out:
 + standard out is just the terminal
    
     
-```
+```{bash,eval=FALSE}
 history > history.txt
 
 ls -l
@@ -356,7 +364,7 @@ ls -l
 ## drwxrwxr-x 2 eprice eprice 4096 Aug 17 22:50 linuxc
 ```
 
-```
+```{bash,eval=FALSE}
 cat history.txt
 ```
 
@@ -385,7 +393,7 @@ To autocomplete remainder of file name instead of typing it all in:
 
 #### Syntax: mv sourcefilename destinationfilename{-}
 
-```
+```{bash,eval=FALSE}
 mv history.txt history_file.txt
 
 ls -l
@@ -405,19 +413,19 @@ ls -l
 
 1) Change back to the linuxc directory:
 
-```
+```{bash,eval=FALSE}
 cd ~/linuxc
 ```
 
 2) Make a "back up" copy of a file in your working directory:
 
-```
+```{bash,eval=FALSE}
 cp ~/linuxc/newfile.txt newfile_bu.txt
 ```
 
 3) Check if the newly copied file is there:
 
-```
+```{bash,eval=FALSE}
 ls
 ```
 
@@ -437,7 +445,7 @@ ls
 
 1) Create a file to copy
 
-```
+```{bash,eval=FALSE}
 touch scp_test.txt
 ```
 
@@ -452,7 +460,7 @@ touch scp_test.txt
 + to **download** the file **to your computer** from Ghostwheel
 + the last period means that the destination is your working directory
 
-```
+```{bash,eval=FALSE}
 scp -P 2310 <username>@inbre.ncgr.org:~/linuxc/scp_test.txt .
 ```
 
@@ -465,7 +473,7 @@ You will be prompted for your Ghostwheel password if not using MobaXterm.
 5) Now **upload** a file **to Ghostwheel** from your computer
 + Again, run the scp command from your **local** terminal window:
 
-```
+```{bash,eval=FALSE}
 scp -P 2310 scp_test.txt <username>@inbre.ncgr.org:~/linuxc
 ```
 
@@ -477,7 +485,7 @@ scp -P 2310 scp_test.txt <username>@inbre.ncgr.org:~/linuxc
 
 #### Syntax: rm [options] filename{-}
 
-```
+```{bash,eval=FALSE}
 rm -i newfile_bu.txt
 ```
 
@@ -487,7 +495,7 @@ rm -i newfile_bu.txt
 
 Enter "yes" or "y" in response to the question:
 
-```
+```{bash,eval=FALSE}
 yes
 
 ls -l
@@ -510,7 +518,7 @@ Let’s say you type a command and nothing happens; it hangs.
 This can happen when the syntax doesn’t make sense. 
 Good time for CTRL c
 
-```
+```{bash,eval=FALSE}
 cat
 ```
 
@@ -529,7 +537,7 @@ You should be returned to your prompt: username@metagenomics-2310:~/linuxc$
 
 #### Syntax: ln -s FileYouWantToLink/PointTo NameYouWantToGiveIt{-}
 
-```
+```{bash,eval=FALSE}
 ln -s /home/data/metagenomics-2310/covid.fasta covid.fasta
 
 ls -l
@@ -547,7 +555,7 @@ Fasta files (.fasta or .fa) contain one or more sequences, each preceded by a **
 
 Show only the **first 10 lines** of a file with "head" command:
 
-```
+```{bash,eval=FALSE}
 head covid.fasta
 ```
 
@@ -566,7 +574,7 @@ head covid.fasta
 
 Now show only the **last 10 lines** of a file using the "tail" command:
 
-```
+```{bash,eval=FALSE}
 tail covid.fasta
 ```
 
@@ -589,7 +597,7 @@ Use the pipe operator to redirect "cat" output to "head":
 
 + The symbol "|" denotes a pipe
 
-```
+```{bash,eval=FALSE}
 cat covid.fasta | head
 ```
 
@@ -606,7 +614,7 @@ cat covid.fasta | head
 ## ACGTTCGGATGCTCGAACTGCACCTCATGGTCATGTTATGGTTGAGCTGGTAGCAGAACT
 ```
 
-```
+```{bash,eval=FALSE}
 cat covid.fasta | tail
 ```
 
@@ -627,7 +635,7 @@ cat covid.fasta | tail
 
 Fastq files contain sequence reads and associated **meta data**.
 
-```
+```{bash,eval=FALSE}
 ln -s /home/data/metagenomics-2310/SP1.fq 
 
 ls -ltr
@@ -642,7 +650,7 @@ ls -ltr
 
 Tail the last 4 lines:
 
-```
+```{bash,eval=FALSE}
 tail -n 4 SP1.fq
 ```
 
@@ -668,7 +676,7 @@ Grep will output the lines containing a provided expression.
 
 #### Syntax: grep [options] "expression" filename{-}
 
-```
+```{bash,eval=FALSE}
 grep ">" covid.fasta
 ```
 
@@ -781,7 +789,7 @@ Adding the "-c" option counts the number of lines containing a match
 
 + **not** the number of matches!
 
-```
+```{bash,eval=FALSE}
 grep -c ">" covid.fasta
 ```
 
@@ -791,7 +799,7 @@ grep -c ">" covid.fasta
 
 The "-v" option reverses the grep search, which is the first step towards finding the total length of sequences
 
-```
+```{bash,eval=FALSE}
 grep -v ">" covid.fasta
 ```
 
@@ -801,7 +809,7 @@ We can add in the pipe operator to redirect our output to the "wc" command.
 
 The output shows the number of newline characters, followed by line count and total character count.
 
-```
+```{bash,eval=FALSE}
 grep -v ">" covid.fasta | wc
 ```
 
@@ -813,7 +821,7 @@ wc: prints newline, word, and byte counts for each file:
 
 Let’s trim out the newline characters with "tr -d" before doing the word count:
 
-```
+```{bash,eval=FALSE}
 grep -v ">" covid.fasta | tr -d '\n' | wc
 ```
 
@@ -829,7 +837,7 @@ Powerful Z commands (zcat)
 
 Let’s copy another file:
 
-```
+```{bash,eval=FALSE}
 cp /home/data/metagenomics-2310/table1.txt.gz .
 zcat table1.txt.gz
 
@@ -846,7 +854,7 @@ zcat table1.txt.gz
 ## 8, Michael Jackson, Title 373, Price $5.50
 ```
 
-```
+```{bash,eval=FALSE}
 zgrep "Jagger" table1.txt.gz
 ```
 
@@ -858,7 +866,7 @@ zgrep "Jagger" table1.txt.gz
 
 :s = substitute /word1/with word2
 
-```
+```{bash,eval=FALSE}
 !!:s/Jagger/John
 ```
 
@@ -875,7 +883,7 @@ Powerful Z commands (zgrep)
 
 Display all the lines that start with 8:
 
-```
+```{bash,eval=FALSE}
 zgrep "^8" table1.txt.gz
 ```
 
@@ -885,7 +893,7 @@ zgrep "^8" table1.txt.gz
 
 Display all the lines that end with 50:
 
-```
+```{bash,eval=FALSE}
 zgrep "50$" table1.txt.gz
 ```
 
@@ -927,7 +935,7 @@ How many fields does it have?
 
 p. 2 of 5
 
-```
+```{bash,eval=FALSE}
 gunzip table1.txt.gz
 
 cat table1.txt
@@ -944,7 +952,7 @@ cat table1.txt
 ## 8, Michael Jackson, Title 373, Price $5.50
 ```
 
-```
+```{bash,eval=FALSE}
 awk '{print $1 $3 $5}' table1.txt
 ```
 
@@ -965,7 +973,7 @@ p. 3 of 5
 
 Using field separator command -F
 
-```
+```{bash,eval=FALSE}
 cat table1.txt
 ```
 
@@ -980,7 +988,7 @@ cat table1.txt
 ## 8, Michael Jackson, Title 373, Price $5.50
 ```
 
-```
+```{bash,eval=FALSE}
 awk -F, '{print $3}' table1.txt
 ```
 
@@ -1016,7 +1024,7 @@ Time to really watch for syntax errors!
 
 p. 5 of 5
 
-```
+```{bash,eval=FALSE}
 awk '$7=="$7.30" {print $3}' table1.txt
 ```
 
@@ -1036,7 +1044,7 @@ text substitution
 
 Examples:
 
-```
+```{bash,eval=FALSE}
 echo "it’s a trap" | sed s/ra/ar/
 ```
 
@@ -1048,13 +1056,13 @@ Say you want to change all price occurrences of $7.90 to $8.90 from table1.txt, 
 
 You can do this with sed.
 
-```
+```{bash,eval=FALSE}
 sed 's/7.90/8.90/' table1.txt > table2.txt
 ```
 
 Use cat to display the contens of the new file:
 
-```
+```{bash,eval=FALSE}
 cat table2.txt
 ```
 
@@ -1075,7 +1083,7 @@ Suppose we want to run a command for a **group of files** in a directory. We can
 
 #### Syntax: for variablename in filenameexpression; do command ${variablename}; done {-}
 
-```
+```{bash,eval=FALSE}
 for file in *; do echo ${file}; done
 ```
 
@@ -1121,7 +1129,7 @@ There is also cheat sheet on the weebly site under Supplemental Documents.
 
 2) Enter the following command to log on to Ghostwheel: 
 
-```
+```{bash,eval=FALSE}
 ssh -p2310 <username>@inbre.ncgr.org
 ```
 
@@ -1129,19 +1137,19 @@ ssh -p2310 <username>@inbre.ncgr.org
 
 3) Make a new directory under **your home directory**:
 
-```
+```{bash,eval=FALSE}
 mkdir fastq_files
 ```
 
 4) Enter into the new directory:
 
-```
+```{bash,eval=FALSE}
 cd fastq_files
 ```
 
 5) Move the fastq file from yesterday to the present working directory:
 
-```
+```{bash,eval=FALSE}
 mv ~/linuxc/SP1.fq .
 
 ls -ltr
@@ -1154,7 +1162,7 @@ ls -ltr
 
 6) How can we count the number of records in a fastq file?
 
-```
+```{bash,eval=FALSE}
 grep -c "@cluster" SP1.fq
 ```
 
@@ -1164,7 +1172,7 @@ grep -c "@cluster" SP1.fq
 
 7) If you want to determine the number of lines in a file, you can use the "wc" command.
 
-```
+```{bash,eval=FALSE}
 cat SP1.fq | wc -l
 ```
 
