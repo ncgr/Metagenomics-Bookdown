@@ -7,13 +7,13 @@ Command Line Tutorial
 Make it a practice to start a screen before you begin analysis.
 
 ```{bash, eval=FALSE}
-ssh -p2310 <USERNAME>@inbre.ncgr.org
+ssh -p2310 <username>@inbre.ncgr.org
 
 screen -S QIIME2
 ```
 ## Setting up a working directory for QIIME2 analysis
 ```{bash, eval=FALSE}
-cd /home/$USER/
+cd /home/<username>/
 
 mkdir QIIME2_Analysis
 
@@ -49,7 +49,7 @@ following exercise will help you use fastq-dump for your own projects too.
 ```{bash, eval=FALSE}
 conda activate sra-tools
 # MAKE SURE YOU ARE IN THE FOLLOWING FOLDER
-/home/$USER/QIIME2_Analysis
+/home/<username>/QIIME2_Analysis
 # CREATE A FOLDER FOR DOWNLOADING FASTQ FILES TO ANALYZE
 
 mkdir input_data
@@ -151,7 +151,7 @@ Plugin availability - https://docs.qiime2.org/2020.11/plugins/available/
 
 ## Metadata setup
 
-Metadata file that we will be using for our data set: (mappingFile.txt on logrus)
+Metadata file that we will be using for our data set: (mappingFile.txt on Ghostwheel)
 
 Here is how you will make a metadata file on your own: https://docs.qiime2.org/2017.6/tutorials/metadata/
 
@@ -196,9 +196,9 @@ cd ..
 
 # Copy metadata file from my workspace to your workspace,
 
-cd /home/$USER/QIIME2_Analysis
+cd /home/<username>/QIIME2_Analysis
 
-cp /home/data/metagenomics-2310/mappingFile.txt .
+cp /home/data/metagenomics/mappingFile.txt .
 
 less mappingFile.txt 
 ```
@@ -209,11 +209,11 @@ We will be beginning our analysis with demultiplexed, quality controlled sequenc
 For the purpose of this workshop we will not use the entire dataset per sample. We have created 1000 sequences per sample as subset. This will be your input dataset.
 
 ```{bash, eval=FALSE}
-cd /home/$USER/QIIME2_Analysis
+cd /home/<username>/QIIME2_Analysis
 
 # Copy the subset file of sequences:
 
-cp /home/data/metagenomics-2310/seqs.1000.fna .
+cp /home/data/metagenomics/seqs.1000.fna .
 
 conda deactivate
 
@@ -286,7 +286,7 @@ gg_13_8_otus/rep_set/99_otus.fasta \
 
 # The above command will take too long, copy output:
 
-cp /home/data/metagenomics-2310/99_otus.qza .
+cp /home/data/metagenomics/99_otus.qza .
 
 ```
 
@@ -366,9 +366,9 @@ qiime vsearch cluster-features-open-reference \
 
 # The above command will take too long, copy output:
 
-cp /home/data/metagenomics-2310/table-or-99.qza .
-cp /home/data/metagenomics-2310/rep-seqs-or-99.qza .
-cp /home/data/metagenomics-2310/new-ref-seqs-or-99.qza .
+cp /home/data/metagenomics/table-or-99.qza .
+cp /home/data/metagenomics/rep-seqs-or-99.qza .
+cp /home/data/metagenomics/new-ref-seqs-or-99.qza .
 
 ```
 
@@ -394,7 +394,7 @@ qiime alignment mafft \
 
 # Copy the output instead:
 
-cp /home/data/metagenomics-2310/aligned-rep-seqs.qza .
+cp /home/data/metagenomics/aligned-rep-seqs.qza .
 
 # Mask (or filter) the alignment to remove positions that are highly variable. 
 # These positions are generally considered to add noise to a
@@ -415,7 +415,7 @@ qiime phylogeny fasttree \
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 9 MINUTES TO RUN TO COMPLETION
 # Again, copy instead:
 
-cp /home/data/metagenomics-2310/unrooted-tree.qza .
+cp /home/data/metagenomics/unrooted-tree.qza .
 
 # root the tree using the longest root
 
@@ -441,7 +441,7 @@ Species richness is the number of species present in a system. However, the deep
 
 # EXAMPLE- DO NOT RUN THE ABOVE COMMAND TO COMPLETION
 
-cp /home/data/metagenomics-2310/mappingFile.txt .
+cp /home/data/metagenomics/mappingFile.txt .
 
 qiime diversity alpha-rarefaction \
 --i-table table-or-99.qza \
@@ -587,7 +587,7 @@ qiime feature-classifier classify-sklearn \
 --o-classification taxonomy.qza
 
 # This takes too long, copy instead:
-cp /home/data/metagenomics-2310/taxonomy.qza .
+cp /home/data/metagenomics/taxonomy.qza .
 
 qiime metadata tabulate \
 --m-input-file taxonomy.qza \
@@ -610,7 +610,7 @@ qiime taxa barplot \
 ```{bash, eval=FALSE}
 # Copy the visualization files
 
-scp -P2310 <USERNAME>@inbre.ncgr.org:/home/<USERNAME>/QIIME2_Analysis\
+scp -P2310 <username>@inbre.ncgr.org:/home/<username>/QIIME2_Analysis\
 /core-metrics-results/*.qzv .
 ```
 
@@ -637,7 +637,7 @@ qiime feature-table filter-samples \
 
 # Takes too long, copy:
 
-cp /home/data/metagenomics-2310/nasal-table.qza .
+cp /home/data/metagenomics/nasal-table.qza .
 =================================================
 
 # You should run the following command/plugin on your own dataset where you collapse 
@@ -668,7 +668,7 @@ qiime composition ancom \
 --o-visualization ancom-Treatment-nasal.qzv
 
 # Takes too long, copy instead:
-cp /home/data/metagenomics-2310/ancom-Treatment-nasal.qzv .
+cp /home/data/metagenomics/ancom-Treatment-nasal.qzv .
 ```
 
 EXERCISE: Preparing your raw sequence data and importing. This material closely follows the tutorial available at https://docs.qiime2.org/2021.2/tutorials/atacama-soils/
