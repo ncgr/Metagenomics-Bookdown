@@ -18,7 +18,7 @@
  
 Where is it?
 
-```
+```{bash,eval=FALSE}
 /home/data/metagenomics-2310/red-alder-reads/sequencing_summary_FAS21661_9ac87089.txt
 ```
 
@@ -29,7 +29,7 @@ Where is it?
 + Stay in your home directory (check with pwd)
 + Type the following: 
 		
-```
+```{bash,eval=FALSE}
 source activate pycoQC
 pycoQC
 pycoQC –f inputfilename.txt –o outputfilename.html
@@ -42,7 +42,7 @@ pycoQC –f inputfilename.txt –o outputfilename.html
 + Open new Terminal window but don't connect to the linux server	
 + Type:
 
-```
+```{bash,eval=FALSE}
 scp -P 2310 <username>@inbre.ncgr.org:/home/<username>/outputfile.html ~/Desktop/
 ```
 

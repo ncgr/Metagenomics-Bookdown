@@ -19,20 +19,20 @@ Activate the environment that contains minimap2 and samtools
 
 ![](Figures/minimap2.png){width=80%}
 
-```
+```{bash,eval=FALSE}
 conda activate filter-reads
 ```
 
 Make a directory and go into it
 
-```
+```{bash,eval=FALSE}
 mkdir ~/microbe_fastq
 cd ~/microbe_fastq
 ```
 
 Link to the merged minion reads
 
-```
+```{bash,eval=FALSE}
 ln -s /home/data/metagenomics-2310/red-alder-reads/3469-3.all.fastq .
 ```
 
@@ -42,7 +42,7 @@ Run Minimap2 to align the MinION reads to the red alder genome
 
 + The -x map-ont parameter (allows ~10% error + divergence)
 
-```
+```{bash,eval=FALSE}
 minimap2 -x map-ont -L -t 8 -a \
 /home/data/metagenomics-2310/red-alder-reads/red-alder-genome.fasta \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
@@ -58,14 +58,14 @@ Now we will use samtools, which is available in the same environment, to pull ou
 Convert the unmapped reads in the alignment file (sam) to a fastq file
     + The -f4 includes only reads with the 4 flag (unmapped)
 
-```
+```{bash,eval=FALSE}
 samtools fastq -f4 3469-3-minionxredalder.mm2.sam > 3469-3.microbe.fq
 ```
 
 Compress the new fastq file 
     + (note that it will automatically add the extension .gz)
 
-```
+```{bash,eval=FALSE}
 gzip 3469-3.microbe.fq
 ```
 
@@ -73,7 +73,7 @@ gzip 3469-3.microbe.fq
 
 Reads are here: 
 
-```
+```{bash,eval=FALSE}
 /home/data/metagenomics-2310/red-alder-reads/4956-3.all.fastq
 ```
 
