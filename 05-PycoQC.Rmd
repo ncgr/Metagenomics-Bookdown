@@ -10,7 +10,7 @@
 + Sequencing Summary File 
     + Automatically produced by the MinIon basecaller.
 + PycoQC package + dependencies 
-    + Already downloaded for you in Logrus.
+    + Already downloaded for you in Ghostwheel.
 + Line of code to produce .html file.
 + Line of code to secure copy file to your computer.
 
@@ -25,7 +25,7 @@ Where is it?
 ## PycoQC package & code
 
 1. Where is it? How to activate it?
-+ Log in to Logrus
++ Log in to Ghostwheel
 + Stay in your home directory (check with pwd)
 + Type the following: 
 		
