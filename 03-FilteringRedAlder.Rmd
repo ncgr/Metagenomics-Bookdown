@@ -33,7 +33,7 @@ cd ~/microbe_fastq
 Link to the merged minion reads
 
 ```{bash,eval=FALSE}
-ln -s /home/data/metagenomics-2310/red-alder-reads/3469-3.all.fastq .
+ln -s /home/data/metagenomics/red-alder-reads/3469-3.all.fastq .
 ```
 
 ## Alignment
@@ -44,7 +44,7 @@ Run Minimap2 to align the MinION reads to the red alder genome
 
 ```{bash,eval=FALSE}
 minimap2 -x map-ont -L -t 8 -a \
-/home/data/metagenomics-2310/red-alder-reads/red-alder-genome.fasta \
+/home/data/metagenomics/red-alder-reads/red-alder-genome.fasta \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
@@ -76,6 +76,6 @@ gzip 3469-3.microbe.fq
 Reads are here: 
 
 ```{bash,eval=FALSE}
-/home/data/metagenomics-2310/red-alder-reads/4956-3.all.fastq
+/home/data/metagenomics/red-alder-reads/4956-3.all.fastq
 ```
 

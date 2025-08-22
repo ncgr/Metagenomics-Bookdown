@@ -72,9 +72,9 @@ conda activate centrifuge
 
 ```{bash, eval=FALSE}
 centrifuge \
-  -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
-  -1 /home/data/metagenomics-2310/centrifuge/ERR2271042_1.fastq \
-  -2 /home/data/metagenomics-2310/centrifuge/ERR2271042_2.fastq -t \
+  -x /home/data/metagenomics/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+  -1 /home/data/metagenomics/centrifuge/ERR2271042_1.fastq \
+  -2 /home/data/metagenomics/centrifuge/ERR2271042_2.fastq -t \
   -p 4 \
   --met-file ~/centrifuge/centrifuge_results/ERR2271042_meta.txt \
   --met-stderr -S ~/centrifuge/centrifuge_results/ERR2271042_cent.out
@@ -84,12 +84,12 @@ centrifuge \
 You can also run all the samples together using a for loop (>1 hr).
 
 ```{bash, eval=FALSE}
-for i in /home/data/metagenomics-2310/centrifuge/*_1.fastq; do
+for i in /home/data/metagenomics/centrifuge/*_1.fastq; do
   bn=`basename $i _1.fastq`
   centrifuge \
-  -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
-  -1 /home/data/metagenomics-2310/centrifuge/${bn}_1.fastq \
-  -2 /home/data/metagenomics-2310/centrifuge/${bn}_2.fastq -t \
+  -x /home/data/metagenomics/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+  -1 /home/data/metagenomics/centrifuge/${bn}_1.fastq \
+  -2 /home/data/metagenomics/centrifuge/${bn}_2.fastq -t \
   -p 4 \
   --met-file ~/centrifuge/centrifuge_results/${bn}_meta.txt \
   --met-stderr -S ~/centrifuge/centrifuge_results/${bn}_cent.out
@@ -120,7 +120,7 @@ Create the report. We will use a for loop to generate the report for all the sam
 for i in ~/centrifuge/centrifuge_results/*_cent.out; do
   bn=`basename $i _cent.out`
   centrifuge-kreport \
-  -x /home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
+  -x /home/data/metagenomics/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
   $i \
   > ~/centrifuge/centrifuge_krn_results/${bn}_cent.out.krn
 done
@@ -132,7 +132,7 @@ done
 Use awk to extract columns 2, 10, and 18 from the PRJEB23207 metadata file. Then, pipe the output to grep and exclude samples that were sequenced with the “Ion Torrent PGM” platform
 
 ```{bash, eval=FALSE}
-awk -F'\t' '{print $2,$10,$18}' /home/data/metagenomics-2310/centrifuge/PRJEB23207_metadata.txt | grep -i -v "ion"
+awk -F'\t' '{print $2,$10,$18}' /home/data/metagenomics/centrifuge/PRJEB23207_metadata.txt | grep -i -v "ion"
 ```
 
 ## Visualize the Kraken Reports with Pavian
@@ -252,7 +252,7 @@ Copy our already downloaded file.
 <!-- This was downloaded 11/8/2024 and took approximately 17 minutes-->
 
 ```{bash, eval=FALSE}
-cp /home/data/metagenomics-2310/centrifuge/eupath/eupathDB.tar.gz .
+cp /home/data/metagenomics/centrifuge/eupath/eupathDB.tar.gz .
 ```
 
 This is a compressed tarball file that contains several files. Let's uncompress it and look into the library file it created.

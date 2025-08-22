@@ -74,7 +74,7 @@ Take a look at the file using head.
 <details>
   <summary>Click for Answer</summary>
 ```{bash,eval=FALSE}
-head /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+head /home/data/metagenomics/krakenuniq/library/bacteria/library_headers.orig
 ```
 </details>\
 
@@ -84,7 +84,7 @@ How many sequences are there?
 <details>
   <summary>Click for Answer</summary>
 ```{bash,eval=FALSE}
-wc -l /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+wc -l /home/data/metagenomics/krakenuniq/library/bacteria/library_headers.orig
 ```
 </details>\
 
@@ -92,7 +92,7 @@ How many sequences are Frankia?
 <details>
   <summary>Click for Answer</summary>
 ```{bash,eval=FALSE}
-grep -c Frankia /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+grep -c Frankia /home/data/metagenomics/krakenuniq/library/bacteria/library_headers.orig
 ```
 </details>\
 
@@ -100,7 +100,7 @@ How many genera (field 2)?
 <details>
   <summary>Click for Answer</summary>
 ```{bash,eval=FALSE}
-awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
+awk '{print $2}' /home/data/metagenomics/krakenuniq/library/bacteria/library_headers.orig | sort -u| wc -l
 ```
 Note: this doesn't strictly give us the number of genera as some genera are written as Frankia_* and are counted independently even though they are all part of the Frankia genus.
 </details>\
@@ -109,14 +109,14 @@ And how many of each genera?
 <details>
   <summary>Click for Answer</summary>
 ```{bash,eval=FALSE}
-awk '{print $2}' /home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig | sort | uniq -c | less
+awk '{print $2}' /home/data/metagenomics/krakenuniq/library/bacteria/library_headers.orig | sort | uniq -c | less
 ```
 </details>\
 
 ## Link to the krakenuniq database
 
 ```{bash,eval=FALSE}
-ln -s /home/data/metagenomics-2310/krakenuniq/ .
+ln -s /home/data/metagenomics/krakenuniq/ .
 ```
 
 ## Run KrakenUniq
@@ -135,7 +135,7 @@ conda activate krakenuniq
 Run Kraken on sample 3469-3.
 ```{bash,eval=FALSE}
 krakenuniq \
-	--db /home/data/metagenomics-2310/krakenuniq \
+	--db /home/data/metagenomics/krakenuniq \
 	--threads 32 \
 	--report-file 3469-3.report \
 	--unclassified-out 3469-3.unclassified.fq \

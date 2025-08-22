@@ -49,7 +49,7 @@ screen -S squeezemeta
 # Download from source and format the latest version of the annotation databases for use with SqueezeMeta.
 # Do not do this step for this tutorial (It took ~14 hours).
 
-make_databases.pl /home/$USER/squeezemeta/database
+make_databases.pl /home/<username>/squeezemeta/database
 ```
 
 ## Data Download
@@ -72,7 +72,7 @@ Or copy it from here: /home/data/metagenomics-2310/squeezemeta/SraRunTable.txt
 
 ```{bash, eval=FALSE}
 # Copy accessions list:
-cp /home/data/metagenomics-2310/squeezemeta/sra_ids.txt .
+cp /home/data/metagenomics/squeezemeta/sra_ids.txt .
 
 # Activate sra-tools environment:
 conda activate sra-tools
@@ -103,21 +103,21 @@ conda deactivate
 source activate squeezemeta
 
 # Create a symbolic link to fastq files if download didn't have time to finish
-cd /home/$USER/squeezemeta/fastq
-ln -s /home/elavelle/squeezemeta/fastq/new/*gz ./
+cd ~/squeezemeta/fastq
+ln -s /home/data/metagenomics/squeezemeta/fastq/new/*gz ./
 
 # This is an assembly based method of metatranscriptomics (Finished running in ~4.25 hours)
-cd /home/$USER/squeezemeta
+cd ~/squeezemeta
 SqueezeMeta.pl -m coassembly -p gingivitis_assembly_based -s sample_file.txt \
--f /home/$USER/squeezemeta/fastq -a megahit -map minimap2-sr
+-f /home/<username>/squeezemeta/fastq -a megahit -map minimap2-sr
 
 # This is read based method of metatranscriptomics (Finished running in ~48 hours)
 sqm_reads.pl -p gingivitis_read_based -s sample_file.txt \
--f /home/$USER/squeezemeta/fastq \
+-f /home/<username>/squeezemeta/fastq \
 --memory 0.1 --num-cpu-threads 12 --euk
 
 # Softlink to pre-run output directory
-ln -s /home/elavelle/squeezemeta/gingivitis_2 /home/$USER/squeezemeta/
+ln -s /home/data/metagenomics/squeezemeta/gingivitis_2 /home/<username>/squeezemeta/
 
 
 # Deactivate the environment and launch R
@@ -139,7 +139,7 @@ https://github.com/jtamames/SqueezeMeta/wiki/Using-R-to-analyze-your-SQM-results
 library('SQMtools')
 # set working directory to directory containing gingivitis_2 folder
 
-setwd('/home/$USER/squeezemeta/')
+setwd('/home/<username>/squeezemeta/')
 # Load SqueezeMeta data into R
 gingivitis = loadSQM('gingivitis_2')
 ```

@@ -19,7 +19,7 @@
 Where is it?
 
 ```{bash,eval=FALSE}
-/home/data/metagenomics-2310/red-alder-reads/sequencing_summary_FAS21661_9ac87089.txt
+/home/data/metagenomics/red-alder-reads/sequencing_summary_FAS21661_9ac87089.txt
 ```
 
 ## PycoQC package & code

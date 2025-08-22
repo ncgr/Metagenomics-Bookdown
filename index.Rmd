@@ -538,7 +538,7 @@ You should be returned to your prompt: username@metagenomics-2310:~/linuxc$
 #### Syntax: ln -s FileYouWantToLink/PointTo NameYouWantToGiveIt{-}
 
 ```{bash,eval=FALSE}
-ln -s /home/data/metagenomics-2310/covid.fasta covid.fasta
+ln -s /home/data/metagenomics/covid.fasta covid.fasta
 
 ls -l
 ```
@@ -636,7 +636,7 @@ cat covid.fasta | tail
 Fastq files contain sequence reads and associated **meta data**.
 
 ```{bash,eval=FALSE}
-ln -s /home/data/metagenomics-2310/SP1.fq 
+ln -s /home/data/metagenomics/SP1.fq 
 
 ls -ltr
 ```
@@ -838,7 +838,7 @@ Powerful Z commands (zcat)
 Let’s copy another file:
 
 ```{bash,eval=FALSE}
-cp /home/data/metagenomics-2310/table1.txt.gz .
+cp /home/data/metagenomics/table1.txt.gz .
 zcat table1.txt.gz
 
 ```
