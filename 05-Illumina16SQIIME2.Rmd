@@ -1,6 +1,25 @@
 # Illumina 16S Community Profiling (QIIME2)
 
-Command Line Tutorial
+## What is QIIME2?
+https://docs.qiime2.org/2020.11/about/
+
+QIIME 2 is a powerful microbiome analysis package with a focus on data and analysis transparency. QIIME2 enables researchers to start an analysis with raw DNA sequence data and finish with publication-quality figures and statistical results.
+
+Key features:
+
+• Integrated and automatic tracking of data provenance
+
+• Plugin system for extending microbiome analysis functionality
+
+• Support for multiple types of user interfaces (e.g. API, command line, graphical)
+
+Plugin availability - https://docs.qiime2.org/2020.11/plugins/available/
+
+The documentation is here:  
+https://amplicon-docs.qiime2.org/en/latest/
+
+The paper is here:  
+https://pubmed.ncbi.nlm.nih.gov/30298251/
 
 ## Logging on to the server
 
@@ -78,8 +97,14 @@ ls| wc -l
 ```
 
 ## Quality Control
+
+fastp is a tool that can quickly do both pre-processing and quality control on short sequence reads (FASTQ files). A corresponding tool, fastplong, is available for long reads.
+
+https://github.com/OpenGene/fastp
+
+Use the default parameters to filter poor quality reads
+
 ```{bash, eval=FALSE}
-# Filter poor quality reads
 conda activate fastp
 
 for file in *.gz; do fastp -i ${file} -o ${file}.filtered; done
@@ -134,20 +159,6 @@ Patient_6_Pharynx_L001_R1_001.fasta 58956
 Patient_6_Sputum_L001_R1_001.fasta 	35703
 ```
 
-## What is QIIME2?
-https://docs.qiime2.org/2020.11/about/
-
-QIIME 2 is a powerful microbiome analysis package with a focus on data and analysis transparency. QIIME2 enables researchers to start an analysis with raw DNA sequence data and finish with publication-quality figures and statistical results.
-
-Key features:
-
-• Integrated and automatic tracking of data provenance
-
-• Plugin system for extending microbiome analysis functionality
-
-• Support for multiple types of user interfaces (e.g. API, command line, graphical)
-
-Plugin availability - https://docs.qiime2.org/2020.11/plugins/available/
 
 ## Metadata setup
 
