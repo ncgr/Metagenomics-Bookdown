@@ -129,7 +129,7 @@ _____
 2. Type the following on your command line, substituting in your username for <username>.
 
 ```{bash,eval=FALSE}
-ssh -p2310 <username>@inbre.ncgr.org
+ssh -p2508 <username>@inbre.ncgr.org
 ```
 
 3. Enter your password.
@@ -170,12 +170,12 @@ Enter the following command to log on to Ghostwheel:
 + substitute **your** personal username in for "username"
 
 ```{bash,eval=FALSE}
-ssh -p2310 <username>@inbre.ncgr.org
+ssh -p2508 <username>@inbre.ncgr.org
 ```
 
 Notes:
 
-+ Because we’re logging in remotely, the -p option is required to specify port 2310. 
++ Because we’re logging in remotely, the -p option is required to specify port 2508. 
 + If you’re prompted to confirm the connection, say "yes", then enter your password.
 
 ### Now that I logged on, where am I?
@@ -184,7 +184,7 @@ You’re at the command line interface of the Ghostwheel analysis server!
 
 To the left of the command prompt, you should see something like this: 
 
-+ agomez@metagenomics-2310:~$
++ agomez@metagenomics-2508:~$
 
 Command **output** is shown after the "##" in this document.
 
@@ -432,7 +432,7 @@ touch scp_test.txt
 + the last period means that the destination is your working directory
 
 ```{bash,eval=FALSE}
-scp -P 2310 <username>@inbre.ncgr.org:~/linuxc/scp_test.txt .
+scp -P 2508 <username>@inbre.ncgr.org:~/linuxc/scp_test.txt .
 ```
 
 Note: When you designate a port with secure copy (scp), you use a capital P.
@@ -445,7 +445,7 @@ You will be prompted for your Ghostwheel password if not using MobaXterm.
 + Again, run the scp command from your **local** terminal window:
 
 ```{bash,eval=FALSE}
-scp -P 2310 scp_test.txt <username>@inbre.ncgr.org:~/linuxc
+scp -P 2508 scp_test.txt <username>@inbre.ncgr.org:~/linuxc
 ```
 
 6) Check to see if the file you copied from your computer is on **Ghostwheel**!
@@ -499,7 +499,7 @@ If you can't execute commands, then CTRL c
 ## ^C
 ```
 
-You should be returned to your prompt: username@metagenomics-2310:~/linuxc$
+You should be returned to your prompt: username@metagenomics-2508:~/linuxc$
 
 
 ## Linux basics: Part II
@@ -1101,7 +1101,7 @@ There is also cheat sheet on the weebly site under Supplemental Documents.
 2) Enter the following command to log on to Ghostwheel: 
 
 ```{bash,eval=FALSE}
-ssh -p2310 <username>@inbre.ncgr.org
+ssh -p2508 <username>@inbre.ncgr.org
 ```
 
 + Don't forget to substitute **your** personal username in
@@ -1128,7 +1128,7 @@ ls -ltr
 
 ```
 ## total 0
-## lrwxrwxrwx 1 elavelle elavelle 28 Aug 17 22:50 SP1.fq -> /home/data/metagenomics-2310/SP1.fq
+## lrwxrwxrwx 1 elavelle elavelle 28 Aug 17 22:50 SP1.fq -> /home/data/metagenomics-2508/SP1.fq
 ```
 
 6) How can we count the number of records in a fastq file?
