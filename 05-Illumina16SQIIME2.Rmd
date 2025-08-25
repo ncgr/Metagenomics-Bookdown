@@ -1,6 +1,6 @@
 # Illumina 16S Community Profiling (QIIME2)
 
-## What is QIIME2?
+## QIIME2 Overview
 https://docs.qiime2.org/2020.11/about/
 
 QIIME 2 is a powerful microbiome analysis package with a focus on data and analysis transparency. QIIME2 enables researchers to start an analysis with raw DNA sequence data and finish with publication-quality figures and statistical results.
@@ -21,16 +21,54 @@ https://amplicon-docs.qiime2.org/en/latest/
 The paper is here:  
 https://pubmed.ncbi.nlm.nih.gov/30298251/
 
-## Logging on to the server
+
+Before we jump into QIIME2, we need need to cover a few terms that you will encounter in QIIME2 analysis.
+
+### Dereplication
+
+1. In this process all the quality-filtered sequences are collapsed into a set of unique reads, which are then clustered into OTUs
+2. Dereplication step significantly reduces computation time by eliminating redundant sequences
+
+### Operational Taxonomic Unit (OTUs)
+
+What's an OTU?
+
+https://www.youtube.com/watch?v=azI9taClDhQ
+
+#### Create OTU tables
+
+OTU table is a matrix that gives the number of reads per sample per OTU
+
+![OTUs](./Figures/OTU.png){width=80%}
+
+#### Bin OTUs into Taxonomy (assign taxonomy)
+
+1. Accuracy of assigning taxonomy depends on the
+reference database chosen
++ Ribosomal Database Project
++ GreenGenes
++ SILVA
+2. Accuracy depends on the completeness of databases
+
+![Database](./Figures/OTU2.png){width=80%}
+
+
+## Run QIIME2
+
+Now let's run QIIME2.
+
+### Set up
 
 Make it a practice to start a screen before you begin analysis.
 
 ```{bash, eval=FALSE}
-ssh -p2310 <username>@inbre.ncgr.org
+ssh -p2508 <username>@inbre.ncgr.org
 
 screen -S QIIME2
 ```
-## Setting up a working directory for QIIME2 analysis
+
+Create a directory for the QIIME2 analysis.
+
 ```{bash, eval=FALSE}
 cd /home/<username>/
 
@@ -39,7 +77,7 @@ mkdir QIIME2_Analysis
 cd QIIME2_Analysis
 ```
 
-## Dataset for analysis
+### Dataset
 
 For this tutorial, we will use data from the following published manuscript:
 https://microbiomejournal.biomedcentral.com/articles/10.1186/2049-2618-2-29
@@ -58,7 +96,7 @@ This pilot study was carried out using sputum, oropharynx, and nasal respiratory
 with pulmonary tuberculosis and healthy control individuals, in order to compare sample types and their usefulness in
 assessing changes in bacterial and fungal communities.
 
-## Data download
+### Data download
 
 Data was downloaded from the National Center for Biotechnology Information (NCBI) based on the SRA accession
 numbers reported in the manuscript - PRJNA242354.
@@ -96,7 +134,7 @@ ls| wc -l
 # Count the number of sequences in one of the fastq files.
 ```
 
-## Quality Control
+### Quality Control
 
 fastp is a tool that can quickly do both pre-processing and quality control on short sequence reads (FASTQ files). A corresponding tool, fastplong, is available for long reads.
 
@@ -160,7 +198,7 @@ Patient_6_Sputum_L001_R1_001.fasta 	35703
 ```
 
 
-## Metadata setup
+### Metadata
 
 Metadata file that we will be using for our data set: (mappingFile.txt on Ghostwheel)
 
@@ -214,7 +252,7 @@ cp /home/data/metagenomics/mappingFile.txt .
 less mappingFile.txt 
 ```
 
-## Data import
+### Data import
 We will be beginning our analysis with demultiplexed, quality controlled sequences.
 
 For the purpose of this workshop we will not use the entire dataset per sample. We have created 1000 sequences per sample as subset. This will be your input dataset.
@@ -239,7 +277,7 @@ qiime tools import \
 --type 'SampleData[Sequences]'
 ```
 
-## Dereplicate
+### Dereplicate
 
 From https://docs.qiime2.org/2021.2/tutorials/overview/#derep-denoise
 
@@ -258,13 +296,13 @@ qiime vsearch dereplicate-sequences \
 ```
 
 
-## Generating a feature table
+### Feature table
 The final products of all denoising and clustering methods/workflows are a FeatureTable[Frequency] (feature table) artifact and a FeatureData[Sequence] (representative sequences) artifact. These are two of the most important artifacts in an amplicon sequencing workflow, and are used for many downstream analyses, as discussed below. Indeed, feature tables are crucial to any QIIME2 analysis, as the central record of all observations per sample. 
 
 ![workflow](./QIIMEpics/derep-denoise.png){width=100%}
 The feature-table summarize command will give you information on how many sequences are associated with each sample and with each feature, histograms of those distributions, and some related summary statistics. The feature-table and tabulate-seqs commands will provide a mapping of feature IDs to sequences, and provide links to easily BLAST each sequence against the NCBI nt database.
 
-## Visualization
+### Visualization
 
 ```{bash, eval=FALSE}
 
@@ -281,7 +319,7 @@ qiime feature-table tabulate-seqs \
 Look at the format of a feature table from a mock dataset as well as other tutorials:
 https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdocs.qiime2.org%2F2020.11%2Fdata%2Ftutorials%2Fmoving-pictures%2Ftable.qzv
 
-## Setting up a reference
+### Set up a reference
 
 Greengenes (16S rRNA) and Silva (16S/18S rRNA) databases have to be imported as QIIME2 artifacts before using them.
 
@@ -301,7 +339,7 @@ cp /home/data/metagenomics/99_otus.qza .
 
 ```
 
-## Clustering
+### Cluster OTUs
 
 ![workflow](./QIIMEpics/qiimeimage.png){width=100%}
 There are three types of clustering,
@@ -389,7 +427,7 @@ qiime feature-table merge-seqs --i-data rep-seqs-or-99.qza \
 new-ref-seqs-or-99.qza --o-merged-data all-or-seqs-99.qza
 ```
 
-## Building a phylogenetic tree
+### Phylogenetic tree
 
 Evolution is the core concept of biology. There is only so much you can learn from microbes while ignoring evolution. Evolution-aware analyses of a dataset needs a phylogenetic tree of its sequences. These trees can be built de-novo or they can be reference based. Phylogeny-based analyses in QIIME2 generally need a rooted tree. 
 
@@ -436,7 +474,63 @@ qiime phylogeny midpoint-root \
 
 # THE ABOVE STEP SHOULD APPROXIMATELY TAKE 6 SECONDS TO RUN TO COMPLETION
 ```
-## Alpha rarefaction
+
+
+## Diversity Analyses
+
+### Alpha diversity
+
+1. Assessment of diversity involves two aspects
++ Species richness (# of species present in a sample)
++ Species evenness (distribution of relative abundance of species)
+
+2. Total community diversity of a single sample/environment is given by alpha-diversity and represented using rarefaction curves
+
+3. Quantitative methods such as Shannon or Simpson indices measure evenness of the alpha- diversity
+ 
+![Human Mol. Genet., 2013](./Figures/Diversity.png){width=50%}
+
+### Beta Diversity
+
+1. Beta-diversity measures community structure differences (taxon composition and relative abundance) between two or more samples
++ For example, beta-diversity indices can compare similarities and differences in microbial communities in healthy and diseases states
+2. Many qualitative (presence/absence taxa) and
+quantitative(taxon abundance) measures of community
+distance are available using several tools
++ LIBHUFF, TreeClimber, DPCoA, UniFrac (QIIME)
+ 
+### Population Diversity: **alpha and beta diversity**
+
+![PLoS Computational Biol.,2012](./Figures/Diversity2.png){width=100%}
+
+### Diversity Measurements with 16s rRNA sequencing
+
+1. Overall Benefits
++ Cost effective
++ Data analysis can be performed by established pipelines
++ Large body of archived data is available for reference
+
+2. Overall Limitations
++ Sequences only a single region of the genome
++ Classifications often lack accuracy at the
+species level
++ Copy number per genome can vary. While they
+tend to be taxon specific, variation among
+strains is possible
++ Relative abundance measurements are
+unreliable because of amplification biases
++ Diversity of the gene tends to overinflate
+diversity estimates
+
+3. FastQC for 16S rRNA dataset
++ Extremely biased per base sequence content
++ Extremely narrow distribution of GC content
++ Very high sequence duplication levels
++ Abundance of overrepresented sequences
++ In cases where the PCR target is shorter than the read length, the sequence will read through into adapters
+
+
+### Alpha rarefaction
 
 What is rarefaction?
 
@@ -467,7 +561,7 @@ Look at the following example and decide what sampling-depth you would use:
 
 https://view.qiime2.org/visualization/?type=html&src=https%3A%2F%2Fdocs.qiime2.org%2F2020.11%2Fdata%2Ftutorials%2Fmoving-pictures%2Falpha-rarefaction.qzv
 
-## Calculating and exploring diversity metrics
+### Calculating and exploring diversity metrics
 
 Species diversity is a valuable tool for describing the ecological complexity of a single sample (alpha diversity) or between samples (beta diversity).
 
@@ -557,7 +651,7 @@ qiime diversity beta-group-significance \
 ![workflow](./QIIMEpics/beta_diversity.png){width=100%}
 Significance for a beta diversity metric indicates lesser ingroup distances for one or more groups compared to the inter-group distances.
 
-## PCoA plot
+### PCoA plot
 Explore beta diversity metrics. Run any one metric for beta diversity, you do not have to run all the methods. Pick the one that most defines your dataset.
 
 ```{bash, eval=FALSE}
@@ -584,7 +678,7 @@ scp -P 2310 <username>@inbre.ncgr.org:~/QIIME2_Analysis/core-metrics-results ~/D
 
 ```
 
-## Assigning taxonomy
+### Assigning taxonomy
 
 For many experiments, investigators aim to identify the organisms that are present in a sample. E.g., what genera or species are present in my samples? Are there any human pathogens in this patient’s sample? We can do this by comparing our query sequences (i.e., our features, be they ASVs or OTUs) to a reference database of sequences with known taxonomic composition. Simply finding the closest alignment is not really good enough — because other sequences that are equally close matches or nearly as close may have different taxonomic annotations. So we use taxonomy classifiers to determine the closest taxonomic affiliation with some degree of confidence or consensus (which may not be a species name if one cannot be predicted with certainty!), based on alignment, k-mer frequencies, etc.
 
@@ -616,7 +710,7 @@ qiime taxa barplot \
 
 ```
 
-## Diversity Visualization
+### Diversity Visualization
 
 ```{bash, eval=FALSE}
 # Copy the visualization files
