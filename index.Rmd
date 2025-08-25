@@ -18,7 +18,7 @@ github-repo: rstudio/bookdown-demo
 
 ## Installs
 
-Make sure the following software is installed on your local computer before the workshop. Please contact Ethan Price at inbre\@ncgr.org if you have questions.
+Make sure the following software is installed on your local computer before the workshop. Please contact inbre\@ncgr.org if you have questions.
 
 1. [Zoom](https://zoom.us/download)
 
@@ -40,7 +40,7 @@ Mac: arm64
 
 3. [Filezilla](https://filezilla-project.org/)
 
-4. Make sure you can access [Pavian](https://fbreitwieser.shinyapps.io/pavian/)
+4. Make sure you can access [Pavian](https://fbreitwieser.shinyapps.io/pavian/) at this link: https://fbreitwieser.shinyapps.io/pavian/
 
 Optional: if you prefer to install Pavian on your computer, install R, R studio, and Pavian as outlined below.
 
