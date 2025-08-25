@@ -1,8 +1,8 @@
-# Community Profiling Part II
+# Community Profiling
 
-## Structural and Functional Approaches to study microbiomes
+## Amplicon-based metagenomics
 
-![Alves, L. D. F., Westmann, C. A., Lovate, G. L., de Siqueira, G. M. V., Borelli, T. C., & Guazzaroni, M. E. (2018). Metagenomic approaches for understanding new concepts in microbial science. International journal of genomics, 2018.](./Figures/StructureFunction.png){width=80%}
+Amplicon-based metagenomics targets specific genes to understand which community members are present and to quantify community members (community profiling). Usually 16S or 18S are the genes that are amplified using polymerase chain reaction (PCR).
 
 ### 16S rRNA as an evolutionary chronometer
 
@@ -14,11 +14,8 @@
 4. Large enough to extract information for evolutionary inference
 5. Limited exchange – limited examples of rRNA gene sharing between organisms
 
-### 16S rRNA vs rpoB (RNA polymerase β subunit gene)
 
-![Case, R. J., Boucher, Y., Dahllöf, I., Holmström, C., Doolittle, W. F., & Kjelleberg, S. (2007). Use of 16S rRNA and rpoB genes as molecular markers for microbial ecology studies. Applied and environmental microbiology, 73(1), 278-288.](./Figures/RpoB.png){width=100%}
-
-#### 16S rRNA hypervariable regions
+### 16S rRNA hypervariable regions
 
 ![Yang, B., Wang, Y., & Qian, P. Y. (2016). Sensitivity and correlation of hypervariable regions in 16S rRNA genes in phylogenetic analysis. BMC bioinformatics, 17(1), 1-8.](./Figures/Hypervariable1.png){width=80%}
 
@@ -26,11 +23,8 @@
 
 Illustration of different hypervariable regions of 16S rRNA
 
-## Basic Workflow for 16S Gene Based Sequencing
 
-![Jo, J. H., Kennedy, E. A., & Kong, H. H. (2016). Research techniques made simple: bacterial 16S ribosomal RNA gene sequencing in cutaneous research. Journal of Investigative Dermatology, 136(3), e23-e27.](./Figures/Workflow.png){width=80%}
-
-## Addressing the ‘fine print’ while generating 16S rRNA gene amplicon libraries
+### Addressing the ‘fine print’ while generating 16S rRNA gene amplicon libraries
 
 1. Sample Collection
 + Sample collection significantly influences the microbiome profiler 
@@ -45,7 +39,7 @@ after sequencing
 
 J. Microbiol Methods (2018), App. Environ. Microbiol. (2014), Microbiome (2015)
 
-## Steps Involved
+### Steps Involved
 
 1. Experimental Design: How many samples can be included in the sequencing run?
 + By using barcoded primers, numerous samples can be sequenced simultaneously (multiplexing)
@@ -71,27 +65,13 @@ https://www.youtube.com/watch?v=3SEz-i517Oo&t=5s
 3. Water used during PCR (water blank- to determine if any contaminant was introduced during PCR reaction)
 4. Water spiked with known bacterial DNA (mock bacterial communities- enables quantification of sequencing errors, minimizes bias during sampling and library preparation )
 
-### DNA extraction protocol
-
-1. Effect of mechanical lysis methods for extraction
-2. Presence of inhibitors such as organic matter, humic acid, bile salts, polysaccharides
-3. DNA yield post extraction and reproducibility
-
-Effect of bead beating was larger than sampling time over 5 months
-
-The effect of bead beating on the observed microbial community composition:
-
-![Albertsen, M., Karst, S. M., Ziegler, A. S., Kirkegaard, R. H., & Nielsen, P. H. (2015). Back to basics–the influence of DNA extraction and primer choice on phylogenetic analysis of activated sludge communities. PloS one, 10(7), e0132783.](./Figures/Beads.png){width=80%}
-
-A. Percentage read abundance of the 11 most abundant phyla as a result of bead beating intensity 
-
-B. PCA of samples with different bead beating intensities vs. samples taken at different dates
 
 ### Selection of primers and region of 16S gene influence microbial profile
 
-V2, V4, V6-V7 regions produced consistent results
 
-![Barb, J. J., Oler, A. J., Kim, H. S., Chalmers, N., Wallen, G. R., Cashion, A., ... & Ames, N. J. (2016). Development of an analysis pipeline characterizing multiple hypervariable regions of 16S rRNA using mock samples. PLoS One, 11(2), e0148047.](./Figures/Plos1.png){width=80%}
+<!--![Barb, J. J., Oler, A. J., Kim, H. S., Chalmers, N., Wallen, G. R., Cashion, A., ... & Ames, N. J. (2016). Development of an analysis pipeline characterizing multiple hypervariable regions of 16S rRNA using mock samples. PLoS One, 11(2), e0148047.](./Figures/Plos1.png){width=80%}-->
+
+V2, V4, V6-V7 regions produced consistent results
 
 1. V2, V3 and V6 contain maximum nucleotide heterogeneity
 2. V6 is the shortest hypervariable region
@@ -106,28 +86,9 @@ speciation among Staph and Strep pathogens as well as Clostridium and Neisseria 
 Haemophilus sp
 7. V6 best target for probe based PCR assays to identify CDC select agents (bio-terrorism agents)
 
-![Chakravorty, S., Helb, D., Burday, M., Connell, N., & Alland, D. (2007). A detailed analysis of 16S ribosomal RNA gene segments for the diagnosis of pathogenic bacteria. Journal of microbiological methods, 69(2), 330-339.](./Figures/MicrobialMeth.png){width=80%}
-
-### Purification of Amplicons
-
-After one –step or two-step PCR, products are cleaned up using AMpure beads
-
-![https://research.fredhutch.org/content/dam/stripe/hahn/methods/mol_biol/Agencourt%20AMPure%20XP.pdf](./Figures/Ampure.png){width=80%}
-
-1. Gel Electrophoresis and quantification of cleaned amplicon products
-+ Qubit
-2. Sample pooling – equimolar concentrations (how many samples do you want to pool? How many reads per sample?
-3. Gel extraction of pooled product
-4. Final clean up (Qiagen kit) and QC
-
-![16S Library Prep](./Figures/LibSum.png){width=80%}
-
-[Amplicon Sequencing Library Prep - PacBio](https://www.pacb.com/wp-content/uploads/Multiplexed-Amplicon-Library-Preparation-Using-SMRTbell-Express-Template-Prep-Kit-2.0-–-Customer-Training.pdf)
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0148047
 
 
-#### Overview of generic amplicon workflow
-
-![Amplicon Workflow](./Figures/NCGRwkflo.png){width=80%}
 
 ## Oxford Nanopore Sequencing
 
