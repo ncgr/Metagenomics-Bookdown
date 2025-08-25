@@ -104,7 +104,7 @@ source activate squeezemeta
 
 # Create a symbolic link to fastq files if download didn't have time to finish
 cd ~/squeezemeta/fastq
-ln -s /home/data/metagenomics/squeezemeta/fastq/new/*gz ./
+ln -s /home/data/metagenomics/squeezemeta/*.fastq .
 
 # This is an assembly based method of metatranscriptomics (Finished running in ~4.25 hours)
 cd ~/squeezemeta
