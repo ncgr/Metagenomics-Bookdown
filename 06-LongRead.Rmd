@@ -226,6 +226,11 @@ https://www.illumina.com/systems/sequencing-platforms.html
 
 ![NCGR](./Figures/BenefitsMeta.png){width=100%}
 
+#### Strengths and weaknesses of assembly-based and read-based metagenomics analysis
+
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/AssemblyvsRead.png){width=100%}
+
+
 
 ```
 knitr::write_bib(c(
