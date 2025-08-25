@@ -55,7 +55,7 @@ Optional: if you prefer to install Pavian on your computer, install R, R studio,
 
 ## Agenda
 
-Zoom link:  https://us06web.zoom.us/j/88499310487?pwd=fvf59UzWIj1mfIFwKrb7n0P6OsjyA2.1
+Zoom link:  https://us06web.zoom.us/j/6272683319?omn=86235726688
 
 Sessions are from 9-12 and 1-4 mountain time (M-F). Please let us know (inbre@ncgr.org or during the workshop) if you have to miss part of a day.
 
@@ -66,89 +66,25 @@ _____
 
 **Monday**
 
-<span style="color: lightgray;">MORNING</span>\
+<span style="color: lightgray;">08/25/25 11:00am-12:30pm</span>\
 
 Introductions\
-<span style="color: forestgreen;">Linux</span> (Adam)
-
-<span style="color: lightgray;">AFTERNOON</span>\
-
-<span style="color: forestgreen;">Linux</span> (cont) (Adam)
-
+<span style="color: forestgreen;">Linux</span> (Adam & Joann)
 
 _____
 
-**Tuesday**
-
-<span style="color: lightgray;">MORNING</span>\
-
-Community Profiling Part 1 (Adam)\
-
-Nanopore Whole Genome (Shotgun) Metagenomics (Adam)\
-<span style="color: forestgreen;">Filtering host DNA (minimap2 and samtools)</span> (Adam)
-
-<span style="color: lightgray;">AFTERNOON</span>\
-
-Red alder nodule communities (Callum)\
-
-Overview of Data Processing (Adam)\
-
-Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
-<span style="color: forestgreen;">Read QC (PycoQC)</span> (Adam)\
+Linux
+llumina Fastqc/multiqc
+Illumina amplicon (16S or 18S) classification
+Illumina WGS classification
+Nanopore WGS pycoqc
+Nanopore WGS classification
+Nanopore WGS assembly
+Exercise: Nanopore WGS classify assembly
+Nanopore Isolate Assembly (optional)
+Illumina metatranscriptome (optional)
 
 _____
-
-**Wednesday**
-
-<span style="color: lightgray;">MORNING</span>\
-
-Community Profiling Part 2 (Adam)\
-
-Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
-<span style="color: forestgreen;">Community Profiling (KrakenUniq)</span> (Joann)\
-
-<span style="color: lightgray;">AFTERNOON</span>\
-
-Nanopore Whole Genome (Shotgun) Metagenomics (cont)\
-<span style="color: forestgreen;">Community Profiling (KrakenUniq) (cont)</span> (Joann)\
-
-<span style="color: forestgreen;">Metagenome Assembly (metaFlye)</span> (Joann)\
-
-_____
-
-**Thursday**
-
-<span style="color: lightgray;">MORNING</span>\
-
-Illumina 16S Metagenomics\
-<span style="color: forestgreen;">Community Profiling (QIIME2)</span> (Adam)\
-
-<span style="color: lightgray;">AFTERNOON</span>\
-
-Illumina 16S Metagenomics (cont)\
-<span style="color: forestgreen;">Community Profiling (QIIME2) (cont)</span> (Adam)\
-
-Illumina Whole Genome (Shotgun) Metagenomics (Centrifuge)\
-<span style="color: forestgreen;">Community Profiling (Centrifuge)</span> (Joann)\
-
-_____
-
-**Friday**
-
-<span style="color: lightgray;">MORNING</span>\
-
-Illumina Metatranscriptomics (SqueezeMeta)\
-<span style="color: forestgreen;">Metatranscriptomics</span> (Joann)\
-
-<span style="color: lightgray;">AFTERNOON</span>\
-
-Catch-up and questions (Joann and Adam)
-
-Survey and Wrap-up (Joann)
-
-_____
-
-<span style="color: forestgreen;">Green</span> text indicates hands-on sessions. Please note that the timing might shift slightly.
 
 
 ## Connecting to the linux server
