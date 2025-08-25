@@ -57,7 +57,41 @@ Optional: if you prefer to install Pavian on your computer, install R, R studio,
 
 Zoom link:  https://us06web.zoom.us/j/6272683319?omn=86235726688
 
-Sessions are from 9-12 and 1-4 mountain time (M-F). Please let us know (inbre@ncgr.org or during the workshop) if you have to miss part of a day.
+Sessions: 
+
+M  
+Aug 25  
+11-12:30  
+
+T  
+Aug 26  
+12-1:30  
+
+T  
+Sept 2  
+12-1:30 
+
+W  
+Sept 3  
+11-12:30  
+
+M  
+Sept 8  
+11-12:30  
+
+W  
+Sept 10  
+11-12:30  
+
+M  
+Sept 15  
+11-12:30  
+
+W  
+Sept 17  
+11-12:30  
+
+Please let us know (inbre@ncgr.org or during the workshop) if you have to miss part of a day.  
 
 Zoom recordings:
 Please do not share these (see the Wrap Up chapter for more information).
@@ -72,17 +106,18 @@ Introductions\
 <span style="color: forestgreen;">Linux</span> (Adam & Joann)
 
 _____
+TBD:
 
-Linux
-llumina Fastqc/multiqc
-Illumina amplicon (16S or 18S) classification
-Illumina WGS classification
-Nanopore WGS pycoqc
-Nanopore WGS classification
-Nanopore WGS assembly
-Exercise: Nanopore WGS classify assembly
-Nanopore Isolate Assembly (optional)
-Illumina metatranscriptome (optional)
+Linux  
+llumina Fastqc/multiqc  
+Illumina amplicon (16S or 18S) classification  
+Illumina WGS classification  
+Nanopore WGS pycoqc  
+Nanopore WGS classification  
+Nanopore WGS assembly  
+Exercise: Nanopore WGS classify assembly  
+Nanopore Isolate Assembly (optional)  
+Illumina metatranscriptome (optional)  
 
 _____
 
