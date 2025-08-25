@@ -115,6 +115,6 @@ Illumina WGS classification
 Nanopore WGS pycoqc  
 Nanopore WGS classification  
 Nanopore WGS assembly  
-Nanopore Isolate Assembly (optional)  
-Illumina metatranscriptome (optional)  
+Nanopore Isolate Assembly (time permitting)  
+Illumina metatranscriptome (time permitting)  
 
