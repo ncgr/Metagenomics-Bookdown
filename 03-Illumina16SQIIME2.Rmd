@@ -86,7 +86,7 @@ Respiratory tract clinical sample selection for microbiota analysis in patients 
 
 Pulmonary Tuberculosis (The Human Microbiome in the Fight Against Tuberculosis, 2017)
 
-![tuberculosis](./QIIMEpics/lyx.qiime.png){width=100%}
+![tuberculosis](./QIIMEpics/lyx.qiime.png){width=60%}
 Why study microbiome in relation to TB?
 1. Microbiome composition is a potential risk factors for TB infection and disease susceptibility, disease progression,
 and treatment outcomes
@@ -143,9 +143,11 @@ https://github.com/OpenGene/fastp
 Use the default parameters to filter poor quality reads
 
 ```{bash, eval=FALSE}
+conda deactivate
+
 conda activate fastp
 
-for file in *.gz; do fastp -i ${file} -o ${file}.filtered; done
+for file in *.fastq; do fastp -i ${file} -o ${file}.filtered; done
 conda deactivate
 ```
 ![data_table](./QIIMEpics/lyx.qiime.table.png){width=100%}
@@ -544,7 +546,7 @@ Species richness is the number of species present in a system. However, the deep
 
 ```{bash, eval=FALSE}
 
-# EXAMPLE- DO NOT RUN THE ABOVE COMMAND TO COMPLETION
+# EXAMPLE- DO NOT RUN THE FOLLOWING COMMAND TO COMPLETION
 
 cp /home/data/metagenomics/mappingFile.txt .
 
