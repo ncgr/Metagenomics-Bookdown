@@ -1,8 +1,14 @@
 <!--We should probably update the databases that we pre-prepare for the students in 2025-->
 
-# Illumina Shotgun Metagenomics (Commnity Analysis)
+# Illumina Shotgun Metagenomics (Community Analysis)
+
+Shotgun metagenomics attempts to sequence all of the DNA present in a community.
 
 We will focus on community profiling using Centrifuge. You will learn how to assemble shotgun metagenomic data later on using long reads. While it is possible to assemble short read metagenomes, the resulting assemblies are very choppy. So, if assembly is your goal, it is best to start with long reads.
+
+### Benefits and limitations of shotgun metagenomics
+
+![Malla, M. A., Dubey, A., Kumar, A., Yadav, S., Hashem, A., & Abd_Allah, E. F. (2019). Exploring the human microbiome: the potential future role of next-generation sequencing in disease diagnosis and treatment. Frontiers in Immunology, 9, 2868.](./Figures/Frag.png){width=60%}
 
 ## What is Centrifuge?
 
