@@ -1,6 +1,8 @@
 <!--We should probably update the databases that we pre-prepare for the students in 2025-->
 
-# Illumina Shotgun Community Profiling (Centrifuge)
+# Illumina Shotgun Metagenomics (Commnity Analysis)
+
+We will focus on community profiling using Centrifuge. You will learn how to assemble shotgun metagenomic data later on using long reads. While it is possible to assemble short read metagenomes, the resulting assemblies are very choppy. So, if assembly is your goal, it is best to start with long reads.
 
 ## What is Centrifuge?
 
