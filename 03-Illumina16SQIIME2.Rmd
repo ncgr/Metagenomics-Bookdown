@@ -433,7 +433,7 @@ new-ref-seqs-or-99.qza --o-merged-data all-or-seqs-99.qza
 
 Evolution is the core concept of biology. There is only so much you can learn from microbes while ignoring evolution. Evolution-aware analyses of a dataset needs a phylogenetic tree of its sequences. These trees can be built de-novo or they can be reference based. Phylogeny-based analyses in QIIME2 generally need a rooted tree. 
 
-![workflow](./QIIMEpics/forlyx.trees.qiime.png){width=100%}
+![workflow](./QIIMEpics/forlyx.trees.qiime.png){width=50%}
 
 ```{bash, eval=FALSE}
 
