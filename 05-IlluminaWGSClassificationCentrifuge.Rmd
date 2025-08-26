@@ -1,6 +1,6 @@
-<!--We should probably update the databases that we pre-prepare for the studnets in 2025-->
+<!--We should probably update the databases that we pre-prepare for the students in 2025-->
 
-# Illumina WGS Community Profiling (Centrifuge)
+# Illumina Shotgun Community Profiling (Centrifuge)
 
 ## What is Centrifuge?
 
