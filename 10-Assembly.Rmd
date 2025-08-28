@@ -112,3 +112,9 @@ Download the marker_plot to your computer using filezilla and take a look at it.
 
 
 Note: You can also classify the assembly contigs using KrakenUniq or Centrifuge. Some of the rare organisms will have some reads but not enough to assemble, so you might lose some of the rarer taxa.
+
+### Strengths and weaknesses of assembly-based and read-based metagenomics analysis
+
+![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/AssemblyvsRead.png){width=100%}
+
+
