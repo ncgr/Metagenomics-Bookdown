@@ -1,114 +1,213 @@
-<!--The pdf from the summer workshop has instructions on classifying reads and assembly contigs with Centrifuge. We won't do it here since they will learn Centrifuge with the Illumina data and we have already done the reads with krakenuniq.-->
+# Isolate Assembly
 
-# Nanopore WGS Assembly (metaflye)\
+We have been focusing  on metagenomes—communities of microbial organisms. Now we are going to shift our focus to isolates. We will assemble and annotate single microbial organisms that have been isolated and cultured.
 
-## Assembly
+## Get example data
 
-Metagenomic assemblies can help you recover genes and pathways present in a community. They can also be fed into community analysis. On the other hand, you can miss some of the more rare members of the community.
+We will use some pathogenic E. coli sequence data isolated from birds in South Africa, sequenced with Oxford Nanopore.
 
-Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. We'll use the metagenomics module of the Flye assembler.
+First, make a directory to work in and go into that directory.
 
-Make sure you are in a screen.
+```{bash, eval=FALSE}
+mkdir ~/isolate_assembly
 
-```{bash,eval=FALSE}
-screen -S assembly
+cd ~/isolate_assembly
+
+```
+
+Now, get the example data from the sequence read archive, which houses publicly available sequencing reads. We will prefetch the data before we extract the sequencing reads, which makes it faster.
+
+```{bash, eval=FALSE}
+prefetch SRR32629793 --output-directory .
+
+fasterq-dump --outdir . --outfile ecoli.fastq --threads 4 --progress ./SRR32629793/SRR32629793.sra
+
+```
+
+Now, let's clean up the reads and get some information about them. We'll use fastplong, which is for long reads. By default, it will remove reads with more than 40% of nts having a quality score <15. Since we don't have access to the nanopore output files, we can't use pycoQC.
+
+```{bash, eval=FALSE}
+/opt/fastplong -i ecoli.fastq -o ecoli.trim.fq
+
+```
+
+We now have a file called ecoli.trim.fq. Download the .html file onto your computer and take a look at the read data before and after trimming. If you are using scp instead of gui, an example command is below.
+
+```{bash, eval=FALSE}
+scp -P 2410 <username>@inbre.ncgr.org:/home/jm/isolate_assembly/fastplong.html .
+
+```
+
+Find the total number of bases after filtering in the .html file. Calculate the approximate coverage by dividing this number by the E. coli genome size (~5 Mb). We want to make sure the coverage is at least 30X.
+
+<details>
+  <summary>Click for Answer</summary>
+```{bash, eval=FALSE}
+After filtering, we have 238.209373 Mb of sequence data.
+
+238.209373 Mb / 5 Mb = 47.642X coverage
+```
+</details>
+
+## Assemble the genome
+
+We will use flye to assemble the genome. It has some preset parameters specifically for nanopore data. We'll use the --nano-raw parameter. Newer versions of flye have a --nano-hq version for high quality reads called with the Guppy5+ SUP base callers.
+
+More information is available at https://github.com/mikolmogorov/Flye/blob/flye/docs/USAGE.md
+
+
+Now run the assembly. This will take about 10 minutes.
+
+```{bash, eval=FALSE}
+python /opt/flye2.9.5/Flye/bin/flye --nano-raw ecoli.trim.fq --out-dir ecoli_flye --threads 4 --no-alt-contigs
+
+```
+
+As it is finishing up, it will print out some assembly statistics and the path to the final assembly. Discuss with your neighbor what you think each one means then discuss as a group.
+
+<details>
+  <summary>Click for Answer</summary>
+```{bash, eval=FALSE}
+[2025-03-11 04:19:23] INFO: Assembly statistics:
+
+	Total length:	5369202  
+	Fragments:	3  
+	Fragments N50:	5120307  
+	Largest frg:	5120307  
+	Scaffolds:	0  
+	Mean coverage:	43
+
+[2025-03-11 16:05:17] INFO: Final assembly:   /home/jm/isolate_assembly/ecoli_flye/assembly.fasta
+```
+</details>
+
+We can get a little more information in one of the output files. Take a look and see what you understand and what questions you have.
+
+Columns
+* Contig/scaffold id
+* Length
+* Coverage
+* Is circular, (Y)es or (N)o
+* Is repetitive, (Y)es or (N)o
+* Multiplicity (based on coverage)
+* Alternative group (alternative haplotypes)
+* Graph path (graph path corresponding to this contig/scaffold).
+
+
+```{bash, eval=FALSE}
+cat ecoli_flye/assembly_info.txt
+
+```
+
+<details>
+  <summary>Click for Answer</summary>
+```{bash, eval=FALSE}
+#seq_name	length	cov.	circ.	repeat	mult.	alt_group	graph_path  
+contig_1	5120307	44	Y	N	1	*	1  
+contig_3	161968	38	Y	N	1	*	3  
+contig_2	86927	41	Y	N	1	*	2
+
+contig_1 is the main genome and is circular.
+
+Contigs 2, 3 are plasmids (much smaller and also circular).
+```
+</details>
+
+
+## Assembly Assessment
+
+We will use checkM2, a successor to checkM, to assess the quality of our assembly. It uses machine learning to figure out what lineage each genome has (this works on metagenomic assemblies as well) and whether the genome has the complete complement of genes expected for that lineage.
+
+More information is available here: https://github.com/chklovski/checkm2
+
+First, activate the environment.
+
+```{bash, eval=FALSE}
+conda activate checkm2
+```
+
+Then run checkM2.
+
+```{bash, eval=FALSE}
+checkm2 predict --threads 20 --input ecoli_flye/assembly.fasta --output-directory ecoli_checkm2 --database_path /opt/checkm2/CheckM2_database/uniref100.KO.1.dmnd 
+
 ```
 
 
-Create a directory called nodule-assembly-3469-3 in your home directory. Then go into it.
+Take a look at the report.
 
-```{bash,eval=FALSE}
-mkdir ~/nodule-assembly-3469-3
-cd ~/nodule-assembly-3469-3
+```{bash, eval=FALSE}
+cat ecoli_checkm2/quality_report.tsv
+
 ```
 
+<details>
+  <summary>Click for Answer</summary>
+```{bash, eval=FALSE}
+Name	Completeness	Contamination	Completeness_Model_Used	Translation_Table_Used	Coding_Density	Contig_N50	Average_Gene_Length	Genome_Size	 GC_Content	Total_Coding_Sequences	Total_Contigs	Max_Contig_Length	Additional_Notes  
+assembly	100.0	0.47	Neural Network (Specific Model)	11	0.872	5120307	308.58413888340897	  5369202	0.51	5069	35120307	None
+```
+</details>
 
-Activate the environment.
 
-```{bash,eval=FALSE}
-conda activate flye
+## Annotation
+
+We will use the National Center for Biotechnology Information's (NCBI's) Prokaryotic Genome Annotation Pipeline (PGAP).
+
+More information is available here: https://www.ncbi.nlm.nih.gov/refseq/annotation_prok/process/ and here:
+https://github.com/ncbi/pgap/wiki/Quick-Start
+
+The parameters:
+-r report anonymized usage data
+-o output directory (can include full path)
+-g genome assembly (fasta)
+-s 'organism_name' (genus or genus and species)
+
+Note: To save time and because we are having some permissions issues, we have run this for you.
+
+**This has already been run for you so don't run it.**
+
+```{bash, eval=FALSE}
+/opt/pgap/pgap.py -r -o ecoli_annotation -g /home/jm/isolate_assembly/ecoli_flye/assembly.fasta -s 'Escherichia coli'
 ```
 
-Assemble the metagenome with metaFlye. Don't forget the dot at the end. That tells the program to put the output in the current directory.
+The annotation is put into a file in GFF format. More information on the GFF annotation format is here: https://useast.ensembl.org/info/website/upload/gff.html
 
-```{bash,eval=FALSE}
-flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq.gz -i 1 --meta -t 20 -g 45m -o .
+Link to the GFF file that we ran previously and take a look at the file.
+
+```{bash, eval=FALSE}
+ln -s /opt/pgap/ecoli_annotation/ .
+
 ```
 
+Let's count how many of each type of annotation there is in the gff file.
 
-## Assembly Completeness and Contamination
-
-We will feed in the whole assembly since it is mostly Frankia but later you will learn how to bin your assembly into the different organisms that it represents.
-
-CheckM allows you to assess completeness and contamination of MAGs (Metagenome-assembled genomes). It is in the same environment (flye).
-
-CheckM puts each of your sequences in a phylogenetic tree (if needed) and then looks for single-copy genes that should be in each sequence. The percentage of expected genes it finds is a measure of completeness. The number or multi-copy genes it finds are a measure of contamination (the presence of closely related or more distantly related organisms in your bin).
-
-CheckM \
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4484387/pdf/1043.pdf \
-https://ecogenomics.github.io/CheckM/
-
-
-Here is a test output using 2 genomes from NCBI, a partial genome of one of them, and the 2 genomes catted together.
-
-![CheckM Output](./Figures/checkm.png){width=100%}
-
-Video explanation:  
-https://onestopdataanalysis.com/checkm-completeness-contamination/
-
-
-CheckM at the genus level. We will use taxonomy_wf (wf stands for workflow) which allows us to feed in the Frankia genus that we know is there.
-
-checkm taxonomy_wf [parameters] <taxonomy_level> <taxon> <assembly_bin_dir> <output_dir>
-
-The parameters we will use:
-
--x &nbsp;&nbsp;&nbsp;&nbsp; extension (extension of the assembly bins, ie fasta;   checkm will run on all the files in the assembly_bin_dir that have that extension)  
--t &nbsp;&nbsp;&nbsp;&nbsp; number of threads  
--f &nbsp;&nbsp;&nbsp;&nbsp; output file (default: STDOUT)
-
-For additional parameters:
-```{bash,eval=FALSE}
-checkm taxonomy_wf --help
+```{bash, eval=FALSE}
+grep -v "^#" ecoli_annotation/annot.gff |awk '{print $3}' |sort|uniq -c
 ```
 
-```{bash,eval=FALSE}
-checkm taxonomy_wf -x fasta -t 8 -f ./3469-3_tax_results.txt genus Frankia ~/nodule-assembly-3469-3 ./checkm
+<details>
+  <summary>Click for Answer</summary>
+```{bash, eval=FALSE}
+      1 antisense_RNA
+     24 CDS
+      1 direct_repeat
+    121 exon
+   4852 gene
+   5088 Homology
+      7 ncRNA
+    355 pseudogene
+      3 region
+      7 riboswitch
+      1 RNase_P_RNA
+     22 rRNA
+      7 sequence_feature
+      1 SRP_RNA
+      1 tmRNA
+     88 tRNA
 ```
+</details>
 
-Note: You can also use the lineage workflow (lineage_wf) if you don't know your taxa. It will place sequences on a tree and calculate their lineages.
-
-Plot the genome completeness, contamination and strain heterogeneity stats.
-
-checkm marker_plot [parameters] <results_dir> <assembly_bin_dir> <output_dir>
-
-The parameters we will use:  
-
--x &nbsp;&nbsp;&nbsp;&nbsp; extension (extension of the assembly bins, ie fasta; checkm will run on all the files in the assembly_bin_dir that have that extension)  
---image_type &nbsp;&nbsp;&nbsp;&nbsp; format of image (eps,pdf,png,ps,or svg; default: png)  
---dpi <dpi> &nbsp;&nbsp;&nbsp;&nbsp; dots per inch resolution for output file (default: 600)  
---font_size <size> &nbsp;&nbsp;&nbsp;&nbsp; font size (default: 8)  
---height <height> &nbsp;&nbsp;&nbsp;&nbsp; height in inches (default: 6.5)
-
-```{bash,eval=FALSE}
-checkm marker_plot -x fasta --image_type png --dpi 600 --font_size 14 --height 5 \
-~/nodule-assembly-3469-3/checkm ~/nodule-assembly-3469-3 ~/nodule-assembly-3469-3/checkm
-```
-
-
-Let's look at the assembly metrics generated by checkM.
-
-```{bash,eval=FALSE}
-less ~/nodule-assembly-3469-3/checkm/storage/bin_stats.analyze.tsv
-```
-
-Deactivate the environment.
-
-```{bash,eval=FALSE}
-conda deactivate
-```
-
-Download the marker_plot to your computer using filezilla and take a look at it.
-
-
-Note: You can also classify the assembly contigs using KrakenUniq or Centrifuge. Some of the rare organisms will have some reads but not enough to assemble, so you might lose some of the rarer taxa.
+<!--The annotation took about 45 minutes to run-->
+<!--Need get pgap working for everyone-->
+<!--Fungi? Annotation-->
