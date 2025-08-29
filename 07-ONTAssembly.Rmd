@@ -1,6 +1,6 @@
 <!--The pdf from the summer workshop has instructions on classifying reads and assembly contigs with Centrifuge. We won't do it here since they will learn Centrifuge with the Illumina data and we have already done the reads with krakenuniq.-->
 
-# Nanopore WGS Assembly (metaflye)\
+# ONT Shotgun Assembly\
 
 ## Assembly
 
@@ -32,7 +32,7 @@ conda activate flye
 Assemble the metagenome with metaFlye. Don't forget the dot at the end. That tells the program to put the output in the current directory.
 
 ```{bash,eval=FALSE}
-flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq.gz -i 1 --meta -t 20 -g 45m -o .
+flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq.gz -i 1 --meta -t 20 -o .
 ```
 
 
