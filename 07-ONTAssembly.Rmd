@@ -6,7 +6,14 @@
 
 Metagenomic assemblies can help you recover genes and pathways present in a community. They can also be fed into community analysis. On the other hand, you can miss some of the more rare members of the community.
 
-Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. We'll use the metagenomics module of the Flye assembler.
+Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. 
+
+<!--Note that the nanoMDBG module assumes it is r10.4+ but based on the timing of the sequencing, the red alder is likely earlier.-->
+
+We'll use metaMDBG, which is designed for long, accurate shotgun metagenomic reads including PacBio HiFi and Nanopore r10.4+. It's use of a minimizer de-Bruijn graph (MDBG) allows it to run quickly with low memory requirements. It can handle different coverages within a sample. For ONT data, it has nanoMDBG, by the same group, integrated.
+
+https://github.com/GaetanBenoitDev/metaMDBG
+
 
 Make sure you are in a screen.
 
@@ -26,13 +33,13 @@ cd ~/nodule-assembly-3469-3
 Activate the environment.
 
 ```{bash,eval=FALSE}
-conda activate flye
+conda activate metaMDBG
 ```
 
-Assemble the metagenome with metaFlye. Don't forget the dot at the end. That tells the program to put the output in the current directory.
+Assemble the metagenome. Note that you can assemble multiple samples together by feeding multiple fastq files in with the --in-ont flag.
 
 ```{bash,eval=FALSE}
-flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq.gz -i 1 --meta -t 20 -o .
+metaMDBG asm --out-dir 3469-3_assembly --in-ont ~/microbe_fastq/3469-3.microbe.fq.gz --threads 8
 ```
 
 
@@ -73,6 +80,8 @@ checkm taxonomy_wf --help
 ```
 
 ```{bash,eval=FALSE}
+cd 3469-3_assembly
+
 checkm taxonomy_wf -x fasta -t 8 -f ./3469-3_tax_results.txt genus Frankia ~/nodule-assembly-3469-3 ./checkm
 ```
 
