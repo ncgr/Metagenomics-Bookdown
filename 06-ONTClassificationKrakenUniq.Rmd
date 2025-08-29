@@ -1,6 +1,6 @@
 <!--The krakenuniq command takes less than 10 minutes. It will be considerably faster if all 32 threads requested can be used, which depends on how many people are running it at the same time.-->
 
-# Nanopore WGS Community Profiling (KrakenUniq)\
+# ONT Shotgun Metagenomics (Community Analysis)
 
 KrakenUniq
 
