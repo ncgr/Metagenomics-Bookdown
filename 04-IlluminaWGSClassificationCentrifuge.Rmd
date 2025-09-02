@@ -92,7 +92,7 @@ centrifuge \
 ```
 
 
-You can also run all the samples together using a for loop (>1 hr).
+You can also run all the samples together using a for loop.
 
 ```{bash, eval=FALSE}
 for i in /home/data/metagenomics/centrifuge/*_1.fastq; do
@@ -321,7 +321,7 @@ Now, let's build the database indices (~39 min).
 --name-table &nbsp; &nbsp The names.dmp file that was downloaded with the first centrifuge-download command
 
 ```{bash, eval=FALSE}
-centrifuge-build -p 4 --conversion-table ~/centrifuge/seqid2taxid.map \
+centrifuge-build -p 10 --conversion-table ~/centrifuge/seqid2taxid.map \
 --taxonomy-tree ~/centrifuge/taxonomy/nodes.dmp \
 --name-table ~/centrifuge/taxonomy/names.dmp \
 ~/centrifuge/library/allgenomes_fixed.fna \
