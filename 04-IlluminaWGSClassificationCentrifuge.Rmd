@@ -266,7 +266,7 @@ Copy our already downloaded file.
 cp /home/data/metagenomics/centrifuge/eupath/eupathDB.tar.gz .
 ```
 
-This is a compressed tarball file that contains several files. Let's uncompress it and look into the library file it created.
+This is a compressed tarball file that contains several files. Let's uncompress it and look into the library files it created.
 
 ```{bash, eval=FALSE}
 tar -zxvf eupathDB.tar.gz
