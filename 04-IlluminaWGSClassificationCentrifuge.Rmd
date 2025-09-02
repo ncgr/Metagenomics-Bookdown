@@ -86,7 +86,7 @@ centrifuge \
   -x /home/data/metagenomics/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
   -1 /home/data/metagenomics/centrifuge/ERR2271042_1.fastq \
   -2 /home/data/metagenomics/centrifuge/ERR2271042_2.fastq -t \
-  -p 4 \
+  -p 10 \
   --met-file ~/centrifuge/centrifuge_results/ERR2271042_meta.txt \
   --met-stderr -S ~/centrifuge/centrifuge_results/ERR2271042_cent.out
 ```
@@ -101,7 +101,7 @@ for i in /home/data/metagenomics/centrifuge/*_1.fastq; do
   -x /home/data/metagenomics/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2 \
   -1 /home/data/metagenomics/centrifuge/${bn}_1.fastq \
   -2 /home/data/metagenomics/centrifuge/${bn}_2.fastq -t \
-  -p 4 \
+  -p 10 \
   --met-file ~/centrifuge/centrifuge_results/${bn}_meta.txt \
   --met-stderr -S ~/centrifuge/centrifuge_results/${bn}_cent.out
 done
