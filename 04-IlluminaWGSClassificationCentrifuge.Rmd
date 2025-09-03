@@ -40,12 +40,18 @@ Can you identify the specific strain of STEC?
 
 ## Classification
 
-Because of large time and space requirements to build indexes, we will use pre-built indexes that contain complete RefSeq genomes for archea, bacteria, viruses and fungi. The human chromosome level reference genome was included and we also added the Eukaryotic Pathogens Databased (EuPathDB) as well. We'll kick off the Centrifuge classification and while it is running we will teach you how to create a small database and also go over the commands we used to create the big database.
+Because of large time and space requirements to build indexes, we will use pre-built indexes that contain complete RefSeq genomes for archea, bacteria, viruses and fungi. The human chromosome level reference genome was included and we also added the Eukaryotic Pathogens Database (EuPathDB) as well. We'll kick off the Centrifuge classification and while it is running we will teach you how to create a small database and also go over the commands we used to create the big database.
 
 <!--Each file will use about 36 GB of RAM, so not every one can run
 samples at the same time. But inbre01 has 1Tb of memory.-->
 
-Make a directory to store your results
+Go into a screen.
+
+```{bash, eval=FALSE}
+screen -S centrifuge
+```
+
+Make a directory to store your results.
 
 ```{bash, eval=FALSE}
 mkdir -p ~/centrifuge/centrifuge_results
