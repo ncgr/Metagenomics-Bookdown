@@ -27,8 +27,15 @@ mkdir ~/nodule-assembly-3469-3
 cd ~/nodule-assembly-3469-3
 ```
 
+Activate the environment.
 
-We will add the path to metaMDBG to our $PATH variable so that linux knows where to find it.
+```{bash,eval=FALSE}
+conda activate metamdbg1.2
+```
+
+Note that there is something wrong with the metamdbg in the conda environment that we just activated but this will have the dependencies we need.
+
+We will add the path to another metaMDBG installation to our $PATH variable so that linux knows where to find it.
 
 <!--I tried to install in conda and there were some issues; leaving the conda env for now as I test the other install-->
 
