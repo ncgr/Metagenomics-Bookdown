@@ -212,8 +212,8 @@ If you are using custom taxonomy or sequence files for the database, please refe
 Let's download the taxonomy files (~20 seconds). This gets the nodes.dmp and the names.dmp files.
 
 **Parameters**  
--o &nbsp; &nbsp; specifies the folder to which the files are downloaded  
-taxonomy &nbsp; &nbsp; database to download (refseq, genbank, contaminants or taxonomy)
+-o &nbsp;&nbsp; specifies the folder to which the files are downloaded  
+taxonomy &nbsp;&nbsp; database to download (refseq, genbank, contaminants or taxonomy)
 
 ```{bash, eval=FALSE}
 centrifuge-download -o ~/centrifuge/taxonomy taxonomy
@@ -226,7 +226,7 @@ Now lets download complete **fungal** genomes from RefSeq (~1 min). This will al
 
 **Parameters**  
 -a &nbsp; &nbsp; Only download genomes with the specified assembly level. Default: 'Complete Genome'. If you want any assembly level, use 'Any'  
--m &nbsp; &nbsp; Mask low-complexity regions using dustmasker.
+-m &nbsp; &nbsp; Mask low-complexity regions using dustmasker  
 -P &nbsp; &nbsp; Number of threads or processes to use when downloading  
 -d &nbsp; &nbsp; What domain to download (bacteria, viral, archaea, fungi, protozoa, invertebrate, plant, vertebrate_mammalian, vertebrate_other); comma-separated  
 refseq &nbsp; &nbsp; Tells the program to use the refseq database  
@@ -325,10 +325,10 @@ Now, let's build the database indices (~39 min).
 
 **Parameters**
 
--p &nbsp; &nbsp The number of processes/threads to use for creating the index  
---conversion-table &nbsp; &nbsp The seqid2taxid.map file that you created with the centrifuge-download commands  
---taxonomy-tree &nbsp; &nbsp The nodes.dmp file that was downloaded with the first centrifuge-download command  
---name-table &nbsp; &nbsp The names.dmp file that was downloaded with the first centrifuge-download command
+-p &nbsp;&nbsp; The number of processes/threads to use for creating the index  
+--conversion-table &nbsp;&nbsp; The seqid2taxid.map file that you created with the centrifuge-download commands  
+--taxonomy-tree &nbsp;&nbsp; The nodes.dmp file that was downloaded with the first centrifuge-download command  
+--name-table &nbsp;&nbsp; The names.dmp file that was downloaded with the first centrifuge-download command
 
 ```{bash, eval=FALSE}
 centrifuge-build -p 10 --conversion-table ~/centrifuge/seqid2taxid.map \
@@ -393,7 +393,7 @@ sed 's/|kraken[^|]*|/ /' allgenomes.fna > allgenomes_fixed.fna
 
 # Build the database indices (~14 hr and ~410 GB of RAM using 30 threads)
 
-centrifuge-build -p 4 --conversion-table ~/centrifuge_fulldb/seqid2taxid.map \
+centrifuge-build -p 30 --conversion-table ~/centrifuge_fulldb/seqid2taxid.map \
 --taxonomy-tree ~/centrifuge_fulldb/taxonomy/nodes.dmp \
 --name-table ~/centrifuge_fulldb/taxonomy/names.dmp \
 ~/centrifuge_fulldb/library/allgenomes_fixed.fna \
