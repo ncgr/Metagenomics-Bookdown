@@ -70,7 +70,7 @@ conda activate centrifuge
 
 **Parameters**
 
--x &nbsp;&nbsp; Path to the indexes (/home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2)  
+-x &nbsp;&nbsp; Path to the indexes (/home/data/metagenomics/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2)  
 
 -1 &nbsp;&nbsp; Read 1 fastq file  
 
