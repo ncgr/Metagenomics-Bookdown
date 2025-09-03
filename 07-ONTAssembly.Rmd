@@ -20,11 +20,11 @@ screen -S assembly
 ```
 
 
-Create a directory called nodule-assembly-3469-3 in your home directory. Then go into it.
+Create a directory called nodule-assembly in your home directory. Then go into it.
 
 ```{bash,eval=FALSE}
-mkdir ~/nodule-assembly-3469-3
-cd ~/nodule-assembly-3469-3
+mkdir ~/nodule-assembly
+cd ~/nodule-assembly
 ```
 
 Activate the environment.
