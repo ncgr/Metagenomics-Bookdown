@@ -29,7 +29,7 @@ We will use data from this publication: “Metagenomic Characterization of the H
 Illumina whole genome metagenomic sequencing of the intestinal microbiome (feces samples).
 
 **11 samples**  
-Shiga toxin-producing E. Coli (STEC) infection (N = 2). 
+Shiga toxin-producing E. Coli (STEC) infection (N = 2)  
 Crohn’s Patients (N = 4)  
 Healthy (N = 2)  
 Healed controls (N = 3) 
