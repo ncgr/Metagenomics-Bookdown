@@ -676,7 +676,7 @@ qiime emperor plot \
 
 # Download the files to examine in the Qiime viewer
 
-scp -P 2310 <username>@inbre.ncgr.org:~/QIIME2_Analysis/core-metrics-results ~/Desktop/
+scp -P 2508 <username>@inbre.ncgr.org:~/QIIME2_Analysis/core-metrics-results ~/Desktop/
 
 ```
 
@@ -717,7 +717,7 @@ qiime taxa barplot \
 ```{bash, eval=FALSE}
 # Copy the visualization files
 
-scp -P2310 <username>@inbre.ncgr.org:/home/<username>/QIIME2_Analysis\
+scp -P2508 <username>@inbre.ncgr.org:/home/<username>/QIIME2_Analysis\
 /core-metrics-results/*.qzv .
 ```
 
