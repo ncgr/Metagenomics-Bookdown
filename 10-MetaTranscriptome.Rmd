@@ -68,7 +68,7 @@ SRR5787585
 SRR5787586
 
 • Export the metadata to your computer and copy to the server.
-Or copy it from here: /home/data/metagenomics-2310/squeezemeta/SraRunTable.txt
+Or copy it from here: /home/data/metagenomics/squeezemeta/SraRunTable.txt
 
 ```{bash, eval=FALSE}
 # Copy accessions list:
