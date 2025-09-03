@@ -28,10 +28,12 @@ cd ~/nodule-assembly-3469-3
 ```
 
 
-Activate the environment.
+We will add the path to metaMDBG to our $PATH variable so that linux knows where to find it.
+
+<!--I tried to install in conda and there were some issues; leaving the conda env for now as I test the other install-->
 
 ```{bash,eval=FALSE}
-conda activate metaMDBG
+export PATH=$PATH:/opt/metamdbg/metaMDBG/metaMDBG/build/bin
 ```
 
 Assemble the metagenome. Note that you can assemble multiple samples together by feeding multiple fastq files in with the --in-ont flag.
