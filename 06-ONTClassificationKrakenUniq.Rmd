@@ -18,6 +18,7 @@ https://github.com/fbreitwieser/krakenuniq
 https://gitlab.umiacs.umd.edu/derek/krakenuniq/-/blob/master/MANUAL.md
 
 
+
 ## Kraken/Centrifuge Family
 
 **Kraken 1** is obsolete.
@@ -47,6 +48,12 @@ https://github.com/fbreitwieser/krakenuniq/blob/master/MANUAL.md
 
 
 ## KrakenUniq databases
+
+Make sure you are in a screen. You can open a new screen or re-enter a screen you already have.
+
+```{bash,eval=FALSE}
+screen -S krakenuniq
+```
 
 
 KrakenUniq requires Kraken1 not Kraken2 databases
@@ -120,12 +127,6 @@ ln -s /home/data/metagenomics/krakenuniq/ .
 ```
 
 ## Run KrakenUniq
-
-Make sure you are in a screen. You can open a new screen or re-enter a screen you already have.
-
-```{bash,eval=FALSE}
-screen -S krakenuniq
-```
 
 Activate the KrakenUniq environment.
 ```{bash,eval=FALSE}
