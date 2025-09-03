@@ -70,21 +70,25 @@ conda activate centrifuge
 
 **Parameters**
 
--x &nbsp; &nbsp; Path to the indexes (/home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2)  
+-x &nbsp;&nbsp; Path to the indexes (/home/data/metagenomics-2310/centrifuge/complete_genomes/Arc_Bac_Vir_Hum_Eupath_v2)  
 
--1 &nbsp; &nbsp; Read 1 fastq file  
+-1 &nbsp;&nbsp; Read 1 fastq file  
 
--2 &nbsp; &nbsp; Read 2 fastq file  
+-2 &nbsp;&nbsp; Read 2 fastq file  
 
--t &nbsp; &nbsp; Print wall-clock time taken by search phase  
+-t &nbsp;&nbsp; Print wall-clock time taken by search phase  
 
--p &nbsp; &nbsp; Number of alignment threads to launch  
+-p &nbsp;&nbsp; Number of alignment threads to launch  
 
-\-\-met-file <path> &nbsp; &nbsp; Send metrics to file at <path>  
+\-\-met-file <path> &nbsp;&nbsp; Send metrics to file at \<path\>  
 
-\-\-met-stderr &nbsp; &nbsp; Send metrics to stderr  
+\-\-met-stderr &nbsp;&nbsp; Send metrics to stderr  
 
--S &nbsp; &nbsp; Output file name
+-S &nbsp;&nbsp; Output file name
+
+
+  --met-file <path>     send metrics to file at <path> (off)
+  --met-stderr          send metrics to stderr (off)
 
 
 ```{bash, eval=FALSE}
