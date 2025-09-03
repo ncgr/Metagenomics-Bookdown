@@ -21,20 +21,18 @@ Now, get the example data from the sequence read archive, which houses publicly 
 prefetch SRR32629793 --output-directory .
 
 fasterq-dump --outdir . --outfile ecoli.fastq --threads 4 --progress ./SRR32629793/SRR32629793.sra
-
 ```
 
 Now, let's clean up the reads and get some information about them. We'll use fastplong, which is for long reads. By default, it will remove reads with more than 40% of nts having a quality score <15. Since we don't have access to the nanopore output files, we can't use pycoQC.
 
 ```{bash, eval=FALSE}
-/opt/fastplong -i ecoli.fastq -o ecoli.trim.fq
-
+/opt/fastplong/fastplong -i ecoli.fastq -o ecoli.trim.fq
 ```
 
 We now have a file called ecoli.trim.fq. Download the .html file onto your computer and take a look at the read data before and after trimming. If you are using scp instead of gui, an example command is below.
 
 ```{bash, eval=FALSE}
-scp -P 2410 <username>@inbre.ncgr.org:/home/jm/isolate_assembly/fastplong.html .
+scp -P 2508 <username>@inbre.ncgr.org:/home/jm/isolate_assembly/fastplong.html .
 
 ```
 
@@ -55,12 +53,16 @@ We will use flye to assemble the genome. It has some preset parameters specifica
 
 More information is available at https://github.com/mikolmogorov/Flye/blob/flye/docs/USAGE.md
 
+Activate the environment.
+
+```{bash, eval=FALSE}
+conda activate flye
+```
 
 Now run the assembly. This will take about 10 minutes.
 
 ```{bash, eval=FALSE}
-python /opt/flye2.9.5/Flye/bin/flye --nano-raw ecoli.trim.fq --out-dir ecoli_flye --threads 4 --no-alt-contigs
-
+flye --nano-raw ecoli.trim.fq --out-dir ecoli_flye --threads 4 --no-alt-contigs
 ```
 
 As it is finishing up, it will print out some assembly statistics and the path to the final assembly. Discuss with your neighbor what you think each one means then discuss as a group.
