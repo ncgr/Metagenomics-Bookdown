@@ -43,7 +43,7 @@ We will add the path to another metaMDBG installation to our $PATH variable so t
 export PATH=$PATH:/opt/metamdbg/metaMDBG/metaMDBG/build/bin
 ```
 
-Assemble the metagenome. Note that you can assemble multiple samples together by feeding multiple fastq files in with the --in-ont flag.
+Assemble the metagenome. Note that you can assemble multiple samples together by feeding multiple fastq files in with the --in-ont flag. This will take ~20 minutes.
 
 ```{bash,eval=FALSE}
 metaMDBG asm --out-dir 3469-3_assembly --in-ont ~/microbe_fastq/3469-3.microbe.fq.gz --threads 8
