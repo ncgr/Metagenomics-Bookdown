@@ -6,11 +6,8 @@
 
 https://www.youtube.com/watch?v=E9-Rm5AoZGw
 
-## Read Processing
+## Filter Host DNA
 
-### Filter Host DNA
-
-# Filter Host Reads
 
 ![https://www.britannica.com/plant/alder#/media/1/13564/254209
 ](Figures/AlderTree.png){width=40%}
@@ -24,7 +21,7 @@ In order to focus on sequencing reads from the microbes in the nodule, we will f
 3. Create a fastq file with only the unaligned reads using samtools bam2fastq.  
 4. Compress the fastq file using gzip.  
 
-## Setup
+### Setup
 
 
 Activate the environment that contains minimap2 and samtools
@@ -48,7 +45,7 @@ Link to the merged minion reads
 ln -s /home/data/metagenomics/red-alder-reads/3469-3.all.fastq .
 ```
 
-## Alignment
+### Alignment
 
 Run Minimap2 to align the MinION reads to the red alder genome  
 
@@ -60,7 +57,7 @@ minimap2 -x map-ont -L -t 8 -a \
 3469-3.all.fastq > 3469-3-minionxredalder.mm2.sam
 ```
 
-## Get microbial reads
+### Get microbial reads
 
 Now we will use samtools, which is available in the same environment, to pull out reads that didn't align to red alder.
 
@@ -92,11 +89,7 @@ Reads are here:
 ```
 
 
-### Quality Control
-
-# Nanopore Read QC
-
-### Quality Control{-}
+## Quality Control
 
 + “PycoQC computes metrics and generates interactive QC plots for Oxford Nanopore technologies sequencing data” (https://a-slide.github.io/pycoQC/ )
 
@@ -110,7 +103,7 @@ Reads are here:
 + Line of code to produce .html file.
 + Line of code to secure copy file to your computer.
 
-## Sequencing Summary File
+### Sequencing Summary File
  
 Where is it?
 
@@ -118,7 +111,7 @@ Where is it?
 /home/data/metagenomics/red-alder-reads/sequencing_summary_FAS21661_9ac87089.txt
 ```
 
-## PycoQC package & code
+### PycoQC package & code
 
 1. Where is it? How to activate it?
 + Log in to Ghostwheel
@@ -131,7 +124,7 @@ pycoQC
 pycoQC –f inputfilename.txt –o outputfilename.html
 ```
 
-## Secure Copy 
+### Secure Copy 
 
 1. What terminal to copy from? What is the code?
 
@@ -139,10 +132,10 @@ pycoQC –f inputfilename.txt –o outputfilename.html
 + Type:
 
 ```{bash,eval=FALSE}
-scp -P 2310 <username>@inbre.ncgr.org:/home/<username>/outputfile.html ~/Desktop/
+scp -P 2508 <username>@inbre.ncgr.org:/home/<username>/outputfile.html ~/Desktop/
 ```
 
-## Open your URL
+### Open your URL
 
 Find your file on your desktop.
 
