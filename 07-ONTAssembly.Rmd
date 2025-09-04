@@ -1,16 +1,13 @@
-# ONT Shotgun Assembly\
+# ONT Shotgun Assembly
 
 ## Assembly
 
 Metagenomic assemblies can help you recover genes and pathways present in a community. They can also be fed into community analysis. On the other hand, you can miss some of the more rare members of the community.
 
-Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. 
+Let's do an assembly of the Oxford Nanopore (ONT) reads from the red alder nodules. We will use the reads that have had red alder removed so we are only assembling the microbes. We'll use the metagenomics module of the Flye assembler, which adjusts parameters to be able to assemble when uneven coverage is present. The Flye assembler is specifically designed for assembling single-molecule sequencing reads (ie. PacBio and ONT).
 
-<!--Note that the nanoMDBG module assumes it is r10.4+ but based on the timing of the sequencing, the red alder is likely earlier.-->
+https://github.com/mikolmogorov/Flye
 
-We'll use metaMDBG, which is designed for long, accurate shotgun metagenomic reads including PacBio HiFi and Nanopore r10.4+. It's use of a minimizer de-Bruijn graph (MDBG) allows it to run quickly with low memory requirements. It can handle different coverages within a sample. For ONT data, it has nanoMDBG, by the same group, integrated.
-
-https://github.com/GaetanBenoitDev/metaMDBG
 
 
 Make sure you are in a screen.
@@ -20,34 +17,45 @@ screen -S assembly
 ```
 
 
-Create a directory called nodule-assembly in your home directory. Then go into it.
+Create a space to work and then go into it. We need to make a specific directory for this sample since flye has generic naming for the output (for instance, the assembly is names assembly.fasta). So you can't run multiple samples in the same directory without them overwriting each other.
 
 ```{bash,eval=FALSE}
-mkdir ~/nodule-assembly
-cd ~/nodule-assembly
+mkdir ~/nodule-assembly/3469-3
+cd ~/nodule-assembly/3469-3
 ```
+
 
 Activate the environment.
 
 ```{bash,eval=FALSE}
-conda activate metamdbg1.2
+conda activate flye2.9.6
 ```
 
-Note that there is something wrong with the metamdbg in the conda environment that we just activated but this will have the dependencies we need.
+Assemble the metagenome with metaFlye. Don't forget the dot at the end. That tells the program to put the output in the current directory.
 
-We will add the path to another metaMDBG installation to our $PATH variable so that linux knows where to find it.
-
-<!--I tried to install in conda and there were some issues; leaving the conda env for now as I test the other install-->
+**Parameters**  
+--nano-raw &nbsp;&nbsp; ONT raw reads
+--iterations &nbsp;&nbsp; number of polishing iterations (default: 1)
+--meta &nbsp;&nbsp; metagenome / uneven coverage mode
+--threads &nbsp;&nbsp; number of parallel threads (default: 1)
+--out-dir &nbsp;&nbsp; Output directory path
 
 ```{bash,eval=FALSE}
-export PATH=$PATH:/opt/metamdbg/metaMDBG/metaMDBG/build/bin
+flye --nano-raw ~/microbe_fastq/3469-3.microbe.fq.gz --iterations 1 --meta \
+  --threads 20 -o .
 ```
 
-Assemble the metagenome. Note that you can assemble multiple samples together by feeding multiple fastq files in with the --in-ont flag. This will take ~20 minutes.
+Now make a link to assembly in the parent directory (~/nodule-assembly/), where we can collect assemblies from multiple samples. We'll make sure the sample name is part of the filename.
 
 ```{bash,eval=FALSE}
-metaMDBG asm --out-dir 3469-3_assembly --in-ont ~/microbe_fastq/3469-3.microbe.fq.gz --threads 8
+cd ..
+
+ln -s 3469-3/assembly.fasta assembly-3469-3.fasta
 ```
+
+### Now assemble reads from sample 4956-3{-}
+
+You should already have the host reads filtered out in ~/microbe_fastq/4956-3.microbe.fq.gz
 
 
 ## Assembly Completeness and Contamination
@@ -71,11 +79,18 @@ Video explanation:
 https://onestopdataanalysis.com/checkm-completeness-contamination/
 
 
+Change into the directory with the assembly links that include the sample names.
+
+```{bash,eval=FALSE}
+cd ~/nodule-assembly
+```
+
+
 CheckM at the genus level. We will use taxonomy_wf (wf stands for workflow) which allows us to feed in the Frankia genus that we know is there.
 
 checkm taxonomy_wf [parameters] <taxonomy_level> <taxon> <assembly_bin_dir> <output_dir>
 
-The parameters we will use:
+**Parameters**
 
 -x &nbsp;&nbsp;&nbsp;&nbsp; extension (extension of the assembly bins, ie fasta;   checkm will run on all the files in the assembly_bin_dir that have that extension)  
 -t &nbsp;&nbsp;&nbsp;&nbsp; number of threads  
@@ -86,19 +101,31 @@ For additional parameters:
 checkm taxonomy_wf --help
 ```
 
-```{bash,eval=FALSE}
-cd 3469-3_assembly
+Run checkm.
 
-checkm taxonomy_wf -x fasta -t 8 -f ./3469-3_tax_results.txt genus Frankia ~/nodule-assembly-3469-3 ./checkm
+```{bash,eval=FALSE}
+checkm taxonomy_wf -x fasta -t 8 -f ./checkm_tax_results.txt genus Frankia ~/nodule-assembly ./checkm
 ```
 
-Note: You can also use the lineage workflow (lineage_wf) if you don't know your taxa. It will place sequences on a tree and calculate their lineages.
+Note: You can also used the lineage_wf if you don't know the taxa. It will place sequences on a tree and calculate their lineages.
+
+Let's look at the assembly metrics generated by checkM.
+
+```{bash,eval=FALSE}
+less ~/nodule-assembly/checkm/storage/bin_stats.analyze.tsv
+```
+
+Look at the checkm taxonomy results.
+
+```{bash,eval=FALSE}
+less checkm_tax_results.txt
+```
 
 Plot the genome completeness, contamination and strain heterogeneity stats.
 
 checkm marker_plot [parameters] <results_dir> <assembly_bin_dir> <output_dir>
 
-The parameters we will use:  
+**Parameters**
 
 -x &nbsp;&nbsp;&nbsp;&nbsp; extension (extension of the assembly bins, ie fasta; checkm will run on all the files in the assembly_bin_dir that have that extension)  
 --image_type &nbsp;&nbsp;&nbsp;&nbsp; format of image (eps,pdf,png,ps,or svg; default: png)  
@@ -108,15 +135,9 @@ The parameters we will use:
 
 ```{bash,eval=FALSE}
 checkm marker_plot -x fasta --image_type png --dpi 600 --font_size 14 --height 5 \
-~/nodule-assembly-3469-3/checkm ~/nodule-assembly-3469-3 ~/nodule-assembly-3469-3/checkm
+~/nodule-assembly/checkm ~/nodule-assembly ~/nodule-assembly/checkm
 ```
 
-
-Let's look at the assembly metrics generated by checkM.
-
-```{bash,eval=FALSE}
-less ~/nodule-assembly-3469-3/checkm/storage/bin_stats.analyze.tsv
-```
 
 Deactivate the environment.
 
@@ -124,13 +145,17 @@ Deactivate the environment.
 conda deactivate
 ```
 
-Download the marker_plot to your computer using filezilla and take a look at it.
+Download the png files in ~/nodule-assembly/checkm to your computer. There should be one for each sample. Take a look at it.
 
 
 Note: You can also classify the assembly contigs using KrakenUniq or Centrifuge. Some of the rare organisms will have some reads but not enough to assemble, so you might lose some of the rarer taxa.
 
+
 ### Strengths and weaknesses of assembly-based and read-based metagenomics analysis
 
 ![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/AssemblyvsRead.png){width=100%}
+
+
+
 
 
