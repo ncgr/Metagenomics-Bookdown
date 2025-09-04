@@ -58,6 +58,18 @@ ln -s 3469-3/assembly.fasta assembly-3469-3.fasta
 You should already have the host reads filtered out in ~/microbe_fastq/4956-3.microbe.fq.gz
 
 
+Change into the directory with the assembly links that include the sample names.
+
+```{bash,eval=FALSE}
+cd ~/nodule-assembly
+```
+
+Compare the assembly stats from the 2 samples.
+```{bash,eval=FALSE}
+tail */flye.log
+```
+
+
 ## Assembly Completeness and Contamination
 
 We will feed in the whole assembly since it is mostly Frankia but later you will learn how to bin your assembly into the different organisms that it represents.
@@ -78,12 +90,6 @@ Here is a test output using 2 genomes from NCBI, a partial genome of one of them
 Video explanation:  
 https://onestopdataanalysis.com/checkm-completeness-contamination/
 
-
-Change into the directory with the assembly links that include the sample names.
-
-```{bash,eval=FALSE}
-cd ~/nodule-assembly
-```
 
 
 CheckM at the genus level. We will use taxonomy_wf (wf stands for workflow) which allows us to feed in the Frankia genus that we know is there.
@@ -156,6 +162,7 @@ Note: You can also classify the assembly contigs using KrakenUniq or Centrifuge.
 ![Quince, C., Walker, A. W., Simpson, J. T., Loman, N. J., & Segata, N. (2017). Shotgun metagenomics, from sampling to analysis. Nature biotechnology, 35(9), 833-844.](./Figures/AssemblyvsRead.png){width=100%}
 
 
-
+<!--Potential extra data for ONT assembly:
+https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1064698-->
 
 
