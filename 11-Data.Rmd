@@ -7,4 +7,8 @@ Tláskal, V., Brabcová, V., Větrovský, T. et al. Metagenomes, metatranscripto
 
 ![Overview](./Figures/deadwood.png){width=75%}
 
-Data includes amplicon-based metagenomes (16S for bacteria and ITS2 for fungi), Illumina and PacBio shotgun metagenomes, and metatranscriptomes (both total RNA and mRNA). There are 25 samples, though not all samples have all sequencing datatypes. Table 1 in the figure has more information about the samples. All sequencing data can be found in Bioproject: PRJNA603240. Disclaimer: We have not tested all of these data with the workflows in the workshop but you should have enough training to be able to run several of the workflows with these data.
+Data includes amplicon-based metagenomes (16S for bacteria and ITS2 for fungi), Illumina and PacBio shotgun metagenomes, and metatranscriptomes (both total RNA and mRNA). There are 25 samples, though not all samples have all sequencing datatypes. Table 1 in the figure has more information about the samples. All sequencing data can be found in Bioproject: PRJNA603240.
+
+Note: we used one of the four PacBio shotgun sequences for assembling.
+
+Disclaimer: We have not tested all of these data with the workflows in the workshop but you should have enough training to be able to run several of the workflows with these data.
