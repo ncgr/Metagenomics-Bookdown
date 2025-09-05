@@ -28,7 +28,7 @@ cd ~/nodule-assembly/3469-3
 Activate the environment.
 
 ```{bash,eval=FALSE}
-conda activate flye2.9.6
+conda activate flye
 ```
 
 Assemble the metagenome with metaFlye. Don't forget the dot at the end. That tells the program to put the output in the current directory.
