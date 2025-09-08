@@ -253,7 +253,7 @@ centrifuge-download -o ~/centrifuge/library -a "Chromosome" -m -P 4 -d "vertebra
 ```
 
 
-## Eukaryotic Pathogens
+### Eukaryotic Pathogens
 
 We will add in **Eukaryotic Pathogens**, which can be helpful for medical metagenomic samples. To save time, we will use data we previously downloaded. Instructions for downloading it are in the "Full Database" section. If you use this database for your own research, you might want to download it later on to make sure it is up to date.
 
