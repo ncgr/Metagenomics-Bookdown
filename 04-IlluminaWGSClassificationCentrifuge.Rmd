@@ -160,9 +160,11 @@ awk -F'\t' '{print $2,$10,$18}' /home/data/metagenomics/centrifuge/PRJEB23207_me
 
 First, download all *.krn files to your computer.
 
-If you are using RStudio, open it up and type "pavian::runApp(port=5000)" in the console.
+Option A:
+Go to the website: https://fbreitwieser.shinyapps.io/pavian/
 
-Or go to the website: https://fbreitwieser.shinyapps.io/pavian/
+Option B:
+If you prefer to work locally and did the Rstudio install, open up RStudio and type "pavian::runApp(port=5000)" in the console.
 
 Here are some things to try:
 
@@ -170,12 +172,20 @@ Here are some things to try:
 
 • Click on the “Results Overview” tab on the left side of the screen.
 
-• Click on the “Sample” tab on the left side of the screen. You will notice an interactive Sankey chart that displays different classified taxa. You can click and drag nodes to reorder the nodes if you want. You can select different samples by clicking on the down arrow next to the “Select sample” header. Select sample ERR2270960 or ERR2270961 since we know that
-these two samples are likely infected with STEC.
+• Click on the “Sample” tab on the left side of the screen. You will notice an interactive Sankey chart that displays different classified taxa. You can click and drag nodes to reorder the nodes if you want. You can select different samples by clicking on the down arrow next to the “Select sample” header. Select sample ERR2270960 or ERR2270961 since we know that these two samples are likely infected with STEC.
 
 • From the “Sample” page, click on the “Table” tab. You should see an interactive, filterable and searchable table that summarizes the results of Centrifuge. For example, type “Escherichia coli” into the “Search:” box. A histogram will appear that displays the numbers of reads across all samples that were classified as “Escherichia coli”. Sort the table by the most abundant taxa by clicking on the up arrow next to “TaxonReads”.
 
 • Can you can you identify the strain(s) of STEC that samples ERR2270960 and ERR2270961 likely contain?
+
+<summary>Click for Answer</summary>
+If you filter the compare table by "Escherichia coli" then sort by one of the 2 STEC samples (click once so that it sorts descending), that strain with the highest number or reads (and the highest percentage) in these 2 samples is the shiga toxin strain.
+
+Note: The shiga strain is on the second line because the first line contains all E. coli strains.
+
+Of course, if you knew what strain you were interested in (O26:H11) up front, you can filter the table for that directly.
+
+</details>\
 
 ## Practice Database
 
