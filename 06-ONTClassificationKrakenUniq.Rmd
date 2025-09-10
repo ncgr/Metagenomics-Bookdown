@@ -237,13 +237,8 @@ Copy the reports to your computer.
 Let's open them in Pavian. You 
 <!--We haven't produced bam files for the alignment viewer. We do have sam files of reads aligned to the red alder genome but these aren't what is needed.-->
 
-
-If you haven't installed Pavian, visit the installs section above.
-
-Once you have Pavian installed, in your local Rstudio, type:\
-pavian::runApp(port=5000)
-
-You can load more than one sample by shift-clicking when you choose files to load.
+Go to https://fbreitwieser.shinyapps.io/pavian/
+(or if you have installed it locally through Rstudio and prefer to access it that way, open Rstudio and type "pavian::runApp(port=5000)" in the console)
 
 
 Deactivate the environment
