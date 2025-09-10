@@ -65,7 +65,7 @@ You can also get prebuilt databases:
 https://benlangmead.github.io/aws-indexes/k2
 
 We will use a bacterial databases located here:  
-/home/data/metagenomics-2310/krakenuniq
+/home/data/metagenomics/krakenuniq
 
 Make a working directory and go into it.
 ```{bash,eval=FALSE}
@@ -74,7 +74,7 @@ cd ~/krakenuniq
 ```
 
 The taxa it contains are here:
-/home/data/metagenomics-2310/krakenuniq/library/bacteria/library_headers.orig
+/home/data/metagenomics/krakenuniq/library/bacteria/library_headers.orig
 
 Take a look at the file using head.
 
