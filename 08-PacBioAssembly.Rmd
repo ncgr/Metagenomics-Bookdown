@@ -1,0 +1,56 @@
+# Pacbio Shotgun Assembly and Binning
+
+## Data
+
+We'll use one of the PacBio shotgun metagenome samples obtained from European beech (Fagus sylvatica L.) deadwood. See the "Additional Data" chapter to see more information about the study and additional samples and sequence datatypes that are available for practice.
+
+The data for SRR28211699 has been downloaded (/home/data/metagenomics/pacbio_shotgun/SRR28211699.fastq.gz). It is a sample collected from deadwood from a tree that died between 20 and 41 years before collection. It has ~5.4Gb of data.
+
+## Assembly
+
+Open up a screen. We can just reconnect to the assembly screen we made earlier.
+
+```{bash,eval=FALSE}
+screen -dr assembly
+```
+
+Set up a workspace.
+
+```{bash,eval=FALSE}
+mkdir -p ~/deadwood-assembly/SRR28211699
+cd ~/deadwood-assembly/SRR28211699
+```
+
+Activate the environment.
+
+```{bash,eval=FALSE}
+conda activate flye
+```
+
+Assemble the sample with metaFlye.
+
+```{bash,eval=FALSE}
+flye --pacbio-hifi /home/data/metagenomics/pacbio_shotgun/SRR28211699.fastq.gz \
+  --iterations 1 --meta --threads 20 -o .
+```
+
+## Binning
+
+We will use MetaBAT2 to bin our assembly sequences by organism.
+
+--minContig 1500
+
+
+The paper:  
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6662567/
+
+Best practices:  
+https://bitbucket.org/berkeleylab/metabat/wiki/Best%20Binning%20Practices
+
+Sort bams
+
+## Quality Check
+
+checkm
+
+
