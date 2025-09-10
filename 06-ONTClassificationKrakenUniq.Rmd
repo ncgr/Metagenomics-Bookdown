@@ -9,7 +9,7 @@ KrakenUniq
 Default kmer = 31
 
 
-![KrakenUniq Overview](./Figures/KrakenUniq.png){width=60%}
+![KrakenUniq Overview](./Figures/KrakenUniq.png){width=80%}
 
 https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1568-0
 
