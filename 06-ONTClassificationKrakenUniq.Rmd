@@ -133,7 +133,7 @@ Activate the KrakenUniq environment.
 conda activate krakenuniq
 ```
 
-Run Kraken on sample 3469-3. This will take 15+ minutes.
+Run Kraken on sample 3469-3.
 ```{bash,eval=FALSE}
 krakenuniq \
 	--db /home/data/metagenomics/krakenuniq \
