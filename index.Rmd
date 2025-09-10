@@ -44,11 +44,11 @@ Mac: arm64
 
 Optional: if you prefer to install Pavian on your computer, install R, R studio, and Pavian as outlined below.
 
-| Opt A. [R](https://cran.rstudio.com/) (Latest Version for your OS)
+| A. [R](https://cran.rstudio.com/) (Latest Version for your OS)
 
-| Opt B. [RStudio](https://rstudio.com/products/rstudio/download/#download)
+| B. [RStudio](https://rstudio.com/products/rstudio/download/#download)
 
-| Opt C. [Pavian](https://github.com/fbreitwieser/pavian)
+| C. [Pavian](https://github.com/fbreitwieser/pavian)
 
 | Follow the install instructions on [Pavian's GitHub](https://github.com/fbreitwieser/pavian).  This requires R and R studio to be complete
 
