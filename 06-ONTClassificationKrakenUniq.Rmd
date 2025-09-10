@@ -245,9 +245,6 @@ pavian::runApp(port=5000)
 
 You can load more than one sample by shift-clicking when you choose files to load.
 
-More information on things you can do in Pavian is in the Centrifuge chapter.
-
-
 
 Deactivate the environment
 
