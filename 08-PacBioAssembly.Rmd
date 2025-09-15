@@ -34,23 +34,103 @@ flye --pacbio-hifi /home/data/metagenomics/pacbio_shotgun/SRR28211699.fastq.gz \
   --iterations 1 --meta --threads 20 -o .
 ```
 
+Compress the output. This will create a file called assembly.fasta.gz
+
+```{bash,eval=FALSE}
+gzip assembly.fasta
+```
+
+Check the number of sequences.
+
+```{bash,eval=FALSE}
+zgrep -c '>' assembly.fasta.gz
+```
+
+At this point, you could check the assembly with checkm as we did in the previous chapter. But let's go ahead and do the binning, then we'll run checkm on the bins.
+
 ## Binning
 
-We will use MetaBAT2 to bin our assembly sequences by organism.
-
---minContig 1500
-
+We will use MetaBAT2 (Metagenome Binning based on Abundance and Tetranucleotide frequency) to bin our assembly sequences by organism. It is in the flye environment, which should already be activated. MetaBAT2 used tetra-nucleotide frequencies and abundance (coverage) to bin sequences from the same organism.
 
 The paper:  
 https://pmc.ncbi.nlm.nih.gov/articles/PMC6662567/
 
-Best practices:  
+Best binning practices:  
 https://bitbucket.org/berkeleylab/metabat/wiki/Best%20Binning%20Practices
 
-Sort bams
+Manscript:  
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6662567/
+
+<!--
+
+NOTE: Minimap2 didn't align well. Most of the contigs have 0 read support. We'll use the flye coverage estimates. Flye does use minimap2 to align reads to the assembly so I'm not sure what is going on. I tried hifi, pb, and asm20 presets.
+
+First, we need to align the reads used to generate the assembly back to the assembly. Metabat2 will use this to calculate how much coverage (or read support) each contig had in our read dataset. It will use coverage to help group the contigs by organism, given that contigs from the same organism should have similar coverage. We will use minimap2, which is installed in the flye environment. We will also samtools to convert from sam to bam and then to sort the bam file.
+
+Github:
+https://github.com/lh3/minimap2
+
+Paper:
+https://academic.oup.com/bioinformatics/article/34/18/3094/4994778
+
+
+**Parameters**
+
+minimap2
+-a &nbsp;&nbsp output SAM format
+-x &nbsp;&nbsp preset (we'll use parameters preset for pacbio hifi = map-hifi)
+
+samtools (samtools view and sort)
+- &nbsp;&nbsp STDIN
+-b &nbsp;&nbsp output BAM format
+-o &nbsp;&nbsp output file
+
+```{bash,eval=FALSE}
+# Create index
+minimap2 -x map-hifi -d assembly.mmi assembly.fasta.gz
+
+# Run the alignment
+minimap2 -a assembly.mmi \
+  /home/data/metagenomics/pacbio_shotgun/SRR28211699.fastq.gz | \
+  samtools view -b - | samtools sort -o readsxassembly.sort.bam -
+```
+-->
+
+<!--samtools is installed in /usr/bin/-->
+
+
+Make a directory for the binning output.
+```{bash,eval=FALSE}
+mkdir metabat2_bins
+```
+
+Bin the assembly contigs.
+
+**Parameters**
+--inFile &nbsp;&nbsp; Assembly contigs (gzipped fasta)  
+--outFile &nbsp;&nbsp; Basename and path for output bins  
+--minContig &nbsp;&nbsp; Minimum contig size for binning (default: 2500; must be >=1500)  
+--verbose &nbsp;&nbsp; Gives more output information
+
+```{bash,eval=FALSE}
+runMetaBat.sh --minContig 1500 \
+  assembly.fasta.gz readsxassembly.sort.bam
+```
+
+Get the first 3 columns from the assembly_info.txt file.
+
+```{bash,eval=FALSE}
+cut -f 1-3 assembly_info.txt > depth_file.txt
+```
+
+
+```{bash,eval=FALSE}
+metabat2 -i assembly.fasta.gz -o metabat2_bins/bin --cvExt -a depth_file.txt --minContig 1500 --verbose
+```
+
 
 ## Quality Check
 
-checkm
+Now try to run checkm on the bins.
 
 
