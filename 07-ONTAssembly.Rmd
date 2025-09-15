@@ -34,10 +34,10 @@ conda activate flye
 Assemble the metagenome with metaFlye. Don't forget the dot at the end. That tells the program to put the output in the current directory.
 
 **Parameters**  
---nano-raw &nbsp;&nbsp; ONT raw reads
---iterations &nbsp;&nbsp; number of polishing iterations (default: 1)
---meta &nbsp;&nbsp; metagenome / uneven coverage mode
---threads &nbsp;&nbsp; number of parallel threads (default: 1)
+--nano-raw &nbsp;&nbsp; ONT raw reads  
+--iterations &nbsp;&nbsp; number of polishing iterations (default: 1)  
+--meta &nbsp;&nbsp; metagenome / uneven coverage mode  
+--threads &nbsp;&nbsp; number of parallel threads (default: 1)  
 --out-dir &nbsp;&nbsp; Output directory path
 
 ```{bash,eval=FALSE}
