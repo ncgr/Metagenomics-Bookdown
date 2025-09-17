@@ -97,11 +97,12 @@ minimap2 -a assembly.mmi \
 
 <!--samtools is installed in /usr/bin/-->
 
-
+<!--
 Make a directory for the binning output.
 ```{bash,eval=FALSE}
 mkdir metabat2_bins
 ```
+-->
 
 Bin the assembly contigs.
 
@@ -122,12 +123,12 @@ runMetaBat.sh --minContig 1500 \
 Get the first 3 columns from the assembly_info.txt file.
 
 ```{bash,eval=FALSE}
-cut -f 1-3 assembly_info.txt > depth_file.txt
+cut -f 1-3 assembly_info.txt > depth.txt
 ```
 
 
 ```{bash,eval=FALSE}
-metabat2 -i assembly.fasta.gz -o metabat2_bins/bin --cvExt -a depth_file.txt --minContig 1500 --verbose
+metabat2 -i assembly.fasta.gz -o metabat2_bins/bin --cvExt -a depth.txt --minContig 1500 --verbose
 ```
 
 
