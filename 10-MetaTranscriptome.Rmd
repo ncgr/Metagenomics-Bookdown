@@ -70,6 +70,8 @@ SRR5787586
 • Export the metadata to your computer and copy to the server.
 Or copy it from here: /home/data/metagenomics/squeezemeta/SraRunTable.txt
 
+<!--I created an SraRunTable that only has the 6 samples we are using-->
+
 ```{bash, eval=FALSE}
 # Copy accessions list:
 cp /home/data/metagenomics/squeezemeta/sra_ids.txt .
@@ -100,16 +102,17 @@ metatranscriptomics and may be more suited for this dataset.
 
 # Deactivate sra-tools, activate squeezemeta environment
 conda deactivate
-source activate squeezemeta
+conda activate squeezemeta
 
 # Create a symbolic link to fastq files if download didn't have time to finish
+mkdir ~/squeezemeta/fastq
 cd ~/squeezemeta/fastq
 ln -s /home/data/metagenomics/squeezemeta/*.fastq .
 
 # This is an assembly based method of metatranscriptomics (Finished running in ~4.25 hours)
 cd ~/squeezemeta
 SqueezeMeta.pl -m coassembly -p gingivitis_assembly_based -s sample_file.txt \
--f /home/<username>/squeezemeta/fastq -a megahit -map minimap2-sr
+-f ~/squeezemeta/fastq -a megahit -map minimap2-sr
 
 # This is read based method of metatranscriptomics (Finished running in ~48 hours)
 sqm_reads.pl -p gingivitis_read_based -s sample_file.txt \
@@ -117,7 +120,7 @@ sqm_reads.pl -p gingivitis_read_based -s sample_file.txt \
 --memory 0.1 --num-cpu-threads 12 --euk
 
 # Softlink to pre-run output directory
-ln -s /home/data/metagenomics/squeezemeta/gingivitis_2 /home/<username>/squeezemeta/
+ln -s /home/data/metagenomics/squeezemeta/gingivitis_2 ~/squeezemeta/
 
 
 # Deactivate the environment and launch R
